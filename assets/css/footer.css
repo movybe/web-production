@@ -1,0 +1,10 @@
+#site-footer {
+    position : absolute;
+    width : 100%;
+    bottom : 0;
+}
+
+.footer-copyright{
+    position: relative;
+    top : -10px;
+}

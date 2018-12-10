@@ -1,0 +1,144 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+main {
+    flex: 1 0 auto;
+}
+.logo-image.brand-logo.responsive-img{
+    max-width : 220px;
+    min-width: 150px;
+}
+#search-button{
+
+    position: relative;
+    left: 40px;
+    top : 20px;
+}
+#search-icon{
+    position: relative;
+    right: 40px;
+        cursor: pointer !important;
+}
+#search-button{
+    text-transform: none;
+}
+
+.input-group{
+    display:table;
+    width:100%;
+}
+.input-group .input-field,
+.input-group .input-group-addon{
+    display:table-cell;
+}
+#switch-container{
+    float: right;
+    position: relative;
+    top : 20px;
+}
+#search-form{
+    position: relative;
+    right : 6%
+}
+.search-tabs{
+    position: relative;
+    top: 40px;
+}
+.tab-icons{
+    width : 30px;
+    height : 30px;
+    position: relative;
+    top : 10px;
+    display: block;
+    border-radius: 50%;
+}
+
+.circular-container{
+    width:10%;
+    margin: 0 auto;
+}
+
+.circle{
+    border: 5px solid transparent;
+    border-radius: 50%;
+}
+
+.circular-loader1{
+    width: 50px;
+    height: 50px;
+    display: table;
+    padding: 10px;
+    border-top: 5px solid #006495;
+    border-bottom: 5px solid #006495;
+    animation: circular_loader1 linear 2s infinite;
+}
+
+.circular-loader2{
+    width: 10px;
+    height: 10px;
+    display: table-cell;
+    border-right: 5px solid #3498db;
+    border-left: 5px solid #3498db;
+    animation: circular_loader2 linear 2s infinite;
+}
+
+@keyframes circular_loader1 {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-90deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes circular_loader2 {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+#search-result-preloader{
+    margin-top : 50px;
+    margin-bottom: 60px;
+}
+#search-result-preloader , .search-tabs{
+    display: none;
+}
+
+.search-result-layout{
+    display: block !important;
+    margin-top : 100px;
+
+}
+.search-result-title-header , .search-result-title-link{
+    font-size: 18px;
+    color : #1a0dab !important;
+    margin-top : 2px;
+}
+
+.search-result-title-link:hover{
+    text-decoration: underline;
+}
+.search-result-link-address{
+    display: block;
+    margin-top : -14px;
+    color : #006621;
+
+}
+.search-result-link-description{
+    display: block;
+    margin-top : 5px;
+}
+.search-result-price{
+    position: relative;
+}
