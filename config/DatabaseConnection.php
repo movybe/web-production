@@ -10,7 +10,7 @@ class DatabaseConnection {
     public $database = "movybe"; // database name
     public  $conn;
     public $words_table_name = "words";
-
+    public $queries_table_name = "queries";
     final protected  function  establish_database_connection () : bool
     {
 
@@ -77,6 +77,30 @@ class DatabaseConnection {
 
     }
 
+
+    public final  function  create_queries_table() : bool  {
+
+        $sql = "CREATE TABLE IF NOT EXISTS {$this->queries_table_name}(
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        query VARCHAR (100) NOT NULL  UNIQUE ,
+        occurrence BIGINT NOT NULL  
+    )";
+
+        try {
+
+            $this->conn->exec($sql);
+            echo "Table Created successfully";
+            return true;
+        }
+
+        catch (PDOException $exception) {
+            echo "Error occured {$exception->getMessage()}";
+            return false;
+        }
+
+
+
+    }
 
 
 
@@ -248,4 +272,5 @@ ALTER TABLE users ADD last_free_mode_time VARCHAR( 255 ) NOT NULL DEFAULT '0';
 
 $DatabaseConnection = new DatabaseConnection();
 //$DatabaseConnection->create_words_table();
+//$DatabaseConnection->create_queries_table();
 ?>

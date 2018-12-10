@@ -33,9 +33,6 @@ const LocalSearchTab = ({locale}) => {
                     </div>
                 </div>
 
-<div id = {local.shortName + "-search-result"} className = "search-results">
-
-</div>
             </div>
 
          );

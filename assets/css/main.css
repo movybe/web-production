@@ -111,7 +111,7 @@
     margin-bottom: 10px;
 }
 .search-result-preloaders , .search-tabs{
-   display: none;
+  display: none;
 }
 
 .search-result-layout{
@@ -140,6 +140,7 @@
 }
 .search-result-price{
     position: relative;
+    margin-top: 25px;
 }
 .search-tabs{
     position: relative;
@@ -150,4 +151,22 @@
 
 fieldset {
     border : none;
+}
+
+.search-result-locations{
+    position: relative;
+    top : 10px;
+    left : 10px;
+}
+.search-location-icons , .search-image-icons{
+    position: relative;
+    top : 2px;
+}
+.search-result-images{
+    position: relative;
+    top : 8px;
+    cursor: pointer;
+    text-decoration: underline;
+   
+  
 }

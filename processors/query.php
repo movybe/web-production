@@ -46,8 +46,10 @@ class Query extends Functions {
         }
 
 
-        return true;
 
+
+        //insert the query into the queries table if the query doesn't exist in table else update the  occurrences of this query in the queries table
+        return $this->record_exists_in_table($this->queries_table_name , "query" , $this->query) ? $this->executeSQL("UPDATE {$this->queries_table_name} SET occurrences = occurrences + 1 WHERE query = {$this->query}") : $this->insert_into_table($this->queries_table_name , ["query" => $this->query , "occurrences" => 1]);
 
     }
 

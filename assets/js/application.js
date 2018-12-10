@@ -1,6 +1,6 @@
 
 
-//https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=samsung+galaxy+s7+edge&location=10000000000&page=1&user=165548cb5dcx2e53159d
+//https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=samsung+galaxy+s7+edge&page=1&user=165548cb5dcx2e53159d
 
 class Application extends React.Component{
 
@@ -15,7 +15,9 @@ class Application extends React.Component{
 
     enabledFormFieldSet = ["disabled" , false];
     disabledFormFieldSet = ["disabled" , true];
-
+    lastSearchedQueryKey = "lastSearchedQuery";
+    enterValidKeywordsWarning = "Please enter valid keyword(s)";
+    networkError = "failed to receive response, check your network connection";
 
     //Sets the value of the localSearch equal to true if there is no cookie key "localSearch"
 
@@ -23,15 +25,12 @@ class Application extends React.Component{
     state = {
         localSearch: this.initialLocalSearchCookieValue,
         locale : [
-            {shortName : "jumia" , name : "jumia"       ,       nameColor : 'black' ,          textColor : 'black'} ,
-            {shortName : "konga" , name : "konga"       ,       nameColor : 'yellow' ,         textColor :  'orange'} ,
-            {shortName :  "olx"  , name : "olx"         ,       nameColor : 'purple lighten-4', textColor :  'purple'} ,
-            {shortName :  "jiji" , name : "jiji"        ,       nameColor : 'green lighten-5' ,  textColor : 'green'} ,
-            {shortName :  "deals" ,name : "jumia deals" ,       nameColor : 'indigo darken-1' ,   textColor : 'indigo'}
+            {shortName : "jumia" , name : "jumia"       ,       nameColor : 'black' ,          textColor : 'black' , titles : [] , descriptions : [] , amounts : [] , images : [] , links : []} ,
+            {shortName : "konga" , name : "konga"       ,       nameColor : 'yellow' ,         textColor :  'orange' , titles : [] , descriptions : [] , amounts : [] , images : [] , links : []} ,
+            {shortName :  "olx"  , name : "olx"         ,       nameColor : 'purple lighten-4', textColor :  'purple' , titles : [] , descriptions : [] , amounts : [] , images : [] , links : [] , locations:  []} ,
+            {shortName :  "jiji" , name : "jiji"        ,       nameColor : 'green lighten-5' ,  textColor : 'green' , titles : [] , descriptions : [] , amounts : [] , images : [] , links : [] , locations : []} ,
+            {shortName :  "deals" ,name : "jumia deals" ,       nameColor : 'indigo darken-1' ,   textColor : 'indigo' , titles : [] , descriptions : [] , amounts : [] , images : [] , links : [] , locations : []}
             ]
-
-
-
     };
 
 
@@ -61,9 +60,20 @@ class Application extends React.Component{
 
         this.searchQuery = this.searchQueryField.val();
 
+
+
+
         if(!this.searchQuery.length) return;
 
         this.replaceSearchFormText(this.searchQueryField);
+
+        let searchQueryToArray = this.searchQuery.split(" ");
+
+        searchQueryToArray = searchQueryToArray.filter((item, pos, self) => {
+            return self.indexOf(item) == pos;
+        });
+
+        this.searchQuery = searchQueryToArray.join(" ");
 
         let data = {query : this.searchQuery};
         data = JSON.stringify(data);
@@ -78,67 +88,104 @@ class Application extends React.Component{
         this.searchFormFieldSet.prop(...this.disabledFormFieldSet);
 
         let validTitles = [];
-        let titles = test.data.forEach((obj , index) => {
-            let currentTitle = obj.title.toLowerCase();
-            let currentTitleToArray = currentTitle.split(" ");
-            currentTitleToArray.forEach((word) => {
-               if(validTitles.indexOf(word) < 0){
-                   validTitles.push(word);
-               }
+
+
+
+        //Getting filtered titles from jumia
+
+            //let searchFilterUrl = `jumia.com.ng/catalog/?q=s7+edge+for+sale?page=1`;
+
+
+
+            let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
+
+            $.get(crawler , {url : searchFilterUrl} , function (response) {
+
+
+                if(!response.contents) return M.toast({html: parent.networkError});
+                if(!response.contents.data.length) return M.toast({html: parent.enterValidKeywordsWarning});
+
+
+
+                let titles = response.contents.data.forEach((obj , index) => {
+                    let currentTitle = obj.title.toLowerCase();
+                    let currentTitleToArray = currentTitle.split(" ");
+                    currentTitleToArray.forEach((word) => {
+                        if(validTitles.indexOf(word) < 0){
+                            validTitles.push(word);
+                        }
+                    });
+
+                });
+
+                //Filter the user search query
+
+                searchQueryToArray = parent.searchQuery.split(" ");
+                searchQueryToArray =  searchQueryToArray.filter((word , index) => {
+
+
+                    return validTitles.indexOf(word) >= 0 &&  searchQueryToArray[index] != searchQueryToArray[index + 1];
+                });
+
+
+                parent.searchQuery = searchQueryToArray.join(" ");
+
+                if(!parent.searchQuery.length) {
+                    parent.searchFormFieldSet.prop(...parent.enabledFormFieldSet);
+                    M.toast({html: parent.enterValidKeywordsWarning});
+                    parent.formSubmitted = false;
+
+                    return;
+                }
+
+
+                parent.searchQueryField.val(parent.searchQuery);
+
+
+                $.post(queryProcessor , {data : data} , function (t) {
+
+                    if(Cookies.get(parent.cookiesQueryKey)){
+
+                        let cookiesObject = JSON.parse(Cookies.get(parent.cookiesQueryKey));
+
+
+
+                        if(cookiesObject.indexOf(parent.searchQuery))cookiesObject.push(parent.searchQuery);
+
+
+                        Cookies.set(parent.cookiesQueryKey ,JSON.stringify(cookiesObject) , {expires : 365});
+                    }
+
+                    else {
+
+                        Cookies.set(parent.cookiesQueryKey , JSON.stringify([parent.searchQuery] , {expires : 365}));
+
+                    }
+
+                    Cookies.set(parent.lastSearchedQueryKey , parent.searchQuery , {expires : 7});
+
+
+                    parent.searchFormFieldSet.prop(...parent.enabledFormFieldSet);
+                    $(':focus').blur();
+                    let action = parent.state.localSearch ? (parent.localSearchTabContainer.show()) : null;
+
+
+
+                });
+
+
+
+
+
+
             });
 
-             });
-
-        //Filter the user search query
-
-       let searchQueryToArray = this.searchQuery.split(" ");
-       searchQueryToArray =  searchQueryToArray.filter((word , index) => {
-
-
-           return validTitles.indexOf(word) >= 0 && /* something like "samsung galaxy s7 for sale sale" return samsung galaxy s7 edge for sale*/ searchQueryToArray[index] != searchQueryToArray[index + 1];
-       });
-
-
-       this.searchQuery = searchQueryToArray.join(" ");
-       this.searchQueryField.val(this.searchQuery);
-       if(!this.searchQuery.length) {
-           this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
-           this.formSubmitted = false;
-           return;
-       }
 
 
 
 
 
-
-        /*
-        $.post(this.queryProcessor , {data : data} , function (t) {
-
-            if(Cookies.get(parent.cookiesQueryKey)){
-
-                let cookiesObject = JSON.parse(Cookies.get(parent.cookiesQueryKey));
-
-
-
-                if(cookiesObject.indexOf(parent.searchQuery))cookiesObject.push(parent.searchQuery);
-
-
-                Cookies.set(parent.cookiesQueryKey ,JSON.stringify(cookiesObject) , {expires : 365});
-            }
-
-            else {
-
-              Cookies.set(parent.cookiesQueryKey , JSON.stringify([parent.searchQuery] , {expires : 365}));
-
-            }
-
-
-
-
-
-        }) */
-
+       
     };
 
     /*
@@ -229,41 +276,45 @@ class Application extends React.Component{
 
 
 
+
     };
 
 
     //Toggles the Switch button automatically depending on the value of the 'localSearchCookieKey' variable
 
     componentDidMount () {
-        this.searchQueryField = $('.search-query-field');
         this.switchContainer = $('#switch-container');
         this.searchTabs = $('.search-tabs');
         this.localSearchTabContainer = $('#local-search-tab-container');
         this.searchResults = $(".search-results");
         this.searchResultPreloaders = $('.search-result-preloaders');
         this.searchFormFieldSet = $('#search-form-fieldset');
-        
+
+        this.searchQueryField = $('.search-query-field');
+
         let  searchTypeSwitchButton = $("#search-type-switch-button");
+        this.searchQueryField.focus();
 
-
+        const parent = this;
        searchTypeSwitchButton.prop("checked" , this.state.localSearch);
+
         $('.tabs').tabs();
 
         //I want to get the auto-complete data from the cookies
 
-        let autoCompleteData = {};
+        this.autoCompleteData = {};
 
         if(Cookies.get(this.cookiesQueryKey)){
             let cookiesObj = JSON.parse(Cookies.get(this.cookiesQueryKey));
             cookiesObj.map((data) => {
-                autoCompleteData[data] = null;
+                this.autoCompleteData[data] = null;
             });
         }
 
 
         $('input.autocomplete').autocomplete({
             limit: 7,
-            data: autoCompleteData,
+            data: parent.autoCompleteData,
             // The max amount of results that can be shown at once. Default: Infinity.
             onAutocomplete: function(val) {
                 // Callback function when value is autcompleted.
@@ -302,8 +353,8 @@ class Application extends React.Component{
                               if(!this.searchQueryField.val().length ||  !this.formSubmitted) return;
         this.switchContainer.hide();
         this.localSearchTabContainer.show();
-        }} onFocus={() => {this.switchContainer.show(); this.searchTabs.hide();}} type="text" onChange={this.handleTextChange} id="autocomplete-input" className="autocomplete search-query-field" />
-                            <label htmlFor="autocomplete-input">Type your keyword.</label>
+        }} onFocus={() => {this.switchContainer.show(); this.searchTabs.hide();  }} type="text" defaultValue = {Cookies.get(this.lastSearchedQueryKey) ? Cookies.get(this.lastSearchedQueryKey) : ""} onChange={this.handleTextChange} id="autocomplete-input" className="autocomplete search-query-field" />
+                            <label htmlFor="autocomplete-input">Type your keyword</label>
                         </div>
 
                     </div>
