@@ -1,6 +1,6 @@
 
 
-//https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&latitude=8.696492&query=samsung+galaxy+s7+edge&location=10000000000&page=2&user=165548cb5dcx2e53159d&longitude=7.300361
+//https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=samsung+galaxy+s7+edge&location=10000000000&page=1&user=165548cb5dcx2e53159d
 
 class Application extends React.Component{
 
@@ -10,8 +10,13 @@ class Application extends React.Component{
 
     localSearchCookieKey = "localSearch";
 
-
+    formSubmitted = false;
     cookiesQueryKey = "queries";
+
+    enabledFormFieldSet = ["disabled" , false];
+    disabledFormFieldSet = ["disabled" , true];
+
+
     //Sets the value of the localSearch equal to true if there is no cookie key "localSearch"
 
     initialLocalSearchCookieValue = Cookies.get(this.localSearchCookieKey) != undefined ? Cookies.get(this.localSearchCookieKey) != "false" : true;
@@ -43,6 +48,9 @@ class Application extends React.Component{
     constructor() {
         super();
 
+        this.siteFooter = $('#site-footer');
+
+
     }
 
 
@@ -51,16 +59,60 @@ class Application extends React.Component{
 
         e.preventDefault();
 
-
-        this.searchQueryField = $('.search-query-field');
-        this.replaceSearchFormText(this.searchQueryField);
         this.searchQuery = this.searchQueryField.val();
+
+        if(!this.searchQuery.length) return;
+
+        this.replaceSearchFormText(this.searchQueryField);
 
         let data = {query : this.searchQuery};
         data = JSON.stringify(data);
 
         let parent = this;
 
+        //hide the site footer and the switch container
+        this.searchResults.html(null);
+        this.siteFooter.hide();
+        this.searchResultPreloaders.hide();
+        $(':focus').blur();
+        this.searchFormFieldSet.prop(...this.disabledFormFieldSet);
+
+        let validTitles = [];
+        let titles = test.data.forEach((obj , index) => {
+            let currentTitle = obj.title.toLowerCase();
+            let currentTitleToArray = currentTitle.split(" ");
+            currentTitleToArray.forEach((word) => {
+               if(validTitles.indexOf(word) < 0){
+                   validTitles.push(word);
+               }
+            });
+
+             });
+
+        //Filter the user search query
+
+       let searchQueryToArray = this.searchQuery.split(" ");
+       searchQueryToArray =  searchQueryToArray.filter((word , index) => {
+
+
+           return validTitles.indexOf(word) >= 0 && /* something like "samsung galaxy s7 for sale sale" return samsung galaxy s7 edge for sale*/ searchQueryToArray[index] != searchQueryToArray[index + 1];
+       });
+
+
+       this.searchQuery = searchQueryToArray.join(" ");
+       this.searchQueryField.val(this.searchQuery);
+       if(!this.searchQuery.length) {
+           this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
+           this.formSubmitted = false;
+           return;
+       }
+
+
+
+
+
+
+        /*
         $.post(this.queryProcessor , {data : data} , function (t) {
 
             if(Cookies.get(parent.cookiesQueryKey)){
@@ -82,7 +134,10 @@ class Application extends React.Component{
             }
 
 
-        })
+
+
+
+        }) */
 
     };
 
@@ -180,7 +235,17 @@ class Application extends React.Component{
     //Toggles the Switch button automatically depending on the value of the 'localSearchCookieKey' variable
 
     componentDidMount () {
-       let  searchTypeSwitchButton = $("#search-type-switch-button");
+        this.searchQueryField = $('.search-query-field');
+        this.switchContainer = $('#switch-container');
+        this.searchTabs = $('.search-tabs');
+        this.localSearchTabContainer = $('#local-search-tab-container');
+        this.searchResults = $(".search-results");
+        this.searchResultPreloaders = $('.search-result-preloaders');
+        this.searchFormFieldSet = $('#search-form-fieldset');
+        
+        let  searchTypeSwitchButton = $("#search-type-switch-button");
+
+
        searchTypeSwitchButton.prop("checked" , this.state.localSearch);
         $('.tabs').tabs();
 
@@ -227,37 +292,39 @@ class Application extends React.Component{
         return (
 
 
-            <div className="container">
+            <div>
+            <fieldset id = "search-form-fieldset">
                 <form autoComplete="off" id="search-form" onSubmit={this.handleSearchFormSubmit} method="get" action="#">
                     <div className="input-group">
                         <div className="input-field col s12">
                             <i className="material-icons prefix"></i>
-                            <input type="text" onChange={this.handleTextChange} id="autocomplete-input" className="autocomplete search-query-field" />
+                            <input onBlur = {() => {
+                              if(!this.searchQueryField.val().length ||  !this.formSubmitted) return;
+        this.switchContainer.hide();
+        this.localSearchTabContainer.show();
+        }} onFocus={() => {this.switchContainer.show(); this.searchTabs.hide();}} type="text" onChange={this.handleTextChange} id="autocomplete-input" className="autocomplete search-query-field" />
                             <label htmlFor="autocomplete-input">Type your keyword.</label>
                         </div>
 
                     </div>
 
-                    <button type="submit" className="input-group-addon btn waves-effect waves-light left" id="search-button">Movybe Search</button>
                         <div className="switch" id="switch-container">
+                            <button type="submit" className="input-group-addon btn waves-effect waves-light left" id="search-button">Movybe Search</button>
+<div id="main-switch">
                             <label>
 
                                 <input defaultChecked="false" onChange={this.handleSearchTypeSwitch} type="checkbox" id="search-type-switch-button" />
                                     <span className="lever"></span>
                                     NG
                             </label>
-
+</div>
                     </div>
 
                 </form>
+</fieldset>
                 <LocalSearchTab locale = {this.state.locale}  />
-                <div className="container" id="search-result-preloader">
-                     <div className="circular-container">
-                        <div className="circle circular-loader1">
-                            <div className="circle circular-loader2"></div>
-                        </div>
-                    </div>
-                </div>
+
+
             </div>
         )
 

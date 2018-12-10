@@ -19,7 +19,7 @@ abstract class WebsiteConfigurationSettings {
     public  $MaximumUserProfileImageSize = 50000000;
     public  $MaximumUserProfileImageSizeInWords = "";
     public  $WebsiteCoverage = "Worldwide";
-    public  $WebsiteSubject = "Search Engine";
+    public  $WebsiteSubject = "Price comparison website";
     public  $WebsiteClassification = "Search";
     public  $DOCUMENT_ROOT;
     public  $STATIC_FOLDER;
@@ -35,7 +35,7 @@ abstract class WebsiteConfigurationSettings {
     public  $PrimaryEmailPassword = '4mdcfohb';
     public  $ContactEmail;
     public  $ErrorPage = "/404.php";
-    public  $PageDescription = "Find the price of anything.anywhere";
+    public  $PageDescription = "Compare the price of anything.anywhere";
     public  $ParentCompanyName = "Movybe Inc.";
     public  $ParentCompanyAddress = "/";
 

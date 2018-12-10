@@ -25,9 +25,20 @@ const LocalSearchTab = ({locale}) => {
             <div id={local.shortName} className="col s12" key={local.name}>
 
                 <p className={`flow-text ${local.textColor}-text`}>{local.name}</p>
+                <div className="container search-result-preloaders" id={local.shortName + "search-result-preloader"}>
+                    <div className="circular-container">
+                        <div className="circle circular-loader1">
+                            <div className="circle circular-loader2"></div>
+                        </div>
+                    </div>
+                </div>
+
+<div id = {local.shortName + "-search-result"} className = "search-results">
+
+</div>
             </div>
 
-         )
+         );
     });
     return (
 
@@ -37,5 +48,5 @@ const LocalSearchTab = ({locale}) => {
             </ul>
             {tabContainers}
         </div>
-    )
+    );
 };

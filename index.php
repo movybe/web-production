@@ -34,20 +34,37 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     <div id="form-container">
 
     </div>
-    <div class = "search-result-layout">
-        <h5 class="green-text search-result-price">N1000</h5>
 
-        <h3 class="search-result-title-header"><a class = "search-result-title-link" href="https://divisoup.com/f13-archive-search-results-page-styling/">
+<!--    /*        <h5 className="green-text search-result-price">N1000</h5>
+
+    <h3 className="search-result-title-header"><a className="search-result-title-link"
+                                                  href="https://divisoup.com/f13-archive-search-results-page-styling/">
             Archive & Search Results Page Styling | Divi Soup
         </a></h3>
-        <a class="search-result-link-address" href="https://divisoup.com/f13-archive-search-results-page-styling/">
-            https://divisoup.com/f13-archive-search-results-page-styling/
-        </a>
-<span class="search-result-link-description">
+    <a className="search-result-link-address"
+       href="https://divisoup.com/f13-archive-search-results-page-styling/">
+        https://divisoup.com/f13-archive-search-results-page-styling/
+    </a>
+    <span className="search-result-link-description">
      I have created a page template with a nice layout using the lovely .... In order to have a custom layout for my search results I changed the ...
 </span>
-    </div>
 
+    <h5 className="green-text search-result-price">N1000</h5>
+
+    <h3 className="search-result-title-header"><a className="search-result-title-link"
+                                                  href="https://divisoup.com/f13-archive-search-results-page-styling/">
+            Archive & Search Results Page Styling | Divi Soup
+        </a></h3>
+    <a className="search-result-link-address"
+       href="https://divisoup.com/f13-archive-search-results-page-styling/">
+        https://divisoup.com/f13-archive-search-results-page-styling/
+    </a>
+    <span className="search-result-link-description">
+     I have created a page template with a nice layout using the lovely .... In order to have a custom layout for my search results I changed the ...
+</span>
+    */
+
+    -->
 
 
 

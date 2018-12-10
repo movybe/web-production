@@ -1,11 +1,4 @@
-body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-}
-main {
-    flex: 1 0 auto;
-}
+
 .logo-image.brand-logo.responsive-img{
     max-width : 220px;
     min-width: 150px;
@@ -14,8 +7,9 @@ main {
 
     position: relative;
     left: 40px;
-    top : 20px;
+    top : 0px;
 }
+
 #search-icon{
     position: relative;
     right: 40px;
@@ -37,6 +31,11 @@ main {
     float: right;
     position: relative;
     top : 20px;
+    width : 100%
+}
+#main-switch{
+
+    text-align: right;
 }
 #search-form{
     position: relative;
@@ -107,12 +106,12 @@ main {
         transform: rotate(360deg);
     }
 }
-#search-result-preloader{
-    margin-top : 50px;
-    margin-bottom: 60px;
+.search-result-preloaders{
+    margin-top : 10px;
+    margin-bottom: 10px;
 }
-#search-result-preloader , .search-tabs{
-    display: none;
+.search-result-preloaders , .search-tabs{
+   display: none;
 }
 
 .search-result-layout{
@@ -141,4 +140,14 @@ main {
 }
 .search-result-price{
     position: relative;
+}
+.search-tabs{
+    position: relative;
+    width : 92%;
+    left : 1.0em;
+    margin-bottom: 70px;
+ }
+
+fieldset {
+    border : none;
 }
