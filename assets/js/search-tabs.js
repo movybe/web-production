@@ -40,7 +40,7 @@ const LocalSearchTab = ({locale}) => {
     return (
 
         <div id="local-search-tab-container" className="search-tabs">
-            <ul className="tabs tabs-fixed-width tab-demo z-depth-1">
+            <ul className="tabs locale-tabs tabs-fixed-width tab-demo z-depth-1">
                 {tabList}
             </ul>
             {tabContainers}

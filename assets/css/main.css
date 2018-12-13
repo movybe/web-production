@@ -147,6 +147,7 @@
     width : 92%;
     left : 1.0em;
     margin-bottom: 70px;
+    top : 10px;
  }
 
 fieldset {
@@ -169,4 +170,8 @@ fieldset {
     text-decoration: underline;
    
   
+}
+ul.tabs.locale-tabs{
+    border-bottom : 1px solid rgba(211 , 211 , 211 , .4);
+    box-shadow: none;
 }

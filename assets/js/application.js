@@ -9,7 +9,7 @@ class Application extends React.Component{
 
 
     localSearchCookieKey = "localSearch";
-
+    lastSearchQuery = null;
     formSubmitted = false;
     cookiesQueryKey = "queries";
 
@@ -56,6 +56,7 @@ class Application extends React.Component{
 
     handleSearchFormSubmit = (e) => {
 
+        this.formSubmitted = false;
         e.preventDefault();
 
         this.searchQuery = this.searchQueryField.val();
@@ -65,7 +66,7 @@ class Application extends React.Component{
 
         if(!this.searchQuery.length) return;
 
-        this.replaceSearchFormText(this.searchQueryField);
+        this.replaceSearchText();
 
         let searchQueryToArray = this.searchQuery.split(" ");
 
@@ -91,20 +92,26 @@ class Application extends React.Component{
 
 
 
-        //Getting filtered titles from jumia
-
-            //let searchFilterUrl = `jumia.com.ng/catalog/?q=s7+edge+for+sale?page=1`;
 
 
-
-            let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
+            let searchFilterUrl = 'localhost:2021/filter.php';  //`https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
 
             $.get(crawler , {url : searchFilterUrl} , function (response) {
 
 
-                if(!response.contents) return M.toast({html: parent.networkError});
-                if(!response.contents.data.length) return M.toast({html: parent.enterValidKeywordsWarning});
+                if(!response.contents){
+                    return parent.searchFormFieldSet.prop(...parent.enabledFormFieldSet) && M.toast({html: parent.networkError});
+                }
 
+                else if(!response.contents.data.length) {
+
+
+                            M.toast({html: parent.enterValidKeywordsWarning});
+                            parent.searchFormFieldSet.prop(...parent.enabledFormFieldSet);
+
+                            return;
+
+                }
 
 
                 let titles = response.contents.data.forEach((obj , index) => {
@@ -144,6 +151,7 @@ class Application extends React.Component{
 
                 $.post(queryProcessor , {data : data} , function (t) {
 
+                    console.log(t);
                     if(Cookies.get(parent.cookiesQueryKey)){
 
                         let cookiesObject = JSON.parse(Cookies.get(parent.cookiesQueryKey));
@@ -168,8 +176,10 @@ class Application extends React.Component{
                     parent.searchFormFieldSet.prop(...parent.enabledFormFieldSet);
                     $(':focus').blur();
                     let action = parent.state.localSearch ? (parent.localSearchTabContainer.show()) : null;
+                    parent.formSubmitted = true;
 
-
+                    parent.lastSearchQuery = parent.searchQuery;
+                    parent.switchContainer.hide();
 
                 });
 
@@ -217,9 +227,12 @@ class Application extends React.Component{
 
     // this function replaces the search text with a new text with only english alphabets and numbers
 
-    replaceSearchFormText =  (targetElement) => {
+    
+    // this function replaces the search text with a new text with only english alphabets and numbers
 
-        var query =  targetElement.val();
+    replaceSearchText =  () => {
+
+         let query =  this.searchQueryField.val();
 
 
 
@@ -233,7 +246,7 @@ class Application extends React.Component{
 
             //Trim the value of the search input field after filtering
 
-            targetElement.val($.trim(searchQuery));
+            this.searchQueryField.val(searchQuery);
 
 
         }
@@ -241,37 +254,33 @@ class Application extends React.Component{
     };
 
 
-    // this function replaces the search text with a new text with only english alphabets and numbers
-
-    replaceSearchText (targetElement) {
-
-         var query =  targetElement.value;
-
-
-
-        let searchQuery = query;
-
-        {
-
-            let searchQuery = query.replace(/[\W_ ]+/g," ");
-
-            //Replace the value of the input field with the new value
-
-            //Trim the value of the search input field after filtering
-
-            targetElement.value = $.trim(searchQuery);
-
-
-        }
-
-    }
-
-
     handleSearchTextChange = (e) => {
 
         // filter the value of the search input field
 
-        this.replaceSearchText(e.target);
+        this.searchQuery = e.target.value;
+        this.replaceSearchText();
+
+
+        let parent = this;
+        let data = {query : this.searchQuery};
+        $.post(suggestions , {data : JSON.stringify(data)} , function (response) {
+
+            let resp = JSON.parse(response);
+
+
+            let query = null;
+            resp.suggestions.forEach(obj => {
+
+                query = obj.query;
+                if(!(query in parent.autoCompleteData)) parent.autoCompleteData[query] = null;
+            });
+
+
+
+
+        });
+
 
 
 
@@ -291,7 +300,7 @@ class Application extends React.Component{
         this.searchFormFieldSet = $('#search-form-fieldset');
 
         this.searchQueryField = $('.search-query-field');
-
+        this.lastSearchQuery = this.searchQueryField.val().toLowerCase();
         let  searchTypeSwitchButton = $("#search-type-switch-button");
         this.searchQueryField.focus();
 
@@ -313,7 +322,7 @@ class Application extends React.Component{
 
 
         $('input.autocomplete').autocomplete({
-            limit: 7,
+            limit: 7000,
             data: parent.autoCompleteData,
             // The max amount of results that can be shown at once. Default: Infinity.
             onAutocomplete: function(val) {
@@ -349,12 +358,20 @@ class Application extends React.Component{
                     <div className="input-group">
                         <div className="input-field col s12">
                             <i className="material-icons prefix"></i>
-                            <input onBlur = {() => {
-                              if(!this.searchQueryField.val().length ||  !this.formSubmitted) return;
-        this.switchContainer.hide();
-        this.localSearchTabContainer.show();
-        }} onFocus={() => {this.switchContainer.show(); this.searchTabs.hide();  }} type="text" defaultValue = {Cookies.get(this.lastSearchedQueryKey) ? Cookies.get(this.lastSearchedQueryKey) : ""} onChange={this.handleTextChange} id="autocomplete-input" className="autocomplete search-query-field" />
-                            <label htmlFor="autocomplete-input">Type your keyword</label>
+                            <input onBlur={() => {
+
+                                this.switchContainer.hide();
+                                if(this.lastSearchQuery == $.trim(this.searchQueryField.val().toLowerCase()) && this.formSubmitted == true){
+
+                                    this.searchTabs.show();
+
+                                }
+
+                                else {
+                                    this.switchContainer.show();
+                                }
+                            }} onFocus={() => {this.switchContainer.show(); this.searchTabs.hide();  }} type="text" defaultValue = {Cookies.get(this.lastSearchedQueryKey) ? Cookies.get(this.lastSearchedQueryKey) : ""} onChange={this.handleSearchTextChange} id="autocomplete-input" className="autocomplete search-query-field" />
+                            <label htmlFor="autocomplete-input">What do you want to buy?</label>
                         </div>
 
                     </div>

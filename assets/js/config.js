@@ -52,4 +52,4 @@ let imageDirectory = "/assets/img/";
 let processorsFolder = "/processors/";
 let queryProcessor = processorsFolder + "query.php";
 let crawler = processorsFolder + "crawler.php";
-
+let suggestions = processorsFolder + "suggestions.php";
