@@ -93,7 +93,13 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     </div>
     </div>
 
+
+
+
+
+
 </main>
+
 
 
 <?php require_once $website_details->INCS_FOLDER.'footer.php'; ?>

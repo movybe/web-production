@@ -420,7 +420,7 @@ class Application extends React.Component{
 <div id="main-switch">
                             <label>
 
-                                <input defaultChecked="false" onChange={this.handleSearchTypeSwitch} type="checkbox" id="search-type-switch-button" />
+                                <input className="tooltipped" data-position="bottom" defaultChecked="false" onChange={this.handleSearchTypeSwitch} type="checkbox" id="search-type-switch-button" data-tooltip ="Hey, watch where you're going"/>
                                     <span className="lever"></span>
                                     NG
                             </label>
