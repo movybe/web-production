@@ -128,10 +128,14 @@
 .search-result-title-link:hover{
     text-decoration: underline;
 }
+.search-result-title-link{
+    text-decoration: none;
+}
 .search-result-link-address{
     display: block;
     margin-top : -14px;
     color : #006621;
+    text-decoration: none;
 
 }
 .search-result-link-description{
@@ -167,11 +171,21 @@ fieldset {
     position: relative;
     top : 8px;
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: none;
    
   
 }
 ul.tabs.locale-tabs{
     border-bottom : 1px solid rgba(211 , 211 , 211 , .4);
     box-shadow: none;
+}
+#data-savings-info{
+    position: fixed;
+    bottom : 2%;
+    right : 7%;
+    background-color:#26a69a !important;
+}
+#did-you-know{
+    position: relative;
+    left : 15px;
 }

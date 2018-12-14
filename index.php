@@ -56,7 +56,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     <span className="search-result-link-description">
      I have created a page template with a nice layout using the lovely .... In order to have a custom layout for my search results I changed the ...
 </span>
-    <span className="search-result-images blue-text"><i className="tiny material-icons search-image-icons">image</i> View Image</span>
+    <span className="search-result-images blue-text" data-image = ""><i className="tiny material-icons search-image-icons">image</i> View Image</span>
 
     <span className="search-result-locations blue-grey-text"><i className="tiny material-icons search-location-icons">location_on</i> Port Harcourt, Nigeria</span>
 
@@ -79,6 +79,19 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
 
 
 
+    <!-- Element Showed -->
+    <a id="data-savings-info" class="waves-effect waves-light btn btn-floating"><i class="material-icons">menu</i></a>
+
+    <!-- Tap Target Structure -->
+    <div class="tap-target-wrapper">
+
+    <div class="tap-target" data-target="data-savings-info">
+        <div class="tap-target-content">
+            <h5 id="did-you-know">Did you know ?</h5>
+            <p>Using <?php echo $website_details->SiteName; ?> saves you 90% of the total cost of data needed to make these searches on each of these individual E-commerce website.</p>
+        </div>
+    </div>
+    </div>
 
 </main>
 

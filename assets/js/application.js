@@ -25,11 +25,11 @@ class Application extends React.Component{
     state = {
         localSearch: this.initialLocalSearchCookieValue,
         locale : [
-            {shortName : "jumia" , name : "jumia"       ,       nameColor : 'black' ,          textColor : 'black' , titles : [] , descriptions : [] , amounts : [] , images : [] , links : []} ,
-            {shortName : "konga" , name : "konga"       ,       nameColor : 'yellow' ,         textColor :  'orange' , titles : [] , descriptions : [] , amounts : [] , images : [] , links : []} ,
-            {shortName :  "olx"  , name : "olx"         ,       nameColor : 'purple lighten-4', textColor :  'purple' , titles : [] , descriptions : [] , amounts : [] , images : [] , links : [] , locations:  []} ,
-            {shortName :  "jiji" , name : "jiji"        ,       nameColor : 'green lighten-5' ,  textColor : 'green' , titles : [] , descriptions : [] , amounts : [] , images : [] , links : [] , locations : []} ,
-            {shortName :  "deals" ,name : "jumia deals" ,       nameColor : 'indigo darken-1' ,   textColor : 'indigo' , titles : [] , descriptions : [] , amounts : [] , images : [] , links : [] , locations : []}
+            {shortName :  "olx"  , name : "olx"         ,       nameColor : 'purple lighten-4', textColor :  'purple' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0} ,
+            {shortName :  "jiji" , name : "jiji"        ,       nameColor : 'green lighten-5' ,  textColor : 'green' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] , linkTexts : [] , locations : [] , page : 0 } ,
+            {shortName : "jumia" , name : "jumia"       ,       nameColor : 'black' ,          textColor : 'black' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,   linkTexts : [] , locations : [] , page : 0 } ,
+            {shortName : "konga" , name : "konga"       ,       nameColor : 'yellow' ,         textColor :  'orange' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] , linkTexts : [] , locations : [] , page : 0 } ,
+            {shortName :  "deals" ,name : "jumia deals" ,       nameColor : 'indigo darken-1' ,   textColor : 'indigo' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] , locations : [] , page : 0 }
             ]
     };
 
@@ -70,8 +70,8 @@ class Application extends React.Component{
 
         let searchQueryToArray = this.searchQuery.split(" ");
 
-        searchQueryToArray = searchQueryToArray.filter((item, pos, self) => {
-            return self.indexOf(item) == pos;
+        searchQueryToArray = searchQueryToArray.filter((word, pos, self) => {
+            return self.indexOf(word) == pos && commonWords.indexOf(word) < 0;
         });
 
         this.searchQuery = searchQueryToArray.join(" ");
@@ -79,7 +79,6 @@ class Application extends React.Component{
         let data = {query : this.searchQuery};
         data = JSON.stringify(data);
 
-        let parent = this;
 
         //hide the site footer and the switch container
         this.searchResults.html(null);
@@ -94,20 +93,20 @@ class Application extends React.Component{
 
 
 
-            let searchFilterUrl = 'localhost:2021/filter.php';  //`https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
+            let searchFilterUrl = /*'localhost:2021/filter.php';*/  `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
 
-            $.get(crawler , {url : searchFilterUrl} , function (response) {
+            $.get(crawler , {url : searchFilterUrl} , response => {
 
 
                 if(!response.contents){
-                    return parent.searchFormFieldSet.prop(...parent.enabledFormFieldSet) && M.toast({html: parent.networkError});
+                    return this.searchFormFieldSet.prop(...this.enabledFormFieldSet) && M.toast({html: this.networkError});
                 }
 
                 else if(!response.contents.data.length) {
 
 
-                            M.toast({html: parent.enterValidKeywordsWarning});
-                            parent.searchFormFieldSet.prop(...parent.enabledFormFieldSet);
+                            M.toast({html: this.enterValidKeywordsWarning});
+                            this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
 
                             return;
 
@@ -127,7 +126,7 @@ class Application extends React.Component{
 
                 //Filter the user search query
 
-                searchQueryToArray = parent.searchQuery.split(" ");
+                searchQueryToArray = this.searchQuery.split(" ");
                 searchQueryToArray =  searchQueryToArray.filter((word , index) => {
 
 
@@ -135,51 +134,93 @@ class Application extends React.Component{
                 });
 
 
-                parent.searchQuery = searchQueryToArray.join(" ");
+                this.searchQuery = searchQueryToArray.join(" ");
 
-                if(!parent.searchQuery.length) {
-                    parent.searchFormFieldSet.prop(...parent.enabledFormFieldSet);
-                    M.toast({html: parent.enterValidKeywordsWarning});
-                    parent.formSubmitted = false;
+                if(!this.searchQuery.length) {
+                    this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
+                    M.toast({html: this.enterValidKeywordsWarning});
+                    this.formSubmitted = false;
 
                     return;
                 }
 
 
-                parent.searchQueryField.val(parent.searchQuery);
+                this.searchQueryField.val(this.searchQuery);
 
 
-                $.post(queryProcessor , {data : data} , function (t) {
+                $.post(queryProcessor , {data : data} , (t) => {
 
-                    console.log(t);
-                    if(Cookies.get(parent.cookiesQueryKey)){
+                    if(Cookies.get(this.cookiesQueryKey)){
 
-                        let cookiesObject = JSON.parse(Cookies.get(parent.cookiesQueryKey));
-
+                        let cookiesObject = JSON.parse(Cookies.get(this.cookiesQueryKey));
 
 
-                        if(cookiesObject.indexOf(parent.searchQuery))cookiesObject.push(parent.searchQuery);
+
+                        if(cookiesObject.indexOf(this.searchQuery))cookiesObject.push(this.searchQuery);
 
 
-                        Cookies.set(parent.cookiesQueryKey ,JSON.stringify(cookiesObject) , {expires : 365});
+                        Cookies.set(this.cookiesQueryKey ,JSON.stringify(cookiesObject) , {expires : 365});
                     }
 
                     else {
 
-                        Cookies.set(parent.cookiesQueryKey , JSON.stringify([parent.searchQuery] , {expires : 365}));
+                        Cookies.set(this.cookiesQueryKey , JSON.stringify([this.searchQuery] , {expires : 365}));
 
                     }
 
-                    Cookies.set(parent.lastSearchedQueryKey , parent.searchQuery , {expires : 7});
+                    Cookies.set(this.lastSearchedQueryKey , this.searchQuery , {expires : 7});
 
 
-                    parent.searchFormFieldSet.prop(...parent.enabledFormFieldSet);
+                    this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
                     $(':focus').blur();
-                    let action = parent.state.localSearch ? (parent.localSearchTabContainer.show()) : null;
-                    parent.formSubmitted = true;
+                    let action = this.state.localSearch ? (this.localSearchTabContainer.show()) : null;
+                    this.formSubmitted = true;
 
-                    parent.lastSearchQuery = parent.searchQuery;
-                    parent.switchContainer.hide();
+                    this.lastSearchQuery = this.searchQuery;
+                    this.switchContainer.hide();
+
+
+                    this.state.locale.forEach( obj => {
+
+                        Object.keys(obj).map(key => {
+
+                            if(Array.isArray(obj[key])){
+                                obj[key] = [];
+                            }
+                        })
+
+
+                    });
+
+                    let defaultEcommerceWebsite = this.state.locale[0];
+                    let defaultEcommerceWebsiteShortName  = defaultEcommerceWebsite.shortName;
+
+
+
+
+
+                    response.contents.data.forEach(obj => {
+
+                        defaultEcommerceWebsite.titles.push(obj.title.truncate(maxTitleLength));
+                        defaultEcommerceWebsite.descriptions.push(obj.description.truncate(maxDescriptionLength));
+                        defaultEcommerceWebsite.images.push(obj.images[0].url);
+                        defaultEcommerceWebsite.prices.push(obj.price.value.raw.toLocaleString());
+                        defaultEcommerceWebsite.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
+                        defaultEcommerceWebsite.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
+                        defaultEcommerceWebsite.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(maxLinkLength));
+                                            });
+
+                    let previousLocale = this.state.locale;
+
+                    this.setState({locale : previousLocale});
+
+
+
+
+
+
+
+
 
                 });
 
@@ -262,9 +303,8 @@ class Application extends React.Component{
         this.replaceSearchText();
 
 
-        let parent = this;
         let data = {query : this.searchQuery};
-        $.post(suggestions , {data : JSON.stringify(data)} , function (response) {
+        $.post(suggestions , {data : JSON.stringify(data)} , response => {
 
             let resp = JSON.parse(response);
 
@@ -273,7 +313,7 @@ class Application extends React.Component{
             resp.suggestions.forEach(obj => {
 
                 query = obj.query;
-                if(!(query in parent.autoCompleteData)) parent.autoCompleteData[query] = null;
+                if(!(query in this.autoCompleteData)) this.autoCompleteData[query] = null;
             });
 
 
@@ -304,7 +344,6 @@ class Application extends React.Component{
         let  searchTypeSwitchButton = $("#search-type-switch-button");
         this.searchQueryField.focus();
 
-        const parent = this;
        searchTypeSwitchButton.prop("checked" , this.state.localSearch);
 
         $('.tabs').tabs();
@@ -323,7 +362,7 @@ class Application extends React.Component{
 
         $('input.autocomplete').autocomplete({
             limit: 7000,
-            data: parent.autoCompleteData,
+            data: this.autoCompleteData,
             // The max amount of results that can be shown at once. Default: Infinity.
             onAutocomplete: function(val) {
                 // Callback function when value is autcompleted.
@@ -405,7 +444,6 @@ class Application extends React.Component{
 
 
     ReactDOM.render(<Application /> , document.getElementById('form-container') , () => {
-
 
 
     });

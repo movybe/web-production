@@ -11,3 +11,12 @@
     position: relative;
     top : -10px;
 }
+
+
+.tap-target {
+    color: #fff;
+}
+a {
+    color: #fff;
+    text-decoration:underline;
+}

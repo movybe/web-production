@@ -1,11 +1,17 @@
 String.prototype.truncate = String.prototype.trunc ||
     function(n){
-        return this.length>n ? this.substr(0,n-1)+'&hellip;' : this.toString();
+        return this.length>n ? this.substr(0,n-1)+'...' : this.toString();
     };
 
 function useStrict() {
     "use strict";
 }
+
+if (typeof Array.isArray === 'undefined') {
+    Array.isArray = function(obj) {
+        return Object.prototype.toString.call(obj) === '[object Array]';
+    }
+};
 
 /*
 $.ajaxSetup({
@@ -16,7 +22,7 @@ $.ajaxSetup({
 
 
 
-
+let searchResults = "-search-results";
 
 
 useStrict();
@@ -48,8 +54,29 @@ My name is Kosi Eric i am a programmer from Nigeria and i am 20 years old;
 
 
 
-let imageDirectory = "/assets/img/";
-let processorsFolder = "/processors/";
-let queryProcessor = processorsFolder + "query.php";
-let crawler = processorsFolder + "crawler.php";
-let suggestions = processorsFolder + "suggestions.php";
+let imageDirectory = '/assets/img/';
+let processorsFolder = '/processors/';
+let queryProcessor = processorsFolder + 'query.php';
+let crawler = processorsFolder + 'crawler.php';
+let suggestions = processorsFolder + 'suggestions.php';
+let commonWords = ['what','is','the','price','of','how','much','does','cost','costs','what','why','when','who','it','buy','sell','sells'];
+let maxTitleLength = 60;
+let maxDescriptionLength = 160;
+let maxLinkLength = 45;
+
+
+$(document).ready (function () {
+
+        let dataSavingsInfo = $('#data-savings-info');
+
+            $('.tap-target').tapTarget();
+
+            dataSavingsInfo.on('click' , function () {
+
+
+                $('.tap-target').tapTarget('open');
+
+            });
+
+
+});
