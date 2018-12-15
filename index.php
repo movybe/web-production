@@ -10,7 +10,6 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     <title><?php echo $website_details->SiteName; ?> • Free price search engine</title>
     <link rel="canonical" href="<?php echo $website_details->SiteNameWithHttps; ?>" />
     <meta name="robot" content="index, follow" />
-
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>materialize.min.css" type="text/css" />
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>material-icons.css" type="text/css" />
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>main.css" type="text/css" />
@@ -37,48 +36,6 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
 
     </div>
 
-<!--
-
-
-
-<div id = {local.shortName + "-search-result"} className = "search-results">
-
-
-    <h5 className="green-text search-result-price">N1000</h5>
-
-    <h3 className="search-result-title-header"><a className="search-result-title-link"
-                                                  href="https://divisoup.com/f13-archive-search-results-page-styling/">
-        Archive & Search Results Page Styling | Divi Soup
-    </a></h3>
-    <a className="search-result-link-address"
-       href="https://divisoup.com/f13-archive-search-results-page-styling/">
-        https://divisoup.com/f13-archive-search-results-page-styling/
-    </a>
-    <span className="search-result-link-description">
-     I have created a page template with a nice layout using the lovely .... In order to have a custom layout for my search results I changed the ...
-</span>
-    <span className="search-result-images blue-text" data-image = ""><i className="tiny material-icons search-image-icons">image</i> View Image</span>
-
-    <span className="search-result-locations blue-grey-text"><i className="tiny material-icons search-location-icons">location_on</i> Port Harcourt, Nigeria</span>
-
-
-    <h5 className="green-text search-result-price">N1000</h5>
-    <h3 className="search-result-title-header"><a className="search-result-title-link" href="https://divisoup.com/f13-archive-search-results-page-styling/">
-        Archive & Search Results Page Styling | Divi Soup
-    </a></h3>
-    <a className="search-result-link-address"
-       href="https://divisoup.com/f13-archive-search-results-page-styling/">
-        https://divisoup.com/f13-archive-search-results-page-styling/
-    </a>
-    <span className="search-result-link-description">
-     I have created a page template with a nice layout using the lovely .... In order to have a custom layout for my search results I changed the ...
-</span>
-    <span className="search-result-images blue-text"><i className="tiny material-icons search-image-icons">image</i> View Image</span>
-    <span className="search-result-locations blue-grey-text"><i className="tiny material-icons search-location-icons">location_on</i> Port Harcourt, Nigeria</span>
-</div>
-    -->
-
-
 
     <!-- Element Showed -->
     <a id="data-savings-info" class="waves-effect waves-light btn btn-floating"><i class="material-icons">menu</i></a>
@@ -98,13 +55,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
 
 
 
-
 </main>
-
-
-
 <?php require_once $website_details->INCS_FOLDER.'footer.php'; ?>
-
 </body>
 </html>
 
