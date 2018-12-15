@@ -1,3 +1,11 @@
+let {connect} = ReactRedux;
+let mapPropsToState = (state , ownProps) => {
+
+    return state;
+
+};
+
+
 class  LocalSearchTab extends React.Component{
 
 
@@ -14,7 +22,7 @@ class  LocalSearchTab extends React.Component{
             return (
 
 
-                this.counter == 1 ? <li key={local.name} className="tab disabled"><a className="active" href={"#" + local.shortName}><img src={imageDirectory + local.shortName +'.png'} className="responsive-img tab-icons"/></a></li> : <li key = {local.name} className="tab"><a href={"#" + local.shortName}><img src={imageDirectory + local.shortName +'.png'} className="responsive-img tab-icons"/></a></li>
+                this.counter == 1 ? <li key={local.name} className="tab disabled"><a className="active" href={"#" + local.shortName}><img src={this.defaults.imageDirectory + local.shortName +'.png'} className="responsive-img tab-icons"/></a></li> : <li key = {local.name} className="tab"><a href={"#" + local.shortName}><img src={defaults.imageDirectory + local.shortName +'.png'} className="responsive-img tab-icons"/></a></li>
 
 
             )
@@ -93,4 +101,7 @@ class  LocalSearchTab extends React.Component{
         );
 
     }
-};
+}
+
+LocalSearchTab = connect(mapPropsToState)(LocalSearchTab);
+

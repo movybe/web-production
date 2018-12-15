@@ -1,84 +1,95 @@
-String.prototype.truncate = String.prototype.trunc ||
-    function(n){
-        return this.length>n ? this.substr(0,n-1)+'...' : this.toString();
+
+
+class Config {
+
+
+    localSearchCookieKey = "localSearch";
+    //Sets the value of the localSearch equal to true if there is no cookie key "localSearch"
+    initialLocalSearchCookieValue = Cookies.get(this.localSearchCookieKey) != undefined ? Cookies.get(this.localSearchCookieKey) != "false" : true;
+    state = {
+        localSearch: this.initialLocalSearchCookieValue,
+        locale : [
+            {shortName :  "olx"  , name : "olx"         ,       nameColor : 'purple lighten-4', textColor :  'purple' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0} ,
+            {shortName :  "jiji" , name : "jiji"        ,       nameColor : 'green lighten-5' ,  textColor : 'green' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] , linkTexts : [] , locations : [] , page : 0 } ,
+            {shortName : "jumia" , name : "jumia"       ,       nameColor : 'black' ,          textColor : 'black' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,   linkTexts : [] , locations : [] , page : 0 } ,
+            {shortName : "konga" , name : "konga"       ,       nameColor : 'yellow' ,         textColor :  'orange' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] , linkTexts : [] , locations : [] , page : 0 } ,
+            {shortName :  "deals" ,name : "jumia deals" ,       nameColor : 'indigo darken-1' ,   textColor : 'indigo' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] , locations : [] , page : 0 }
+        ]
     };
 
-function useStrict() {
-    "use strict";
+
+    rootReducer = (state = this.state, action) => {
+
+        switch (action.type) {
+            case 'NEW_DEFAULT_SEARCH_RESULT' :
+                return action.state;
+                break;
+        }
+
+        return state;
+
+
+    };
+
+
+    mapDispatchToState = dispatch => {
+
+
+        return {
+            newDefaultSearchResult : state => dispatch({type : 'NEW_DEFAULT_SEARCH_RESULT' , state})
+
+        };
+
+    };
+
+    mapPropsToState = (state , ownProps) => {
+
+        return state;
+
+    };
+
+    constructor (){
+        const Provider = ReactRedux.Provider;
+        let {connect} = ReactRedux;
+        const {createStore} = Redux;
+
+        const  store = createStore(this.rootReducer);
+
+        Application = connect(this.mapPropsToState , this.mapDispatchToState)(Application);
+
+        ReactDOM.render(<Provider store = {store} ><Application /></Provider> , document.getElementById('form-container') , () => {
+
+
+        });
+
+    }
+
+
+
+
 }
 
-if (typeof Array.isArray === 'undefined') {
-    Array.isArray = function(obj) {
-        return Object.prototype.toString.call(obj) === '[object Array]';
-    }
-};
-
-/*
-$.ajaxSetup({
-    cache: false
-});
-
-*/
-
-
-
-let searchResults = "-search-results";
-
-
-useStrict();
-
-/*The function below i.e String.format works like this:
-var sentence = String.format("My name is {0} i am a {1} from {2} and i am {} years old" , "Kosi Eric" , "Programmer" , "Nigeria" , 19);
-console.log(sentence)
-
-
-//prints
-
-My name is Kosi Eric i am a programmer from Nigeria and i am 20 years old;
-
-*/
+let config = new Config();
 
 
 
 
-    String.format = String.format ||
-        function(format) {
-        var args = Array.prototype.slice.call(arguments, 1);
-        return format.replace(/{(\d+)}/g, function(match, number) {
-            return typeof args[number] != 'undefined'
-                ? args[number]
-                : match
-                ;
-        });
-    };
 
 
 
-let imageDirectory = '/assets/img/';
-let processorsFolder = '/processors/';
-let queryProcessor = processorsFolder + 'query.php';
-let crawler = processorsFolder + 'crawler.php';
-let suggestions = processorsFolder + 'suggestions.php';
-let commonWords = ['what','is','the','price','of','how','much','does','cost','costs','what','why','when','who','it','buy','sell','sells'];
-let maxTitleLength = 60;
-let maxDescriptionLength = 160;
-let maxLinkLength = 45;
 
 
-$(document).ready (function () {
-
-        let dataSavingsInfo = $('#data-savings-info');
-
-            $('.tap-target').tapTarget();
-
-            dataSavingsInfo.on('click' , function () {
 
 
-                $('.tap-target').tapTarget('open');
 
-            });
 
-        $('.sidenav').sidenav();
 
-    $('.tooltipped').tooltip();
-});
+
+
+
+
+
+
+
+
+

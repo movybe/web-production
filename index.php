@@ -19,7 +19,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>babel.min.js"></script>
     <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>react.development.js"></script>
     <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>react-dom.development.js"></script>
-
+    <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>redux.min.js"></script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>react-redux.min.js"></script>
 </head>
 <body>
 <main class ="container">

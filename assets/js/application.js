@@ -3,53 +3,19 @@
 //https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=samsung+galaxy+s7+edge&page=1&user=165548cb5dcx2e53159d
 
 class Application extends React.Component{
-
-
-
-
-
-    localSearchCookieKey = "localSearch";
+    
     lastSearchQuery = null;
     formSubmitted = false;
     cookiesQueryKey = "queries";
-
     enabledFormFieldSet = ["disabled" , false];
     disabledFormFieldSet = ["disabled" , true];
     lastSearchedQueryKey = "lastSearchedQuery";
     enterValidKeywordsWarning = "Please enter valid keyword(s)";
     networkError = "failed to receive response, check your network connection";
 
-    //Sets the value of the localSearch equal to true if there is no cookie key "localSearch"
-
-    initialLocalSearchCookieValue = Cookies.get(this.localSearchCookieKey) != undefined ? Cookies.get(this.localSearchCookieKey) != "false" : true;
-    state = {
-        localSearch: this.initialLocalSearchCookieValue,
-        locale : [
-            {shortName :  "olx"  , name : "olx"         ,       nameColor : 'purple lighten-4', textColor :  'purple' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0} ,
-            {shortName :  "jiji" , name : "jiji"        ,       nameColor : 'green lighten-5' ,  textColor : 'green' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] , linkTexts : [] , locations : [] , page : 0 } ,
-            {shortName : "jumia" , name : "jumia"       ,       nameColor : 'black' ,          textColor : 'black' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,   linkTexts : [] , locations : [] , page : 0 } ,
-            {shortName : "konga" , name : "konga"       ,       nameColor : 'yellow' ,         textColor :  'orange' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] , linkTexts : [] , locations : [] , page : 0 } ,
-            {shortName :  "deals" ,name : "jumia deals" ,       nameColor : 'indigo darken-1' ,   textColor : 'indigo' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] , locations : [] , page : 0 }
-            ]
-    };
-
-
-    maxSearchResultTitleLength = 60;
-    maxSearchREsultDescriptionLength = 300;
-    maxSearchResultLinkLength = 100;
-
-
-
-
-    //Constructor
-
 
     constructor() {
         super();
-
-        this.siteFooter = $('#site-footer');
-
-
     }
 
 
@@ -71,7 +37,7 @@ class Application extends React.Component{
         let searchQueryToArray = this.searchQuery.split(" ");
 
         searchQueryToArray = searchQueryToArray.filter((word, pos, self) => {
-            return self.indexOf(word) == pos && commonWords.indexOf(word) < 0;
+            return self.indexOf(word) == pos && defaults.commonWords.indexOf(word) < 0;
         });
 
         this.searchQuery = searchQueryToArray.join(" ");
@@ -95,7 +61,7 @@ class Application extends React.Component{
 
             let searchFilterUrl = /*'localhost:2021/filter.php';*/  `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
 
-            $.get(crawler , {url : searchFilterUrl} , response => {
+            $.get(defaults.crawler , {url : searchFilterUrl} , response => {
 
 
                 if(!response.contents){
@@ -148,7 +114,7 @@ class Application extends React.Component{
                 this.searchQueryField.val(this.searchQuery);
 
 
-                $.post(queryProcessor , {data : data} , (t) => {
+                $.post(defaults.queryProcessor , {data : data} , (t) => {
 
                     if(Cookies.get(this.cookiesQueryKey)){
 
@@ -173,14 +139,14 @@ class Application extends React.Component{
 
                     this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
                     $(':focus').blur();
-                    let action = this.state.localSearch ? (this.localSearchTabContainer.show()) : null;
+                    let action = this.props.localSearch ? (this.localSearchTabContainer.show()) : null;
                     this.formSubmitted = true;
 
                     this.lastSearchQuery = this.searchQuery;
                     this.switchContainer.hide();
 
 
-                    this.state.locale.forEach( obj => {
+                    this.props.locale.forEach( obj => {
 
                         Object.keys(obj).map(key => {
 
@@ -192,7 +158,7 @@ class Application extends React.Component{
 
                     });
 
-                    let defaultEcommerceWebsite = this.state.locale[0];
+                    let defaultEcommerceWebsite = this.props.locale[0];
                     let defaultEcommerceWebsiteShortName  = defaultEcommerceWebsite.shortName;
 
 
@@ -201,34 +167,20 @@ class Application extends React.Component{
 
                     response.contents.data.forEach(obj => {
 
-                        defaultEcommerceWebsite.titles.push(obj.title.truncate(maxTitleLength));
-                        defaultEcommerceWebsite.descriptions.push(obj.description.truncate(maxDescriptionLength));
+                        defaultEcommerceWebsite.titles.push(obj.title.truncate(defaults.maxTitleLength));
+                        defaultEcommerceWebsite.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
                         defaultEcommerceWebsite.images.push(obj.images[0].url);
                         defaultEcommerceWebsite.prices.push(obj.price.value.raw.toLocaleString());
                         defaultEcommerceWebsite.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
                         defaultEcommerceWebsite.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
-                        defaultEcommerceWebsite.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(maxLinkLength));
+                        defaultEcommerceWebsite.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength));
                                             });
 
-                    let previousLocale = this.state.locale;
-
-                    this.setState({locale : previousLocale});
-
-
-
-
-
-
-
-
-
+                    let previousLocale = this.props.locale;
+                    this.props.newDefaultSearchResult({...this.props , locale : previousLocale});
+                    
                 });
-
-
-
-
-
-
+                
             });
 
 
@@ -254,7 +206,7 @@ class Application extends React.Component{
 
         this.setState({localSearch : checked} , () => {
 
-            Cookies.set(this.localSearchCookieKey , this.state.localSearch);
+            Cookies.set(this.localSearchCookieKey , this.props.localSearch);
         });
 
 
@@ -338,13 +290,14 @@ class Application extends React.Component{
         this.searchResults = $(".search-results");
         this.searchResultPreloaders = $('.search-result-preloaders');
         this.searchFormFieldSet = $('#search-form-fieldset');
+        this.siteFooter = $('#site-footer');
 
         this.searchQueryField = $('.search-query-field');
         this.lastSearchQuery = this.searchQueryField.val().toLowerCase();
         let  searchTypeSwitchButton = $("#search-type-switch-button");
         this.searchQueryField.focus();
 
-       searchTypeSwitchButton.prop("checked" , this.state.localSearch);
+       searchTypeSwitchButton.prop("checked" , this.props.localSearch);
 
         $('.tabs').tabs();
 
@@ -375,6 +328,7 @@ class Application extends React.Component{
 
 
     render () {
+        console.log(this.props);
         /*
          I want to be able to store the user's default search type(whether local or Int'l)  in the browser
         * cookie
@@ -429,7 +383,7 @@ class Application extends React.Component{
 
                 </form>
 </fieldset>
-                <LocalSearchTab locale = {this.state.locale}  />
+                <LocalSearchTab  />
 
 
             </div>
@@ -441,12 +395,6 @@ class Application extends React.Component{
 
 
 
-
-
-    ReactDOM.render(<Application /> , document.getElementById('form-container') , () => {
-
-
-    });
 
 
 
