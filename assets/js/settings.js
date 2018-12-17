@@ -35,25 +35,7 @@ String.format = String.format ||
                 ;
         });
     };
-class Defaults {
 
-    constructor () {
-
-        this.imageDirectory = '/assets/img/';
-        this.processorsFolder = '/processors/';
-        this.queryProcessor = this.processorsFolder + 'query.php';
-        this.crawler = this.processorsFolder + 'crawler.php';
-        this.suggestions = this.processorsFolder + 'suggestions.php';
-        this.commonWords = ['what','is','the','price','of','how','much','does','cost','costs','what','why','when','who','it','buy','sell','sells'];
-        this.maxTitleLength = 60;
-        this.maxDescriptionLength = 160;
-        this.maxLinkLength = 45;
-    }
-
-}
-
-
-let defaults = new Defaults();
 $(document).ready (function () {
 
     let dataSavingsInfo = $('#data-savings-info');
@@ -67,4 +49,33 @@ $(document).ready (function () {
 
     });
 });
+
+
+
+class Defaults {
+
+    constructor () {
+
+        this.imageDirectory = '/assets/img/';
+        this.processorsFolder = '/processors/';
+        this.queryProcessor = this.processorsFolder + 'query.php';
+        this.crawler = this.processorsFolder + 'crawler.php';
+        this.suggestions = this.processorsFolder + 'suggestions.php';
+        this.commonWords = ['what','is','the','price','of','how','much','does','cost','costs','what','why','when','who','it','buy','sell','sells'];
+        this.maxTitleLength = 60;
+        this.maxDescriptionLength = 160;
+        this.maxLinkLength = 45;
+        this.searchResultPreloaders = "search-result-preloaders";
+        this.searchResultPreloader = "search-result-preloader";
+        this.websiteLiLinks = "website-li-links";
+        this.liLink = "li-link";
+
+
+     }
+
+}
+
+
+let defaults = new Defaults();
+
 

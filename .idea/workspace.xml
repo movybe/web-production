@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="164b0cb5-d77a-4dd8-82e2-9790aebb2644" name="Default Changelist" comment="" />
+    <list default="true" id="164b0cb5-d77a-4dd8-82e2-9790aebb2644" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/f.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jiji.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jiji2.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jumia.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jumia2.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/incs/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/assets/incs/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/application.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/search-tabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/search-tabs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/settings.js" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,9 +91,10 @@
           <entry key="project.open.time.80" value="1" />
           <entry key="project.open.time.82" value="1" />
           <entry key="project.open.time.87" value="1" />
+          <entry key="project.open.time.88" value="1" />
           <entry key="project.open.time.95" value="1" />
           <entry key="project.open.time.98" value="1" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -95,10 +108,10 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="16" />
-          <entry key="JavaScript" value="26" />
-          <entry key="PHP" value="38" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="CSS" value="17" />
+          <entry key="JavaScript" value="31" />
+          <entry key="PHP" value="47" />
+          <entry key="PLAIN_TEXT" value="2" />
           <entry key="RNG Compact" value="1" />
         </counts>
       </usages-collector>
@@ -111,10 +124,10 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="149" />
+          <entry key="CSS" value="180" />
           <entry key="HTML" value="2" />
-          <entry key="JavaScript" value="18178" />
-          <entry key="PHP" value="4920" />
+          <entry key="JavaScript" value="22629" />
+          <entry key="PHP" value="4933" />
           <entry key="SQL" value="1" />
         </counts>
       </usages-collector>
@@ -122,47 +135,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-463">
-              <caret line="24" column="6" lean-forward="true" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/js/application.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="309" column="15" lean-forward="true" selection-start-line="309" selection-start-column="15" selection-end-line="309" selection-end-column="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/js/search-tabs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/assets/js/config.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/incs/footer.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
-              <caret line="46" column="119" selection-start-line="46" selection-start-column="119" selection-end-line="46" selection-end-column="119" />
+            <state relative-caret-position="341">
+              <caret line="104" column="20" selection-start-line="104" selection-start-column="20" selection-end-line="104" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -170,8 +147,53 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1836">
-              <caret line="108" column="14" selection-start-line="108" selection-start-column="1" selection-end-line="108" selection-end-column="14" />
+            <state relative-caret-position="591">
+              <caret line="190" column="1" selection-start-line="190" selection-start-column="1" selection-end-line="190" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="78">
+              <caret line="7" column="23" lean-forward="true" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/js/application.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="451">
+              <caret line="198" selection-start-line="198" selection-end-line="198" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/incs/footer.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="121" selection-start-line="15" selection-start-column="121" selection-end-line="15" selection-end-column="121" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/js/config.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="299">
+              <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/js/settings.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="489">
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
             </state>
           </provider>
         </entry>
@@ -192,6 +214,9 @@
       <find>imageD</find>
       <find>this.defaults</find>
       <find>this.state</find>
+      <find>formS</find>
+      <find>formSu</find>
+      <find>suggest</find>
     </findStrings>
     <replaceStrings>
       <replace>classNamme</replace>
@@ -216,7 +241,6 @@
         <option value="$PROJECT_DIR$/assets/js/jquery.min.js" />
         <option value="$PROJECT_DIR$/proxy.php" />
         <option value="$PROJECT_DIR$/assets/js/main.js" />
-        <option value="$PROJECT_DIR$/f.txt" />
         <option value="$PROJECT_DIR$/assets/css/material-icons.css" />
         <option value="$PROJECT_DIR$/assets/js/cookie.js" />
         <option value="$PROJECT_DIR$/assets/js/cookie.min.js" />
@@ -232,13 +256,17 @@
         <option value="$PROJECT_DIR$/processors/suggestions.php" />
         <option value="$PROJECT_DIR$/processors/query.php" />
         <option value="$PROJECT_DIR$/assets/css/footer.css" />
-        <option value="$PROJECT_DIR$/assets/css/main.css" />
         <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/assets/js/settings.js" />
-        <option value="$PROJECT_DIR$/assets/incs/footer.php" />
-        <option value="$PROJECT_DIR$/assets/js/search-tabs.js" />
-        <option value="$PROJECT_DIR$/assets/js/application.js" />
+        <option value="$PROJECT_DIR$/assets/jiji.php" />
+        <option value="$PROJECT_DIR$/jiji2.php" />
+        <option value="$PROJECT_DIR$/jumia.php" />
+        <option value="$PROJECT_DIR$/f.txt" />
         <option value="$PROJECT_DIR$/assets/js/config.js" />
+        <option value="$PROJECT_DIR$/assets/incs/footer.php" />
+        <option value="$PROJECT_DIR$/assets/css/main.css" />
+        <option value="$PROJECT_DIR$/assets/js/application.js" />
+        <option value="$PROJECT_DIR$/assets/js/settings.js" />
+        <option value="$PROJECT_DIR$/assets/js/search-tabs.js" />
       </list>
     </option>
   </component>
@@ -272,6 +300,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -294,12 +323,6 @@
               <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
               <item name="movybe" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="incs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
-              <item name="movybe" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -307,11 +330,15 @@
               <item name="movybe" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
+              <item name="movybe" type="462c0819:PsiDirectoryNode" />
+              <item name="processors" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -322,13 +349,14 @@
     <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\movybe\processors" />
-      <recent name="C:\xampp\htdocs\movybe\assets\css" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\movybe\assets\js" />
       <recent name="C:\xampp\htdocs\movybe\config" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\movybe" />
+      <recent name="C:\xampp\htdocs\movybe\processors" />
+      <recent name="C:\xampp\htdocs\movybe\assets\css" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -367,18 +395,19 @@
       <workItem from="1544655619944" duration="12456000" />
       <workItem from="1544697285588" duration="7596000" />
       <workItem from="1544733775632" duration="21191000" />
-      <workItem from="1544901590107" duration="11443000" />
+      <workItem from="1544901590107" duration="31882000" />
+      <workItem from="1544987435586" duration="11599000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="169601000" />
+    <option name="totallyTimeSpent" value="201639000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30444127" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30873924" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -392,7 +421,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="10" weight="0.3293011" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.20564516" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.20564516" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" weight="0.3293011" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -464,7 +493,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/f.txt" />
     <entry file="file://$PROJECT_DIR$/assets/css/material-icons.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -570,52 +598,87 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/main.css">
+    <entry file="file://$PROJECT_DIR$/jumia.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1836">
-          <caret line="108" column="14" selection-start-line="108" selection-start-column="1" selection-end-line="108" selection-end-column="14" />
+        <state relative-caret-position="479">
+          <caret line="364" selection-start-line="364" selection-end-line="364" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/settings.js">
+    <entry file="file://$PROJECT_DIR$/jumia2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+        <state relative-caret-position="506">
+          <caret line="366" selection-start-line="366" selection-end-line="366" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/incs/footer.php">
+    <entry file="file://$PROJECT_DIR$/f.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="46" column="119" selection-start-line="46" selection-start-column="119" selection-end-line="46" selection-end-column="119" />
+        <state relative-caret-position="272">
+          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
+    <entry file="file://$PROJECT_DIR$/jiji.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-463">
-          <caret line="24" column="6" lean-forward="true" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
+        <state relative-caret-position="132">
+          <caret line="5940" column="11" lean-forward="true" selection-start-line="5940" selection-start-column="11" selection-end-line="5940" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/application.js">
+    <entry file="file://$PROJECT_DIR$/jiji2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="309" column="15" lean-forward="true" selection-start-line="309" selection-start-column="15" selection-end-line="309" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/search-tabs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="166">
+          <caret line="7686" column="9" lean-forward="true" selection-start-line="7686" selection-start-column="9" selection-end-line="7686" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+        <state relative-caret-position="299">
+          <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="7" column="23" lean-forward="true" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="591">
+          <caret line="190" column="1" selection-start-line="190" selection-start-column="1" selection-end-line="190" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/application.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="198" selection-start-line="198" selection-end-line="198" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/settings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="489">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/incs/footer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="121" selection-start-line="15" selection-start-column="121" selection-end-line="15" selection-end-column="121" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/search-tabs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="104" column="20" selection-start-line="104" selection-start-column="20" selection-end-line="104" selection-end-column="20" />
         </state>
       </provider>
     </entry>

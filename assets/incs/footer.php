@@ -13,7 +13,7 @@
 <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>request.js"></script>
 <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>jquery.min.js"></script>
 <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>materialize.min.js"></script>
-<script type="text/babel" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>settings.js"></script>
+<script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>settings.js"></script>
 <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>test.js"></script>
 <script type="text/babel" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>search-tabs.js"></script>
 <script type="text/babel" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>application.js"></script>

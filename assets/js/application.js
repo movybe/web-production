@@ -59,7 +59,11 @@ class Application extends React.Component{
 
 
 
-            let searchFilterUrl = /*'localhost:2021/filter.php';*/  `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
+            let searchFilterUrl = 'localhost:2021/filter.php';//  `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
+
+            // Hide the preloaders just in case
+
+            $('.' + defaults.searchResultPreloaders).hide();
 
             $.get(defaults.crawler , {url : searchFilterUrl} , response => {
 
@@ -177,7 +181,23 @@ class Application extends React.Component{
                                             });
 
                     let previousLocale = this.props.locale;
-                    this.props.newDefaultSearchResult({...this.props , locale : previousLocale});
+                    //reset the pages to 0;
+                    this.props.locale.forEach(local => {
+                       local.page =0;
+                    });
+                    //
+
+
+                    defaultEcommerceWebsite.page += 1;
+
+                   // defaults.tabs.tabs('updateTabIndicator');
+
+                    if(this.props.newDefaultSearchResult({...this.props , locale : previousLocale , currentWebsite : defaultEcommerceWebsiteShortName})){
+                        //Switch the tab to the default behaviour;
+
+                        $('#tabs.tabs').tabs('select', defaultEcommerceWebsiteShortName);
+
+                    }
                     
                 });
                 
@@ -256,7 +276,7 @@ class Application extends React.Component{
 
 
         let data = {query : this.searchQuery};
-        $.post(suggestions , {data : JSON.stringify(data)} , response => {
+        $.post(defaults.suggestions , {data : JSON.stringify(data)} , response => {
 
             let resp = JSON.parse(response);
 
@@ -328,7 +348,6 @@ class Application extends React.Component{
 
 
     render () {
-        console.log(this.props);
         /*
          I want to be able to store the user's default search type(whether local or Int'l)  in the browser
         * cookie
