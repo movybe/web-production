@@ -184,17 +184,17 @@ class Application extends React.Component{
                     //reset the pages to 0;
                     this.props.locale.forEach(local => {
                        local.page =0;
+                       local.error = null;
                     });
-                    //
 
 
                     defaultEcommerceWebsite.page += 1;
 
-                   // defaults.tabs.tabs('updateTabIndicator');
 
-                    if(this.props.newDefaultSearchResult({...this.props , locale : previousLocale , currentWebsite : defaultEcommerceWebsiteShortName})){
+
+                    if(this.props.newDefaultSearchResult({...this.props , q : this.searchQuery.split(" ").join("+") , query : this.searchQuery , locale : previousLocale , currentWebsite : defaultEcommerceWebsiteShortName})){
+
                         //Switch the tab to the default behaviour;
-
                         $('#tabs.tabs').tabs('select', defaultEcommerceWebsiteShortName);
 
                     }

@@ -189,3 +189,9 @@ ul.tabs.locale-tabs{
     position: relative;
     left : 15px;
 }
+.error-text{
+    font-size: 23px;
+    text-align: center;
+    color: grey;
+    
+}

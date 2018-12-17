@@ -13,5 +13,12 @@ facets	["special_price","attributes.brand","attributes.screen_size","attributes.
 tagFilters
 ruleContexts	[""]"}]}
                 *
+x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%20(lite)%203.30.0%3Breact-instantsearch%205.3.2%3BJS%20Helper%202.26.1
+x-algolia-application-id=B9ZCRRRVOM
+x-algolia-api-key=cb605b0936b05ce1a62d96f53daa24f7
                 *
+
+
+
+
                 * */

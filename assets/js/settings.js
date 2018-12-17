@@ -69,6 +69,8 @@ class Defaults {
         this.searchResultPreloader = "search-result-preloader";
         this.websiteLiLinks = "website-li-links";
         this.liLink = "li-link";
+        this.noDataError = "Failed to load data";
+        this.networkError = "Try checking your internet connection";
 
 
      }
