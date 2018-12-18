@@ -18,14 +18,13 @@ class  LocalSearchTab extends React.Component{
         const showError = () => {
 
             selectedEcommerce.error = defaults.noDataError;
-            this.props.locale[index] = selectedEcommerce;
-            selectedEcommerce.page++;
+            selectedEcommerce.page +=1;
 
+            this.props.locale[index] = selectedEcommerce;
             if (this.props.switchWebsite({...this.props, locale: this.props.locale, currentWebsite: website})) {
 
                 $("." + defaults.searchResultPreloaders).hide();
                 M.toast({html: defaults.networkError});
-
                 return;
 
             }
@@ -33,10 +32,10 @@ class  LocalSearchTab extends React.Component{
 
         const {query , q} = this.props;
 
+        let pageNumber = selectedEcommerce.page + 1;
 
-        let errorOccured = false;
         //Check if page had already been already been clicked
-        if(selectedEcommerce.page) return;
+        if(selectedEcommerce.page > 0) return;
 
         $("."  + defaults.searchResultPreloaders).hide();
 
@@ -48,13 +47,13 @@ class  LocalSearchTab extends React.Component{
         });
 
         $("#" + website + "-" + defaults.searchResultPreloader).show();
-
+        var savedState;
         switch (website) {
 
             case 'jiji' :
 
-               let url = "http://localhost:2021/jiji.php";
-                //const url = `https://jiji.ng/search?query=${q}&page=1`;
+               //let url = "http://localhost:2021/jiji.php";
+                let url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
 
 
                 $.get(defaults.crawler , {url} , response => {
@@ -101,7 +100,11 @@ class  LocalSearchTab extends React.Component{
                         this.props.locale[index] = selectedEcommerce;
                         let previousLocale = this.props.locale;
 
-                        if(this.props.switchWebsite({...this.props , locale : previousLocale , currentWebsite : website})
+
+                        savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+                        localStorage.setItem(defaults.savedState , JSON.stringify(savedState));
+
+                        if(this.props.switchWebsite(savedState)
                     )
                         {
                             $("."  + defaults.searchResultPreloaders).hide();
@@ -114,12 +117,11 @@ class  LocalSearchTab extends React.Component{
                 break;
             case 'jumia' :
 
-                url = `https://www.jumia.com.ng/catalog/?q=${q}&page=1`;
+                url = `https://www.jumia.com.ng/catalog/?q=${q}&page=${pageNumber}`;
 
 
                //url = "http://localhost:2021/jumia.php";
                 $.get(defaults.crawler , {url} , response => {
-                 console.log(response);
 
                     let html = $(response.contents).find('.sku.-gallery');
 
@@ -163,8 +165,10 @@ class  LocalSearchTab extends React.Component{
 
                         this.props.locale[index] = selectedEcommerce;
                         let previousLocale = this.props.locale;
+                        savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+                        localStorage.setItem(defaults.savedState , JSON.stringify(savedState));
 
-                        if (this.props.switchWebsite({...this.props, locale: previousLocale, currentWebsite: website})
+                        if (this.props.switchWebsite(savedState)
                         ) {
                             $("." + defaults.searchResultPreloaders).hide();
 
@@ -181,7 +185,7 @@ class  LocalSearchTab extends React.Component{
             case 'konga' :
 
                 url = "https://b9zcrrrvom-3.algolianet.com/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.30.0%3Breact-instantsearch%205.3.2%3BJS%20Helper%202.26.1&x-algolia-application-id=B9ZCRRRVOM&x-algolia-api-key=cb605b0936b05ce1a62d96f53daa24f7";
-                let postData = {"requests":[{"indexName":"catalog_store_konga","params":`query=${query.replace(" " , "%20")}&maxValuesPerFacet=50&page=0&highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&facets=%5B%22special_price%22%2C%22attributes.brand%22%2C%22attributes.screen_size%22%2C%22attributes.ram_gb%22%2C%22attributes.sim%22%2C%22attributes.sim_slots%22%2C%22attributes.capacity%22%2C%22attributes.battery%22%2C%22attributes.connectivity%22%2C%22attributes.hard_drive%22%2C%22attributes.internal%22%2C%22attributes.tv_screen_size%22%2C%22attributes.operating_system%22%2C%22attributes.kids_shoes%22%2C%22attributes.heel_type%22%2C%22attributes.heel_height%22%2C%22attributes.leg_width%22%2C%22attributes.fastening%22%2C%22attributes.shirt_size%22%2C%22attributes.shoe_size%22%2C%22attributes.lingerie_size%22%2C%22attributes.pants_size%22%2C%22attributes.size%22%2C%22attributes.color%22%2C%22attributes.mainmaterial%22%2C%22konga_fulfilment_type%22%2C%22is_pay_on_delivery%22%2C%22is_free_shipping%22%2C%22pickup%22%2C%22categories.lvl0%22%5D&tagFilters=&ruleContexts=%5B%22%22%5D`}]};
+                let postData = {"requests":[{"indexName":"catalog_store_konga","params":`query=${query.replace(" " , "%20")}&maxValuesPerFacet=50&page=${pageNumber}&highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&facets=%5B%22special_price%22%2C%22attributes.brand%22%2C%22attributes.screen_size%22%2C%22attributes.ram_gb%22%2C%22attributes.sim%22%2C%22attributes.sim_slots%22%2C%22attributes.capacity%22%2C%22attributes.battery%22%2C%22attributes.connectivity%22%2C%22attributes.hard_drive%22%2C%22attributes.internal%22%2C%22attributes.tv_screen_size%22%2C%22attributes.operating_system%22%2C%22attributes.kids_shoes%22%2C%22attributes.heel_type%22%2C%22attributes.heel_height%22%2C%22attributes.leg_width%22%2C%22attributes.fastening%22%2C%22attributes.shirt_size%22%2C%22attributes.shoe_size%22%2C%22attributes.lingerie_size%22%2C%22attributes.pants_size%22%2C%22attributes.size%22%2C%22attributes.color%22%2C%22attributes.mainmaterial%22%2C%22konga_fulfilment_type%22%2C%22is_pay_on_delivery%22%2C%22is_free_shipping%22%2C%22pickup%22%2C%22categories.lvl0%22%5D&tagFilters=&ruleContexts=%5B%22%22%5D`}]};
 
                 $.post(url , JSON.stringify(postData) , response => {
 
@@ -206,8 +210,10 @@ class  LocalSearchTab extends React.Component{
 
                     this.props.locale[index] = selectedEcommerce;
                     let previousLocale = this.props.locale;
+                    savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+                    localStorage.setItem(defaults.savedState , JSON.stringify(savedState));
 
-                    if (this.props.switchWebsite({...this.props, locale: previousLocale, currentWebsite: website})
+                    if (this.props.switchWebsite(savedState)
                     ) {
                         $("." + defaults.searchResultPreloaders).hide();
 
@@ -217,9 +223,72 @@ class  LocalSearchTab extends React.Component{
 
                 });
                 break;
+            case 'deals' :
+                url = `https://deals.jumia.com.ng/catalog?search-keyword=${q}&page=${pageNumber}`;
+
+
+                $.get(defaults.crawler , {url} , response => {
+
+                    let html = $(response.contents).find('.post');
+
+                    if(!html.length) return showError();
+
+
+                    //Clearing some memory
+                    response = null;
+
+
+                    {
+                        let title;
+                        let description;
+                        let image;
+                        let price;
+                        let location;
+                        let link;
+                        let counter = 0;
+                        html.each(function (index) {
+
+
+                            title = $.trim($(this).find('.post-link').text()).truncate(defaults.maxTitleLength);
+                            description = $.trim($(this).find('.post-link').text()).truncate(defaults.maxDescriptionLength);
+                            image = $.trim($(this).find('.product-images').attr('src'));
+                            price = $.trim($(this).find('.price').text().replace( /^\D+/g, '')).toLocaleString();
+                            link = "https://deals.jumia.com.ng/" + $(this).find('.post-link').attr('href');
+
+                            location = $(this).find('.address').text();
+                            selectedEcommerce.titles.push(title);
+                            selectedEcommerce.descriptions.push(description);
+                            selectedEcommerce.images.push(image);
+                            selectedEcommerce.prices.push(price);
+                            selectedEcommerce.links.push(link);
+                            selectedEcommerce.locations.push(location);
+                            selectedEcommerce.linkTexts.push(String(link).truncate(defaults.maxLinkLength));
+
+                        });
+
+                        selectedEcommerce.page += 1;
+
+                        this.props.locale[index] = selectedEcommerce;
+                        let previousLocale = this.props.locale;
+
+                        savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+                        localStorage.setItem(defaults.savedState , JSON.stringify(savedState));
+                        if(this.props.switchWebsite(savedState)
+                        )
+                        {
+                            $("."  + defaults.searchResultPreloaders).hide();
+                        }
+
+                    }
+
+
+                });
+
 
 
         }
+
+
 
 
     };
@@ -229,8 +298,17 @@ class  LocalSearchTab extends React.Component{
         let tabs = $('.tabs#tabs');
         tabs.tabs();
         //tabs.tabs('updateTabIndicator');
-    }
+        if(localStorage.getItem(defaults.savedState)) {
+            let cookieObj = JSON.parse(localStorage.getItem(defaults.savedState));
+            if (this.props.switchWebsite(cookieObj)) {
+                $('.tabs').tabs();
+            }
+            }
+        }
+
+
     render() {
+
 
 
         const {locale} = this.props;

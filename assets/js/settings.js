@@ -72,6 +72,7 @@ class Defaults {
         this.noDataError = "Failed to load data";
         this.networkError = "Try checking your internet connection";
 
+        this.savedState = "savedState";
 
      }
 

@@ -56,7 +56,8 @@ class Config {
 
         return {
             newDefaultSearchResult : state => dispatch({type : 'NEW_DEFAULT_SEARCH_RESULT' , state}) ,
-            resetState : () => dispatch({type : 'RESET_STATE'})
+            resetState : () => dispatch({type : 'RESET_STATE'}) ,
+            switchWebsite : state => dispatch({type : 'SWITCH_WEBSITE' , state})
         };
 
     };

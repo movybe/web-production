@@ -59,8 +59,10 @@ class Application extends React.Component{
 
 
 
-            let searchFilterUrl = 'localhost:2021/filter.php';//  `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
 
+            let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
+
+            //searchFilterUrl = //'localhost:2021/filter.php';//
             // Hide the preloaders just in case
 
             $('.' + defaults.searchResultPreloaders).hide();
@@ -189,10 +191,11 @@ class Application extends React.Component{
 
 
                     defaultEcommerceWebsite.page += 1;
+                    let savedState = {...this.props , q : this.searchQuery.split(" ").join("+") , query : this.searchQuery , locale : previousLocale , currentWebsite : defaultEcommerceWebsiteShortName};
 
+                    localStorage.setItem(defaults.savedState , JSON.stringify(savedState));
 
-
-                    if(this.props.newDefaultSearchResult({...this.props , q : this.searchQuery.split(" ").join("+") , query : this.searchQuery , locale : previousLocale , currentWebsite : defaultEcommerceWebsiteShortName})){
+                    if(this.props.newDefaultSearchResult(savedState)){
 
                         //Switch the tab to the default behaviour;
                         $('#tabs.tabs').tabs('select', defaultEcommerceWebsiteShortName);
@@ -304,6 +307,7 @@ class Application extends React.Component{
     //Toggles the Switch button automatically depending on the value of the 'localSearchCookieKey' variable
 
     componentDidMount () {
+        console.log(this.props);
         this.switchContainer = $('#switch-container');
         this.searchTabs = $('.search-tabs');
         this.localSearchTabContainer = $('#local-search-tab-container');
@@ -332,6 +336,15 @@ class Application extends React.Component{
             });
         }
 
+        if(localStorage.getItem(defaults.savedState)) {
+            let cookieObj = JSON.parse(localStorage.getItem(defaults.savedState));
+            if (this.props.switchWebsite(cookieObj)) {//Action};
+                this.formSubmitted = true;
+                $('#local-search-tab-container').css('display' , 'block');
+                $('.tabs').tabs();
+
+            }
+        }
 
         $('input.autocomplete').autocomplete({
             limit: 7000,
