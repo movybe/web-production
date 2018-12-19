@@ -29,7 +29,6 @@ class Application extends React.Component{
 
 
 
-
         if(!this.searchQuery.length) return;
 
         this.replaceSearchText();
@@ -52,7 +51,6 @@ class Application extends React.Component{
         this.searchResultPreloaders.hide();
         $(':focus').blur();
         this.searchFormFieldSet.prop(...this.disabledFormFieldSet);
-
         let validTitles = [];
 
 
@@ -62,13 +60,15 @@ class Application extends React.Component{
 
             let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
 
-            //searchFilterUrl = //'localhost:2021/filter.php';//
+
+//            let searchFilterUrl = 'http://localhost:2021/filter.php';//
             // Hide the preloaders just in case
 
             $('.' + defaults.searchResultPreloaders).hide();
 
             $.get(defaults.crawler , {url : searchFilterUrl} , response => {
 
+                console.log(searchFilterUrl);
 
                 if(!response.contents){
                     return this.searchFormFieldSet.prop(...this.enabledFormFieldSet) && M.toast({html: this.networkError});

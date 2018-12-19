@@ -58,7 +58,7 @@ class  LocalSearchTab extends React.Component{
 
                 $.get(defaults.crawler , {url} , response => {
 
-                    let html = $(response.contents).find('.b-list-advert__template');
+                    let html = $(response.contents).find('.b-list-advert__item').has('img.squared.js-api-lazy-image');
 
                     if(!html.length) return showError();
 
@@ -81,6 +81,7 @@ class  LocalSearchTab extends React.Component{
                             title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
                             description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
                             image = $.trim($(this).find('.squared.js-api-lazy-image').attr('src'));
+                            console.log(img);
                             price = $.trim($(this).find('.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
                             link = $(this).find('.js-advert-link').attr('href');
 
@@ -251,7 +252,7 @@ class  LocalSearchTab extends React.Component{
 
                             title = $.trim($(this).find('.post-link').text()).truncate(defaults.maxTitleLength);
                             description = $.trim($(this).find('.post-link').text()).truncate(defaults.maxDescriptionLength);
-                            image = $.trim($(this).find('.product-images').attr('src'));
+                            image = $.trim($(this).find('.product-images').attr('data-src'));
                             price = $.trim($(this).find('.price').text().replace( /^\D+/g, '')).toLocaleString();
                             link = "https://deals.jumia.com.ng/" + $(this).find('.post-link').attr('href');
 
@@ -294,18 +295,17 @@ class  LocalSearchTab extends React.Component{
     };
 
 
-    componentDidMount(){
+    componentDidMount() {
         let tabs = $('.tabs#tabs');
         tabs.tabs();
         //tabs.tabs('updateTabIndicator');
-        if(localStorage.getItem(defaults.savedState)) {
+        if (localStorage.getItem(defaults.savedState)) {
             let cookieObj = JSON.parse(localStorage.getItem(defaults.savedState));
             if (this.props.switchWebsite(cookieObj)) {
-                $('.tabs').tabs();
             }
-            }
-        }
 
+        }
+    }
 
     render() {
 
@@ -344,20 +344,22 @@ class  LocalSearchTab extends React.Component{
 
                         <h5 className="green-text search-result-price">&#8358;{local.prices[index]}</h5>
 
-                        <h3 className="search-result-title-header"><a className="search-result-title-link"
+                        <h3 className="search-result-title-header"><a target="_blank" className="search-result-title-link"
                                                                       href={local.links[index]}>
                             {local.titles[index]}
                         </a></h3>
-                        <a className="search-result-link-address"
+                        <a className="search-result-link-address" target="_blank"
                            href={local.links[index]}>
                             {local.linkTexts[index]}
                         </a>
                         <span className="search-result-link-description">
 {local.descriptions[index]}
 </span>
+                        <img className="lazyload"  data-src = {local.images[index]}   />
                         <span className="search-result-images blue-text" data-image={local.images[index]}><i
-                            className="tiny material-icons search-image-icons">image</i> View Image</span>
+                            className="tiny material-icons search-image-icons">image</i> Save Image</span>
 {showLocation}
+
 
                     </div>)
             }) : <p className="helper-text error-text" data-error = {local.error}>{local.error}</p>;

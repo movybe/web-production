@@ -12,6 +12,7 @@
 <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>cookie.min.js"></script>
 <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>request.js"></script>
 <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>jquery.min.js"></script>
+<script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>jquery.lazy.min.js" async=""></script>
 <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>materialize.min.js"></script>
 <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>settings.js"></script>
 <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>test.js"></script>

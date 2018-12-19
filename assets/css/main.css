@@ -13,7 +13,7 @@
 #search-icon{
     position: relative;
     right: 40px;
-        cursor: pointer !important;
+    cursor: pointer !important;
 }
 #search-button{
     text-transform: none;
@@ -111,7 +111,7 @@
     margin-bottom: 10px;
 }
 .search-result-preloaders , .search-tabs{
-  display: none;
+    display: none;
 }
 
 .search-result-layout{
@@ -152,7 +152,7 @@
     left : 1.0em;
     margin-bottom: 70px;
     top : 10px;
- }
+}
 
 fieldset {
     border : none;
@@ -172,8 +172,8 @@ fieldset {
     top : 8px;
     cursor: pointer;
     text-decoration: none;
-   
-  
+
+
 }
 ul.tabs.locale-tabs{
     border-bottom : 1px solid rgba(211 , 211 , 211 , .4);
@@ -193,5 +193,15 @@ ul.tabs.locale-tabs{
     font-size: 23px;
     text-align: center;
     color: grey;
-    
+
 }
+
+.lazyload , .lazyloaded{
+    max-width : 600px;
+    min-height : 100px;
+    max-height: 300px;
+    width : auto;
+    height :auto;
+    display : block;
+    cursor: zoom-in;
+   }
