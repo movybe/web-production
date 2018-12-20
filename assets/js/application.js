@@ -58,10 +58,10 @@ class Application extends React.Component{
 
 
 
-            let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
+          let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
 
 
-//            let searchFilterUrl = 'http://localhost:2021/filter.php';//
+  //let searchFilterUrl = 'http://localhost:2021/filter.php';//
             // Hide the preloaders just in case
 
             $('.' + defaults.searchResultPreloaders).hide();

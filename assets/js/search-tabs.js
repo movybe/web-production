@@ -52,15 +52,17 @@ class  LocalSearchTab extends React.Component{
 
             case 'jiji' :
 
-               let url = "http://localhost:2021/jiji.php";
-               //let url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
+               //let url = "http://localhost:2021/jiji.php";
+               let url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
 
 
                 $.get(defaults.crawler , {url} , response => {
 
                     let html = $(response.contents).find('.b-list-advert__template').has('img.squared.js-api-lazy-image');
 
+
                     if(!html.length) return showError();
+
 
 
 
@@ -80,18 +82,22 @@ class  LocalSearchTab extends React.Component{
 
                             title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
                             description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-                            image = $.trim($(this).find('.squared.js-api-lazy-image').attr('src'));
                             price = $.trim($(this).find('.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
-                            link = $(this).find('.js-advert-link').attr('href');
+                            link = $(this).find('.js-advert-link');
+
+                            image = $(this).find('img').attr('data-src');
+
+
+
 
                             location = $(this).find('.b-list-advert__item-region').text();
                             selectedEcommerce.titles.push(title);
                             selectedEcommerce.descriptions.push(description);
                             selectedEcommerce.images.push(image);
                             selectedEcommerce.prices.push(price);
-                            selectedEcommerce.links.push(link);
+                            selectedEcommerce.links.push(link.attr('href'));
                             selectedEcommerce.locations.push(location);
-                            selectedEcommerce.linkTexts.push(String(link).truncate(defaults.maxLinkLength));
+                            selectedEcommerce.linkTexts.push(String(link.attr('href')).truncate(defaults.maxLinkLength));
 
                         });
 
@@ -333,7 +339,7 @@ class  LocalSearchTab extends React.Component{
             let showLocation;
             let showImages;
             const template = (local.images.length) ? local.images.map((image, index) => {
-                showImages = (this.props.settings.showImages) ?  <img className="lazyload" src = "/assets/img/blank.gif" data-src = {local.images[index]}   /> : null;
+                showImages = (this.props.settings.showImages) && local.images[index] != null ?  <img className="lazyload" src = "/assets/img/blank.gif" data-src = {local.images[index]}   /> : null;
                showLocation = local.locations[index].length ?
                    <span className="search-result-locations blue-grey-text"><i
                        className="tiny material-icons search-location-icons">location_on</i>{local.locations[index]}</span> : null;
