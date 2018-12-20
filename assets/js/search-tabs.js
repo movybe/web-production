@@ -52,15 +52,16 @@ class  LocalSearchTab extends React.Component{
 
             case 'jiji' :
 
-               //let url = "http://localhost:2021/jiji.php";
-                let url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
+               let url = "http://localhost:2021/jiji.php";
+               //let url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
 
 
                 $.get(defaults.crawler , {url} , response => {
 
-                    let html = $(response.contents).find('.b-list-advert__item').has('img.squared.js-api-lazy-image');
+                    let html = $(response.contents).find('.b-list-advert__template').has('img.squared.js-api-lazy-image');
 
                     if(!html.length) return showError();
+
 
 
                     //Clearing some memory
@@ -77,11 +78,9 @@ class  LocalSearchTab extends React.Component{
                         let counter = 0;
                         html.each(function (index) {
 
-
                             title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
                             description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
                             image = $.trim($(this).find('.squared.js-api-lazy-image').attr('src'));
-                            console.log(img);
                             price = $.trim($(this).find('.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
                             link = $(this).find('.js-advert-link').attr('href');
 
@@ -298,12 +297,11 @@ class  LocalSearchTab extends React.Component{
     componentDidMount() {
         let tabs = $('.tabs#tabs');
         tabs.tabs();
-        //tabs.tabs('updateTabIndicator');
         if (localStorage.getItem(defaults.savedState)) {
             let cookieObj = JSON.parse(localStorage.getItem(defaults.savedState));
             if (this.props.switchWebsite(cookieObj)) {
-            }
 
+            }
         }
     }
 
@@ -333,8 +331,9 @@ class  LocalSearchTab extends React.Component{
 
 
             let showLocation;
+            let showImages;
             const template = (local.images.length) ? local.images.map((image, index) => {
-
+                showImages = (this.props.settings.showImages) ?  <img className="lazyload" src = "/assets/img/blank.gif" data-src = {local.images[index]}   /> : null;
                showLocation = local.locations[index].length ?
                    <span className="search-result-locations blue-grey-text"><i
                        className="tiny material-icons search-location-icons">location_on</i>{local.locations[index]}</span> : null;
@@ -355,7 +354,7 @@ class  LocalSearchTab extends React.Component{
                         <span className="search-result-link-description">
 {local.descriptions[index]}
 </span>
-                        <img className="lazyload"  data-src = {local.images[index]}   />
+                        {showImages}
                         <span className="search-result-images blue-text" data-image={local.images[index]}><i
                             className="tiny material-icons search-image-icons">image</i> Save Image</span>
 {showLocation}

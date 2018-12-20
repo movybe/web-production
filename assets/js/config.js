@@ -5,11 +5,12 @@ class Config {
 
     localSearchCookieKey = "localSearch";
     //Sets the value of the localSearch equal to true if there is no cookie key "localSearch"
-    initialLocalSearchCookieValue = Cookies.get(this.localSearchCookieKey) != undefined ? Cookies.get(this.localSearchCookieKey) != "false" : true;
+    //initialLocalSearchCookieValue = Cookies.get(defaults.localSearchCookieKey) != undefined ? Cookies.get(defaults.localSearchCookieKey) != "false" : true;
+    //initialShowImagesCookieValue = Cookies.get(defaults.showImagesCookieKey) != undefined ? Cookies.get(defaults.showImagesCookieKey) != "false" : true;
     state = {
+        settings : {localSearch: true , showImages : true} ,
         query : null ,
         q : null,
-        localSearch: this.initialLocalSearchCookieValue,
         formSubmitted : false ,
         locale : [
             {shortName :  "olx"  , name : "olx"         ,       nameColor : 'purple lighten-4', textColor :  'purple' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : ""} ,

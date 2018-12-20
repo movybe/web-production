@@ -73,6 +73,8 @@ class Defaults {
         this.networkError = "Try checking your internet connection";
 
         this.savedState = "savedState";
+        this.localSearchCookieKey = "localSearch";
+        this.showImagesCookieKey = "showImages";
 
      }
 

@@ -204,4 +204,59 @@ ul.tabs.locale-tabs{
     height :auto;
     display : block;
     cursor: zoom-in;
-   }
+}
+
+#settings-dropdown {
+    width : 135px !important;
+  
+    
+}
+#settings-drop-down-link{
+    float: right;
+}
+
+
+#local-search-setting{
+    position: relative;
+    left : 0px;
+    
+ }
+.lever{
+    position:relative;
+    left : 4px;
+}
+#local-search-text{
+    left : 4px;
+    font-size : 10px;
+}
+.settings-text{
+    position: relative;
+    
+}
+#show-images-text{
+    font-size: 9px;
+    left : 5px;
+}
+#toggle-search-images{
+    
+}
+
+.lever.toggle-search-images{
+    left : 8px;
+
+}
+#download-apk-link{
+    font-size: 12px;
+    float: left;
+    text-align: left;
+    text-decoration: none;
+}
+.app-download-icon.material-icons.small{
+    font-size: 12px;
+    position: relative;
+    top : 2px;
+}
+#settings-more-icon{
+    position: relative;
+    top : 7px;
+}

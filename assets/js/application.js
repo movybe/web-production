@@ -12,7 +12,7 @@ class Application extends React.Component{
     lastSearchedQueryKey = "lastSearchedQuery";
     enterValidKeywordsWarning = "Please enter valid keyword(s)";
     networkError = "failed to receive response, check your network connection";
-
+    
 
     constructor() {
         super();
@@ -68,7 +68,6 @@ class Application extends React.Component{
 
             $.get(defaults.crawler , {url : searchFilterUrl} , response => {
 
-                console.log(searchFilterUrl);
 
                 if(!response.contents){
                     return this.searchFormFieldSet.prop(...this.enabledFormFieldSet) && M.toast({html: this.networkError});
@@ -102,7 +101,7 @@ class Application extends React.Component{
                 searchQueryToArray =  searchQueryToArray.filter((word , index) => {
 
 
-                    return validTitles.indexOf(word) >= 0 &&  searchQueryToArray[index] != searchQueryToArray[index + 1];
+                    return validTitles.indexOf(word) >= 0 &&  searchQueryToArray[index] !== searchQueryToArray[index + 1];
                 });
 
 
@@ -144,9 +143,9 @@ class Application extends React.Component{
 
 
                     this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
-                    $(':focus').blur();
+
+
                     let action = this.props.localSearch ? (this.localSearchTabContainer.show()) : null;
-                    this.formSubmitted = true;
 
                     this.lastSearchQuery = this.searchQuery;
                     this.switchContainer.hide();
@@ -198,6 +197,10 @@ class Application extends React.Component{
                     if(this.props.newDefaultSearchResult(savedState)){
 
                         //Switch the tab to the default behaviour;
+                        this.formSubmitted = true;
+                        this.searchQueryField.blur();
+                        this.searchTabs.show();
+
                         $('#tabs.tabs').tabs('select', defaultEcommerceWebsiteShortName);
 
                     }
@@ -227,13 +230,12 @@ class Application extends React.Component{
 
         let checked = e.target.checked;
 
-        this.setState({localSearch : checked} , () => {
+        this.props.newDefaultSearchResult({...this.props , settings : {...this.props.settings , localSearch: checked}} , () => {
 
-            Cookies.set(this.localSearchCookieKey , this.props.localSearch);
+            Cookies.set(defaults.localSearchCookieKey , this.props.settings.showImages);
         });
 
 
-        // console.log(checked);
 
 
 
@@ -307,24 +309,23 @@ class Application extends React.Component{
     //Toggles the Switch button automatically depending on the value of the 'localSearchCookieKey' variable
 
     componentDidMount () {
-        console.log(this.props);
-        this.switchContainer = $('#switch-container');
-        this.searchTabs = $('.search-tabs');
         this.localSearchTabContainer = $('#local-search-tab-container');
+        this.searchTabs = $('.search-tabs');
+        this.toggleImagesSwitch = $('#toggle-search-images');
+        this.searchQueryField = $('.search-query-field');
+
+        this.switchContainer = $('#switch-container');
         this.searchResults = $(".search-results");
         this.searchResultPreloaders = $('.search-result-preloaders');
         this.searchFormFieldSet = $('#search-form-fieldset');
         this.siteFooter = $('#site-footer');
 
-        this.searchQueryField = $('.search-query-field');
         this.lastSearchQuery = this.searchQueryField.val().toLowerCase();
         let  searchTypeSwitchButton = $("#search-type-switch-button");
         this.searchQueryField.focus();
 
-       searchTypeSwitchButton.prop("checked" , this.props.localSearch);
-
         $('.tabs').tabs();
-
+        $('.dropdown-trigger').dropdown({alignment : 'right' , coverTrigger : false , closeOnClick : false , container : document.getElementById(this.searchFormFieldSet.attr('id'))});
         //I want to get the auto-complete data from the cookies
 
         this.autoCompleteData = {};
@@ -339,8 +340,10 @@ class Application extends React.Component{
         if(localStorage.getItem(defaults.savedState)) {
             let cookieObj = JSON.parse(localStorage.getItem(defaults.savedState));
             if (this.props.switchWebsite(cookieObj)) {//Action};
+
                 this.formSubmitted = true;
-                $('#local-search-tab-container').css('display' , 'block');
+                this.toggleImagesSwitch.prop('checked' , cookieObj.settings.showImages);
+                this.searchQueryField.blur();
                 $('.tabs').tabs();
 
             }
@@ -359,6 +362,22 @@ class Application extends React.Component{
 
     }
 
+     toggleShowSearchImages = (e) => {
+         let checked = e.target.checked;
+
+         let savedState = {...this.props ,  settings : {...this.props.settings , showImages: checked}};
+
+
+         if(this.props.switchWebsite(savedState)){
+
+             localStorage.setItem(defaults.showImagesCookieKey , JSON.stringify(savedState));
+         }
+
+
+
+
+
+     };
 
     render () {
         /*
@@ -385,33 +404,53 @@ class Application extends React.Component{
                             <i className="material-icons prefix"></i>
                             <input onBlur={() => {
 
-                                this.switchContainer.hide();
-                                if(this.lastSearchQuery == $.trim(this.searchQueryField.val().toLowerCase()) && this.formSubmitted == true){
+                                if(this.formSubmitted && this.lastSearchQuery === $.trim(this.searchQueryField.val().toLowerCase())){
 
                                     this.searchTabs.show();
 
                                 }
 
-                                else {
-                                    this.switchContainer.show();
-                                }
-                            }} onFocus={() => {this.switchContainer.show(); this.searchTabs.hide();  }} type="text" defaultValue = {Cookies.get(this.lastSearchedQueryKey) ? Cookies.get(this.lastSearchedQueryKey) : ""} onChange={this.handleSearchTextChange} id="autocomplete-input" className="autocomplete search-query-field" />
+
+                            }} onFocus={() => {this.searchTabs.hide();}  } type="text" defaultValue = {Cookies.get(this.lastSearchedQueryKey) ? Cookies.get(this.lastSearchedQueryKey) : ""} onChange={this.handleSearchTextChange} id="autocomplete-input" className="autocomplete search-query-field" />
                             <label htmlFor="autocomplete-input">What do you want to buy?</label>
                         </div>
 
                     </div>
 
-                        <div className="switch" id="switch-container">
                             <button type="submit" className="input-group-addon btn waves-effect waves-light left" id="search-button">Movybe Search</button>
-<div id="main-switch">
-                            <label>
 
-                                <input className="tooltipped" data-position="bottom" defaultChecked="false" onChange={this.handleSearchTypeSwitch} type="checkbox" id="search-type-switch-button" data-tooltip ="Hey, watch where you're going"/>
-                                    <span className="lever"></span>
-                                    NG
-                            </label>
-</div>
-                    </div>
+                    <a className='dropdown-trigger btn-floating btn-large blue' href='#' data-target='settings-dropdown' id="settings-drop-down-link">More<span className="material-icons small" id="settings-more-icon">arrow_drop_down</span></a>
+
+    <ul id='settings-dropdown' className='dropdown-content'>
+        <li><a href="#" id="download-apk-link"><span className="small material-icons app-download-icon">vertical_align_bottom</span> Download APK</a></li>
+        <li className="divider" tabIndex="-1"></li>
+
+        <li id="local-search-setting">
+             <div className="switch">
+
+             <label>
+
+                 <span id="local-search-text" className="settings-text">Local Search</span>
+                 <input className="tooltipped"  defaultChecked={true} onChange={this.handleSearchTypeSwitch} type="checkbox" id="search-type-switch-button" />
+                 <span className="lever"></span>
+                  </label>
+             </div>
+         </li>
+        <li className="divider" tabIndex="-1"></li>
+
+        <li id="local-search-setting">
+            <div className="switch">
+
+                <label>
+
+        <span id="show-images-text" className="settings-text">Show images</span>
+        <input  defaultChecked={() => {return this.props.settings.showImages}}  onChange={this.toggleShowSearchImages} type="checkbox" id="toggle-search-images" />
+        <span className="lever toggle-search-images"></span>
+                </label>
+            </div>
+        </li>
+    </ul>
+
 
                 </form>
 </fieldset>
