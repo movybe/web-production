@@ -298,16 +298,30 @@ class  LocalSearchTab extends React.Component{
 
 
     componentDidMount() {
-        let tabs = $('.tabs#tabs');
         this.modal = $("#myModal");
-        tabs.tabs();
+
+        const defaultActions = () => {
+            let tabs = $('.tabs#tabs');
+            tabs.tabs();
+
+            $.getScript(defaults.lazyBG);
+
+            };
+
+
+        defaultActions();
+
+
+
 
         if (localStorage.getItem(defaults.savedState)) {
             let cookieObj = JSON.parse(localStorage.getItem(defaults.savedState));
-            this.props.switchWebsite(cookieObj);
-            let tabs = $('.tabs#tabs');
-            tabs.tabs();
-        }
+            if(this.props.switchWebsite(cookieObj)){
+
+                defaultActions();
+
+            }
+             }
     }
 
     saveImage = (alt , link , src) => {
@@ -348,6 +362,7 @@ class  LocalSearchTab extends React.Component{
             let showLocation;
             let showImages;
             let showPrice;
+            let bg;
             const template = (local.images.length) ? local.images.map((image, index) => {
                 let savedImage;
                 let imageSaved = false;
@@ -370,8 +385,12 @@ class  LocalSearchTab extends React.Component{
 
                  imageIndexInGallery = imageSaved ? this.props.gallery.indexOf(savedImage) : undefined;
 
-                 const style = {backgroundImage : `url(${local.images[index]})`};
-                  showImages = (this.props.settings.showImages) && local.images[index] != null ?  <div className="lazyload"   style={style}  title = {local.titles[index]} onClick={() => {return imageSaved ? this.modal.show() : null}} /> : null;
+                 bg = `${local.images[index]}`;
+                showImages = (this.props.settings.showImages) && local.images[index] != null ?
+                    <div className="image-container">
+                        <div className="blurred-bg lazyload" data-bgset={bg}></div>
+                    <div className="lazyload overlay" data-bgset={bg}  title = {local.titles[index]} onClick={() => {return imageSaved ? this.modal.show() : null}}></div>
+                    </div> : null;
                 showPrice = (local.prices[index]) ? <h5 className="green-text search-result-price">&#8358;{local.prices[index]}</h5> : <h5 className="green-text search-result-price">price not specified</h5>;
                   showLocation = local.locations[index].length ?
 

@@ -75,6 +75,7 @@ class Defaults {
         this.savedState = "savedState";
         this.localSearchCookieKey = "localSearch";
         this.showImagesCookieKey = "showImages";
+        this.lazyBG = "/assets/js/lazy-bg.js";
 
      }
 
