@@ -1,36 +1,49 @@
-function openModal() {
-    document.getElementById('myModal').style.display = "block";
-}
+class Modal {
 
-function closeModal() {
-    document.getElementById('myModal').style.display = "none";
-}
 
-var slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-    showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-    showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-    var i;
-    var slides = document.getElementsByClassName("mySlides");
-    var dots = document.getElementsByClassName("demo");
-    var captionText = document.getElementById("caption");
-    if (n > slides.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = slides.length}
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+    constructor()
+    {
+        this.modal = $('#myModal');
+        this.slides = $('.mySlides');
+        this.dots = $('.demo');
+        this.captionText = $('#caption');
+        this.slideIndex = 1;
     }
-    for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-    }
-    slides[slideIndex-1].style.display = "block";
-    dots[slideIndex-1].className += " active";
-    captionText.innerHTML = dots[slideIndex-1].alt;
+
+    openModal (){
+        this.modal.show();
+        return this;
+    };
+
+    closeModal () {
+        this.modal.hide();
+        return this;
+    };
+
+    showSlides (n) {
+        let i;
+        if (n > this.slides.length) {this.slideIndex = 1}
+        if (n < 1) {this.slideIndex = this.slides.length}
+        for (i = 0; i < this.slides.length; i++) {
+            this.slides[i].hide();
+        }
+        for (i = 0; i < this.dots.length; i++) {
+            this.dots[i].removeClass('active');
+        }
+        this.slides[this.slideIndex-1].show();
+        this.dots[this.slideIndex-1].addClass("active");
+        this.captionText.html(this.dots[this.slideIndex-1].attr('alt'));
+
+    };
+
+
+    plusSlides (n) {
+        this.showSlides(this.slideIndex += n);
+    };
+
+    currentSlide(n)  {
+        this.showSlides(this.slideIndex = n);
+        return this;
+    };
+
 }

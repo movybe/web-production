@@ -12,7 +12,7 @@ class Application extends React.Component{
     lastSearchedQueryKey = "lastSearchedQuery";
     enterValidKeywordsWarning = "Please enter valid keyword(s)";
     networkError = "failed to receive response, check your network connection";
-    
+
 
     constructor() {
         super();
@@ -82,6 +82,7 @@ class Application extends React.Component{
                             return;
 
                 }
+
 
 
                 let titles = response.contents.data.forEach((obj , index) => {
@@ -172,10 +173,11 @@ class Application extends React.Component{
 
                     response.contents.data.forEach(obj => {
 
+
                         defaultEcommerceWebsite.titles.push(obj.title.truncate(defaults.maxTitleLength));
                         defaultEcommerceWebsite.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
                         defaultEcommerceWebsite.images.push(obj.images[0].url);
-                        defaultEcommerceWebsite.prices.push(obj.price.value.raw.toLocaleString());
+                        defaultEcommerceWebsite.prices.push(obj.price ? obj.price.value.raw.toLocaleString() : 0);
                         defaultEcommerceWebsite.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
                         defaultEcommerceWebsite.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
                         defaultEcommerceWebsite.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength));
@@ -191,9 +193,6 @@ class Application extends React.Component{
 
                     defaultEcommerceWebsite.page += 1;
                     let savedState = {...this.props , q : this.searchQuery.split(" ").join("+") , query : this.searchQuery , locale : previousLocale , currentWebsite : defaultEcommerceWebsiteShortName};
-
-                    localStorage.setItem(defaults.savedState , JSON.stringify(savedState));
-
                     if(this.props.newDefaultSearchResult(savedState)){
 
                         //Switch the tab to the default behaviour;
@@ -365,17 +364,10 @@ class Application extends React.Component{
      toggleShowSearchImages = (e) => {
          let checked = e.target.checked;
 
-         let savedState = {...this.props ,  settings : {...this.props.settings , showImages: checked}};
+         let savedState = {...this.props, settings: {...this.props.settings, showImages: checked}};
 
 
-         if(this.props.switchWebsite(savedState)){
-
-             localStorage.setItem(defaults.showImagesCookieKey , JSON.stringify(savedState));
-         }
-
-
-
-
+         this.props.switchWebsite(savedState);
 
      };
 

@@ -13,6 +13,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>materialize.min.css" type="text/css" />
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>material-icons.css" type="text/css" />
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>main.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>lightbox.css" type="text/css" />
+
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>footer.css" type="text/css" />
     <link rel="icon" type="image/png" href="<?php echo $website_details->IMG_FOLDER;?>m.png" />
     <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>babel.min.js"></script>
@@ -20,8 +22,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>react-dom.development.js"></script>
     <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>redux.min.js"></script>
     <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>react-redux.min.js"></script>
-
-</head>
+   </head>
 <body>
 <main class ="container">
     <div class ="section no-pad-bot" id="index-banner">

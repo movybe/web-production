@@ -108,7 +108,6 @@ class  LocalSearchTab extends React.Component{
 
 
                         savedState = {...this.props , locale : previousLocale , currentWebsite : website};
-                        localStorage.setItem(defaults.savedState , JSON.stringify(savedState));
 
                         if(this.props.switchWebsite(savedState)
                     )
@@ -172,7 +171,6 @@ class  LocalSearchTab extends React.Component{
                         this.props.locale[index] = selectedEcommerce;
                         let previousLocale = this.props.locale;
                         savedState = {...this.props , locale : previousLocale , currentWebsite : website};
-                        localStorage.setItem(defaults.savedState , JSON.stringify(savedState));
 
                         if (this.props.switchWebsite(savedState)
                         ) {
@@ -217,7 +215,6 @@ class  LocalSearchTab extends React.Component{
                     this.props.locale[index] = selectedEcommerce;
                     let previousLocale = this.props.locale;
                     savedState = {...this.props , locale : previousLocale , currentWebsite : website};
-                    localStorage.setItem(defaults.savedState , JSON.stringify(savedState));
 
                     if (this.props.switchWebsite(savedState)
                     ) {
@@ -278,7 +275,6 @@ class  LocalSearchTab extends React.Component{
                         let previousLocale = this.props.locale;
 
                         savedState = {...this.props , locale : previousLocale , currentWebsite : website};
-                        localStorage.setItem(defaults.savedState , JSON.stringify(savedState));
                         if(this.props.switchWebsite(savedState)
                         )
                         {
@@ -300,16 +296,27 @@ class  LocalSearchTab extends React.Component{
     };
 
 
+
     componentDidMount() {
         let tabs = $('.tabs#tabs');
+        this.modal = $("#myModal");
         tabs.tabs();
+
         if (localStorage.getItem(defaults.savedState)) {
             let cookieObj = JSON.parse(localStorage.getItem(defaults.savedState));
-            if (this.props.switchWebsite(cookieObj)) {
-
-            }
+            this.props.switchWebsite(cookieObj);
+            let tabs = $('.tabs#tabs');
+            tabs.tabs();
         }
     }
+
+    saveImage = (alt , link , src) => {
+
+       this.props.switchWebsite({...this.props , gallery: [...this.props.gallery , {alt , link , src}]});
+
+        M.toast({html: "Image saved Successfully"});
+
+    };
 
     render() {
 
@@ -336,18 +343,45 @@ class  LocalSearchTab extends React.Component{
         const tabContainers = locale.map(local => {
 
 
+
+
             let showLocation;
             let showImages;
+            let showPrice;
             const template = (local.images.length) ? local.images.map((image, index) => {
-                showImages = (this.props.settings.showImages) && local.images[index] != null ?  <img className="lazyload" src = "/assets/img/blank.gif" data-src = {local.images[index]}   /> : null;
-               showLocation = local.locations[index].length ?
+                let savedImage;
+                let imageSaved = false;
+                let imageIndexInGallery;
+
+                savedImage = this.props.gallery.find((imageObject , index)=> {
+
+                     const imageUndefined = image === imageObject.src;
+
+
+                         imageIndexInGallery = imageUndefined? image : index;
+
+
+                         return imageUndefined;
+                 });
+
+
+                 imageSaved = savedImage !== undefined;
+
+
+                 imageIndexInGallery = imageSaved ? this.props.gallery.indexOf(savedImage) : undefined;
+
+                 const style = {backgroundImage : `url(${local.images[index]})`};
+                  showImages = (this.props.settings.showImages) && local.images[index] != null ?  <div className="lazyload"   style={style}  title = {local.titles[index]} onClick={() => {return imageSaved ? this.modal.show() : null}} /> : null;
+                showPrice = (local.prices[index]) ? <h5 className="green-text search-result-price">&#8358;{local.prices[index]}</h5> : <h5 className="green-text search-result-price">price not specified</h5>;
+                  showLocation = local.locations[index].length ?
+
                    <span className="search-result-locations blue-grey-text"><i
                        className="tiny material-icons search-location-icons">location_on</i>{local.locations[index]}</span> : null;
                 return (
 
                     <div className="search-result" key = {Math.random()}>
 
-                        <h5 className="green-text search-result-price">&#8358;{local.prices[index]}</h5>
+                        {showPrice}
 
                         <h3 className="search-result-title-header"><a target="_blank" className="search-result-title-link"
                                                                       href={local.links[index]}>
@@ -361,8 +395,8 @@ class  LocalSearchTab extends React.Component{
 {local.descriptions[index]}
 </span>
                         {showImages}
-                        <span className="search-result-images blue-text" data-image={local.images[index]}><i
-                            className="tiny material-icons search-image-icons">image</i> Save Image</span>
+                        <span className="search-result-images blue-text" onClick={  imageSaved ? null : () => {this.saveImage(local.titles[index] , local.links[index] , image)}} data-image={local.images[index]}><i
+                            className="tiny material-icons search-image-icons">image</i> {  imageSaved ? "Image Saved" : "Save Image"} </span>
 {showLocation}
 
 
@@ -405,6 +439,7 @@ class  LocalSearchTab extends React.Component{
                     {tabList}
                 </ul>
                 {tabContainers}
+                <LightBox />
             </div>
         );
 

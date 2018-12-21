@@ -8,6 +8,7 @@ class Config {
     //initialLocalSearchCookieValue = Cookies.get(defaults.localSearchCookieKey) != undefined ? Cookies.get(defaults.localSearchCookieKey) != "false" : true;
     //initialShowImagesCookieValue = Cookies.get(defaults.showImagesCookieKey) != undefined ? Cookies.get(defaults.showImagesCookieKey) != "false" : true;
     state = {
+        gallery : [] ,
         settings : {localSearch: true , showImages : true} ,
         query : null ,
         q : null,
@@ -31,6 +32,7 @@ class Config {
         switch (action.type) {
             case 'NEW_DEFAULT_SEARCH_RESULT' :
             case  'SWITCH_WEBSITE' :
+                localStorage.setItem(defaults.savedState , JSON.stringify(action.state));
                 return action.state;
                 break;
             case 'FORM_SUBMITTED' :
