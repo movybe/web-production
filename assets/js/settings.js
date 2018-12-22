@@ -70,7 +70,7 @@ class Defaults {
         this.websiteLiLinks = "website-li-links";
         this.liLink = "li-link";
         this.noDataError = "Failed to load data";
-        this.networkError = "Try checking your internet connection";
+        this.networkError = "No Results found, check your connection";
 
         this.savedState = "savedState";
         this.localSearchCookieKey = "localSearch";

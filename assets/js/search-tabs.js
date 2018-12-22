@@ -10,7 +10,7 @@ class  LocalSearchTab extends React.Component{
 
 
 
-    switchToWebsite = (website , index)=> {
+    switchToWebsite = (website , index , loadMore = false)=> {
 
         let selectedEcommerce = this.props.locale.find(local => local.shortName == website
         );
@@ -20,8 +20,10 @@ class  LocalSearchTab extends React.Component{
             selectedEcommerce.error = defaults.noDataError;
             selectedEcommerce.page +=1;
 
+            selectedEcommerce.loadMore = false;
             this.props.locale[index] = selectedEcommerce;
             if (this.props.switchWebsite({...this.props, locale: this.props.locale, currentWebsite: website})) {
+
 
                 $("." + defaults.searchResultPreloaders).hide();
                 M.toast({html: defaults.networkError});
@@ -40,14 +42,15 @@ class  LocalSearchTab extends React.Component{
         $("."  + defaults.searchResultPreloaders).hide();
 
         //Resetting all the arrays of the selected E-commerce website
-        Object.keys(selectedEcommerce).map( key => {
+        if(loadMore) {
+            Object.keys(selectedEcommerce).map(key => {
 
-            return Array.isArray(selectedEcommerce[key]) ? selectedEcommerce[key] = [] : null;
+                return Array.isArray(selectedEcommerce[key]) ? selectedEcommerce[key] = [] : null;
 
-        });
-
+            });
+        }
         $("#" + website + "-" + defaults.searchResultPreloader).show();
-        var savedState;
+        let savedState;
         switch (website) {
 
             case 'jiji' :
@@ -341,6 +344,7 @@ class  LocalSearchTab extends React.Component{
 
     };
 
+
     render() {
 
 
@@ -363,9 +367,21 @@ class  LocalSearchTab extends React.Component{
         });
 
 
-        const tabContainers = locale.map(local => {
+        const tabContainers = locale.map((local , pos)  => {
 
+            let loadMoreButton = (local.loadMore) ?
+                <div className="load-more-action-button-wrapper">
+                <a className="waves-effect waves-light btn-small load-more-action" onClick={
+                    e => {
 
+                        $(e.target).addClass('disabled');
+                        if(this.switchToWebsite(local.shortName , pos , true))
+                        {
+                            $(e.target).removeClass('disabled');
+                        }
+                    }
+                } id = {local.shortName + "-load-more-action"}><i className="material-icons left">refresh</i><span>More</span></a>
+                </div> : null;
 
 
             let showLocation;
@@ -449,6 +465,7 @@ class  LocalSearchTab extends React.Component{
 
                         {template}
 
+                        {loadMoreButton}
                     </div>
 
 
@@ -466,6 +483,7 @@ class  LocalSearchTab extends React.Component{
                     {tabList}
                 </ul>
                 {tabContainers}
+
 
             </div>
         );

@@ -188,6 +188,7 @@ class Application extends React.Component{
                     this.props.locale.forEach(local => {
                        local.page =0;
                        local.error = null;
+                       local.loadMore = true;
                     });
 
 
