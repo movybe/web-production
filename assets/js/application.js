@@ -405,7 +405,7 @@ class Application extends React.Component{
 
         const linkToSavedGallery = gallery.length ?
 
-            <li><span className="gallery-2"><span className="gallery-images-link your-gallery" href={gallery[gallery.length -1].src} data-caption = {gallery[gallery.length -1].alt}><i className="tiny material-icons search-image-icons">image</i> Your gallery</span></span><Gallery /></li> : null;
+            <li><span className="gallery-2"><span className="gallery-images-link your-gallery" href={gallery[gallery.length -1].src} data-caption ={`<a href = '${gallery[gallery.length -1].link}'>${gallery[gallery.length -1].alt}</a>`}><i className="tiny material-icons search-image-icons">image</i> Your gallery</span></span><Gallery /></li> : null;
 
         return (
 

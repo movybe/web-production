@@ -21,7 +21,7 @@ class Gallery extends React.Component{
         const images = gallery.map((image , index) => {
 
 
-           return index < gallery.length -1 ? <span key = {Math.random()} className="gallery-images-link" href={image.src} data-caption = {image.alt}></span> : null;
+           return index < gallery.length -1 ? <span key = {Math.random()} className="gallery-images-link" href={image.src} data-caption = {`<a href = '${image.link}'>${image.alt}</a>`}></span> : null;
         });
 
         return (

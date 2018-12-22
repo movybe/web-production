@@ -81,7 +81,7 @@
                 var caption = $(plugin.current).data('caption');
                 if (!!caption && caption.length > 0) {
                     plugin.caption.fadeIn();
-                    $('p', plugin.caption).text(caption);
+                    $('p', plugin.caption).html(caption);
                 } else {
                     plugin.caption.hide();
                 }
