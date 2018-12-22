@@ -287,3 +287,7 @@ div.image-container{
     position: relative;
     top : 7px;
 }
+
+.your-gallery{
+    font-size: 15px;
+}

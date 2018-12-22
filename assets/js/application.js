@@ -305,6 +305,16 @@ class Application extends React.Component{
     };
 
 
+    defaultAction = () => {
+        $('.tabs').tabs();
+        $('.gallery-2 span.gallery-images-link').lightbox();
+
+    };
+
+    componentDidUpdate() {
+
+        this.defaultAction();
+    }
     //Toggles the Switch button automatically depending on the value of the 'localSearchCookieKey' variable
 
     componentDidMount () {
@@ -323,7 +333,8 @@ class Application extends React.Component{
         let  searchTypeSwitchButton = $("#search-type-switch-button");
         this.searchQueryField.focus();
 
-        $('.tabs').tabs();
+        this.defaultAction();
+
         $('.dropdown-trigger').dropdown({alignment : 'right' , coverTrigger : false , closeOnClick : false , container : document.getElementById(this.searchFormFieldSet.attr('id'))});
         //I want to get the auto-complete data from the cookies
 
@@ -386,6 +397,15 @@ class Application extends React.Component{
         */
 
 
+        const {gallery} = this.props;
+        const images = gallery.map(image => {
+
+            return <span key={Math.random()} className="gallery-images-link" href={image.src} data-caption = {image.alt}></span>
+        });
+
+        const linkToSavedGallery = gallery.length ?
+
+            <li><span className="gallery-2"><span className="gallery-images-link your-gallery" href={gallery[gallery.length -1].src} data-caption = {gallery[gallery.length -1].alt}><i className="tiny material-icons search-image-icons">image</i> Your gallery</span></span><Gallery /></li> : null;
 
         return (
 
@@ -443,6 +463,8 @@ class Application extends React.Component{
                 </label>
             </div>
         </li>
+        <li className="divider" tabIndex="-1"></li>
+        {linkToSavedGallery}
     </ul>
 
 

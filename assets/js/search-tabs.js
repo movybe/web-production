@@ -150,7 +150,7 @@ class  LocalSearchTab extends React.Component{
 
                             title = $.trim($(this).find('.name').text()).truncate(defaults.maxTitleLength);
                             description = $.trim($(this).find('.name').text()).truncate(defaults.maxDescriptionLength);
-                            image = $.trim($(this).find('.lazy.image').attr('src'));
+                            image = $.trim($(this).find('.lazy.image').attr('data-src'));
                             price = $.trim($(this).find('.price').first().text().replace(/^\D+/g, '')).toLocaleString();
                             link = $(this).find('.link').attr('href');
 
@@ -305,13 +305,13 @@ class  LocalSearchTab extends React.Component{
    defaultActions = () => {
         let tabs = $('.tabs#tabs');
         tabs.tabs();
+       $('.gallery span.modal-link').lightbox();
 
 
 
     };
 
    componentDidUpdate() {
-       $('.gallery span.modal-link').lightbox();
        this.defaultActions();
    }
     componentDidMount() {
@@ -329,7 +329,6 @@ class  LocalSearchTab extends React.Component{
             if(this.props.switchWebsite(cookieObj)){
 
                 this.defaultActions();
-                $('.gallery span.modal-link').lightbox();
             }
              }
     }
@@ -338,7 +337,7 @@ class  LocalSearchTab extends React.Component{
 
        this.props.switchWebsite({...this.props , gallery: [...this.props.gallery , {alt , link , src}]});
 
-        M.toast({html: "Image saved Successfully"});
+        M.toast({html: "image added to your gallery"});
 
     };
 
@@ -376,14 +375,12 @@ class  LocalSearchTab extends React.Component{
             const template = (local.images.length) ? local.images.map((image, index) => {
                 let savedImage;
                 let imageSaved = false;
-                let imageIndexInGallery;
 
                 savedImage = this.props.gallery.find((imageObject , index)=> {
 
                      const imageUndefined = image === imageObject.src;
 
 
-                         imageIndexInGallery = imageUndefined? image : index;
 
 
                          return imageUndefined;
@@ -393,7 +390,6 @@ class  LocalSearchTab extends React.Component{
                  imageSaved = savedImage !== undefined;
 
 
-                 imageIndexInGallery = imageSaved ? this.props.gallery.indexOf(savedImage) : undefined;
 
                  bg = `${local.images[index]}`;
                 showImages = (this.props.settings.showImages) && local.images[index] != null ?
@@ -426,7 +422,7 @@ class  LocalSearchTab extends React.Component{
 {local.descriptions[index]}
 </span>
                         {showImages}
-                        <a download = {local.titles[index]} target="_blank" href={image} onClick={this.forceDownloadFile}    className="image-download-link search-result-images blue-text"><i
+                        <a download = {local.titles[index]} target="_blank" href={image}     className="image-download-link search-result-images blue-text"><i
                             className="tiny material-icons search-image-icons">image</i> {  imageSaved ? "Image Saved" : "Save Image"}</a>
 {showLocation}
 
@@ -470,7 +466,7 @@ class  LocalSearchTab extends React.Component{
                     {tabList}
                 </ul>
                 {tabContainers}
-                <Gallery />
+
             </div>
         );
 
