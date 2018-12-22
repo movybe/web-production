@@ -13,7 +13,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>materialize.min.css" type="text/css" />
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>material-icons.css" type="text/css" />
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>main.css" type="text/css" />
-    <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>lightbox.css" type="text/css" />
+    <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>jquery.lightbox.css" />
 
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>footer.css" type="text/css" />
     <link rel="icon" type="image/png" href="<?php echo $website_details->IMG_FOLDER;?>m.png" />

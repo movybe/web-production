@@ -327,6 +327,7 @@ class Application extends React.Component{
         $('.dropdown-trigger').dropdown({alignment : 'right' , coverTrigger : false , closeOnClick : false , container : document.getElementById(this.searchFormFieldSet.attr('id'))});
         //I want to get the auto-complete data from the cookies
 
+
         this.autoCompleteData = {};
 
         if(Cookies.get(this.cookiesQueryKey)){
@@ -335,6 +336,7 @@ class Application extends React.Component{
                 this.autoCompleteData[data] = null;
             });
         }
+
 
         if(localStorage.getItem(defaults.savedState)) {
             let cookieObj = JSON.parse(localStorage.getItem(defaults.savedState));

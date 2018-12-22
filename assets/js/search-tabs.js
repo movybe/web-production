@@ -295,21 +295,31 @@ class  LocalSearchTab extends React.Component{
 
     };
 
+    preventDefault = (e) => {
+
+        e.preventDefault();
+
+    };
 
 
+   defaultActions = () => {
+        let tabs = $('.tabs#tabs');
+        tabs.tabs();
+
+
+
+    };
+
+   componentDidUpdate() {
+       $('.gallery span.modal-link').lightbox();
+       this.defaultActions();
+   }
     componentDidMount() {
         this.modal = $("#myModal");
 
-        const defaultActions = () => {
-            let tabs = $('.tabs#tabs');
-            tabs.tabs();
-
-            $.getScript(defaults.lazyBG);
-
-            };
 
 
-        defaultActions();
+        this.defaultActions();
 
 
 
@@ -318,8 +328,8 @@ class  LocalSearchTab extends React.Component{
             let cookieObj = JSON.parse(localStorage.getItem(defaults.savedState));
             if(this.props.switchWebsite(cookieObj)){
 
-                defaultActions();
-
+                this.defaultActions();
+                $('.gallery span.modal-link').lightbox();
             }
              }
     }
@@ -387,10 +397,12 @@ class  LocalSearchTab extends React.Component{
 
                  bg = `${local.images[index]}`;
                 showImages = (this.props.settings.showImages) && local.images[index] != null ?
-                    <div className="image-container">
+<span className="modal-link"  data-caption = {local.titles[index]} href = {local.images[index]}>
+                    <div className="image-container" onClick={  imageSaved ? null : () => {this.saveImage(local.titles[index] , local.links[index] , image)}} data-image={local.images[index]}>
                         <div className="blurred-bg lazyload" data-bgset={bg}></div>
-                    <div className="lazyload overlay" data-bgset={bg}  title = {local.titles[index]} onClick={() => {return imageSaved ? this.modal.show() : null}}></div>
-                    </div> : null;
+                    <div className="lazyload overlay" data-bgset={bg}  title = {local.titles[index]} onClick={() => {return imageSaved ? null : null}}></div>
+                    </div>
+    </span>: null;
                 showPrice = (local.prices[index]) ? <h5 className="green-text search-result-price">&#8358;{local.prices[index]}</h5> : <h5 className="green-text search-result-price">price not specified</h5>;
                   showLocation = local.locations[index].length ?
 
@@ -414,8 +426,8 @@ class  LocalSearchTab extends React.Component{
 {local.descriptions[index]}
 </span>
                         {showImages}
-                        <span className="search-result-images blue-text" onClick={  imageSaved ? null : () => {this.saveImage(local.titles[index] , local.links[index] , image)}} data-image={local.images[index]}><i
-                            className="tiny material-icons search-image-icons">image</i> {  imageSaved ? "Image Saved" : "Save Image"} </span>
+                        <a download = {local.titles[index]} target="_blank" href={image} onClick={this.forceDownloadFile}    className="image-download-link search-result-images blue-text"><i
+                            className="tiny material-icons search-image-icons">image</i> {  imageSaved ? "Image Saved" : "Save Image"}</a>
 {showLocation}
 
 
@@ -425,7 +437,7 @@ class  LocalSearchTab extends React.Component{
 
             return (
 
-                <div id={local.shortName} className="col s12" key={local.name}>
+                <div id={local.shortName} className="col s12 gallery" key={local.name}>
 
                     <p className={`flow-text ${local.textColor}-text`}>{local.name}</p>
                     <div className={"container " + defaults.searchResultPreloaders}
@@ -458,7 +470,7 @@ class  LocalSearchTab extends React.Component{
                     {tabList}
                 </ul>
                 {tabContainers}
-                <LightBox />
+                <Gallery />
             </div>
         );
 

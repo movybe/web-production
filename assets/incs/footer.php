@@ -17,7 +17,19 @@
 <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>materialize.min.js"></script>
 <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>settings.js"></script>
 <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>test.js"></script>
-<script type="text/babel"  src="<?php echo $website_details->JS_FOLDER;?>lightbox.js"></script>
+<script type="text/javascript"  src="<?php echo $website_details->JS_FOLDER;?>jquery.lightbox.js"></script>
+<script async>
+    $(function()
+    {
+        $('.gallery span.modal-link').lightbox();
+
+        // If you want seperate galleries on the same page
+        // just specify different class names.
+        //$('.gallery-2 a').lightbox();
+
+    });
+</script>
+<script type="text/babel"  src="<?php echo $website_details->JS_FOLDER;?>gallery.js"></script>
 <script type="text/babel" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>search-tabs.js"></script>
 <script type="text/babel" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>application.js"></script>
 <script type="text/babel" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>config.js"></script>

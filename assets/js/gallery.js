@@ -1,4 +1,4 @@
-class LightBox extends React.Component{
+class Gallery extends React.Component{
 
 
 
@@ -9,7 +9,7 @@ class LightBox extends React.Component{
         const slides = gallery.map((image, index) => {
         return(
             <div className="mySlides" key = {Math.random()}>
-                <div className="numbertext">`${index + 1} / ${gallery.length}`</div>
+                <div className="numbertext">{(index + 1) +  "/" +  (gallery.length)}</div>
                 <img className="slide-images" src={image.src} />
             </div>
         );
@@ -32,7 +32,7 @@ class LightBox extends React.Component{
 
             return (
                 <div className="column" key = {Math.random()}>
-                    <img className="demo cursor" src={image.src}  onClick={() => this.currentSlide(index)}
+                    <img className="demo cursor" src={image.src}  onClick={() => this.modalController.currentSlide(index)}
                          alt={image.alt} />
                 </div>
             )
@@ -41,13 +41,13 @@ class LightBox extends React.Component{
 
         return (
             <div id="myModal" className="modal">
-                <span className="close cursor" onClick={() => this.closeModal()}>&times;</span>
+                <span className="close cursor" onClick={() => this.modalController.closeModal()}>&times;</span>
                 <div className="modal-content">
 
 
                     {slides}
-                    <a className="prev" onClick={() => this.plusSlides(-1)}>&#10094;</a>
-                    <a className="next" onClick= {() => this.plusSlides(1)}>&#10095;</a>
+                    <a className="prev" onClick={() => this.modalController.plusSlides(-1)}>&#10094;</a>
+                    <a className="next" onClick= {() => this.modalController.plusSlides(1)}>&#10095;</a>
 
                     <div className="caption-container">
                         <p id="caption"></p>
@@ -69,4 +69,4 @@ let mapPropsToState =  state => {
 
 let {connect} = ReactRedux;
 
-LightBox = connect(mapPropsToState)(LightBox);
+Gallery = connect(mapPropsToState)(Gallery);
