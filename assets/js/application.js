@@ -170,7 +170,7 @@ class Application extends React.Component {
                     locale: previousLocale,
                     currentWebsite: defaultEcommerceWebsiteShortName
                 };
-                if (this.props.newDefaultSearchResult(savedState)) {
+                if (this.props.newDefaultSearchResult(...savedState , processingAction : false)) {
 
                     //Switch the tab to the default behaviour;
                     this.formSubmitted = true;

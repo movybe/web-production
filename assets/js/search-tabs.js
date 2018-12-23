@@ -253,6 +253,8 @@ class  LocalSearchTab extends React.Component{
 
                     let html = $(response.contents).find('.post');
 
+
+
                     if(!html.length) return showError();
 
 
@@ -299,11 +301,54 @@ class  LocalSearchTab extends React.Component{
                     }
 
 
+
                 });
 
+                break;
+
+            case 'olx' :
+                url = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${q}&page=${pageNumber}&user=165548cb5dcx2e53159d`;
+
+                console.log(url);
+                $.get(defaults.crawler, {url}, response => {
 
 
-        }
+                    if (!response.contents || response.contents.data.length ) {
+                       return showError();
+                    }
+
+
+                    {
+
+
+                        response.contents.data.forEach(obj => {
+
+
+                            selectedEcommerce.titles.push(obj.title.truncate(defaults.maxTitleLength));
+                            selectedEcommerce.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
+                            selectedEcommerce.images.push(obj.images[0].url);
+                            selectedEcommerce.prices.push(obj.price ? obj.price.value.raw.toLocaleString() : 0);
+                            selectedEcommerce.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
+                            selectedEcommerce.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
+                            selectedEcommerce.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength));
+                        });
+
+
+                        selectedEcommerce.page = selectedEcommerce.page + 1;
+
+                        this.props.locale[index] = selectedEcommerce;
+                        let previousLocale = this.props.locale;
+
+                        savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+
+                        defaultAction();
+
+                    }
+
+                    });
+
+
+                }
 
 
 
@@ -339,7 +384,7 @@ class  LocalSearchTab extends React.Component{
 
         if (localStorage.getItem(defaults.savedState)) {
             let cookieObj = JSON.parse(localStorage.getItem(defaults.savedState));
-            if(this.props.switchWebsite(cookieObj)){
+            if(this.props.switchWebsite({...cookieObj , processingAction : false})){
 
                 this.defaultActions();
             }
