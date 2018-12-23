@@ -2,13 +2,13 @@
 
 //https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=samsung+galaxy+s7+edge&page=1&user=165548cb5dcx2e53159d
 
-class Application extends React.Component{
-    
+class Application extends React.Component {
+
     lastSearchQuery = null;
     formSubmitted = false;
     cookiesQueryKey = "queries";
-    enabledFormFieldSet = ["disabled" , false];
-    disabledFormFieldSet = ["disabled" , true];
+    enabledFormFieldSet = ["disabled", false];
+    disabledFormFieldSet = ["disabled", true];
     lastSearchedQueryKey = "lastSearchedQuery";
     enterValidKeywordsWarning = "Please enter valid keyword(s)";
     networkError = "failed to receive response, check your network connection";
@@ -19,7 +19,6 @@ class Application extends React.Component{
     }
 
 
-
     handleSearchFormSubmit = (e) => {
 
         this.formSubmitted = false;
@@ -28,8 +27,7 @@ class Application extends React.Component{
         this.searchQuery = this.searchQueryField.val();
 
 
-
-        if(!this.searchQuery.length) return;
+        if (!this.searchQuery.length) return;
 
         this.replaceSearchText();
 
@@ -41,7 +39,7 @@ class Application extends React.Component{
 
         this.searchQuery = searchQueryToArray.join(" ");
 
-        let data = {query : this.searchQuery};
+        let data = {query: this.searchQuery};
         data = JSON.stringify(data);
 
 
@@ -54,167 +52,140 @@ class Application extends React.Component{
         let validTitles = [];
 
 
+        let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
 
 
+        //let searchFilterUrl = 'http://localhost:2021/filter.php';//
+        // Hide the preloaders just in case
+
+        $('.' + defaults.searchResultPreloaders).hide();
+
+        $.get(defaults.crawler, {url: searchFilterUrl}, response => {
 
 
-          let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${this.searchQuery.split(" ").join("+")}&page=1&user=165548cb5dcx2e53159d`;
+            if (!response.contents) {
+                return this.searchFormFieldSet.prop(...this.enabledFormFieldSet) && M.toast({html: this.networkError});
+            }
+
+            else if (!response.contents.data.length) {
 
 
-  //let searchFilterUrl = 'http://localhost:2021/filter.php';//
-            // Hide the preloaders just in case
+                M.toast({html: this.enterValidKeywordsWarning});
+                this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
 
-            $('.' + defaults.searchResultPreloaders).hide();
+                return;
 
-            $.get(defaults.crawler , {url : searchFilterUrl} , response => {
-
-
-                if(!response.contents){
-                    return this.searchFormFieldSet.prop(...this.enabledFormFieldSet) && M.toast({html: this.networkError});
-                }
-
-                else if(!response.contents.data.length) {
+            }
 
 
-                            M.toast({html: this.enterValidKeywordsWarning});
-                            this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
-
-                            return;
-
-                }
-
-
-
-                let titles = response.contents.data.forEach((obj , index) => {
-                    let currentTitle = obj.title.toLowerCase();
-                    let currentTitleToArray = currentTitle.split(" ");
-                    currentTitleToArray.forEach((word) => {
-                        if(validTitles.indexOf(word) < 0){
-                            validTitles.push(word);
-                        }
-                    });
-
+            let titles = response.contents.data.forEach((obj, index) => {
+                let currentTitle = obj.title.toLowerCase();
+                let currentTitleToArray = currentTitle.split(" ");
+                currentTitleToArray.forEach((word) => {
+                    if (validTitles.indexOf(word) < 0) {
+                        validTitles.push(word);
+                    }
                 });
 
-                //Filter the user search query
+            });
 
-                searchQueryToArray = this.searchQuery.split(" ");
-                searchQueryToArray =  searchQueryToArray.filter((word , index) => {
+            //Filter the user search query
 
-
-                    return validTitles.indexOf(word) >= 0 &&  searchQueryToArray[index] !== searchQueryToArray[index + 1];
-                });
+            searchQueryToArray = this.searchQuery.split(" ");
+            searchQueryToArray = searchQueryToArray.filter((word, index) => {
 
 
-                this.searchQuery = searchQueryToArray.join(" ");
-
-                if(!this.searchQuery.length) {
-                    this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
-                    M.toast({html: this.enterValidKeywordsWarning});
-                    this.formSubmitted = false;
-
-                    return;
-                }
-
-
-                this.searchQueryField.val(this.searchQuery);
-
-
-                $.post(defaults.queryProcessor , {data : data} , (t) => {
-
-                    if(Cookies.get(this.cookiesQueryKey)){
-
-                        let cookiesObject = JSON.parse(Cookies.get(this.cookiesQueryKey));
-
-
-
-                        if(cookiesObject.indexOf(this.searchQuery))cookiesObject.push(this.searchQuery);
-
-
-                        Cookies.set(this.cookiesQueryKey ,JSON.stringify(cookiesObject) , {expires : 365});
-                    }
-
-                    else {
-
-                        Cookies.set(this.cookiesQueryKey , JSON.stringify([this.searchQuery] , {expires : 365}));
-
-                    }
-
-                    Cookies.set(this.lastSearchedQueryKey , this.searchQuery , {expires : 7});
-
-
-                    this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
-
-
-                    let action = this.props.localSearch ? (this.localSearchTabContainer.show()) : null;
-
-                    this.lastSearchQuery = this.searchQuery;
-                    this.switchContainer.hide();
-
-
-                    this.props.locale.forEach( obj => {
-
-                        Object.keys(obj).map(key => {
-
-                            if(Array.isArray(obj[key])){
-                                obj[key] = [];
-                            }
-                        })
-
-
-                    });
-
-                    let defaultEcommerceWebsite = this.props.locale[0];
-                    let defaultEcommerceWebsiteShortName  = defaultEcommerceWebsite.shortName;
-
-
-
-
-
-                    response.contents.data.forEach(obj => {
-
-
-                        defaultEcommerceWebsite.titles.push(obj.title.truncate(defaults.maxTitleLength));
-                        defaultEcommerceWebsite.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
-                        defaultEcommerceWebsite.images.push(obj.images[0].url);
-                        defaultEcommerceWebsite.prices.push(obj.price ? obj.price.value.raw.toLocaleString() : 0);
-                        defaultEcommerceWebsite.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
-                        defaultEcommerceWebsite.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
-                        defaultEcommerceWebsite.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength));
-                                            });
-
-                    let previousLocale = this.props.locale;
-                    //reset the pages to 0;
-                    this.props.locale.forEach(local => {
-                       local.page =0;
-                       local.error = null;
-                       local.loadMore = true;
-                    });
-
-
-                    defaultEcommerceWebsite.page += 1;
-                    let savedState = {...this.props , q : this.searchQuery.split(" ").join("+") , query : this.searchQuery , locale : previousLocale , currentWebsite : defaultEcommerceWebsiteShortName};
-                    if(this.props.newDefaultSearchResult(savedState)){
-
-                        //Switch the tab to the default behaviour;
-                        this.formSubmitted = true;
-                        this.searchQueryField.blur();
-                        this.searchTabs.show();
-
-                        $('#tabs.tabs').tabs('select', defaultEcommerceWebsiteShortName);
-
-                    }
-                    
-                });
-                
+                return validTitles.indexOf(word) >= 0 && searchQueryToArray[index] !== searchQueryToArray[index + 1];
             });
 
 
+            this.searchQuery = searchQueryToArray.join(" ");
+
+            if (!this.searchQuery.length) {
+                this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
+                M.toast({html: this.enterValidKeywordsWarning});
+                this.formSubmitted = false;
+
+                return;
+            }
 
 
+            this.searchQueryField.val(this.searchQuery);
 
 
-       
+            $.post(defaults.queryProcessor, {data: data}, (t) => {
+
+
+                this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
+
+
+                let action = this.props.localSearch ? (this.localSearchTabContainer.show()) : null;
+
+                this.lastSearchQuery = this.searchQuery;
+                this.switchContainer.hide();
+
+
+                this.props.locale.forEach(obj => {
+
+                    Object.keys(obj).map(key => {
+
+                        if (Array.isArray(obj[key])) {
+                            obj[key] = [];
+                        }
+                    })
+
+
+                });
+
+                let defaultEcommerceWebsite = this.props.locale[0];
+                let defaultEcommerceWebsiteShortName = defaultEcommerceWebsite.shortName;
+
+
+                response.contents.data.forEach(obj => {
+
+
+                    defaultEcommerceWebsite.titles.push(obj.title.truncate(defaults.maxTitleLength));
+                    defaultEcommerceWebsite.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
+                    defaultEcommerceWebsite.images.push(obj.images[0].url);
+                    defaultEcommerceWebsite.prices.push(obj.price ? obj.price.value.raw.toLocaleString() : 0);
+                    defaultEcommerceWebsite.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
+                    defaultEcommerceWebsite.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
+                    defaultEcommerceWebsite.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength));
+                });
+
+                let previousLocale = this.props.locale;
+                //reset the pages to 0;
+                this.props.locale.forEach(local => {
+                    local.page = 0;
+                    local.error = null;
+                    local.loadMore = true;
+                });
+
+
+                defaultEcommerceWebsite.page += 1;
+                let savedState = {
+                    ...this.props,
+                    q: this.searchQuery.split(" ").join("+"),
+                    query: this.searchQuery,
+                    locale: previousLocale,
+                    currentWebsite: defaultEcommerceWebsiteShortName
+                };
+                if (this.props.newDefaultSearchResult(savedState)) {
+
+                    //Switch the tab to the default behaviour;
+                    this.formSubmitted = true;
+                    this.searchQueryField.blur();
+                    this.searchTabs.show();
+
+                    $('#tabs.tabs').tabs('select', defaultEcommerceWebsiteShortName);
+
+                }
+
+            });
+
+        });
+
+
     };
 
     /*
@@ -223,42 +194,40 @@ class Application extends React.Component{
     i reset the cookie to the new boolean value of checked
 
     */
-    handleSearchTypeSwitch =  (e) => {
+    handleSearchTypeSwitch = (e) => {
 
         //Sets the value of localSearch
 
 
         let checked = e.target.checked;
 
-        this.props.newDefaultSearchResult({...this.props , settings : {...this.props.settings , localSearch: checked}} , () => {
+        this.props.newDefaultSearchResult({
+            ...this.props,
+            settings: {...this.props.settings, localSearch: checked}
+        }, () => {
 
-            Cookies.set(defaults.localSearchCookieKey , this.props.settings.showImages);
+            Cookies.set(defaults.localSearchCookieKey, this.props.settings.showImages);
         });
-
-
-
 
 
     };
 
 
+    // this function replaces the search text with a new text with only english alphabets and numbers
+
 
     // this function replaces the search text with a new text with only english alphabets and numbers
 
-    
-    // this function replaces the search text with a new text with only english alphabets and numbers
+    replaceSearchText = () => {
 
-    replaceSearchText =  () => {
-
-         let query =  this.searchQueryField.val();
-
+        let query = this.searchQueryField.val();
 
 
         let searchQuery = query;
 
         {
 
-            let searchQuery = query.replace(/[\W_ ]+/g," ");
+            let searchQuery = query.replace(/[\W_ ]+/g, " ");
 
             //Replace the value of the input field with the new value
 
@@ -280,8 +249,8 @@ class Application extends React.Component{
         this.replaceSearchText();
 
 
-        let data = {query : this.searchQuery};
-        $.post(defaults.suggestions , {data : JSON.stringify(data)} , response => {
+        let data = {query: this.searchQuery};
+        $.post(defaults.suggestions, {data: JSON.stringify(data)}, response => {
 
             let resp = JSON.parse(response);
 
@@ -290,17 +259,11 @@ class Application extends React.Component{
             resp.suggestions.forEach(obj => {
 
                 query = obj.query;
-                if(!(query in this.autoCompleteData)) this.autoCompleteData[query] = null;
+                if (!(query in this.autoCompleteData)) this.autoCompleteData[query] = null;
             });
 
 
-
-
         });
-
-
-
-
 
 
     };
@@ -315,10 +278,20 @@ class Application extends React.Component{
     componentDidUpdate() {
 
         this.defaultAction();
+        if (this.props.currentWebsite) {
+            this.searchTabs.show();
+            $('.tabs').tabs('select', this.props.currentWebsite);
+            $('.tabs').tabs('updateTabIndicator');
+            this.formSubmitted = true;
+
+
+        }
+
     }
+
     //Toggles the Switch button automatically depending on the value of the 'localSearchCookieKey' variable
 
-    componentDidMount () {
+    componentDidMount() {
         this.localSearchTabContainer = $('#local-search-tab-container');
         this.searchTabs = $('.search-tabs');
         this.toggleImagesSwitch = $('#toggle-search-images');
@@ -331,36 +304,44 @@ class Application extends React.Component{
         this.siteFooter = $('#site-footer');
 
         this.lastSearchQuery = this.searchQueryField.val().toLowerCase();
-        let  searchTypeSwitchButton = $("#search-type-switch-button");
+        let searchTypeSwitchButton = $("#search-type-switch-button");
         this.searchQueryField.focus();
 
+
         this.defaultAction();
-
-        $('.dropdown-trigger').dropdown({alignment : 'right' , coverTrigger : false , closeOnClick : false , container : document.getElementById(this.searchFormFieldSet.attr('id'))});
+        $('.dropdown-trigger').dropdown({
+            alignment: 'right',
+            coverTrigger: false,
+            closeOnClick: false,
+            container: document.getElementById(this.searchFormFieldSet.attr('id'))
+        });
         //I want to get the auto-complete data from the cookies
-
-
         this.autoCompleteData = {};
 
-        if(Cookies.get(this.cookiesQueryKey)){
+        if (Cookies.get(this.cookiesQueryKey)) {
             let cookiesObj = JSON.parse(Cookies.get(this.cookiesQueryKey));
             cookiesObj.map((data) => {
                 this.autoCompleteData[data] = null;
             });
         }
-
-
-        if(localStorage.getItem(defaults.savedState)) {
+        if (localStorage.getItem(defaults.savedState)) {
             let cookieObj = JSON.parse(localStorage.getItem(defaults.savedState));
             if (this.props.switchWebsite(cookieObj)) {//Action};
 
                 this.formSubmitted = true;
-                this.toggleImagesSwitch.prop('checked' , cookieObj.settings.showImages);
-                this.searchQueryField.blur();
-                $('.tabs').tabs();
+                this.toggleImagesSwitch.prop('checked', cookieObj.settings.showImages);
+                if (this.props.currentWebsite != null) {
+                    console.log("Not null");
+                    $('.tabs').tabs('select', this.props.currentWebsite);
+                    this.formSubmitted = true;
+                    this.searchTabs.show();
 
+                }
             }
+
         }
+
+
 
         $('input.autocomplete').autocomplete({
             limit: 7000,
@@ -417,16 +398,17 @@ class Application extends React.Component{
                     <div className="input-group">
                         <div className="input-field col s12">
                             <i className="material-icons prefix"></i>
-                            <input onBlur={() => {
+                            <input  onBlur={() => {
 
-                                if(this.formSubmitted && this.lastSearchQuery === $.trim(this.searchQueryField.val().toLowerCase())){
+
+                                if(this.lastSearchQuery === $.trim(this.searchQueryField.val().toLowerCase()) || this.formSubmitted){
 
                                     this.searchTabs.show();
 
                                 }
 
 
-                            }} onFocus={() => {this.searchTabs.hide();}  } type="text" defaultValue = {Cookies.get(this.lastSearchedQueryKey) ? Cookies.get(this.lastSearchedQueryKey) : ""} onChange={this.handleSearchTextChange} id="autocomplete-input" className="autocomplete search-query-field" />
+                            }} onFocus={() => {this.searchTabs.hide();}  } type="text" defaultValue = {this.props.query ? this.props.query : ""} onChange={this.handleSearchTextChange} id="autocomplete-input" className="autocomplete search-query-field" />
                             <label htmlFor="autocomplete-input">What do you want to buy?</label>
                         </div>
 

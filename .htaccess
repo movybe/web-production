@@ -1,0 +1,25 @@
+RewriteEngine On
+RewriteCond %{HTTPS} Off
+RewriteRule ^(.*)$ http://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+Options -Indexes
+RewriteEngine on
+RewriteRule ^([^/.]+)/?$ $1.php
+RewriteRule ^([^/.]+)/?$ $1.html
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule .* - [L]
+#RewriteRule (.*)$ profile.php?u=$1 [NC]
+Options All -Indexes
+
+
+RewriteRule ^completeRegistration/([a-zA-Z0-9_-]+)$ completeRegistration.php?code=$1
+RewriteRule ^resetPassword/([a-zA-Z0-9_-]+)$ resetPassword.php?code=$1
+RewriteRule ^ad/([a-zA-Z0-9_-]+)$ ad.php?id=$1
+RewriteRule ^edit-ad/([a-zA-Z0-9_-]+)$ edit-ad.php?id=$1
+RewriteRule ^profile/([a-zA-Z0-9_-]+)$ profile.php?id=$1
+
+ErrorDocument 403 "/404.php"
+ErrorDocument 404 "/404.php"
+ErrorDocument 406 "/404.php"
+
+php_value memory_limit 128M

@@ -1,24 +1,22 @@
 let {connect} = ReactRedux;
-let mapPropsToState = (state , ownProps) => {
-
-    return state;
-
-};
 
 
 class  LocalSearchTab extends React.Component{
 
 
+    constructor() {
+        super();
+    }
 
-    switchToWebsite = (website , index , loadMore = false)=> {
+    switchToWebsite = (website , index , loadMore = false) => {
 
-        let selectedEcommerce = this.props.locale.find(local => local.shortName == website
+        let selectedEcommerce = this.props.locale.find(local => local.shortName === website
         );
 
         const showError = () => {
 
             selectedEcommerce.error = defaults.noDataError;
-            selectedEcommerce.page +=1;
+            selectedEcommerce.page = selectedEcommerce.page + 1;
 
             selectedEcommerce.loadMore = false;
             this.props.locale[index] = selectedEcommerce;
@@ -27,35 +25,64 @@ class  LocalSearchTab extends React.Component{
 
                 $("." + defaults.searchResultPreloaders).hide();
                 M.toast({html: defaults.networkError});
-                return;
+                return true;
 
             }
         };
 
         const {query , q} = this.props;
-
         let pageNumber = selectedEcommerce.page + 1;
 
         //Check if page had already been already been clicked
-        if(selectedEcommerce.page > 0) return;
+        if(!loadMore && selectedEcommerce.page > 0){
+            if(this.props.currentWebsite !== website){
+                this.props.switchWebsite({...this.props , currentWebsite : website});
+            }
+
+                return ;
+        }
+
+        if(!this.props.switchWebsite({...this.props , processingAction:  true})) return;
+
 
         $("."  + defaults.searchResultPreloaders).hide();
 
         //Resetting all the arrays of the selected E-commerce website
-        if(loadMore) {
+        if(!loadMore) {
+
             Object.keys(selectedEcommerce).map(key => {
 
                 return Array.isArray(selectedEcommerce[key]) ? selectedEcommerce[key] = [] : null;
 
             });
         }
+
+        else {
+            Object.keys(selectedEcommerce).map(key => {
+
+                return Array.isArray(selectedEcommerce[key]) ? selectedEcommerce[key] = [...selectedEcommerce[key]] : null;
+
+            });
+        }
+
+
+
+
         $("#" + website + "-" + defaults.searchResultPreloader).show();
-        let savedState;
+
+        let savedState = {};
+        const  defaultAction = () => {
+            if(this.props.switchWebsite({...savedState , processingAction: false}))
+            {
+                $("."  + defaults.searchResultPreloaders).hide();
+
+
+            }
+        };
         switch (website) {
 
             case 'jiji' :
 
-               //let url = "http://localhost:2021/jiji.php";
                let url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
 
 
@@ -112,11 +139,8 @@ class  LocalSearchTab extends React.Component{
 
                         savedState = {...this.props , locale : previousLocale , currentWebsite : website};
 
-                        if(this.props.switchWebsite(savedState)
-                    )
-                        {
-                            $("."  + defaults.searchResultPreloaders).hide();
-                        }
+                        defaultAction();
+
 
                     }
 
@@ -175,13 +199,7 @@ class  LocalSearchTab extends React.Component{
                         let previousLocale = this.props.locale;
                         savedState = {...this.props , locale : previousLocale , currentWebsite : website};
 
-                        if (this.props.switchWebsite(savedState)
-                        ) {
-                            $("." + defaults.searchResultPreloaders).hide();
-
-
-                             }
-
+                        defaultAction();
                     }
 
                     });
@@ -201,6 +219,7 @@ class  LocalSearchTab extends React.Component{
 
                     response.results[0].hits.forEach(obj => {
 
+
                         selectedEcommerce.titles.push(obj.name.truncate(defaults.maxTitleLength));
                         selectedEcommerce.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
                         selectedEcommerce.images.push("https://www-konga-com-res.cloudinary.com/w_auto,f_auto,fl_lossy,dpr_auto,q_auto/media/catalog/product" + obj.image_thumbnail_path);
@@ -209,6 +228,8 @@ class  LocalSearchTab extends React.Component{
 
                         selectedEcommerce.links.push('https://konga.com/product/' + obj.url_key);
                         selectedEcommerce.linkTexts.push(String('https://konga.com/product/' + obj.url_key).truncate(defaults.maxLinkLength));
+
+
                     });
 
 
@@ -219,13 +240,7 @@ class  LocalSearchTab extends React.Component{
                     let previousLocale = this.props.locale;
                     savedState = {...this.props , locale : previousLocale , currentWebsite : website};
 
-                    if (this.props.switchWebsite(savedState)
-                    ) {
-                        $("." + defaults.searchResultPreloaders).hide();
-
-
-                    }
-
+                    defaultAction();
 
                 });
                 break;
@@ -262,28 +277,24 @@ class  LocalSearchTab extends React.Component{
                             link = "https://deals.jumia.com.ng/" + $(this).find('.post-link').attr('href');
 
                             location = $(this).find('.address').text();
-                            selectedEcommerce.titles.push(title);
-                            selectedEcommerce.descriptions.push(description);
-                            selectedEcommerce.images.push(image);
-                            selectedEcommerce.prices.push(price);
-                            selectedEcommerce.links.push(link);
-                            selectedEcommerce.locations.push(location);
-                            selectedEcommerce.linkTexts.push(String(link).truncate(defaults.maxLinkLength));
+                            selectedEcommerce.titles = [...selectedEcommerce.titles , title];
+                            selectedEcommerce.descriptions = [...selectedEcommerce.descriptions , description];
+                            selectedEcommerce.images = [...selectedEcommerce.images , image];
+                            selectedEcommerce.prices = [...selectedEcommerce.prices , price];
+                            selectedEcommerce.links = [...selectedEcommerce.links , link];
+                            selectedEcommerce.locations = [...selectedEcommerce.locations, location];
+                            selectedEcommerce.linkTexts = [...selectedEcommerce.linkTexts , String(link).truncate(defaults.maxLinkLength)];
 
                         });
 
-                        selectedEcommerce.page += 1;
+                        selectedEcommerce.page = selectedEcommerce.page + 1;
 
                         this.props.locale[index] = selectedEcommerce;
                         let previousLocale = this.props.locale;
 
                         savedState = {...this.props , locale : previousLocale , currentWebsite : website};
-                        if(this.props.switchWebsite(savedState)
-                        )
-                        {
-                            $("."  + defaults.searchResultPreloaders).hide();
-                        }
 
+                        defaultAction();
                     }
 
 
@@ -298,12 +309,10 @@ class  LocalSearchTab extends React.Component{
 
     };
 
-    preventDefault = (e) => {
 
-        e.preventDefault();
+    handleLoadMore = (website) => {
 
     };
-
 
    defaultActions = () => {
         let tabs = $('.tabs#tabs');
@@ -345,11 +354,11 @@ class  LocalSearchTab extends React.Component{
     };
 
 
+
+
     render() {
 
-
-
-        const {locale} = this.props;
+        let {locale} = this.props;
 
         let active;
         const tabList =  locale.map((local , index) => {
@@ -367,20 +376,14 @@ class  LocalSearchTab extends React.Component{
         });
 
 
-        const tabContainers = locale.map((local , pos)  => {
 
-            let loadMoreButton = (local.loadMore) ?
+        let tabContainers = locale.map((local , pos)  => {
+
+            let loadMoreButton = (local.loadMore && !this.props.processingAction) ?
                 <div className="load-more-action-button-wrapper">
-                <a className="waves-effect waves-light btn-small load-more-action" onClick={
-                    e => {
-
-                        $(e.target).addClass('disabled');
-                        if(this.switchToWebsite(local.shortName , pos , true))
-                        {
-                            $(e.target).removeClass('disabled');
-                        }
-                    }
-                } id = {local.shortName + "-load-more-action"}><i className="material-icons left">refresh</i><span>More</span></a>
+                <span className="waves-effect waves-light btn-small load-more-action" onClick={() => this.switchToWebsite(local.shortName , pos , true)}
+                 id = {local.shortName + "-load-more-action"}><i className="material-icons left">refresh</i><span>More</span>
+                </span>
                 </div> : null;
 
 
@@ -388,27 +391,18 @@ class  LocalSearchTab extends React.Component{
             let showImages;
             let showPrice;
             let bg;
-            const template = (local.images.length) ? local.images.map((image, index) => {
+            let template = (local.titles.length) ? local.images.map((image, index) => {
                 let savedImage;
                 let imageSaved = false;
 
                 savedImage = this.props.gallery.find((imageObject , index)=> {
-
-                     const imageUndefined = image === imageObject.src;
-
-
-
-
-                         return imageUndefined;
-                 });
-
+                     return  image === imageObject.src;
+                      });
 
                  imageSaved = savedImage !== undefined;
 
-
-
                  bg = `${local.images[index]}`;
-                showImages = (this.props.settings.showImages) && local.images[index] != null ?
+                 showImages = (this.props.settings.showImages) && local.images[index] != null ?
 <span className="modal-link"  data-caption = {local.titles[index]} href = {local.images[index]}>
                     <div className="image-container" onClick={  imageSaved ? null : () => {this.saveImage(local.titles[index] , local.links[index] , image)}} data-image={local.images[index]}>
                         <div className="blurred-bg lazyload" data-bgset={bg}></div>
@@ -497,5 +491,9 @@ let mapDispatchToProps = dispatch => {
         switchWebsite : state => dispatch({type : 'SWITCH_WEBSITE' , state})
     };
 };
-LocalSearchTab = connect(mapPropsToState , mapDispatchToProps)(LocalSearchTab);
+
+let mapStateToProps = state => {
+    return state;
+};
+LocalSearchTab = connect(mapStateToProps , mapDispatchToProps)(LocalSearchTab);
 
