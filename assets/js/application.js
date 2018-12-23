@@ -331,7 +331,6 @@ class Application extends React.Component {
                 this.formSubmitted = true;
                 this.toggleImagesSwitch.prop('checked', cookieObj.settings.showImages);
                 if (this.props.currentWebsite != null) {
-                    console.log("Not null");
                     $('.tabs').tabs('select', this.props.currentWebsite);
                     this.formSubmitted = true;
                     this.searchTabs.show();
