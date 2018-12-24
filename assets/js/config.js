@@ -16,22 +16,21 @@ class Config {
         formSubmitted : false ,
         processingAction : false,
         locale : [
-            {shortName :  "olx"  , name : "olx"         ,       nameColor : 'purple lighten-4', textColor :  'purple' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
-            {shortName :  "jiji" , name : "jiji"        ,       nameColor : 'green lighten-5' ,  textColor : 'green' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] , linkTexts : [] , locations : [] , page : 0 , error : "" , loadMore : false} ,
-            {shortName : "jumia" , name : "jumia"       ,       nameColor : 'black' ,          textColor : 'black' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,   linkTexts : [] , locations : [] , page : 0 , error : "" , loadMore : false} ,
-            {shortName : "konga" , name : "konga"       ,       nameColor : 'yellow' ,         textColor :  'orange' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] , linkTexts : [] , locations : [] , page : 0 , error : "" , loadMore : false} ,
-            {shortName :  "deals" ,name : "jumia deals" ,       nameColor : 'indigo darken-1' ,   textColor : 'indigo' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] , locations : [] , page : 0 , error : "" , loadMore : false}
+            {shortName :  "olx"  , name : "olx"         ,        textColor :  'purple' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
+            {shortName :  "jiji" , name : "jiji"        ,         textColor : 'green' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] , linkTexts : [] , locations : [] , page : 0 , error : "" , loadMore : false} ,
+            {shortName : "jumia" , name : "jumia"       ,                 textColor : 'black' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,   linkTexts : [] , locations : [] , page : 0 , error : "" , loadMore : false} ,
+            {shortName : "konga" , name : "konga"       ,              textColor :  'orange' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] , linkTexts : [] , locations : [] , page : 0 , error : "" , loadMore : false} ,
+            {shortName :  "deals" ,name : "jumia deals" ,          textColor : 'indigo' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] , locations : [] , page : 0 , error : "" , loadMore : false}
 
         ] ,
         international : [
-            {shortName :  "amazon"  , name : "amazon"         ,       nameColor : 'amber lighten-2', textColor :  'amber' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
-            {shortName :  "alibaba"  , name : "alibaba"         ,       nameColor : 'ff6a00', textColor :  'ff6a00' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
-
+            {shortName :  "amazon"  , name : "amazon"         ,        textColor :  '#146eb4' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
+            {shortName :  "alibaba"  , name : "alibaba"         ,      textColor :  '#ff6a00' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
+            {shortName :  "walmart"  , name : "walmart"         ,      textColor :  '#79b9e7' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
+            {shortName :  "ebay"  , name : "ebay"         ,        textColor :  '#86b817' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
+            {shortName :  "bestbuy"  , name : "Best buy"         , textColor :  '#f6eb16' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
         ]
     };
-
-
-
 
 
     rootReducer = (state = this.state, action) => {
@@ -51,7 +50,7 @@ class Config {
 
             case 'RESET_STATE' :
                 storageObject = JSON.parse(localStorage.getItem(defaults.savedState));
-                let newState = {...this.state , ...storageObject};
+                let newState = {...this.state , storageObject};
                 localStorage.setItem(defaults.savedState , JSON.stringify(newState));
                 return newState;
                 break;

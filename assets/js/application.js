@@ -204,9 +204,6 @@ class Application extends React.Component {
         this.props.newDefaultSearchResult({
             ...this.props,
             settings: {...this.props.settings, localSearch: checked}
-        }, () => {
-
-            Cookies.set(defaults.localSearchCookieKey, this.props.settings.showImages);
         });
 
 
@@ -327,11 +324,26 @@ class Application extends React.Component {
         if (localStorage.getItem(defaults.savedState)) {
             let storageObj = JSON.parse(localStorage.getItem(defaults.savedState));
             /* checks if a new property (key) is added to the default state as a result of updates */
-            if(Object.keys(storageObj).length !== Object.keys(this.props).length) {this.props.resetState(); return};
+            {
+                let storageObjectKeysCount = 0;
+                Object.keys(storageObj).forEach(key => {
+                    return typeof storageObj[key] != 'function' ? storageObjectKeysCount += 1 : null;
+                });
+
+
+                let propsKeysCount = 0;
+
+                Object.keys(this.props).forEach(key => {
+                    return typeof this.props[key] != 'function' ? propsKeysCount += 1 : null;
+                });
+
+                if(storageObjectKeysCount != propsKeysCount) return this.props.resetState();
+            }
 
             if (this.props.switchWebsite(storageObj)) {
                 this.formSubmitted = true;
                 this.toggleImagesSwitch.prop('checked', storageObj.settings.showImages);
+                //searchTypeSwitchButton.prop('checked' , storageObj.settings.localSearch);
                 if (this.props.currentWebsite != null) {
                     $('.tabs').tabs('select', this.props.currentWebsite);
                     this.formSubmitted = true;
@@ -429,7 +441,7 @@ class Application extends React.Component {
              <label>
 
                  <span id="local-search-text" className="settings-text">Local Search</span>
-                 <input className="tooltipped"  defaultChecked={true} onChange={this.handleSearchTypeSwitch} type="checkbox" id="search-type-switch-button" />
+                 <input defaultChecked={() => {return this.props.settings.localSearch}} onChange={this.handleSearchTypeSwitch} type="checkbox" id="search-type-switch-button" />
                  <span className="lever"></span>
                   </label>
              </div>

@@ -403,7 +403,8 @@ class  LocalSearchTab extends React.Component{
 
     render() {
 
-        let {locale} = this.props;
+        const {settings} = this.props;
+        let locale = settings.localSearch ? this.props.locale : this.props.international;
 
         let active;
         const tabList =  locale.map((local , index) => {
@@ -490,7 +491,7 @@ class  LocalSearchTab extends React.Component{
 
                 <div id={local.shortName} className="col s12 gallery" key={local.name}>
 
-                    <p className={`flow-text ${local.textColor}-text`}>{local.name}</p>
+                    <p className='flow-text' style={{color : local.textColor}}>{local.name}</p>
                     <div className={"container " + defaults.searchResultPreloaders}
                          id={local.shortName + "-" + defaults.searchResultPreloader}>
                         <div className="circular-container">
