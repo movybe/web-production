@@ -22,6 +22,11 @@ class Config {
             {shortName : "konga" , name : "konga"       ,       nameColor : 'yellow' ,         textColor :  'orange' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] , linkTexts : [] , locations : [] , page : 0 , error : "" , loadMore : false} ,
             {shortName :  "deals" ,name : "jumia deals" ,       nameColor : 'indigo darken-1' ,   textColor : 'indigo' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] , locations : [] , page : 0 , error : "" , loadMore : false}
 
+        ] ,
+        international : [
+            {shortName :  "amazon"  , name : "amazon"         ,       nameColor : 'amber lighten-2', textColor :  'amber' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
+            {shortName :  "alibaba"  , name : "alibaba"         ,       nameColor : 'ff6a00', textColor :  'ff6a00' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
+
         ]
     };
 
@@ -30,7 +35,7 @@ class Config {
 
 
     rootReducer = (state = this.state, action) => {
-
+        let storageObject;
         switch (action.type) {
             case 'NEW_DEFAULT_SEARCH_RESULT' :
             case  'SWITCH_WEBSITE' :
@@ -45,9 +50,11 @@ class Config {
                 break;
 
             case 'RESET_STATE' :
-                return this.state;
+                storageObject = JSON.parse(localStorage.getItem(defaults.savedState));
+                let newState = {...this.state , ...storageObject};
+                localStorage.setItem(defaults.savedState , JSON.stringify(newState));
+                return newState;
                 break;
-
         }
 
         return state;

@@ -34,7 +34,7 @@ class Application extends React.Component {
         let searchQueryToArray = this.searchQuery.split(" ");
 
         searchQueryToArray = searchQueryToArray.filter((word, pos, self) => {
-            return self.indexOf(word) == pos && defaults.commonWords.indexOf(word) < 0;
+            return self.indexOf(word) === pos && defaults.commonWords.indexOf(word) < 0;
         });
 
         this.searchQuery = searchQueryToArray.join(" ");
@@ -113,7 +113,7 @@ class Application extends React.Component {
             this.searchQueryField.val(this.searchQuery);
 
 
-            $.post(defaults.queryProcessor, {data: data}, (t) => {
+            $.post(defaults.queryProcessor, {data}, (t) => {
 
 
                 this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
@@ -319,17 +319,19 @@ class Application extends React.Component {
         this.autoCompleteData = {};
 
         if (Cookies.get(this.cookiesQueryKey)) {
-            let cookiesObj = JSON.parse(Cookies.get(this.cookiesQueryKey));
-            cookiesObj.map((data) => {
+            let storageObj = JSON.parse(Cookies.get(this.cookiesQueryKey));
+            storageObj.map((data) => {
                 this.autoCompleteData[data] = null;
             });
         }
         if (localStorage.getItem(defaults.savedState)) {
-            let cookieObj = JSON.parse(localStorage.getItem(defaults.savedState));
-            if (this.props.switchWebsite(cookieObj)) {//Action};
+            let storageObj = JSON.parse(localStorage.getItem(defaults.savedState));
+            /* checks if a new property (key) is added to the default state as a result of updates */
+            if(Object.keys(storageObj).length !== Object.keys(this.props).length) {this.props.resetState(); return};
 
+            if (this.props.switchWebsite(storageObj)) {
                 this.formSubmitted = true;
-                this.toggleImagesSwitch.prop('checked', cookieObj.settings.showImages);
+                this.toggleImagesSwitch.prop('checked', storageObj.settings.showImages);
                 if (this.props.currentWebsite != null) {
                     $('.tabs').tabs('select', this.props.currentWebsite);
                     this.formSubmitted = true;
