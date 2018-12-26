@@ -50,9 +50,16 @@ class Config {
 
             case 'RESET_STATE' :
                 storageObject = JSON.parse(localStorage.getItem(defaults.savedState));
-                let newState = {...this.state , storageObject};
-                localStorage.setItem(defaults.savedState , JSON.stringify(newState));
-                return newState;
+                let combinedState = {...this.state , ...storageObject};
+                let newState = {...combinedState};
+
+                for(let key in storageObject){
+                    newState[key] = storageObject[key];
+                }
+
+
+                localStorage.setItem(defaults.savedState , JSON.stringify({...newState}));
+                return {...newState};
                 break;
         }
 

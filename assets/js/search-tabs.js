@@ -437,6 +437,7 @@ class  LocalSearchTab extends React.Component{
             let showImages;
             let showPrice;
             let bg;
+            let currency;
             let template = (local.titles.length) ? local.images.map((image, index) => {
                 let savedImage;
                 let imageSaved = false;
@@ -455,7 +456,9 @@ class  LocalSearchTab extends React.Component{
                     <div className="lazyload overlay" data-bgset={bg}  title = {local.titles[index]} onClick={() => {return imageSaved ? null : null}}></div>
                     </div>
     </span>: null;
-                showPrice = (local.prices[index]) ? <h5 className="green-text search-result-price">&#8358;{local.prices[index]}</h5> : <h5 className="green-text search-result-price">price not specified</h5>;
+
+                currency = this.props.settings.localSearch ? <span>&#8358;</span> : <span>$</span>;
+                showPrice = (local.prices[index]) ? <h5 className="green-text search-result-price">{currency}{local.prices[index]}</h5> : <h5 className="green-text search-result-price">price not specified</h5>;
                   showLocation = local.locations[index].length ?
 
                    <span className="search-result-locations blue-grey-text"><i

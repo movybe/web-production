@@ -70,13 +70,14 @@ class Defaults {
         this.websiteLiLinks = "website-li-links";
         this.liLink = "li-link";
         this.noDataError = "Failed to load data";
-        this.networkError = "No Results found, check your connection";
+        this.networkError = "No Results found for this query, check your connection";
 
         this.savedState = "savedState";
         this.localSearchCookieKey = "localSearch";
         this.showImagesCookieKey = "showImages";
         this.lazyBG = "/assets/js/lazy-bg.js";
 
+        this.searchSuggestionsLimit = 7;
      }
 
 }

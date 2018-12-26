@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="164b0cb5-d77a-4dd8-82e2-9790aebb2644" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/f.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/img/bestbuy.webp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/application.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/international-search-tab.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/search-tabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/search-tabs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/settings.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -77,18 +77,20 @@
     <session id="946072588">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="19" />
+          <entry key="project.closed" value="21" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.100" value="1" />
           <entry key="project.open.time.102" value="1" />
+          <entry key="project.open.time.106" value="2" />
           <entry key="project.open.time.117" value="1" />
           <entry key="project.open.time.142" value="1" />
+          <entry key="project.open.time.157" value="1" />
           <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.2" value="2" />
           <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.23" value="1" />
-          <entry key="project.open.time.26" value="1" />
+          <entry key="project.open.time.26" value="2" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.53" value="1" />
           <entry key="project.open.time.59" value="1" />
@@ -99,11 +101,12 @@
           <entry key="project.open.time.82" value="1" />
           <entry key="project.open.time.87" value="2" />
           <entry key="project.open.time.88" value="3" />
+          <entry key="project.open.time.89" value="1" />
           <entry key="project.open.time.92" value="1" />
           <entry key="project.open.time.94" value="1" />
           <entry key="project.open.time.95" value="1" />
           <entry key="project.open.time.98" value="1" />
-          <entry key="project.opened" value="31" />
+          <entry key="project.opened" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -117,10 +120,10 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="24" />
-          <entry key="JavaScript" value="72" />
+          <entry key="CSS" value="25" />
+          <entry key="JavaScript" value="74" />
           <entry key="PHP" value="61" />
-          <entry key="PLAIN_TEXT" value="3" />
+          <entry key="PLAIN_TEXT" value="4" />
           <entry key="RNG Compact" value="1" />
         </counts>
       </usages-collector>
@@ -135,7 +138,7 @@
         <counts>
           <entry key="CSS" value="414" />
           <entry key="HTML" value="2" />
-          <entry key="JavaScript" value="39086" />
+          <entry key="JavaScript" value="42816" />
           <entry key="PHP" value="5384" />
           <entry key="PLAIN_TEXT" value="5" />
           <entry key="SQL" value="1" />
@@ -148,8 +151,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
+            <state relative-caret-position="32">
+              <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -157,26 +160,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/js/config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
-              <caret line="32" column="5" lean-forward="true" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/assets/js/application.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="548">
-              <caret line="335" column="15" lean-forward="true" selection-start-line="335" selection-start-column="15" selection-end-line="335" selection-end-column="15" />
+            <state relative-caret-position="928">
+              <caret line="58" selection-start-line="58" selection-end-line="58" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/walmart.php">
+        <entry file="file://$PROJECT_DIR$/assets/css/modal.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9040">
-              <caret line="155" column="44946" selection-start-line="155" selection-start-column="44946" selection-end-line="155" selection-end-column="44946" />
+            <state relative-caret-position="1632">
+              <caret line="102" column="22" selection-start-line="102" selection-start-column="22" selection-end-line="102" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/js/settings.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="72" column="52" selection-start-line="72" selection-start-column="52" selection-end-line="72" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -184,8 +187,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/js/search-tabs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="599">
-              <caret line="493" column="80" selection-start-line="493" selection-start-column="80" selection-end-line="493" selection-end-column="80" />
+            <state relative-caret-position="8663">
+              <caret line="548" lean-forward="true" selection-start-line="548" selection-end-line="548" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/assets/js/application.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-8141">
+              <caret line="66" column="47" selection-start-line="66" selection-start-column="47" selection-end-line="66" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -269,7 +281,6 @@
         <option value="$PROJECT_DIR$/assets/jiji.php" />
         <option value="$PROJECT_DIR$/jiji2.php" />
         <option value="$PROJECT_DIR$/jumia.php" />
-        <option value="$PROJECT_DIR$/f.txt" />
         <option value="$PROJECT_DIR$/assets/js/lazyload.js" />
         <option value="$PROJECT_DIR$/assets/js/intersection-observer.js" />
         <option value="$PROJECT_DIR$/assets/js/jquery.lazy.min.js" />
@@ -287,12 +298,13 @@
         <option value="$PROJECT_DIR$/assets/incs/footer.php" />
         <option value="$PROJECT_DIR$/assets/js/jquery.lightbox.js" />
         <option value="$PROJECT_DIR$/assets/js/gallery.js" />
-        <option value="$PROJECT_DIR$/assets/js/settings.js" />
         <option value="$PROJECT_DIR$/assets/js/international-search-tabs.js" />
         <option value="$PROJECT_DIR$/assets/js/international-search-tab.js" />
         <option value="$PROJECT_DIR$/walmart.php" />
-        <option value="$PROJECT_DIR$/assets/js/search-tabs.js" />
         <option value="$PROJECT_DIR$/assets/js/config.js" />
+        <option value="$PROJECT_DIR$/f.txt" />
+        <option value="$PROJECT_DIR$/assets/js/settings.js" />
+        <option value="$PROJECT_DIR$/assets/js/search-tabs.js" />
         <option value="$PROJECT_DIR$/assets/js/application.js" />
       </list>
     </option>
@@ -314,9 +326,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1" />
+    <option name="x" value="3" />
     <option name="y" value="1" />
-    <option name="width" value="1438" />
+    <option name="width" value="1437" />
     <option name="height" value="854" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -327,7 +339,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -346,10 +357,17 @@
               <item name="assets" type="462c0819:PsiDirectoryNode" />
               <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
+              <item name="movybe" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -360,14 +378,14 @@
     <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\movybe\assets\js" />
+      <recent name="C:\xampp\htdocs\movybe\config" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\movybe" />
       <recent name="C:\xampp\htdocs\movybe\processors" />
       <recent name="C:\xampp\htdocs\movybe\assets\css" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\movybe\assets\js" />
-      <recent name="C:\xampp\htdocs\movybe\config" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -426,18 +444,23 @@
       <workItem from="1545612874127" duration="29000" />
       <workItem from="1545612987895" duration="96000" />
       <workItem from="1545613161174" duration="7136000" />
-      <workItem from="1545676328090" duration="8574000" />
+      <workItem from="1545676328090" duration="8993000" />
+      <workItem from="1545698017419" duration="4721000" />
+      <workItem from="1545737365173" duration="948000" />
+      <workItem from="1545739407247" duration="3688000" />
+      <workItem from="1545776296949" duration="6516000" />
+      <workItem from="1545784621477" duration="8773000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="378315000" />
+    <option name="totallyTimeSpent" value="403380000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="1" width="1438" height="854" extended-state="0" />
+    <frame x="3" y="1" width="1437" height="854" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3904899" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.41961068" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -547,13 +570,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/modal.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="659">
-          <caret line="102" column="22" selection-start-line="102" selection-start-column="22" selection-end-line="102" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/processors/suggestions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -586,7 +602,6 @@
     <entry file="file://$PROJECT_DIR$/jiji.php" />
     <entry file="file://$PROJECT_DIR$/jiji2.php" />
     <entry file="file://$PROJECT_DIR$/jumia.php" />
-    <entry file="file://$PROJECT_DIR$/f.txt" />
     <entry file="file://$PROJECT_DIR$/processors/crawler.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3596">
@@ -654,13 +669,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="72" column="58" selection-start-line="72" selection-start-column="58" selection-end-line="72" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="659">
@@ -669,38 +677,59 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/international-search-tab.js" />
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/walmart.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9040">
+        <state relative-caret-position="632">
           <caret line="155" column="44946" selection-start-line="155" selection-start-column="44946" selection-end-line="155" selection-end-column="44946" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/search-tabs.js">
+    <entry file="file://$PROJECT_DIR$/f.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="599">
-          <caret line="493" column="80" selection-start-line="493" selection-start-column="80" selection-end-line="493" selection-end-column="80" />
+        <state relative-caret-position="504">
+          <caret line="4631" lean-forward="true" selection-start-line="4631" selection-end-line="4631" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="32" column="5" lean-forward="true" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+        <state relative-caret-position="928">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/modal.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1632">
+          <caret line="102" column="22" selection-start-line="102" selection-start-column="22" selection-end-line="102" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/settings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="72" column="52" selection-start-line="72" selection-start-column="52" selection-end-line="72" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/search-tabs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8663">
+          <caret line="548" lean-forward="true" selection-start-line="548" selection-end-line="548" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/application.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="548">
-          <caret line="335" column="15" lean-forward="true" selection-start-line="335" selection-start-column="15" selection-end-line="335" selection-end-column="15" />
+        <state relative-caret-position="-8141">
+          <caret line="66" column="47" selection-start-line="66" selection-start-column="47" selection-end-line="66" selection-end-column="47" />
         </state>
       </provider>
     </entry>
