@@ -318,7 +318,7 @@ class Application extends React.Component {
 
         {
 
-            let searchQuery = query.replace(/[\W_ ]+/g, "");
+            let searchQuery = query.replace(/[\W_ ]+/g, " ");
 
             //Replace the value of the input field with the new value
 
