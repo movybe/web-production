@@ -83,6 +83,7 @@ class Application extends React.Component {
 
         $.get(defaults.crawler, {url: searchFilterUrl}, response => {
 
+            console.log(response);
             if(this.props.settings.localSearch) {
 
                 if (!response.contents || !response.contents.data) {
@@ -115,6 +116,7 @@ class Application extends React.Component {
             else {
                 html = $(response.contents).find(htmlContent);
 
+                console.log(html);
                 response = null;
                 validTitles = [];
 
@@ -569,7 +571,7 @@ class Application extends React.Component {
              <label>
 
                  <span id="local-search-text" className="settings-text">Local Search</span>
-                 <input defaultChecked={() => {return this.props.settings.localSearch}} onChange={this.handleSearchTypeSwitch} type="checkbox" id="search-type-switch-button" />
+                 <input defaultChecked={() => {return true}} disabled={true} onChange={this.handleSearchTypeSwitch} type="checkbox" id="search-type-switch-button" />
                  <span className="lever"></span>
                   </label>
              </div>

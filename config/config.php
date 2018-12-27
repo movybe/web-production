@@ -35,7 +35,7 @@ abstract class WebsiteConfigurationSettings {
     public  $PrimaryEmailPassword = '4mdcfohb';
     public  $ContactEmail;
     public  $ErrorPage = "/404.php";
-    public  $PageDescription = "Compare the price of anything.anywhere";
+    public  $PageDescription = "Compare the price of products in Nigeria";
     public  $ParentCompanyName = "Movybe Inc.";
     public  $ParentCompanyAddress = "/";
 
