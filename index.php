@@ -18,17 +18,21 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>footer.css" type="text/css" />
     <link rel="icon" type="image/png" href="<?php echo $website_details->IMG_FOLDER;?>m.png" />
     <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>babel.min.js"></script>
+    <?php /*
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    */?>
     <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>react.development.js"></script>
     <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>react-dom.development.js"></script>
     <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>redux.min.js"></script>
     <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>react-redux.min.js"></script>
-   </head>
+</head>
 <body>
 <main class ="container">
     <div class ="section no-pad-bot" id="index-banner">
         <div class="container">
             <br><br>
-            <h1 class="header center pink-text text-lighten-3"><img src="<?php echo $website_details->IMG_FOLDER;?>movybe.png" class="responsive-img brand-logo logo-image" /></h1>
+            <h1 class="header center pink-text text-lighten-3"><img src="<?php echo $website_details->IMG_FOLDER.strtolower($website_details->SiteName);?>.png" class="responsive-img brand-logo logo-image" /></h1>
             <div class="row center">
                 <h5 class="header col s12 light grey-text text-lighten-1"><?php echo $website_details->PageDescription; ?></h5>
             </div>
@@ -45,12 +49,12 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     <!-- Tap Target Structure -->
     <div class="tap-target-wrapper">
 
-    <div class="tap-target" data-target="data-savings-info">
-        <div class="tap-target-content">
-            <h5 id="did-you-know">Did you know ?</h5>
-            <p>Using <?php echo $website_details->SiteName; ?> saves you 90% of the total cost of data needed to make these searches on each of these individual E-commerce website.</p>
+        <div class="tap-target" data-target="data-savings-info">
+            <div class="tap-target-content">
+                <h5 id="did-you-know">Did you know ?</h5>
+                <p>Using <?php echo $website_details->SiteName; ?> saves you 90% of the total cost of data needed to make these searches on each of these individual E-commerce website.</p>
+            </div>
         </div>
-    </div>
     </div>
 
 
