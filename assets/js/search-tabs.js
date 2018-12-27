@@ -8,9 +8,12 @@ class  LocalSearchTab extends React.Component{
         super();
     }
 
+
     switchToWebsite = (website , index , loadMore = false) => {
 
-        let selectedEcommerce = this.props.locale.find(local => local.shortName === website
+        if(!this.props.locale[0].images.length) return;
+
+            let selectedEcommerce = this.props.locale.find(local => local.shortName === website
         );
 
         const showError = () => {

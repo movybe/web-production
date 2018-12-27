@@ -1,13 +1,15 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
-class Suggestions extends  Functions {
+class Suggestions extends  Functions{
 
-    private $query , $data ,$success = "success" , $suggestions , $error_occured = "error occured" , $error = "error";
+    private $query , $data ,$success = "success" , $suggestions , $error_occured = "error occured" , $error = "error" , $website_details;
+
 
     public function __construct()
     {
         parent:: __construct();
+        $this->website_details = new WebsiteDetails();
     }
 
     function __destruct()
@@ -30,7 +32,7 @@ class Suggestions extends  Functions {
         //Split the words of the array
 
 
-        $this->suggestions = $this->fetch_data_from_table_with_conditions($this->queries_table_name , "query LIKE '%{$this->query}%' ORDER  BY occurrence DESC LIMIT 10");
+        $this->suggestions = $this->fetch_data_from_table_with_conditions($this->queries_table_name , "query LIKE '%{$this->query}%' ORDER  BY occurrence DESC LIMIT {$this->website_details->maxNumberOfSuggestion}");
 
         return true;
 

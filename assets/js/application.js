@@ -83,7 +83,6 @@ class Application extends React.Component {
 
         $.get(defaults.crawler, {url: searchFilterUrl}, response => {
 
-            console.log(response);
             if(this.props.settings.localSearch) {
 
                 if (!response.contents || !response.contents.data) {
@@ -319,7 +318,7 @@ class Application extends React.Component {
 
         {
 
-            let searchQuery = query.replace(/[\W_ ]+/g, " ");
+            let searchQuery = query.replace(/[\W_ ]+/g, "");
 
             //Replace the value of the input field with the new value
 
@@ -356,8 +355,6 @@ class Application extends React.Component {
             });
 
 
-            this.loadSuggestions();
-
 
 
         });
@@ -393,9 +390,10 @@ class Application extends React.Component {
                 minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
             });
 
-            this.loadSuggestions();
+
 
         }
+        this.loadSuggestions();
 
     }
 
@@ -428,7 +426,6 @@ class Application extends React.Component {
         this.searchTypeSwitchButton = $("#search-type-switch-button");
         this.searchQueryField.focus();
 
-        this.loadSuggestions();
 
         this.defaultAction();
         $('.dropdown-trigger').dropdown({
@@ -495,6 +492,8 @@ class Application extends React.Component {
 
 
 
+        this.loadSuggestions();
+
 
 
     }
@@ -544,6 +543,7 @@ class Application extends React.Component {
                             <input  onBlur={() => {
 
 
+                                if(!this.searchQueryField.val().length) return;
                                 if(this.lastSearchQuery === $.trim(this.searchQueryField.val().toLowerCase()) || this.formSubmitted){
 
                                     this.searchTabs.show();
@@ -551,7 +551,7 @@ class Application extends React.Component {
                                 }
 
 
-                            }} onFocus={() => {this.searchTabs.hide();}  } type="text" defaultValue = {this.props.query ? this.props.query : ""} onChange={this.handleSearchTextChange} id="autocomplete-input" className="autocomplete search-query-field" />
+                            }} onFocus={() => {this.searchTabs.hide();}  } type="text" defaultValue = {this.props.query ? this.props.query : ""} onChange={this.handleSearchTextChange}  id="autocomplete-input" className="autocomplete search-query-field" />
                             <label htmlFor="autocomplete-input">What do you want to buy?</label>
                         </div>
 

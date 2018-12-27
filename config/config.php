@@ -38,6 +38,7 @@ abstract class WebsiteConfigurationSettings {
     public  $PageDescription = "Compare the price of products in Nigeria";
     public  $ParentCompanyName = "Movybe Inc.";
     public  $ParentCompanyAddress = "/";
+    public $maxNumberOfSuggestion = 5;
 
     abstract function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords);
 
