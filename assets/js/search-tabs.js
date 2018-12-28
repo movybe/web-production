@@ -77,7 +77,7 @@ class  LocalSearchTab extends React.Component{
                 <li id = {local.shortName + "-tab"} onClick={
                     () =>
                 { tabListClickAction(local.shortName , index);}}
-                key = {local.name} className="tab website-list-tabs"><a href= {"#" + local.shortName} id = {local.shortName + "-tab-link"} className={"tab-links " + active}><img src={defaults.imageDirectory + local.shortName +'.png'} className="responsive-img tab-icons" /></a></li>
+                key = {local.name} className="tab website-list-tabs"><a href= {"#" + local.shortName} id = {local.shortName + "-tab-link"} className={"tab-links " + active}><img data-src={defaults.imageDirectory + local.shortName +'.png'} className="responsive-img tab-icons lazyload" /></a></li>
 
 
             )
