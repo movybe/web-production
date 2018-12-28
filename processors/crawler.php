@@ -135,6 +135,12 @@
 //
 // ############################################################################
 
+
+
+
+ini_set('user_agent', "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36");
+
+
 // Change these configuration options if needed, see above descriptions for info.
 $enable_jsonp    = false;
 $enable_native   = false;
@@ -142,8 +148,10 @@ $valid_url_regex = '/.*/';
 
 // ############################################################################
 
-$url = $_GET['url'];
 
+$url = $_GET['url'];
+$default_user_agent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36";
+$_SERVER['HTTP_USER_AGENT'] = $default_user_agent;
 if ( !$url ) {
 
     // Passed url not specified.
@@ -179,9 +187,9 @@ if ( !$url ) {
 
     curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
     curl_setopt( $ch, CURLOPT_HEADER, true );
-    curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 
-    curl_setopt( $ch, CURLOPT_USERAGENT, isset($_GET['user_agent']) ? $_GET['user_agent'] : $_SERVER['HTTP_USER_AGENT'] );
+    curl_setopt( $ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
+    curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 
     list( $header, $contents ) = preg_split( '/([\r\n][\r\n])\\1/', curl_exec( $ch ), 2 );
 

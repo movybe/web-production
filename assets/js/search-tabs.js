@@ -9,11 +9,13 @@ class  LocalSearchTab extends React.Component{
     }
 
 
+
     switchToWebsite = (website , index , loadMore = false) => {
+
 
         if(!this.props.locale[0].images.length) return;
 
-            let selectedEcommerce = this.props.locale.find(local => local.shortName === website
+        let selectedEcommerce = this.props.locale.find(local => local.shortName === website
         );
 
         const showError = () => {
@@ -42,7 +44,7 @@ class  LocalSearchTab extends React.Component{
                 this.props.switchWebsite({...this.props , currentWebsite : website});
             }
 
-                return ;
+            return ;
         }
 
         if(!this.props.switchWebsite({...this.props , processingAction:  true , currentWebsite : website})) return;
@@ -82,14 +84,15 @@ class  LocalSearchTab extends React.Component{
 
             }
         };
-        switch (website) {
+        const user_agent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36";
 
+        switch (website) {
             case 'jiji' :
 
-               let url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
+                let url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
 
 
-                $.get(defaults.crawler , {url} , response => {
+                $.get(defaults.crawler , {url : url, user_agent : user_agent} , response => {
 
                     let html = $(response.contents).find('.b-list-advert__template').has('img.squared.js-api-lazy-image');
 
@@ -155,8 +158,8 @@ class  LocalSearchTab extends React.Component{
                 url = `https://www.jumia.com.ng/catalog/?q=${q}&page=${pageNumber}`;
 
 
-               //url = "http://localhost:2021/jumia.php";
-                $.get(defaults.crawler , {url} , response => {
+                //url = "http://localhost:2021/jumia.php";
+                $.get(defaults.crawler , {url : url , user_agent : user_agent} , response => {
 
                     let html = $(response.contents).find('.sku.-gallery');
 
@@ -185,15 +188,15 @@ class  LocalSearchTab extends React.Component{
                             link = $(this).find('.link').attr('href');
 
                             //location = $(this).find('.b-list-advert__item-region').text();
-                           if(title !== "") {
-                               selectedEcommerce.titles.push(title);
-                               selectedEcommerce.descriptions.push(description);
-                               selectedEcommerce.images.push(image);
-                               selectedEcommerce.prices.push(price);
-                               selectedEcommerce.links.push(link);
-                               selectedEcommerce.locations.push("");
-                               selectedEcommerce.linkTexts.push(String(link).truncate(defaults.maxLinkLength));
-                           }
+                            if(title !== "") {
+                                selectedEcommerce.titles.push(title);
+                                selectedEcommerce.descriptions.push(description);
+                                selectedEcommerce.images.push(image);
+                                selectedEcommerce.prices.push(price);
+                                selectedEcommerce.links.push(link);
+                                selectedEcommerce.locations.push("");
+                                selectedEcommerce.linkTexts.push(String(link).truncate(defaults.maxLinkLength));
+                            }
                         });
 
                         selectedEcommerce.page += 1;
@@ -205,7 +208,7 @@ class  LocalSearchTab extends React.Component{
                         defaultAction();
                     }
 
-                    });
+                });
 
 
 
@@ -252,7 +255,7 @@ class  LocalSearchTab extends React.Component{
                 url = `https://deals.jumia.com.ng/catalog?search-keyword=${q}&page=${pageNumber}`;
 
 
-                $.get(defaults.crawler , {url} , response => {
+                $.get(defaults.crawler , {url : url , user_agent : user_agent} , response => {
 
                     let html = $(response.contents).find('.post');
 
@@ -312,11 +315,11 @@ class  LocalSearchTab extends React.Component{
             case 'olx' :
                 url = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${q}&page=${pageNumber}&user=165548cb5dcx2e53159d`;
 
-                $.get(defaults.crawler, {url}, response => {
+                $.get(defaults.crawler, {url , user_agent}, response => {
 
 
                     if (!response.contents || response.contents.data.length ) {
-                       return showError();
+                        return showError();
                     }
 
 
@@ -347,10 +350,10 @@ class  LocalSearchTab extends React.Component{
 
                     }
 
-                    });
+                });
 
 
-                }
+        }
 
 
 
@@ -362,18 +365,18 @@ class  LocalSearchTab extends React.Component{
 
     };
 
-   defaultActions = () => {
+    defaultActions = () => {
         let tabs = $('.tabs#tabs');
         tabs.tabs();
-       $('.gallery span.modal-link').lightbox();
+        $('.gallery span.modal-link').lightbox();
 
 
 
     };
 
-   componentDidUpdate() {
-       this.defaultActions();
-   }
+    componentDidUpdate() {
+        this.defaultActions();
+    }
     componentDidMount() {
         this.modal = $("#myModal");
 
@@ -390,12 +393,12 @@ class  LocalSearchTab extends React.Component{
 
                 this.defaultActions();
             }
-             }
+        }
     }
 
     saveImage = (alt , link , src) => {
 
-       this.props.switchWebsite({...this.props , gallery: [...this.props.gallery , {alt , link , src}]});
+        this.props.switchWebsite({...this.props , gallery: [...this.props.gallery , {alt , link , src}]});
 
         M.toast({html: "image added to your gallery"});
 
@@ -416,7 +419,7 @@ class  LocalSearchTab extends React.Component{
             return (
 
 
-         <li id = {local.shortName + "-tab"} onClick={() => this.switchToWebsite(local.shortName , index)} key = {local.name} className="tab website-list-tabs"><a href= {"#" + local.shortName} id = {local.shortName + "-tab-link"} className={"tab-links " + active}><img src={defaults.imageDirectory + local.shortName +'.png'} className="responsive-img tab-icons" /></a></li>
+                <li id = {local.shortName + "-tab"} onClick={() => this.switchToWebsite(local.shortName , index)} key = {local.name} className="tab website-list-tabs"><a href= {"#" + local.shortName} id = {local.shortName + "-tab-link"} className={"tab-links " + active}><img src={defaults.imageDirectory + local.shortName +'.png'} className="responsive-img tab-icons" /></a></li>
 
 
             )
@@ -431,7 +434,7 @@ class  LocalSearchTab extends React.Component{
             let loadMoreButton = (local.loadMore && !this.props.processingAction) ?
                 <div className="load-more-action-button-wrapper">
                 <span className="waves-effect waves-light btn-small load-more-action" onClick={() => this.switchToWebsite(local.shortName , pos , true)}
-                 id = {local.shortName + "-load-more-action"}><i className="material-icons left">refresh</i><span>More</span>
+                      id = {local.shortName + "-load-more-action"}><i className="material-icons left">refresh</i><span>More</span>
                 </span>
                 </div> : null;
 
@@ -446,14 +449,14 @@ class  LocalSearchTab extends React.Component{
                 let imageSaved = false;
 
                 savedImage = this.props.gallery.find((imageObject , index)=> {
-                     return  image === imageObject.src;
-                      });
+                    return  image === imageObject.src;
+                });
 
-                 imageSaved = savedImage !== undefined;
+                imageSaved = savedImage !== undefined;
 
-                 bg = `${local.images[index]}`;
-                 showImages = (this.props.settings.showImages) && local.images[index] != null ?
-<span className="modal-link"  data-caption = {local.titles[index]} href = {local.images[index]}>
+                bg = `${local.images[index]}`;
+                showImages = (this.props.settings.showImages) && local.images[index] != null ?
+                    <span className="modal-link"  data-caption = {local.titles[index]} href = {local.images[index]}>
                     <div className="image-container" onClick={  imageSaved ? null : () => {this.saveImage(local.titles[index] , local.links[index] , image)}} data-image={local.images[index]}>
                         <div className="blurred-bg lazyload" data-bgset={bg}></div>
                     <div className="lazyload overlay" data-bgset={bg}  title = {local.titles[index]} onClick={() => {return imageSaved ? null : null}}></div>
@@ -462,10 +465,10 @@ class  LocalSearchTab extends React.Component{
 
                 currency = this.props.settings.localSearch ? <span>&#8358;</span> : <span>$</span>;
                 showPrice = (local.prices[index]) ? <h5 className="green-text search-result-price">{currency}{local.prices[index]}</h5> : <h5 className="green-text search-result-price">price not specified</h5>;
-                  showLocation = local.locations[index].length ?
+                showLocation = local.locations[index].length ?
 
-                   <span className="search-result-locations blue-grey-text"><i
-                       className="tiny material-icons search-location-icons">location_on</i>{local.locations[index]}</span> : null;
+                    <span className="search-result-locations blue-grey-text"><i
+                        className="tiny material-icons search-location-icons">location_on</i>{local.locations[index]}</span> : null;
                 return (
 
                     <div className="search-result" key = {Math.random()}>
@@ -486,7 +489,7 @@ class  LocalSearchTab extends React.Component{
                         {showImages}
                         <a download = {local.titles[index]} target="_blank" href={image}     className="image-download-link search-result-images blue-text"><i
                             className="tiny material-icons search-image-icons">image</i> {  imageSaved ? "Image Saved" : "Save Image"}</a>
-{showLocation}
+                        {showLocation}
 
 
                     </div>)
