@@ -145,6 +145,7 @@
     word-wrap: break-all;
     white-space:normal;
     word-break: break-all;
+    overflow-wrap: break-word;
 }
 .search-result-price{
     position: relative;
