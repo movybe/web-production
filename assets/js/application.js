@@ -1,6 +1,5 @@
 
 
-//https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=samsung+galaxy+s7+edge&page=1&user=165548cb5dcx2e53159d
 
 class Application extends React.Component {
 
@@ -17,6 +16,391 @@ class Application extends React.Component {
     constructor() {
         super();
     }
+
+
+    switchToWebsite = (website , index = 0 , loadMore = false ,backup = false) => {
+
+
+
+
+
+        let selectedEcommerce = this.props.locale.find((local  , pos)=> {
+                index = pos;
+                return local.shortName === website;
+            }
+        );
+
+        const showError = (networkError = true) => {
+
+            selectedEcommerce.error = defaults.noDataError;
+            selectedEcommerce.page = selectedEcommerce.page + 1;
+
+            selectedEcommerce.loadMore = false;
+            this.props.locale[index] = selectedEcommerce;
+            if (this.props.switchWebsite({...this.props, locale: this.props.locale, currentWebsite: website})) {
+
+
+                $("." + defaults.searchResultPreloaders).hide();
+
+                return networkError ?  M.toast({html: defaults.networkError}) :  M.toast({html: this.enterValidKeywordsWarning});
+
+            }
+        };
+
+        const {query , q} = this.props;
+        let pageNumber = selectedEcommerce.page + 1;
+
+        //Check if page had already been already been clicked
+        if(!loadMore && selectedEcommerce.page > 0 && !backup){
+            if(this.props.currentWebsite !== website){
+                this.props.switchWebsite({...this.props , currentWebsite : website});
+            }
+
+            return ;
+        }
+
+
+
+
+
+        if(!this.props.switchWebsite({...this.props , processingAction:  true , currentWebsite : website})) return;
+
+
+
+        $("."  + defaults.searchResultPreloaders).hide();
+
+        //Resetting all the arrays of the selected E-commerce website
+        if(!backup && !this.props.noDefaultResultsFound) {
+            if (!loadMore) {
+
+                Object.keys(selectedEcommerce).map(key => {
+
+                    return Array.isArray(selectedEcommerce[key]) ? selectedEcommerce[key] = [] : null;
+
+                });
+            }
+
+            else {
+                Object.keys(selectedEcommerce).map(key => {
+
+                    return Array.isArray(selectedEcommerce[key]) ? selectedEcommerce[key] = [...selectedEcommerce[key]] : null;
+
+                });
+            }
+        }
+
+
+
+        $("#" + website + "-" + defaults.searchResultPreloader).show();
+
+        let savedState = {};
+        const  defaultAction = () => {
+            if(this.props.switchWebsite({...savedState , processingAction: false}))
+            {
+                $("."  + defaults.searchResultPreloaders).hide();
+
+
+            }
+        };
+
+        switch (website) {
+            case 'jiji' :
+
+                let url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
+
+
+                $.get(defaults.crawler , {url} , response => {
+
+                    let html = $(response.contents).find('.b-list-advert__template').has('img.squared.js-api-lazy-image');
+
+
+                    if(!html.length) return showError();
+
+
+
+
+                    //Clearing some memory
+                    response = null;
+
+
+                    {
+                        let title;
+                        let description;
+                        let image;
+                        let price;
+                        let location;
+                        let link;
+                        let counter = 0;
+                        html.each(function (index) {
+
+                            title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
+                            description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
+                            price = $.trim($(this).find('.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
+                            link = $(this).find('.js-advert-link');
+
+                            image = $(this).find('img').attr('data-src');
+
+
+
+
+                            location = $(this).find('.b-list-advert__item-region').text();
+                            selectedEcommerce.titles.push(title);
+                            selectedEcommerce.descriptions.push(description);
+                            selectedEcommerce.images.push(image);
+                            selectedEcommerce.prices.push(price);
+                            selectedEcommerce.links.push(link.attr('href'));
+                            selectedEcommerce.locations.push(location);
+                            selectedEcommerce.linkTexts.push(String(link.attr('href')).truncate(defaults.maxLinkLength));
+
+                        });
+
+                        selectedEcommerce.page += 1;
+
+                        this.props.locale[index] = selectedEcommerce;
+                        let previousLocale = this.props.locale;
+
+
+                        savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+
+                        defaultAction();
+
+
+                    }
+
+
+                });
+                break;
+            case 'jumia' :
+
+                url = `https://www.jumia.com.ng/catalog/?q=${q}&page=${pageNumber}`;
+
+
+                //url = "http://localhost:2021/jumia.php";
+                $.get(defaults.crawler , {url} , response => {
+
+                    let html = $(response.contents).find('.sku.-gallery');
+
+
+                    if(!html.length) return showError();
+
+
+
+                    response = null;
+
+
+                    {
+                        let title;
+                        let description;
+                        let image;
+                        let price;
+                        //let location;
+                        let link;
+                        html.each(function (index) {
+
+
+                            title = $.trim($(this).find('.name').text()).truncate(defaults.maxTitleLength);
+                            description = $.trim($(this).find('.name').text()).truncate(defaults.maxDescriptionLength);
+                            image = $.trim($(this).find('.lazy.image').attr('data-src'));
+                            price = $.trim($(this).find('.price').first().text().replace(/^\D+/g, '')).toLocaleString();
+                            link = $(this).find('.link').attr('href');
+
+                            //location = $(this).find('.b-list-advert__item-region').text();
+                            if(title !== "") {
+                                selectedEcommerce.titles.push(title);
+                                selectedEcommerce.descriptions.push(description);
+                                selectedEcommerce.images.push(image);
+                                selectedEcommerce.prices.push(price);
+                                selectedEcommerce.links.push(link);
+                                selectedEcommerce.locations.push("");
+                                selectedEcommerce.linkTexts.push(String(link).truncate(defaults.maxLinkLength));
+                            }
+                        });
+
+                        selectedEcommerce.page += 1;
+
+                        this.props.locale[index] = selectedEcommerce;
+                        let previousLocale = this.props.locale;
+                        savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+
+                        defaultAction();
+                    }
+
+                });
+
+
+
+                break;
+            case 'konga' :
+
+                url = "https://b9zcrrrvom-3.algolianet.com/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.30.0%3Breact-instantsearch%205.3.2%3BJS%20Helper%202.26.1&x-algolia-application-id=B9ZCRRRVOM&x-algolia-api-key=cb605b0936b05ce1a62d96f53daa24f7";
+                let postData = {"requests":[{"indexName":"catalog_store_konga","params":`query=${query.replace(" " , "%20")}&maxValuesPerFacet=50&page=${pageNumber}&highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&facets=%5B%22special_price%22%2C%22attributes.brand%22%2C%22attributes.screen_size%22%2C%22attributes.ram_gb%22%2C%22attributes.sim%22%2C%22attributes.sim_slots%22%2C%22attributes.capacity%22%2C%22attributes.battery%22%2C%22attributes.connectivity%22%2C%22attributes.hard_drive%22%2C%22attributes.internal%22%2C%22attributes.tv_screen_size%22%2C%22attributes.operating_system%22%2C%22attributes.kids_shoes%22%2C%22attributes.heel_type%22%2C%22attributes.heel_height%22%2C%22attributes.leg_width%22%2C%22attributes.fastening%22%2C%22attributes.shirt_size%22%2C%22attributes.shoe_size%22%2C%22attributes.lingerie_size%22%2C%22attributes.pants_size%22%2C%22attributes.size%22%2C%22attributes.color%22%2C%22attributes.mainmaterial%22%2C%22konga_fulfilment_type%22%2C%22is_pay_on_delivery%22%2C%22is_free_shipping%22%2C%22pickup%22%2C%22categories.lvl0%22%5D&tagFilters=&ruleContexts=%5B%22%22%5D`}]};
+
+
+                $.post(url , JSON.stringify(postData) , response => {
+
+
+                    if(!response.results) return showError();
+                    if(!response.results.length) return showError(false);
+
+
+                       let resultObject  =  response.results[0].hits;
+                        const titlesArray = [];
+
+                        resultObject.forEach(obj => titlesArray.push(obj.name));
+
+
+                    //Check if Konga is used as a backup search result website and filter the titles if so
+                    let filterAction = backup ? this.filterTitles(titlesArray) : null;
+
+
+                    resultObject.forEach(obj => {
+
+
+                        selectedEcommerce.titles.push(obj.name.truncate(defaults.maxTitleLength));
+                        selectedEcommerce.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
+                        selectedEcommerce.images.push("https://www-konga-com-res.cloudinary.com/w_auto,f_auto,fl_lossy,dpr_auto,q_auto/media/catalog/product" + obj.image_thumbnail_path);
+                        selectedEcommerce.prices.push(obj.price.toLocaleString());
+                        selectedEcommerce.locations.push("");
+
+                        selectedEcommerce.links.push('https://konga.com/product/' + obj.url_key);
+                        selectedEcommerce.linkTexts.push(String('https://konga.com/product/' + obj.url_key).truncate(defaults.maxLinkLength));
+
+
+
+                    });
+
+
+
+
+                    selectedEcommerce.page += 1;
+
+                    this.props.locale[index] = selectedEcommerce;
+                    let previousLocale = this.props.locale;
+                    savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+
+
+
+                    defaultAction();
+
+                });
+                break;
+            case 'deals' :
+                url = `https://deals.jumia.com.ng/catalog?search-keyword=${q}&page=${pageNumber}`;
+
+
+                $.get(defaults.crawler , {url} , response => {
+
+                    let html = $(response.contents).find('.post');
+
+
+
+                    if(!html.length) return showError();
+
+
+                    //Clearing some memory
+                    response = null;
+
+
+                    {
+                        let title;
+                        let description;
+                        let image;
+                        let price;
+                        let location;
+                        let link;
+                        let counter = 0;
+                        html.each(function (index) {
+
+
+                            title = $.trim($(this).find('.post-link').text()).truncate(defaults.maxTitleLength);
+                            description = $.trim($(this).find('.post-link').text()).truncate(defaults.maxDescriptionLength);
+                            image = $.trim($(this).find('.product-images').attr('data-src'));
+                            price = $.trim($(this).find('.price').text().replace( /^\D+/g, '')).toLocaleString();
+                            link = "https://deals.jumia.com.ng/" + $(this).find('.post-link').attr('href');
+
+                            location = $(this).find('.address').text();
+                            selectedEcommerce.titles = [...selectedEcommerce.titles , title];
+                            selectedEcommerce.descriptions = [...selectedEcommerce.descriptions , description];
+                            selectedEcommerce.images = [...selectedEcommerce.images , image];
+                            selectedEcommerce.prices = [...selectedEcommerce.prices , price];
+                            selectedEcommerce.links = [...selectedEcommerce.links , link];
+                            selectedEcommerce.locations = [...selectedEcommerce.locations, location];
+                            selectedEcommerce.linkTexts = [...selectedEcommerce.linkTexts , String(link).truncate(defaults.maxLinkLength)];
+
+                        });
+
+                        selectedEcommerce.page = selectedEcommerce.page + 1;
+
+                        this.props.locale[index] = selectedEcommerce;
+                        let previousLocale = this.props.locale;
+
+                        savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+
+                        defaultAction();
+                    }
+
+
+
+                });
+
+                break;
+
+            case 'olx' :
+                url = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${q}&page=${pageNumber}&user=165548cb5dcx2e53159d`;
+
+                $.get(defaults.crawler, {url}, response => {
+
+
+                    if (!response.contents || response.contents.data.length ) {
+                        return showError();
+                    }
+
+
+                    {
+
+
+                        response.contents.data.forEach(obj => {
+
+
+                            selectedEcommerce.titles.push(obj.title.truncate(defaults.maxTitleLength));
+                            selectedEcommerce.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
+                            selectedEcommerce.images.push(obj.images[0].url);
+                            selectedEcommerce.prices.push(obj.price ? obj.price.value.raw.toLocaleString() : 0);
+                            selectedEcommerce.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
+                            selectedEcommerce.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
+                            selectedEcommerce.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength));
+                        });
+
+
+                        selectedEcommerce.page = selectedEcommerce.page + 1;
+
+                        this.props.locale[index] = selectedEcommerce;
+                        let previousLocale = this.props.locale;
+
+                        savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+
+                        defaultAction();
+
+                    }
+
+                });
+
+
+        }
+
+
+
+
+    };
+
+
+
+
+
+    /*******     ***********/
+
+
+
 
 
     handleSearchFormSubmit = (e) => {
@@ -45,8 +429,7 @@ class Application extends React.Component {
         this.searchQuery = searchQueryToArray.join(" ");
 
 
-        let data = {query: this.searchQuery};
-        data = JSON.stringify(data);
+
 
 
         //hide the site footer and the switch container
@@ -60,141 +443,89 @@ class Application extends React.Component {
         //disables the search form
         this.searchFormFieldSet.prop(...this.disabledFormFieldSet);
 
-        //an array conntaining all the titles of the first search
-        let validTitles = [];
+
 
 
         //default search website depending on the users's settings
-
         const q = this.searchQuery.split(" ").join("+");
-        let searchFilterUrl = this.props.settings.localSearch ? `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${q}&page=1&user=165548cb5dcx2e53159d` : `https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=${q}&page=1`;
 
-        //let searchFilterUrl = 'http://localhost:2021/filter.php';//
+        //The default website to make the search and filter contents
+        let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${q}&page=1&user=165548cb5dcx2e53159d`;
+
         $('.' + defaults.searchResultPreloaders).hide();
 
+        this.props.locale.forEach(obj => {
 
-        let titles;
-        let html;
-        let htmlContent  = '.s-result-item';
-        let titleContent , descriptionContent , linkContent = '.s-access-detail-page';
-        let priceContent = '.a-offscreen';
-        let imageContent = '.s-access-image';
-        let locationContent = '.a-spacing-none';
+            Object.keys(obj).map(key => {
+
+                if (Array.isArray(obj[key])) {
+                    obj[key] = [];
+                }
+            })
+
+
+        });
+
+
+        if(!this.props.switchWebsite({...this.props , currentWebsite : this.props.locale[0].shortName , noDefaultResultsFound : false , processingAction : true}))return;
+
 
         $.get(defaults.crawler, {url: searchFilterUrl}, response => {
 
-            if(this.props.settings.localSearch) {
 
+
+            //Check if a response was received from the server
                 if (!response.contents || !response.contents.data) {
                     return this.searchFormFieldSet.prop(...this.enabledFormFieldSet) && M.toast({html: this.networkError});
                 }
+
+                //Check if there is not data returned meaning empty result
                 else if (!response.contents.data.length) {
 
 
-                    M.toast({html: this.enterValidKeywordsWarning});
+
+                    //M.toast({html: this.enterValidKeywordsWarning});
+
                     this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
 
-                    return;
-
-                }
-
-
-                titles = response.contents.data.forEach((obj, index) => {
-                    let currentTitle = obj.title.toLowerCase();
-                    let currentTitleToArray = currentTitle.split(" ");
-                    currentTitleToArray.forEach((word) => {
-                        if (validTitles.indexOf(word) < 0) {
-                            validTitles.push(word);
-                        }
-                    });
-
-                });
-
-            }
-
-            else {
-                html = $(response.contents).find(htmlContent);
-
-                console.log(html);
-                response = null;
-                validTitles = [];
-
-                if (!html.length) {
-                    return this.searchFormFieldSet.prop(...this.enabledFormFieldSet) && M.toast({html: this.networkError});
-                }
+                    this.searchTabs.show();
+                    $('#tabs.tabs').tabs('select', this.props.defaultBackup);
+                    this.searchQueryField.blur();
+                    this.formSubmitted = true;
 
 
-                response = null;
-
-                titles = html.find(titleContent).each(() => {
-                    let currentTitle = $(this).text().toLowerCase();
-                    let currentTitleToArray = currentTitle.split(" ");
-                    currentTitleToArray.forEach((word) => {
-                        if (validTitles.indexOf(word) < 0) {
-                            validTitles.push(word);
-                        }
-                    });
-
-                });
-
-            }
-
-                    //Filter the user search query
-
-                    searchQueryToArray = this.searchQuery.split(" ");
-
-                    //Remove words that are not found in the list of titles from the array
-
-                    searchQueryToArray = searchQueryToArray.filter((word, index) => {
-
-
-                        return validTitles.indexOf(word) >= 0 && searchQueryToArray[index] !== searchQueryToArray[index + 1];
+                    //Make another request to Backup
+                    this.props.locale.forEach(obj => {
+                       return  obj.page = 0;
                     });
 
 
-                    this.searchQuery = searchQueryToArray.join(" ");
 
-                    if (!this.searchQuery.length) {
-                        this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
-                        M.toast({html: this.enterValidKeywordsWarning});
-                        this.formSubmitted = false;
+                    if(this.props.switchWebsite({...this.props , q , query : this.searchQuery ,  noDefaultResultsFound: true})){
+
+                        this.switchToWebsite(this.props.defaultBackup , null , null , true);
 
                         return;
                     }
+                }
 
 
-                    this.searchQueryField.val(this.searchQuery);
+                let titles = [];
+                response.contents.data.forEach(obj => {
+
+                    titles.push(obj.title.toLowerCase());
+
+                });
+
+                this.filterTitles(titles);
 
 
-                    $.post(defaults.queryProcessor, {data}, (t) => {
 
-
-                        this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
-
-
-                        this.localSearchTabContainer.show();
-
-                        this.lastSearchQuery = this.searchQuery;
-                        this.switchContainer.hide();
-
-
-                        this.props.locale.forEach(obj => {
-
-                            Object.keys(obj).map(key => {
-
-                                if (Array.isArray(obj[key])) {
-                                    obj[key] = [];
-                                }
-                            })
-
-
-                        });
-
-                        let defaultEcommerceWebsite = this.props.settings.localSearch ? this.props.locale[0] : this.props.international[0];
+                        let defaultEcommerceWebsite = this.props.locale[0];
                         let defaultEcommerceWebsiteShortName = defaultEcommerceWebsite.shortName;
 
 
-                        if(this.props.settings.localSearch) {
+
                             response.contents.data.forEach(obj => {
 
 
@@ -206,69 +537,32 @@ class Application extends React.Component {
                                 defaultEcommerceWebsite.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
                                 defaultEcommerceWebsite.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength));
                             });
-
-                        }
-
-                        else {
-
-                            let title , link , description , price , location , image;
-
-                            html.each(() => {
-
-
-                                title = $(this).find(titleContent).text().truncate(defaults.maxTitleLength);
-                                link = $(this).find(linkContent).attr('href');
-                                description = $(this).find(descriptionContent).text();
-                                price = $(this).find(priceContent).text().replace('$' , '');
-                                location = $(this).find(locationContent).text();
-                                image = $(this).find(imageContent).attr('srcset');
-
-                                defaultEcommerceWebsite.titles.push(title);
-                                defaultEcommerceWebsite.descriptions.push(description);
-                                defaultEcommerceWebsite.prices.push(price);
-                                defaultEcommerceWebsite.locations.push(location);
-                                defaultEcommerceWebsite.images.push(image);
-                                defaultEcommerceWebsite.linkTexts.push(link.truncate(defaults.maxLinkLength));
-
-
-                            });
-
-                        }
-                        let previousLocale = this.props.settings.localSearch ?  this.props.locale : this.props.international;
+                            let previousLocale =  this.props.locale;
                         //reset the pages to 0;
-                     const action =  this.props.settings.localSearch ? this.props.locale.forEach(local => {
+                     this.props.locale.forEach(local => {
                             local.page = 0;
                             local.error = null;
                             local.loadMore = true;
-                        }) : this.props.international.forEach(inter => {
-                         inter.page = 0;
-                         inter.error = null;
-                         inter.loadMore = true;
-                     });
+                        });
 
 
                         defaultEcommerceWebsite.page += 1;
-                        let savedState = this.props.settings.localSearch ? {
+                        let savedState = {
                             ...this.props,
                             q,
                             query: this.searchQuery,
                             locale: previousLocale,
                             currentWebsite: defaultEcommerceWebsiteShortName
-                        } : {
-                            ...this.props,
-                            q,
-                            query: this.searchQuery,
-                            international: previousLocale,
-                            currentWebsite: defaultEcommerceWebsiteShortName
-                        } ;
+                        };
+
                         if (this.props.newDefaultSearchResult({...savedState , processingAction : false})) {
 
                             //Switch the tab to the default behaviour;
                             this.formSubmitted = true;
                             this.searchQueryField.blur();
                             this.searchTabs.show();
-
                             $('#tabs.tabs').tabs('select', defaultEcommerceWebsiteShortName);
+
 
                         }
 
@@ -284,7 +578,7 @@ class Application extends React.Component {
 
 
 
-        });
+
 
     };
 
@@ -371,7 +665,8 @@ class Application extends React.Component {
         this.toggleImagesSwitch.prop('checked' , this.props.settings.showImages);
     };
 
-    componentDidUpdate() {
+
+    componentDidUpdate () {
 
         this.defaultAction();
         if (this.props.currentWebsite) {
@@ -393,10 +688,89 @@ class Application extends React.Component {
 
 
         }
+
         this.loadSuggestions();
 
     }
 
+    filterTitles = titlesArr => {
+
+
+        //an array conntaining all the titles of the first search
+        let validTitles = [];
+
+        const titles = titlesArr.forEach(title => {
+            let currentTitle = title.toLowerCase();
+            let currentTitleToArray = currentTitle.split(" ");
+            currentTitleToArray.forEach(word => {
+                if (validTitles.indexOf(word) < 0) {
+                    validTitles.push(word);
+                }
+            });
+
+        });
+
+
+
+        //Filter the user search query
+
+        let searchQueryToArray = this.searchQuery.split(" ");
+
+        //Remove words that are not found in the list of titles from the array
+
+        searchQueryToArray = searchQueryToArray.filter((word, index) => {
+
+
+            return validTitles.indexOf(word) >= 0 && searchQueryToArray[index] !== searchQueryToArray[index + 1];
+        });
+
+
+        this.searchQuery = searchQueryToArray.join(" ");
+
+        if (!this.searchQuery.length) {
+            this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
+            M.toast({html: this.enterValidKeywordsWarning});
+            this.formSubmitted = false;
+
+            return;
+        }
+
+
+        this.searchQueryField.val(this.searchQuery);
+
+        //data to be sent to the server
+        let data = {query: this.searchQuery};
+        data = JSON.stringify(data);
+
+
+        $.post(defaults.queryProcessor, {data}, t => {
+
+
+            this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
+
+
+            this.localSearchTabContainer.show();
+
+            this.lastSearchQuery = this.searchQuery;
+            this.switchContainer.hide();
+
+            /*
+
+            this.props.locale.forEach(obj => {
+
+                Object.keys(obj).map(key => {
+
+                    if (Array.isArray(obj[key])) {
+                        obj[key] = [];
+                    }
+                })
+
+
+            });
+
+*/
+        });
+    };
     loadSuggestions = () => {
         $('input.autocomplete').autocomplete({
             limit: defaults.searchSuggestionsLimit,
@@ -596,7 +970,7 @@ class Application extends React.Component {
 
                 </form>
 </fieldset>
-                <LocalSearchTab  />
+                <LocalSearchTab switchToWebsite = {this.switchToWebsite} />
 
 
             </div>

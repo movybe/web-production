@@ -306,6 +306,10 @@ div.image-container{
     text-align: center;
 }
 body , html{
-    overflow-x: hidden!important;
-    overflow-wrap: break-word;
+
+    overflow: auto;
+}
+
+body > * {
+    overflow: hidden;
 }
