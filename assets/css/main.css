@@ -141,6 +141,10 @@
 .search-result-link-description{
     display: block;
     margin-top : 5px;
+    -ms-word-wrap: break-all;
+    word-wrap: break-all;
+    white-space:normal;
+    word-break: break-all;
 }
 .search-result-price{
     position: relative;
@@ -299,4 +303,8 @@ div.image-container{
 }
 .load-more-action-button-wrapper{
     text-align: center;
+}
+body , html{
+    overflow-x: hidden!important;
+    overflow-wrap: break-word;
 }

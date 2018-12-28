@@ -14,7 +14,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>material-icons.css" type="text/css" />
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>main.css" type="text/css" />
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>jquery.lightbox.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>footer.css" type="text/css" />
     <link rel="icon" type="image/png" href="<?php echo $website_details->IMG_FOLDER;?>m.png" />
     <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>babel.min.js"></script>
