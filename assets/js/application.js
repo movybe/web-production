@@ -18,17 +18,31 @@ class Application extends React.Component {
     }
 
 
-    switchToWebsite = (website , index = 0 , loadMore = false ,backup = false) => {
+    switchToWebsite = (website , /* not event necessary */ index = 0 , /* if the user clicks on load more button */
+                       loadMore = false , /* if the default E-commerce website doesn't return any result*/backup = false) => {
 
 
 
 
 
+        // here i want to find the E-commerce website object from the props using the "website" parameter
         let selectedEcommerce = this.props.locale.find((local  , pos)=> {
                 index = pos;
+
+    // if the current E-commerce shortName is equal to the "website" parameter sent to the function
                 return local.shortName === website;
             }
         );
+
+
+        /*
+
+        The function below warns the user of two possible error outcomes:
+
+        1. a network Error, meaning that there was no response at all from the server
+        2. a result Error , ,meaning that the search query did not return any result
+
+        */
 
         const showError = (networkError = true) => {
 
@@ -47,7 +61,23 @@ class Application extends React.Component {
             }
         };
 
+        /*
+
+
+        query : "samsung galaxy s7 edge"
+        q : "samsung+galaxy+s7+edge" //default query type for most modern E-commerce websites
+
+
+         */
+
         const {query , q} = this.props;
+
+        //increments the pageNumber so that it can pass it to the search url
+        // e.g if the previous page for olx = 1
+        // the new page number becomes 2
+        // the new value (which is 2) is then parsed to the search url of the website
+
+        
         let pageNumber = selectedEcommerce.page + 1;
 
         //Check if page had already been already been clicked
@@ -63,10 +93,13 @@ class Application extends React.Component {
 
 
 
+        //Sets the "currentWebsite" key of the props to the "website" parameter an sets processingAction = true in the props
+
         if(!this.props.switchWebsite({...this.props , processingAction:  true , currentWebsite : website})) return;
 
 
 
+        //hides the preloaders
         $("."  + defaults.searchResultPreloaders).hide();
 
         //Resetting all the arrays of the selected E-commerce website
@@ -91,6 +124,7 @@ class Application extends React.Component {
 
 
 
+        //Now show the preloaders
         $("#" + website + "-" + defaults.searchResultPreloader).show();
 
         let savedState = {};

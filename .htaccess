@@ -10,8 +10,36 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule .* - [L]
 #RewriteRule (.*)$ profile.php?u=$1 [NC]
 Options All -Indexes
+DirectoryIndex index.php
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin http://www.omoba.epizy.com
+    Header set Access-Control-Allow-Credentials true
+    Header set Connection keep-alive
 
+# Cache-control headers
+    # 2 HOURS
+    #<filesMatch "*">
+        Header set Cache-Control "max-age=3600, must-revalidate"
+    #</filesMatch>
 
+    # 480 weeks - 290304000
+    # 2 WEEKS
+    <filesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf)$">
+        Header set Cache-Control "max-age=1209600, public"
+    </filesMatch>
+
+    # 1 HOUR
+    <filesMatch "\.(css)$">
+        Header set Cache-Control "max-age=86400, public, must-revalidate"
+        #Header set Cache-Control "max-age=0, public, must-revalidate"
+    </filesMatch>
+
+# 30 MIN
+    <filesMatch "\.(js)$">
+        Header set Cache-Control "max-age=3600, public, must-revalidate"
+        #Header set Cache-Control "max-age=3600, public, must-revalidate"
+    </filesMatch>
+    </IfModule>
 RewriteRule ^completeRegistration/([a-zA-Z0-9_-]+)$ completeRegistration.php?code=$1
 RewriteRule ^resetPassword/([a-zA-Z0-9_-]+)$ resetPassword.php?code=$1
 RewriteRule ^ad/([a-zA-Z0-9_-]+)$ ad.php?id=$1
