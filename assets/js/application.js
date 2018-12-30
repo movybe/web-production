@@ -965,7 +965,7 @@ class Application extends React.Component {
 
                         </div>
 
-                        <button type="submit" className="input-group-addon btn waves-effect waves-light left" id="search-button">Movybe Search</button>
+                        <button type="submit" className="input-group-addon btn waves-effect waves-light left" id="search-button">Search</button>
 
                         <a className='dropdown-trigger btn-floating btn-large blue' href='#' data-target='settings-dropdown' id="settings-drop-down-link">More<span className="material-icons small" id="settings-more-icon">arrow_drop_down</span></a>
 

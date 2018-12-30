@@ -7,21 +7,21 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     <meta charset="utf-8" />
     <meta name="author" content="<?php echo $website_details->SiteName; ?>" />
     <meta name="description" content="<?php echo $website_details->PageDescription; ?>" />
-    <title><?php echo $website_details->SiteName; ?> • Free price search engine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title><?php echo $website_details->SiteName; ?> • Compare price of Products in Nigeria</title>
     <link rel="canonical" href="<?php echo $website_details->SiteNameWithHttps; ?>" />
     <meta name="robot" content="index, follow" />
-    <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>materialize.min.css" type="text/css" />
-    <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>material-icons.css" type="text/css" />
-    <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>main.css" type="text/css" />
-    <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>jquery.lightbox.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="<?php echo $website_details->CSS_FOLDER;?>footer.css" type="text/css" />
+
+    <?php
+
+    $stylesheets = array("materialize.min.css" , "material-icons.css" , "main.css" , "jquery.lightbox.css" , "footer.css");
+    $scripts = array("babel.min.js" , "react.development.js" , "react-dom.development.js" , "redux.min.js" , "react-redux.min.js");
+    echo $functions->printAssets($stylesheets , "css" , false)."\n";
+
+    echo $functions->printAssets($scripts);
+    ?>
+
     <link rel="icon" type="image/png" href="<?php echo $website_details->IMG_FOLDER;?>m.png" />
-    <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>babel.min.js"></script>
-    <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>react.development.js"></script>
-    <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>react-dom.development.js"></script>
-    <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>redux.min.js"></script>
-    <script type="text/javascript" language="JavaScript" src="<?php echo $website_details->JS_FOLDER;?>react-redux.min.js"></script>
 </head>
 <body>
 <main class ="container">
@@ -48,7 +48,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
         <div class="tap-target" data-target="data-savings-info">
             <div class="tap-target-content">
                 <h5 id="did-you-know">Did you know ?</h5>
-                <p>Using <?php echo $website_details->SiteName; ?> will save you up to 90% of your data.<br><br />No Ads, No unrelated product. <br />fast. easy. secure</p>
+                <p>Using <?php echo $website_details->SiteName; ?> will save you up to 90% of your data.<br />No annoying Ads/unrelated products
+                    <br/>fast.easy.secure</p>
             </div>
         </div>
     </div>
