@@ -29,7 +29,7 @@ class Application extends React.Component {
         let selectedEcommerce = this.props.locale.find((local  , pos)=> {
                 index = pos;
 
-    // if the current E-commerce shortName is equal to the "website" parameter sent to the function
+                // if the current E-commerce shortName is equal to the "website" parameter sent to the function
                 return local.shortName === website;
             }
         );
@@ -77,7 +77,7 @@ class Application extends React.Component {
         // the new page number becomes 2
         // the new value (which is 2) is then parsed to the search url of the website
 
-        
+
         let pageNumber = selectedEcommerce.page + 1;
 
         //Check if page had already been already been clicked
@@ -277,10 +277,10 @@ class Application extends React.Component {
                     if(!response.results.length) return showError(false);
 
 
-                       let resultObject  =  response.results[0].hits;
-                        const titlesArray = [];
+                    let resultObject  =  response.results[0].hits;
+                    const titlesArray = [];
 
-                        resultObject.forEach(obj => titlesArray.push(obj.name));
+                    resultObject.forEach(obj => titlesArray.push(obj.name));
 
 
                     //Check if Konga is used as a backup search result website and filter the titles if so
@@ -350,7 +350,7 @@ class Application extends React.Component {
                             description = $.trim($(this).find('.post-link').text()).truncate(defaults.maxDescriptionLength);
                             image = $.trim($(this).find('.product-images').attr('data-src'));
                             price = $.trim($(this).find('.price').text().replace( /^\D+/g, '')).toLocaleString();
-                            link = "https://deals.jumia.com.ng/" + $(this).find('.post-link').attr('href');
+                            link = "https://deals.jumia.com.ng" + $(this).find('.post-link').attr('href');
 
                             location = $(this).find('.address').text();
                             selectedEcommerce.titles = [...selectedEcommerce.titles , title];
@@ -509,101 +509,101 @@ class Application extends React.Component {
 
 
             //Check if a response was received from the server
-                if (!response.contents || !response.contents.data) {
-                    return this.searchFormFieldSet.prop(...this.enabledFormFieldSet) && M.toast({html: this.networkError});
-                }
+            if (!response.contents || !response.contents.data) {
+                return this.searchFormFieldSet.prop(...this.enabledFormFieldSet) && M.toast({html: this.networkError});
+            }
 
-                //Check if there is not data returned meaning empty result
-                else if (!response.contents.data.length) {
-
-
-
-                    //M.toast({html: this.enterValidKeywordsWarning});
-
-                    this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
-
-                    this.searchTabs.show();
-                    $('#tabs.tabs').tabs('select', this.props.defaultBackup);
-                    this.searchQueryField.blur();
-                    this.formSubmitted = true;
-
-
-                    //Make another request to Backup
-                    this.props.locale.forEach(obj => {
-                       return  obj.page = 0;
-                    });
+            //Check if there is not data returned meaning empty result
+            else if (!response.contents.data.length) {
 
 
 
-                    if(this.props.switchWebsite({...this.props , q , query : this.searchQuery ,  noDefaultResultsFound: true})){
+                //M.toast({html: this.enterValidKeywordsWarning});
 
-                        this.switchToWebsite(this.props.defaultBackup , null , null , true);
+                this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
 
-                        return;
-                    }
-                }
+                this.searchTabs.show();
+                $('#tabs.tabs').tabs('select', this.props.defaultBackup);
+                this.searchQueryField.blur();
+                this.formSubmitted = true;
 
 
-                let titles = [];
-                response.contents.data.forEach(obj => {
-
-                    titles.push(obj.title.toLowerCase());
-
+                //Make another request to Backup
+                this.props.locale.forEach(obj => {
+                    return  obj.page = 0;
                 });
 
-                this.filterTitles(titles);
+
+
+                if(this.props.switchWebsite({...this.props , q , query : this.searchQuery ,  noDefaultResultsFound: true})){
+
+                    this.switchToWebsite(this.props.defaultBackup , null , null , true);
+
+                    return;
+                }
+            }
+
+
+            let titles = [];
+            response.contents.data.forEach(obj => {
+
+                titles.push(obj.title.toLowerCase());
+
+            });
+
+            this.filterTitles(titles);
 
 
 
-                        let defaultEcommerceWebsite = this.props.locale[0];
-                        let defaultEcommerceWebsiteShortName = defaultEcommerceWebsite.shortName;
+            let defaultEcommerceWebsite = this.props.locale[0];
+            let defaultEcommerceWebsiteShortName = defaultEcommerceWebsite.shortName;
 
 
 
-                            response.contents.data.forEach(obj => {
+            response.contents.data.forEach(obj => {
 
 
-                                defaultEcommerceWebsite.titles.push(obj.title.truncate(defaults.maxTitleLength));
-                                defaultEcommerceWebsite.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
-                                defaultEcommerceWebsite.images.push(obj.images[0].url);
-                                defaultEcommerceWebsite.prices.push(obj.price ? obj.price.value.raw.toLocaleString() : 0);
-                                defaultEcommerceWebsite.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
-                                defaultEcommerceWebsite.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
-                                defaultEcommerceWebsite.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength));
-                            });
-                            let previousLocale =  this.props.locale;
-                        //reset the pages to 0;
-                     this.props.locale.forEach(local => {
-                            local.page = 0;
-                            local.error = null;
-                            local.loadMore = true;
-                        });
+                defaultEcommerceWebsite.titles.push(obj.title.truncate(defaults.maxTitleLength));
+                defaultEcommerceWebsite.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
+                defaultEcommerceWebsite.images.push(obj.images[0].url);
+                defaultEcommerceWebsite.prices.push(obj.price ? obj.price.value.raw.toLocaleString() : 0);
+                defaultEcommerceWebsite.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
+                defaultEcommerceWebsite.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
+                defaultEcommerceWebsite.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength));
+            });
+            let previousLocale =  this.props.locale;
+            //reset the pages to 0;
+            this.props.locale.forEach(local => {
+                local.page = 0;
+                local.error = null;
+                local.loadMore = true;
+            });
 
 
-                        defaultEcommerceWebsite.page += 1;
-                        let savedState = {
-                            ...this.props,
-                            q,
-                            query: this.searchQuery,
-                            locale: previousLocale,
-                            currentWebsite: defaultEcommerceWebsiteShortName
-                        };
+            defaultEcommerceWebsite.page += 1;
+            let savedState = {
+                ...this.props,
+                q,
+                query: this.searchQuery,
+                locale: previousLocale,
+                currentWebsite: defaultEcommerceWebsiteShortName
+            };
 
-                        if (this.props.newDefaultSearchResult({...savedState , processingAction : false})) {
+            if (this.props.newDefaultSearchResult({...savedState , processingAction : false})) {
 
-                            //Switch the tab to the default behaviour;
-                            this.formSubmitted = true;
-                            this.searchQueryField.blur();
-                            this.searchTabs.show();
-                            $('#tabs.tabs').tabs('select', defaultEcommerceWebsiteShortName);
-
-
-                        }
+                //Switch the tab to the default behaviour;
+                this.formSubmitted = true;
+                this.searchQueryField.blur();
+                this.searchTabs.show();
+                $('#tabs.tabs').tabs('select', defaultEcommerceWebsiteShortName);
 
 
+            }
 
 
-                    });
+
+
+        });
 
 
 
@@ -906,15 +906,15 @@ class Application extends React.Component {
 
     }
 
-     toggleShowSearchImages = (e) => {
-         let checked = e.target.checked;
+    toggleShowSearchImages = (e) => {
+        let checked = e.target.checked;
 
-         let savedState = {...this.props, settings: {...this.props.settings, showImages: checked}};
+        let savedState = {...this.props, settings: {...this.props.settings, showImages: checked}};
 
 
-         this.props.switchWebsite(savedState);
+        this.props.switchWebsite(savedState);
 
-     };
+    };
 
     render () {
         /*
@@ -943,67 +943,67 @@ class Application extends React.Component {
 
 
             <div>
-            <fieldset id = "search-form-fieldset">
-                <form autoComplete="off" id="search-form" onSubmit={this.handleSearchFormSubmit} method="get" action="#">
-                    <div className="input-group">
-                        <div className="input-field col s12">
-                            <i className="material-icons prefix"></i>
-                            <input  onBlur={() => {
+                <fieldset id = "search-form-fieldset">
+                    <form autoComplete="off" id="search-form" onSubmit={this.handleSearchFormSubmit} method="get" action="#">
+                        <div className="input-group">
+                            <div className="input-field col s12">
+                                <i className="material-icons prefix"></i>
+                                <input  onBlur={() => {
 
 
-                                if(!this.searchQueryField.val().length) return;
-                                if(this.lastSearchQuery === $.trim(this.searchQueryField.val().toLowerCase()) || this.formSubmitted){
+                                    if(!this.searchQueryField.val().length) return;
+                                    if(this.lastSearchQuery === $.trim(this.searchQueryField.val().toLowerCase()) || this.formSubmitted){
 
-                                    this.searchTabs.show();
+                                        this.searchTabs.show();
 
-                                }
+                                    }
 
 
-                            }} onFocus={() => {this.searchTabs.hide();}  } type="text" defaultValue = {this.props.query ? this.props.query : ""} onChange={this.handleSearchTextChange}  id="autocomplete-input" className="autocomplete search-query-field" />
-                            <label htmlFor="autocomplete-input">What do you want to buy?</label>
+                                }} onFocus={() => {this.searchTabs.hide();}  } type="text" defaultValue = {this.props.query ? this.props.query : ""} onChange={this.handleSearchTextChange}  id="autocomplete-input" className="autocomplete search-query-field" />
+                                <label htmlFor="autocomplete-input">What do you want to buy?</label>
+                            </div>
+
                         </div>
 
-                    </div>
+                        <button type="submit" className="input-group-addon btn waves-effect waves-light left" id="search-button">Movybe Search</button>
 
-                            <button type="submit" className="input-group-addon btn waves-effect waves-light left" id="search-button">Movybe Search</button>
+                        <a className='dropdown-trigger btn-floating btn-large blue' href='#' data-target='settings-dropdown' id="settings-drop-down-link">More<span className="material-icons small" id="settings-more-icon">arrow_drop_down</span></a>
 
-                    <a className='dropdown-trigger btn-floating btn-large blue' href='#' data-target='settings-dropdown' id="settings-drop-down-link">More<span className="material-icons small" id="settings-more-icon">arrow_drop_down</span></a>
+                        <ul id='settings-dropdown' className='dropdown-content'>
+                            <li><a href="#" id="download-apk-link"><span className="small material-icons app-download-icon">vertical_align_bottom</span> Download APK</a></li>
+                            <li className="divider" tabIndex="-1"></li>
 
-    <ul id='settings-dropdown' className='dropdown-content'>
-        <li><a href="#" id="download-apk-link"><span className="small material-icons app-download-icon">vertical_align_bottom</span> Download APK</a></li>
-        <li className="divider" tabIndex="-1"></li>
+                            <li id="local-search-setting">
+                                <div className="switch">
 
-        <li id="local-search-setting">
-             <div className="switch">
+                                    <label>
 
-             <label>
+                                        <span id="local-search-text" className="settings-text">Local Search</span>
+                                        <input defaultChecked={() => {return true}} disabled={true} onChange={this.handleSearchTypeSwitch} type="checkbox" id="search-type-switch-button" />
+                                        <span className="lever"></span>
+                                    </label>
+                                </div>
+                            </li>
+                            <li className="divider" tabIndex="-1"></li>
 
-                 <span id="local-search-text" className="settings-text">Local Search</span>
-                 <input defaultChecked={() => {return true}} disabled={true} onChange={this.handleSearchTypeSwitch} type="checkbox" id="search-type-switch-button" />
-                 <span className="lever"></span>
-                  </label>
-             </div>
-         </li>
-        <li className="divider" tabIndex="-1"></li>
+                            <li id="local-search-setting">
+                                <div className="switch">
 
-        <li id="local-search-setting">
-            <div className="switch">
+                                    <label>
 
-                <label>
-
-        <span id="show-images-text" className="settings-text">Show images</span>
-        <input  defaultChecked={() => {return this.props.settings.showImages}}  onChange={this.toggleShowSearchImages} type="checkbox" id="toggle-search-images" />
-        <span className="lever toggle-search-images"></span>
-                </label>
-            </div>
-        </li>
-        <li className="divider" tabIndex="-1"></li>
-        {linkToSavedGallery}
-    </ul>
+                                        <span id="show-images-text" className="settings-text">Show images</span>
+                                        <input  defaultChecked={() => {return this.props.settings.showImages}}  onChange={this.toggleShowSearchImages} type="checkbox" id="toggle-search-images" />
+                                        <span className="lever toggle-search-images"></span>
+                                    </label>
+                                </div>
+                            </li>
+                            <li className="divider" tabIndex="-1"></li>
+                            {linkToSavedGallery}
+                        </ul>
 
 
-                </form>
-</fieldset>
+                    </form>
+                </fieldset>
                 <LocalSearchTab switchToWebsite = {this.switchToWebsite} />
 
 
