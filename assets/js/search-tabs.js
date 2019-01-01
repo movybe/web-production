@@ -86,16 +86,18 @@ class  LocalSearchTab extends React.Component{
         });
 
 
-
+        let loadMoreButton;
         let tabContainers = locale.map((local , pos)  => {
 
-            let loadMoreButton = (local.loadMore && !this.props.processingAction) ?
+
+                loadMoreButton = (local.loadMore && !this.props.processingAction && local.titles.length) ?
                 <div className="load-more-action-button-wrapper">
                 <span className="waves-effect waves-light btn-small load-more-action" onClick={() => {this.props.switchToWebsite(local.shortName , pos , true)}}
                       id = {local.shortName + "-load-more-action"}><i className="material-icons left">refresh</i><span>More</span>
                 </span>
                 </div> : null;
 
+            loadMoreButton = (loadMoreButton === null && !this.props.loadMore && !this.props.processingAction && local.titles.length) ? <p className="center-align">{defaults.noMoreResultsFoundError + " on " + local.shortName}</p> : loadMoreButton;
 
             let showLocation;
             let showImages;
@@ -151,7 +153,8 @@ class  LocalSearchTab extends React.Component{
 
 
                     </div>)
-            }) : <p className="helper-text error-text" data-error = {local.error}>{local.error}</p>;
+            }) :  <p className="center-align">{defaults.noResultsFoundError + ` for "${this.props.query}" `}</p>;
+
 
 
             return (
@@ -173,6 +176,8 @@ class  LocalSearchTab extends React.Component{
                         {template}
 
                         {loadMoreButton}
+
+
                     </div>
 
 

@@ -71,18 +71,18 @@ class Defaults {
         this.liLink = "li-link";
         this.noDataError = "Failed to load data";
         this.networkError = "No Results found for this query, check your connection";
-
+        this.noMoreResultsFoundError = "no more results found";
         this.savedState = "savedState";
         this.localSearchCookieKey = "localSearch";
         this.showImagesCookieKey = "showImages";
         this.lazyBG = "/assets/js/lazy-bg.js";
-
+        this.noResultsFoundError = "no results found";
         this.searchSuggestionsLimit = 7;
      }
 
 }
 
 
-let defaults = new Defaults();
+const defaults = new Defaults();
 
 

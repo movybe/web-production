@@ -89,10 +89,9 @@ class Config {
     };
 
     constructor (){
-        const Provider = ReactRedux.Provider;
-        let {connect} = ReactRedux;
-        const {createStore} = Redux;
+        const {Provider , connect} = ReactRedux;
 
+        const {createStore} = Redux;
         const  store = createStore(this.rootReducer);
 
         Application = connect(this.mapStateToProps , this.mapDispatchToState)(Application);

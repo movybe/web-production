@@ -46,15 +46,18 @@ class Application extends React.Component {
 
         const showError = (networkError = true) => {
 
+            console.log("i want to show an error");
             selectedEcommerce.error = defaults.noDataError;
             selectedEcommerce.page = selectedEcommerce.page + 1;
 
             selectedEcommerce.loadMore = false;
             this.props.locale[index] = selectedEcommerce;
-            if (this.props.switchWebsite({...this.props, locale: this.props.locale, currentWebsite: website})) {
+
+            if (this.props.switchWebsite({...this.props, processingAction : false , locale: this.props.locale, currentWebsite: website})) {
 
 
                 $("." + defaults.searchResultPreloaders).hide();
+
 
                 return networkError ?  M.toast({html: defaults.networkError}) :  M.toast({html: this.enterValidKeywordsWarning});
 
@@ -86,9 +89,9 @@ class Application extends React.Component {
         if(!loadMore && selectedEcommerce.page > 0 && !backup){
             /*
             Since the user had clicked on this current tab
-            if the "currentWebsite" property of the store is not equal to 
+            if the "currentWebsite" property of the store is not equal to
             the "website" paramater, set the "currentWebsite" key of the state
-            to the parameter "website";   
+            to the parameter "website";
          */
 
             if(this.props.currentWebsite !== website){
@@ -107,7 +110,7 @@ class Application extends React.Component {
 
         /*
         Sets the "currentWebsite" key of the props to the "website" parameter an sets processingAction = true in the props
-      
+
         just in case this action fails it should return {just in case (~_~) }
 
         */
@@ -119,8 +122,8 @@ class Application extends React.Component {
         $("."  + defaults.searchResultPreloaders).hide();
 
         /*
-        
-        Resets all the arrays of the selected E-commerce website  
+
+        Resets all the arrays of the selected E-commerce website
         so that new titles , descriptions , prices , images will be replaced with new ones
         */
         if(!backup && !this.props.noDefaultResultsFound) {
@@ -405,7 +408,7 @@ class Application extends React.Component {
                 $.get(defaults.crawler, {url}, response => {
 
 
-                    if (!response.contents || response.contents.data.length ) {
+                    if (!response.contents || !response.contents.data.length ) {
                         return showError();
                     }
 
@@ -521,6 +524,8 @@ class Application extends React.Component {
         });
 
 
+        //set the loadMore key of this website object to false
+        this.props.locale[0].loadMore = true;
         if(!this.props.switchWebsite({...this.props , currentWebsite : this.props.locale[0].shortName , noDefaultResultsFound : false , processingAction : true}))return;
 
 
@@ -533,7 +538,7 @@ class Application extends React.Component {
                 return this.searchFormFieldSet.prop(...this.enabledFormFieldSet) && M.toast({html: this.networkError});
             }
 
-            //Check if there is not data returned meaning empty result
+            //Check if there is not data returned, meaning empty result
             else if (!response.contents.data.length) {
 
 
@@ -553,8 +558,8 @@ class Application extends React.Component {
                     return  obj.page = 0;
                 });
 
-
-
+                //also set the loadMore key of this website object to false
+                this.props.locale[0].loadMore = false;
                 if(this.props.switchWebsite({...this.props , q , query : this.searchQuery ,  noDefaultResultsFound: true})){
 
                     this.switchToWebsite(this.props.defaultBackup , null , null , true);

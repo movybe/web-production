@@ -12,7 +12,7 @@
 <?php
 
 
-$scripts = array("cookie.min.js" , "request.js" , "jquery.min.js" , "bgset.min.js" ,"lazy-bg.js" , "materialize.min.js" , "settings.js" , "test.js" , "jquery.lightbox.js");
+$scripts = array("cookie.min.js" , "request.js" , "jquery.min.js" , "bgset.min.js" ,"lazy-bg.js" , "materialize.min.js" , "defaults.js" , "test.js" , "jquery.lightbox.js");
 
 
 echo $functions->printAssets($scripts);
