@@ -2,12 +2,12 @@
 
 abstract class WebsiteConfigurationSettings {
 
-
-    public  $SiteName = "Omoba";
-    public  $Https = "https://";
-    public  $Www = "www.";
-    public  $SiteNameWithoutHttps = "www.omoba.epizy.com";
-    public  $SiteNameWithHttps = "";
+    
+	public  $SiteName = "Omoba";
+	public  $Https = "https://";
+	public  $Www = "www.";
+	public  $SiteNameWithoutHttps = "www.omoba.epizy.com";
+	public  $SiteNameWithHttps = "";
     public  $FacebookUrl = "";
     public  $TwitterUrl  = "";
     public  $InstagramUrl = "";
@@ -39,6 +39,7 @@ abstract class WebsiteConfigurationSettings {
     public  $ParentCompanyName = "Omoba Inc.";
     public  $ParentCompanyAddress = "/";
     public $maxNumberOfSuggestion = 5;
+    public $COMPONENTS_FOLDER = null;
 
     abstract function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords);
 
@@ -61,6 +62,7 @@ abstract class WebsiteConfigurationSettings {
         $this->ContactEmail  = 'contact@'.$this->SiteName;
         $this->DefaultAdminUserID = "Jvli";
         $this->defaultBotProfilePicture = $this->IMG_FOLDER.'spider.png';
+         $this->COMPONENTS_FOLDER = $this->JS_FOLDER."components/";
         $this->AboutUs = <<<AboutUs
 <p>
                                        Search the price of anything.  
@@ -70,7 +72,7 @@ abstract class WebsiteConfigurationSettings {
 AboutUs;
 
 
-    }
+}
 
 }
 

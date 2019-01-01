@@ -76,16 +76,26 @@ class Application extends React.Component {
         // e.g if the previous page for olx = 1
         // the new page number becomes 2
         // the new value (which is 2) is then parsed to the search url of the website
-
-
         let pageNumber = selectedEcommerce.page + 1;
 
-        //Check if page had already been already been clicked
+        /*
+        Check if this tab had already been clicked , meaning content has either loaded or is still loading
+        to prevent this function from being recursive
+        */
+
         if(!loadMore && selectedEcommerce.page > 0 && !backup){
+            /*
+            Since the user had clicked on this current tab
+            if the "currentWebsite" property of the store is not equal to 
+            the "website" paramater, set the "currentWebsite" key of the state
+            to the parameter "website";   
+         */
+
             if(this.props.currentWebsite !== website){
                 this.props.switchWebsite({...this.props , currentWebsite : website});
             }
 
+            //Then,  return to prevent a recursion of this function
             return ;
         }
 
@@ -93,16 +103,26 @@ class Application extends React.Component {
 
 
 
-        //Sets the "currentWebsite" key of the props to the "website" parameter an sets processingAction = true in the props
 
+
+        /*
+        Sets the "currentWebsite" key of the props to the "website" parameter an sets processingAction = true in the props
+      
+        just in case this action fails it should return {just in case (~_~) }
+
+        */
         if(!this.props.switchWebsite({...this.props , processingAction:  true , currentWebsite : website})) return;
 
 
 
-        //hides the preloaders
+        //hides all the preloaders in case there is any that is visible
         $("."  + defaults.searchResultPreloaders).hide();
 
-        //Resetting all the arrays of the selected E-commerce website
+        /*
+        
+        Resets all the arrays of the selected E-commerce website  
+        so that new titles , descriptions , prices , images will be replaced with new ones
+        */
         if(!backup && !this.props.noDefaultResultsFound) {
             if (!loadMore) {
 
