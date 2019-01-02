@@ -166,7 +166,13 @@ class Application extends React.Component {
 
                 $.get(defaults.crawler , {url} , response => {
 
-                    let html = $(response.contents).find('.b-list-advert__template').has('img.squared.js-api-lazy-image');
+                    let html;
+                    try{
+                        html = $(response.contents).find('.b-list-advert__template').has('img.squared.js-api-lazy-image');
+                    }
+                    catch (e) {
+                        showError();
+                    }
 
 
                     if(!html.length) return showError();
@@ -233,7 +239,15 @@ class Application extends React.Component {
                 //url = "http://localhost:2021/jumia.php";
                 $.get(defaults.crawler , {url} , response => {
 
-                    let html = $(response.contents).find('.sku.-gallery');
+                    let html;
+
+                    try{
+                        html = $(response.contents).find('.sku.-gallery');
+
+                    }
+                    catch (e) {
+                        return showError();
+                    }
 
 
                     if(!html.length) return showError();
@@ -345,11 +359,21 @@ class Application extends React.Component {
 
                 $.get(defaults.crawler , {url} , response => {
 
-                    let html = $(response.contents).find('.post');
+                    let html;
 
 
+                    try {
+                        html = $(response.contents).find('.post') ? $(response.contents).find('.post') : html;
 
+                    }
+
+                    catch (e) {
+                        return showError();
+
+                    }
                     if(!html.length) return showError();
+
+
 
 
                     //Clearing some memory
