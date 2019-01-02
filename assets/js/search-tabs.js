@@ -153,7 +153,10 @@ class  LocalSearchTab extends React.Component{
 
 
                     </div>)
-            }) :  <p className="center-align">{defaults.noResultsFoundError + ` for "${this.props.query}" `}</p>;
+            }) :  null;
+
+            let boldedQuery = <strong>{this.props.query}</strong>;
+            template = (template === null && local.page) ? <p className="center-align">{defaults.noResultsFoundError + ` for "`}{boldedQuery}{`" on ${local.shortName}` }</p> : template;
 
 
 

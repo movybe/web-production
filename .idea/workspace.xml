@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="164b0cb5-d77a-4dd8-82e2-9790aebb2644" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/js/react-dom.production.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/js/react.production.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/incs/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/assets/incs/footer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/application.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/search-tabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/search-tabs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/defaults.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -126,7 +126,7 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="28" />
-          <entry key="JavaScript" value="85" />
+          <entry key="JavaScript" value="87" />
           <entry key="PHP" value="90" />
           <entry key="PLAIN_TEXT" value="4" />
           <entry key="RNG Compact" value="1" />
@@ -144,8 +144,8 @@
         <counts>
           <entry key="CSS" value="527" />
           <entry key="HTML" value="2" />
-          <entry key="JavaScript" value="48937" />
-          <entry key="PHP" value="5845" />
+          <entry key="JavaScript" value="49338" />
+          <entry key="PHP" value="5873" />
           <entry key="PLAIN_TEXT" value="5" />
           <entry key="SQL" value="1" />
         </counts>
@@ -157,8 +157,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="667">
-              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+            <state relative-caret-position="75">
+              <caret line="29" column="20" lean-forward="true" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -166,8 +166,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/js/application.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="1013" column="46" lean-forward="true" selection-start-line="1013" selection-start-column="46" selection-end-line="1013" selection-end-column="46" />
+            <state relative-caret-position="594">
+              <caret line="413" column="21" lean-forward="true" selection-start-line="413" selection-start-column="21" selection-end-line="413" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -175,8 +175,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/js/search-tabs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="155" column="103" selection-start-line="155" selection-start-column="103" selection-end-line="155" selection-end-column="103" />
+            <state relative-caret-position="267">
+              <caret line="199" column="27" selection-end-line="220" />
             </state>
           </provider>
         </entry>
@@ -193,8 +193,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/js/config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="40" column="32" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+            <state relative-caret-position="369">
+              <caret line="82" column="6" lean-forward="true" selection-start-line="82" selection-start-column="6" selection-end-line="82" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -202,8 +202,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/js/defaults.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="64" column="33" lean-forward="true" selection-start-line="64" selection-start-column="33" selection-end-line="64" selection-end-column="33" />
+            <state relative-caret-position="1152">
+              <caret line="72" column="40" lean-forward="true" selection-start-line="72" selection-start-column="40" selection-end-line="72" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -241,7 +241,6 @@
       <find>Galler</find>
       <find>data-c</find>
       <find>caption</find>
-      <find>console</find>
       <find>console.</find>
       <find>this.switchToWebsite</find>
       <find>this.props.switchT</find>
@@ -249,8 +248,9 @@
       <find>this.cookie</find>
       <find>noData</find>
       <find>settings</find>
-      <find>settings.</find>
       <find>defaults.</find>
+      <find>settings.</find>
+      <find>console</find>
     </findStrings>
     <replaceStrings>
       <replace>classNamme</replace>
@@ -274,8 +274,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/config/DatabaseConnection.php" />
-        <option value="$PROJECT_DIR$/assets/css/modal.css" />
         <option value="$PROJECT_DIR$/test1.php" />
         <option value="$PROJECT_DIR$/assets/js/suggestions.php" />
         <option value="$PROJECT_DIR$/processors/query.php" />
@@ -318,13 +316,15 @@
         <option value="$PROJECT_DIR$/assets/css/main.css" />
         <option value="$PROJECT_DIR$/.htaccess" />
         <option value="$PROJECT_DIR$/config/config.php" />
-        <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/assets/js/application.js" />
         <option value="$PROJECT_DIR$/assets/js/config.js" />
         <option value="$PROJECT_DIR$/assets/js/settings.js" />
         <option value="$PROJECT_DIR$/assets/incs/footer.php" />
         <option value="$PROJECT_DIR$/assets/js/defaults.js" />
         <option value="$PROJECT_DIR$/assets/js/search-tabs.js" />
+        <option value="$PROJECT_DIR$/assets/js/application.js" />
+        <option value="$PROJECT_DIR$/assets/js/react.production.min.js" />
+        <option value="$PROJECT_DIR$/assets/js/react-dom.production.min.js" />
+        <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
   </component>
@@ -491,12 +491,12 @@
       <workItem from="1545994055890" duration="26617000" />
       <workItem from="1546038302212" duration="4264000" />
       <workItem from="1546129242358" duration="9055000" />
-      <workItem from="1546379559074" duration="7510000" />
+      <workItem from="1546379559074" duration="11008000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="474172000" />
+    <option name="totallyTimeSpent" value="477670000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1448" height="864" extended-state="6" />
@@ -531,20 +531,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/assets/js/sources.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="56" column="21" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/css/footer.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -696,10 +682,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
+    <entry file="file://$PROJECT_DIR$/assets/js/defaults.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
-          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+        <state relative-caret-position="1152">
+          <caret line="72" column="40" lean-forward="true" selection-start-line="72" selection-start-column="40" selection-end-line="72" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="82" column="6" lean-forward="true" selection-start-line="82" selection-start-column="6" selection-end-line="82" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -710,31 +703,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/react.production.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="3" column="51" lean-forward="true" selection-start-line="3" selection-start-column="51" selection-end-line="3" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/react-dom.production.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="207" selection-start-line="207" selection-end-line="207" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="29" column="20" lean-forward="true" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/application.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="1013" column="46" lean-forward="true" selection-start-line="1013" selection-start-column="46" selection-end-line="1013" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="40" column="32" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/defaults.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="64" column="33" lean-forward="true" selection-start-line="64" selection-start-column="33" selection-end-line="64" selection-end-column="33" />
+        <state relative-caret-position="594">
+          <caret line="413" column="21" lean-forward="true" selection-start-line="413" selection-start-column="21" selection-end-line="413" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/search-tabs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="155" column="103" selection-start-line="155" selection-start-column="103" selection-end-line="155" selection-end-column="103" />
+        <state relative-caret-position="267">
+          <caret line="199" column="27" selection-end-line="220" />
         </state>
       </provider>
     </entry>

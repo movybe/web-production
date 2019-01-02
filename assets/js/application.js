@@ -45,8 +45,6 @@ class Application extends React.Component {
         */
 
         const showError = (networkError = true) => {
-
-            console.log("i want to show an error");
             selectedEcommerce.error = defaults.noDataError;
             selectedEcommerce.page = selectedEcommerce.page + 1;
 
@@ -507,7 +505,7 @@ class Application extends React.Component {
         const q = this.searchQuery.split(" ").join("+");
 
         //The default website to make the search and filter contents
-        let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${q}&page=1&user=165548cb5dcx2e53159d`;
+        let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${q}&page=0&user=165548cb5dcx2e53159d`;
 
         $('.' + defaults.searchResultPreloaders).hide();
 

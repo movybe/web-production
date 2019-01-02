@@ -15,7 +15,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     <?php
 
     $stylesheets = array("materialize.min.css" , "material-icons.css" , "main.css" , "jquery.lightbox.css" , "footer.css");
-    $scripts = array("babel.min.js" , "react.development.js" , "react-dom.development.js" , "redux.min.js" , "react-redux.min.js");
+    $scripts = array("babel.min.js" , "react.production.min.js" , "react-dom.production.min.js" , "redux.min.js" , "react-redux.min.js");
     echo $functions->printAssets($stylesheets , "css" , false)."\n";
 
     echo $functions->printAssets($scripts);
