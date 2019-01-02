@@ -76,8 +76,8 @@ class  LocalSearchTab extends React.Component{
 
                 <li id = {local.shortName + "-tab"} onClick={
                     () =>
-                { tabListClickAction(local.shortName , index);}}
-                key = {local.name} className="tab website-list-tabs"><a href= {"#" + local.shortName} id = {local.shortName + "-tab-link"} className={"tab-links " + active}><img data-src={defaults.imageDirectory + local.shortName +'.png'} className="responsive-img tab-icons lazyload" /></a></li>
+                    { tabListClickAction(local.shortName , index);}}
+                    key = {local.name} className="tab website-list-tabs"><a href= {"#" + local.shortName} id = {local.shortName + "-tab-link"} className={"tab-links " + active}><img data-src={defaults.imageDirectory + local.shortName +'.png'} className="responsive-img tab-icons lazyload" /></a></li>
 
 
             )
@@ -90,14 +90,14 @@ class  LocalSearchTab extends React.Component{
         let tabContainers = locale.map((local , pos)  => {
 
 
-                loadMoreButton = (local.loadMore && !this.props.processingAction && local.titles.length) ?
+            loadMoreButton = (local.loadMore && !this.props.processingAction && local.titles.length) ?
                 <div className="load-more-action-button-wrapper">
                 <span className="waves-effect waves-light btn-small load-more-action" onClick={() => {this.props.switchToWebsite(local.shortName , pos , true)}}
                       id = {local.shortName + "-load-more-action"}><i className="material-icons left">refresh</i><span>More</span>
                 </span>
                 </div> : null;
 
-            loadMoreButton = (loadMoreButton === null && !this.props.loadMore && !this.props.processingAction && local.titles.length) ? <p className="center-align">{defaults.noMoreResultsFoundError + " on " + local.shortName}</p> : loadMoreButton;
+            loadMoreButton = (loadMoreButton === null && !this.props.loadMore && !this.props.processingAction && local.titles.length) ? <div className="load-more-error-message">{defaults.noMoreResultsFoundError + " on " + local.name}</div> : loadMoreButton;
 
             let showLocation;
             let showImages;
@@ -156,7 +156,7 @@ class  LocalSearchTab extends React.Component{
             }) :  null;
 
             let boldedQuery = <strong>{this.props.query}</strong>;
-            template = (template === null && local.page) ? <p className="center-align">{defaults.noResultsFoundError + ` for "`}{boldedQuery}{`" on ${local.shortName}` }</p> : template;
+            template = (template === null && local.page) ? <div className="load-more-error-message">{defaults.noResultsFoundError + ` for "`}{boldedQuery}{`" on ${local.name}` }</div> : template;
 
 
 

@@ -213,7 +213,7 @@ div.image-container{
     background-repeat: no-repeat;
     position: relative;
     opacity : .8;
-  }
+}
 .blurred-bg , .overlay{
     position: absolute;
     top :0;
@@ -227,21 +227,21 @@ div.image-container{
 }
 .blurred-bg{
     background-size: cover;
-     opacity : .5;
+    opacity : .5;
     /* Add the blur effect */
-  filter: blur(.089em);
-  -webkit-filter: blur(.089em);
+    filter: blur(.089em);
+    -webkit-filter: blur(.089em);
 }
 .overlay{
-   background-size: contain;
+    background-size: contain;
     position: absolute;
 
 }
 
 #settings-dropdown {
     width : 135px !important;
-  
-    
+
+
 }
 #settings-drop-down-link{
     float: right;
@@ -251,8 +251,8 @@ div.image-container{
 #local-search-setting{
     position: relative;
     left : 0px;
-    
- }
+
+}
 .lever{
     position:relative;
     left : 4px;
@@ -263,14 +263,14 @@ div.image-container{
 }
 .settings-text{
     position: relative;
-    
+
 }
 #show-images-text{
     font-size: 9px;
     left : 5px;
 }
 #toggle-search-images{
-    
+
 }
 
 .lever.toggle-search-images{
@@ -309,6 +309,12 @@ div.image-container{
     overflow-x : hidden;
 }
 
+p.load-more-error-message{
+    font-size: 19px !important;
+    font-weight: 600 !important;
+    margin-top : 2em !important;
+    text-align: center;
+}
 
 
 
