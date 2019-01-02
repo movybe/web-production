@@ -309,11 +309,9 @@ div.image-container{
     overflow-x : hidden;
 }
 
-p.load-more-error-message{
-    font-size: 19px !important;
-    font-weight: 600 !important;
+.load-more-error-messages{
     margin-top : 2em !important;
-    text-align: center;
+
 }
 
 

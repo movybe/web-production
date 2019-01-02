@@ -97,7 +97,7 @@ class  LocalSearchTab extends React.Component{
                 </span>
                 </div> : null;
 
-            loadMoreButton = (loadMoreButton === null && !this.props.loadMore && !this.props.processingAction && local.titles.length) ? <div className="load-more-error-message">{defaults.noMoreResultsFoundError + " on " + local.name}</div> : loadMoreButton;
+            loadMoreButton = (loadMoreButton === null && !this.props.loadMore && !this.props.processingAction && local.titles.length) ? <h5 className="center-align load-more-error-messages">{defaults.noMoreResultsFoundError + " on " + local.name}</h5> : loadMoreButton;
 
             let showLocation;
             let showImages;
@@ -156,7 +156,7 @@ class  LocalSearchTab extends React.Component{
             }) :  null;
 
             let boldedQuery = <strong>{this.props.query}</strong>;
-            template = (template === null && local.page) ? <div className="load-more-error-message">{defaults.noResultsFoundError + ` for "`}{boldedQuery}{`" on ${local.name}` }</div> : template;
+            template = (template === null && local.page) ? <h5 className="center-align load-more-error-messages">{defaults.noResultsFoundError + ` for "`}{boldedQuery}{`" on ${local.name}` }</h5> : template;
 
 
 

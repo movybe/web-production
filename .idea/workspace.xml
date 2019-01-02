@@ -140,7 +140,7 @@
         <counts>
           <entry key="CSS" value="549" />
           <entry key="HTML" value="2" />
-          <entry key="JavaScript" value="49601" />
+          <entry key="JavaScript" value="49621" />
           <entry key="PHP" value="5873" />
           <entry key="PLAIN_TEXT" value="5" />
           <entry key="SQL" value="1" />
@@ -162,8 +162,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="667">
-              <caret line="320" selection-start-line="320" selection-end-line="320" />
+            <state relative-caret-position="635">
+              <caret line="318" selection-start-line="318" selection-end-line="318" />
             </state>
           </provider>
         </entry>
@@ -171,8 +171,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/js/search-tabs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="667">
-              <caret line="220" lean-forward="true" selection-start-line="220" selection-end-line="220" />
+            <state relative-caret-position="603">
+              <caret line="97" column="13" lean-forward="true" selection-end-line="220" />
             </state>
           </provider>
         </entry>
@@ -198,8 +198,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/js/application.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="1042" column="10" selection-start-line="1042" selection-start-column="10" selection-end-line="1042" selection-end-column="10" />
+            <state relative-caret-position="507">
+              <caret line="1062" lean-forward="true" selection-start-line="1062" selection-end-line="1062" />
             </state>
           </provider>
         </entry>
@@ -319,8 +319,8 @@
         <option value="$PROJECT_DIR$/assets/js/react-dom.production.min.js" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/assets/js/application.js" />
-        <option value="$PROJECT_DIR$/assets/css/main.css" />
         <option value="$PROJECT_DIR$/assets/js/search-tabs.js" />
+        <option value="$PROJECT_DIR$/assets/css/main.css" />
       </list>
     </option>
   </component>
@@ -487,12 +487,12 @@
       <workItem from="1545994055890" duration="26617000" />
       <workItem from="1546038302212" duration="4264000" />
       <workItem from="1546129242358" duration="9055000" />
-      <workItem from="1546379559074" duration="15242000" />
+      <workItem from="1546379559074" duration="16457000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="481904000" />
+    <option name="totallyTimeSpent" value="483119000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1448" height="864" extended-state="6" />
@@ -713,24 +713,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/main.css">
+    <entry file="file://$PROJECT_DIR$/assets/js/application.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
-          <caret line="320" selection-start-line="320" selection-end-line="320" />
+        <state relative-caret-position="507">
+          <caret line="1062" lean-forward="true" selection-start-line="1062" selection-end-line="1062" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/application.js">
+    <entry file="file://$PROJECT_DIR$/assets/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="1042" column="10" selection-start-line="1042" selection-start-column="10" selection-end-line="1042" selection-end-column="10" />
+        <state relative-caret-position="635">
+          <caret line="318" selection-start-line="318" selection-end-line="318" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/search-tabs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
-          <caret line="220" lean-forward="true" selection-start-line="220" selection-end-line="220" />
+        <state relative-caret-position="603">
+          <caret line="97" column="13" lean-forward="true" selection-end-line="220" />
         </state>
       </provider>
     </entry>
