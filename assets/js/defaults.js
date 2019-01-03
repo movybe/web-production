@@ -77,6 +77,7 @@ class Defaults {
         this.showImagesCookieKey = "showImages";
         this.lazyBG = "/assets/js/lazy-bg.js";
         this.noResultsFoundError = "no results found";
+        this.pleaseWaitText = "Please wait...";
         this.searchSuggestionsLimit = 7;
      }
 

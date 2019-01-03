@@ -156,8 +156,9 @@ class  LocalSearchTab extends React.Component{
             }) :  null;
 
             let boldedQuery = <strong>{this.props.query}</strong>;
-            template = (template === null && local.page) ? <h5 className="center-align load-more-error-messages">{defaults.noResultsFoundError + ` for "`}{boldedQuery}{`" on ${local.name}` }</h5> : template;
+            template = (template === null && local.page && !this.props.processingAction) ? <h5 className="center-align load-more-error-messages">{defaults.noResultsFoundError + ` for "`}{boldedQuery}{`" on ${local.name}` }</h5> : template;
 
+            template = (template === null && this.props.processingAction) ? <h5 className="center-align load-more-error-messages">{defaults.pleaseWaitText}</h5> : template;
 
 
             return (
