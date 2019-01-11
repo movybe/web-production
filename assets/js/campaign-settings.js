@@ -53,7 +53,7 @@ class CampaignSettings{
     {
 
         return {
-            resetState : (state , callback) => {
+            resetState : (state , callback = () => {}) => {
                 dispatch({state , type : 'RESET_STATE'});
 
                 callback();

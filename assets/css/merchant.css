@@ -1,5 +1,56 @@
-#fund-status {
+#fund-status-container {
 
 
+   
 
+}
+.account-info-headers{
+  background-color : #fff;
+  margin-top : 30px;
+  border :1px solid rgba(212 , 212 , 212 , .6);
+  border-radius:3px;   
+}
+
+.tabs .indicator
+{
+    background-color: lightgray !important;
+}
+
+.tabs .tab a:hover, .tabs .tab a.active , .tab a {
+
+    color : #000 !important;
+    text-decoration: none;
+
+}
+.status-headers{
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: bold;
+    color : grey;
+}
+.subscription-active-text{
+    font-weight: bold;
+    text-transform:uppercase;
+    font-size: 12px;
+        
+}
+
+.amount-value{
+    font-size: 18px;
+    font-weight: bold;
+    color : rgba(0 , 0, 0 , .5);
+}
+.tab a{
+    font-size :small !important;;
+}
+#merchant-email-address{
+    font-size:small;
+    position: relative;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    top : 2px;
+}
+div.activate-account.materialize-red-text{
+    color : rgba(255 , 120 , 123) !important;
+    font-weight: bold;
 }

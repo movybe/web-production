@@ -20,7 +20,7 @@ class Activity extends  Functions
 
         $this->action = $this->data['action'];
         $this->email = $this->data['email'];
-        $this->user_details = $this->getUserDetails();
+
         return true;
 
 
@@ -28,14 +28,31 @@ class Activity extends  Functions
 
     private function getUserDetails () : array  {
 
+        if(!$this->emailExistsInTable())return [];
         return $this->fetch_data_from_table($this->users_table_name , "email" , $this->email)[0];
     }
 
+    private function fetchMerchantDetails () : array{
 
+        $user_details = $this->fetch_data_from_table($this->users_table_name , "email" , $this->email)[0];
+        $ad_details = $this->fetch_data_from_table($this->ads_table_name , "posted_by" , $this->getUserDetails()['email']);
+
+
+        return ["user" => $user_details ,"ads" => $ad_details];
+
+    }
+
+    private function generateUserId () : string {
+        global  $website_details;
+        $user_id = $this->generateID($website_details->UserIdLength);
+        if($this->record_exists_in_table($this->users_table_name , "user_id" , $user_id)) $this->generateUserId();
+        return $user_id;
+    }
     private function create_new_merchant_account () : bool
     {
         global $website_details;
-        return $this->insert_into_table($this->users_table_name , ["email" => $this->email , "account_type" => $this->data['accountType']]);
+        return $this->insert_into_table($this->users_table_name , ["email" => $this->email , "account_type" => $this->data['accountType'] , "user_id" => $this->generateUserId()]);
+
     }
     private function emailExistsInTable () : bool
     {
@@ -55,8 +72,8 @@ class Activity extends  Functions
         switch ($this->action)
         {
             case 'EMAIL_EXISTS' :
-                return json_encode([$this->errorText => $this->emailExistsInTable() ,"details" => $this->user_details , $this->successText => 1]);
-                break;
+
+                return json_encode([$this->errorText => $this->emailExistsInTable() ,"user" => $this->getUserDetails() , $this->successText => 1]);
             case 'USERNAME_EXISTS' :
                 $this->email = $this->data['username'];
                 return json_encode([$this->errorText => $this->usernameExistsInTable() , $this->successText => 1]);
@@ -64,6 +81,8 @@ class Activity extends  Functions
             case 'SIGNUP_MERCHANT' :
                 $this->email = $this->data['email'];
                 return json_encode([$this->successText => 1 , $this->errorText => $this->create_new_merchant_account()]);
+            case 'FETCH_MERCHANT_DETAILS' :
+                  return json_encode(array_merge($this->fetchMerchantDetails() , [$this->errorText => 1 ,$this->successText => 1]));
 
         }
 

@@ -96,7 +96,8 @@ class Defaults {
 
         this.showToast = message => {
             M.toast({html: message});
-        }
+        };
+       this.emailTruncateSize = 15;
 
      }
 

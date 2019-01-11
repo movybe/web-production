@@ -338,6 +338,7 @@ input[type="text"].disabled {
     border-bottom: 1px solid lightgrey;
 }
 #particles-js{
-    height: 100%;
+    height: inherit;
     background-color: #ecf0f5;
+    display: block;
 }

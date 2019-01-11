@@ -92,9 +92,11 @@ class DatabaseConnection {
         registered_on TIMESTAMP NOT NULL  DEFAULT  CURRENT_TIMESTAMP , 
         referred_by VARCHAR (100) NOT NULL  DEFAULT  0 , 
         subscribed INT  NOT NULL  DEFAULT  0 COMMENT 'true 1 false 0' , 
-        approved INT NOT NULL DEFAULT 1 ,
+        approved INT NOT NULL DEFAULT 0 ,
         total_income_earned BIGINT NOT NULL DEFAULT  0,
-        total_referrer_amount_earned BIGINT NOT NULL DEFAULT  0
+        total_referrer_amount_earned BIGINT NOT NULL DEFAULT  0,
+        total_amount_funded BIGINT ( 255 ) NOT NULL DEFAULT 0,
+        user_id VARCHAR (1000) NOT NULL DEFAULT 'abcdefgh'
         
     )";
 

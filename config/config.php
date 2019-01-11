@@ -42,6 +42,7 @@ abstract class WebsiteConfigurationSettings {
     public $COMPONENTS_FOLDER = null;
     public  $MerchantAccountType = "merchant";
     public $MemberAccountType = "member";
+    public $UserIdLength = 6;
     abstract function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords);
 
     public function __construct() {

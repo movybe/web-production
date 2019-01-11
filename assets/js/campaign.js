@@ -191,9 +191,8 @@ class Campaign extends  React.Component
                 this.emailField.removeClass('invalid');
                 response = JSON.parse(response);
 
-                console.log(response);
                 //return;
-                const action = !response.error  ? this.props.resetState({...this.props  ,  emailVerified:  true , stateReset : false}) : this.loginModalPopup.modal('close') && this.props.resetState({...this.props , emailVerified:  true , stateReset : false , email , user : response.details ,  accountType : response.details.account_type , alreadyExistingAccount: true});
+                const action = !response.error  ? this.props.resetState({...this.props  ,  emailVerified:  true , stateReset : false}) : this.loginModalPopup.modal('close') && this.props.resetState({...this.props , emailVerified:  true , stateReset : false , email , user : response.user ,  accountType : response.user.account_type , alreadyExistingAccount: true});
                 this.campaignFormFieldset.prop(...defaults.disabledFalse);
             });
 
