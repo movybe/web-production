@@ -33,6 +33,7 @@ class Campaign extends  React.Component
 
     componentDidMount() {
         this.campaignTypeChanged = false;
+        this.stateRestored = false;
 
         let storageObj = this.props;
         if (localStorage.getItem(defaults.savedCampaignState)) {
@@ -58,12 +59,13 @@ class Campaign extends  React.Component
                 /*
 
 
+
                if there is a difference in the length of the savedState object keys
                and the length of the default state stored in the redux store,
                meaning there was a change in the source code this will trigger the automatic update of the savedState
 
                */
-                if (storageObjectKeysCount !== propsKeysCount)this.props.restoreState();
+                if (storageObjectKeysCount !== propsKeysCount && this.props.restoreState())this.stateRestored = true;
 
 
 
@@ -84,11 +86,11 @@ class Campaign extends  React.Component
 
 
 
-            this.props.resetState({...storageObj , stateReset : true , emailVerified: false} , () => {
+            const stateToReset = this.stateRestored ? {...this.props , stateReset : true , emailVerified: false} : {...storageObj , stateReset : true , emailVerified: false};
+            this.props.resetState(stateToReset , () => {
 
                if (!this.props.alreadyExistingAccount) {
 
-                    console.log(this.props.alreadyExistingAccount);
                     $('.modal').modal();
                     this.loginModalPopup = $('.modal#login-modal');
                     this.loginModalPopup.modal({dismissible: false});
@@ -191,7 +193,7 @@ class Campaign extends  React.Component
 
                 console.log(response);
                 //return;
-                const action = !response.error  ? this.props.resetState({...this.props  ,  emailVerified:  true , stateReset : false}) : this.loginModalPopup.modal('close') && this.props.resetState({...this.props , emailVerified:  true , stateReset : false , email ,  accountType : response.details.account_type , alreadyExistingAccount: true});
+                const action = !response.error  ? this.props.resetState({...this.props  ,  emailVerified:  true , stateReset : false}) : this.loginModalPopup.modal('close') && this.props.resetState({...this.props , emailVerified:  true , stateReset : false , email , user : response.details ,  accountType : response.details.account_type , alreadyExistingAccount: true});
                 this.campaignFormFieldset.prop(...defaults.disabledFalse);
             });
 

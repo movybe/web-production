@@ -7,7 +7,7 @@ class Config {
     //Sets the value of the localSearch equal to true if there is no cookie key "localSearch"
     //initialLocalSearchCookieValue = Cookies.get(defaults.localSearchCookieKey) != undefined ? Cookies.get(defaults.localSearchCookieKey) != "false" : true;
     //initialShowImagesCookieValue = Cookies.get(defaults.showImagesCookieKey) != undefined ? Cookies.get(defaults.showImagesCookieKey) != "false" : true;
-    state = {
+    initState = {
         defaultBackup : "konga" ,
         noDefaultResultsFound: false,
         currentWebsite : null,
@@ -35,34 +35,33 @@ class Config {
     };
 
 
-    rootReducer = (state = this.state, action) => {
+    rootReducer = (state = this.initState, action) => {
         let storageObject;
         switch (action.type) {
             case 'NEW_DEFAULT_SEARCH_RESULT' :
             case  'SWITCH_WEBSITE' :
                 localStorage.setItem(defaults.savedState , JSON.stringify({...action.state}));
                 return {...action.state};
-                break;
+
             case 'FORM_SUBMITTED' :
                 return {
                     ...state ,
                     formSubmitted : action.formSubmitted
                 };
-                break;
 
-            case 'RESET_STATE' :
+            case 'RESTORE_STATE' :
                 storageObject = JSON.parse(localStorage.getItem(defaults.savedState));
-                let combinedState = {...this.state , ...storageObject};
-                let newState = {...combinedState};
+                let newState = {...this.initState};
 
                 for(let key in storageObject){
-                    newState[key] = storageObject[key];
+                    if(key in this.initState)
+                      newState[key] = storageObject[key];
                 }
 
 
                 localStorage.setItem(defaults.savedState , JSON.stringify({...newState}));
                 return {...newState};
-                break;
+
         }
 
         return state;
@@ -76,7 +75,7 @@ class Config {
 
         return {
             newDefaultSearchResult : state => dispatch({type : 'NEW_DEFAULT_SEARCH_RESULT' , state}) ,
-            resetState : () => dispatch({type : 'RESET_STATE'}) ,
+            restoreState : () => dispatch({type : 'RESTORE_STATE'}) ,
             switchWebsite : state => dispatch({type : 'SWITCH_WEBSITE' , state})
         };
 

@@ -10,19 +10,30 @@ class CampaignSettings{
         alreadyExistingAccount : false,
         emailVerified : false,
         showAccountTypeSelection : false ,
-        stateReset : true
+        stateReset : true ,
+        user : {}
 
     };
 
 
     rootReducer = (state = this.initState , action ) => {
+        let storageObject;
         switch (action.type) {
             case 'RESET_STATE' :
                 localStorage.setItem(defaults.savedCampaignState , JSON.stringify({...action.state}));
-                console.log("Wants to reset state");
                 return {...action.state};
-             case 'RESTORE_STATE' :
-                return {...this.initState};
+            case 'RESTORE_STATE' :
+                console.log("Wants to restore state");
+                storageObject = JSON.parse(localStorage.getItem(defaults.savedCampaignState));
+                let newState = {...this.initState};
+
+                for(let key in storageObject){
+                    if(key in this.initState)
+                      newState[key] = storageObject[key];
+                }
+                localStorage.setItem(defaults.savedCampaignState , JSON.stringify(newState));
+                return {...newState};
+
             case 'MODIFY_STATE' :
                 return {...action.state};
 
@@ -54,6 +65,7 @@ class CampaignSettings{
             } ,
             modifyState : state => {
                 dispatch({type : 'MODIFY_STATE' , state});
+                return true;
             }
 
         }

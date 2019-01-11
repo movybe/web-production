@@ -912,12 +912,12 @@ class Application extends React.Component {
 
                 Object.keys(storageObj).forEach(key =>
                 {
-                    return  typeof storageObj[key] != 'function' ? storageObjectKeysCount += 1 : null;
+                    return  typeof storageObj[key] !== 'function' ? storageObjectKeysCount += 1 : null;
                 });
 
                 Object.keys(this.props).forEach(key =>
                 {
-                    return  typeof this.props[key] != 'function' ? propsKeysCount += 1 : null;
+                    return  typeof this.props[key] !== 'function' ? propsKeysCount += 1 : null;
                 });
 
 
@@ -929,7 +929,7 @@ class Application extends React.Component {
                meaning there was a change in the source code this will trigger the automatic update of the savedState
 
                */
-                if(storageObjectKeysCount != propsKeysCount) return this.props.resetState();
+                if(storageObjectKeysCount !== propsKeysCount) return this.props.restoreState();
             }
 
 
