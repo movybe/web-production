@@ -73,12 +73,31 @@ class Defaults {
         this.networkError = "No Results found for this query, check your connection";
         this.noMoreResultsFoundError = "no more results found";
         this.savedState = "savedState";
+        this.checkNetworkConnectionError = "check your network connection";
+        this.savedCampaignState = "savedCampaignState";
         this.localSearchCookieKey = "localSearch";
         this.showImagesCookieKey = "showImages";
         this.lazyBG = "/assets/js/lazy-bg.js";
         this.noResultsFoundError = "no results found";
         this.pleaseWaitText = "Please wait...";
         this.searchSuggestionsLimit = 7;
+        this.siteName = "Omoba";
+        this.siteOwner = "Omoba Inc.";
+        this.merchantAccountType = "merchant";
+        this.memberAccountType = "member";
+        this.disabledTrue = ["disabled" , true];
+        this.disabledFalse = ["disabled" , false];
+        this.activity = this.processorsFolder + "activity.php";
+        this.ensureAllFieldsAreFieldError = "fill all fields correctly";
+        this.banks = ["Access Bank" , "CitiBank" , "Coronation Merchant Bank" , "Diamond Bank" , "Ecobank Nigeria" , "Enterprise Bank Limited" , "FBN Merchant Bank" ,"Fidelity Bank Nigeria",
+            "First Bank of Nigeria" , "First City Monument Bank" , "FSDH Merchant Bank" , "Guarantee Trust Bank" , "Heritage Bank Plc" ,"Jaiz Bank Limited" ,
+            "Keystone Bank Limited" , "Polaris Bank" , "Providus Bank Plc" ,  "Rand Merchant Bank" , "Stanbic IBTC Bank Nigeria Limited" , "Standard Chartered Bank" ,
+            "Sterling Bank" , "Suntrust Bank Nigeria Limited" ,  "Union Bank of Nigeria" , "United Bank for Africa Plc" , "Unity Bank Plc" , "Wema Bank" , "Zenith Bank"];
+
+        this.showToast = message => {
+            M.toast({html: message});
+        }
+
      }
 
 }

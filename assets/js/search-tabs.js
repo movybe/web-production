@@ -104,6 +104,7 @@ class  LocalSearchTab extends React.Component{
             let showPrice;
             let bg;
             let currency;
+            let preloader;
             let template = (local.titles.length) ? local.images.map((image, index) => {
                 let savedImage;
                 let imageSaved = false;
@@ -158,6 +159,17 @@ class  LocalSearchTab extends React.Component{
             let boldedQuery = <strong>{this.props.query}</strong>;
             template = (template === null && local.page && !this.props.processingAction) ? <h5 className="center-align load-more-error-messages">{defaults.noResultsFoundError + ` for "`}{boldedQuery}{`" on ${local.name}` }</h5> : template;
 
+            preloader = (template === null && this.props.processingAction) ?
+                <div className={"container " + defaults.searchResultPreloaders}
+                     id={local.shortName + "-" + defaults.searchResultPreloader}>
+                    <div className="circular-container">
+                        <div className="circle circular-loader1">
+                            <div className="circle circular-loader2"></div>
+                        </div>
+                    </div>
+                </div>
+                : null;
+
             template = (template === null && this.props.processingAction) ? <h5 className="center-align load-more-error-messages">{defaults.pleaseWaitText}</h5> : template;
 
 
@@ -166,15 +178,7 @@ class  LocalSearchTab extends React.Component{
                 <div id={local.shortName} className="col s12 gallery" key={local.name}>
 
                     <p className='flow-text' style={{color : local.textColor}}>{local.name}</p>
-                    <div className={"container " + defaults.searchResultPreloaders}
-                         id={local.shortName + "-" + defaults.searchResultPreloader}>
-                        <div className="circular-container">
-                            <div className="circle circular-loader1">
-                                <div className="circle circular-loader2"></div>
-                            </div>
-                        </div>
-                    </div>
-
+                    {preloader}
                     <div id={local.shortName + searchResults}>
 
                         {template}

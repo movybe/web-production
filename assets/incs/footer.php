@@ -32,6 +32,6 @@ echo $functions->printAssets($scripts);
 </script>
 <?php
 
-$scripts = array( "gallery.js" , "search-tabs.js" , "application.js" , "config.js");
+$scripts = array( "gallery.js" , "search-tabs.js" ,  "application.js" , "config.js");
 echo $functions->printAssets($scripts , "babel");
 ?>

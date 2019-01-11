@@ -54,7 +54,6 @@ class Application extends React.Component {
             if (this.props.switchWebsite({...this.props, processingAction : false , locale: this.props.locale, currentWebsite: website})) {
 
 
-                $("." + defaults.searchResultPreloaders).hide();
 
 
                 return networkError ?  M.toast({html: defaults.networkError}) :  M.toast({html: this.enterValidKeywordsWarning});
@@ -116,8 +115,6 @@ class Application extends React.Component {
 
 
 
-        //hides all the preloaders in case there is any that is visible
-        $("."  + defaults.searchResultPreloaders).hide();
 
         /*
 
@@ -145,17 +142,14 @@ class Application extends React.Component {
 
 
 
-        //Now show the preloaders
-        $("#" + website + "-" + defaults.searchResultPreloader).show();
 
         let savedState = {};
         const  defaultAction = () => {
-            if(this.props.switchWebsite({...savedState , processingAction: false}))
-            {
-                $("."  + defaults.searchResultPreloaders).hide();
+            if(this.props.switchWebsite({...savedState , processingAction: false})) return
 
 
-            }
+
+
         };
 
         switch (website) {
@@ -440,15 +434,21 @@ class Application extends React.Component {
 
                         response.contents.data.forEach(obj => {
 
+                            try {
+                                selectedEcommerce.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
+                            }
+                            catch (e) {
+                                selectedEcommerce.locations.push("Not specified");
+                            }
+                                selectedEcommerce.titles.push(obj.title.truncate(defaults.maxTitleLength));
+                                selectedEcommerce.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
+                                selectedEcommerce.images.push(obj.images[0].url);
+                                selectedEcommerce.prices.push(obj.price ? obj.price.value.raw.toLocaleString() : 0);
+                                selectedEcommerce.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
+                                selectedEcommerce.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength));
 
-                            selectedEcommerce.titles.push(obj.title.truncate(defaults.maxTitleLength));
-                            selectedEcommerce.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
-                            selectedEcommerce.images.push(obj.images[0].url);
-                            selectedEcommerce.prices.push(obj.price ? obj.price.value.raw.toLocaleString() : 0);
-                            selectedEcommerce.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
-                            selectedEcommerce.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
-                            selectedEcommerce.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength));
-                        });
+
+                            });
 
 
                         selectedEcommerce.page = selectedEcommerce.page + 1;
@@ -487,7 +487,7 @@ class Application extends React.Component {
         e.preventDefault();
         this.formSubmitted = false;
 
-        this.searchQuery = this.searchQueryField.val();
+        this.searchQuery = this.searchQueryField.val().toLowerCase();
 
 
         if (!this.searchQuery.length) return;
@@ -514,7 +514,6 @@ class Application extends React.Component {
         //hide the site footer and the switch container
         this.searchResults.html(null);
         this.siteFooter.hide();
-        this.searchResultPreloaders.hide();
 
         //blurs the search field
         $(':focus').blur();
@@ -531,7 +530,6 @@ class Application extends React.Component {
         //The default website to make the search and filter contents
         let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${q}&page=0&user=165548cb5dcx2e53159d`;
 
-        $('.' + defaults.searchResultPreloaders).hide();
 
         this.props.locale.forEach(obj => {
 
@@ -610,11 +608,16 @@ class Application extends React.Component {
             response.contents.data.forEach(obj => {
 
 
+                try {
+                    defaultEcommerceWebsite.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
+                }
+                catch (e) {
+                    defaultEcommerceWebsite.locations.push("not specified");
+                }
                 defaultEcommerceWebsite.titles.push(obj.title.truncate(defaults.maxTitleLength));
                 defaultEcommerceWebsite.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
                 defaultEcommerceWebsite.images.push(obj.images[0].url);
                 defaultEcommerceWebsite.prices.push(obj.price ? obj.price.value.raw.toLocaleString() : 0);
-                defaultEcommerceWebsite.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
                 defaultEcommerceWebsite.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
                 defaultEcommerceWebsite.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength));
             });
@@ -686,7 +689,7 @@ class Application extends React.Component {
 
     replaceSearchText = () => {
 
-        let query = this.searchQueryField.val();
+        let query = this.searchQueryField.val().toLowerCase();
 
 
         let searchQuery = query;
@@ -873,7 +876,6 @@ class Application extends React.Component {
 
         this.switchContainer = $('#switch-container');
         this.searchResults = $(".search-results");
-        this.searchResultPreloaders = $('.search-result-preloaders');
         this.searchFormFieldSet = $('#search-form-fieldset');
         this.siteFooter = $('#site-footer');
 
@@ -906,15 +908,16 @@ class Application extends React.Component {
             {
                 //We want to count the length of savedState keys and the default state keys
 
-                let storageObjectKeysCount , propsKeysCount = 0;
-                Object.keys(storageObj).forEach(key => {
-                    return typeof storageObj[key] != 'function' ? storageObjectKeysCount += 1 : null;
+                let storageObjectKeysCount = 0 , propsKeysCount = 0;
+
+                Object.keys(storageObj).forEach(key =>
+                {
+                    return  typeof storageObj[key] != 'function' ? storageObjectKeysCount += 1 : null;
                 });
 
-
-
-                Object.keys(this.props).forEach(key => {
-                    return typeof this.props[key] != 'function' ? propsKeysCount += 1 : null;
+                Object.keys(this.props).forEach(key =>
+                {
+                    return  typeof this.props[key] != 'function' ? propsKeysCount += 1 : null;
                 });
 
 

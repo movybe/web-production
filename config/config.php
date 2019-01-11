@@ -40,7 +40,8 @@ abstract class WebsiteConfigurationSettings {
     public  $ParentCompanyAddress = "/";
     public $maxNumberOfSuggestion = 5;
     public $COMPONENTS_FOLDER = null;
-
+    public  $MerchantAccountType = "merchant";
+    public $MemberAccountType = "member";
     abstract function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords);
 
     public function __construct() {

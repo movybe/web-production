@@ -110,7 +110,7 @@
     margin-top : 10px;
     margin-bottom: 10px;
 }
-.search-result-preloaders , .search-tabs{
+.search-tabs{
     display: none;
 }
 
@@ -314,5 +314,30 @@ div.image-container{
 
 }
 
+#login-proceed.disabled
+{
+    cursor: not-allowed !important;
+}
 
+body{
 
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+label.error
+{
+    color: red;
+    font-style: italic;
+}
+
+input[type="text"].disabled {
+    cursor: not-allowed;
+    background-color: lightgrey;
+    border-bottom: 1px solid lightgrey;
+}
+#particles-js{
+    height: 100%;
+    background-color: #ecf0f5;
+}

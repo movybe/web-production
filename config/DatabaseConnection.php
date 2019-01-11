@@ -11,7 +11,10 @@ class DatabaseConnection {
     public  $conn;
     public $words_table_name = "words";
     public $queries_table_name = "queries";
+    public $users_table_name = "users";
+    public $ads_table_name = "ads";
     final protected  function  establish_database_connection () : bool
+
     {
 
         try {
@@ -77,6 +80,82 @@ class DatabaseConnection {
 
     }
 
+    public final  function  create_users_table() : bool
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS {$this->users_table_name}(
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        email VARCHAR (100) NOT NULL  UNIQUE ,
+        account_balance BIGINT NOT NULL DEFAULT  0, 
+        account_type VARCHAR (100) NOT NULL , 
+        username VARCHAR (100) NOT NULL DEFAULT 0, 
+        number_of_users_refered BIGINT NOT NULL  DEFAULT  0,
+        registered_on TIMESTAMP NOT NULL  DEFAULT  CURRENT_TIMESTAMP , 
+        referred_by VARCHAR (100) NOT NULL  DEFAULT  0 , 
+        subscribed INT  NOT NULL  DEFAULT  0 COMMENT 'true 1 false 0' , 
+        approved INT NOT NULL DEFAULT 1 ,
+        total_income_earned BIGINT NOT NULL DEFAULT  0,
+        total_referrer_amount_earned BIGINT NOT NULL DEFAULT  0
+        
+    )";
+
+        try {
+
+            $this->conn->exec($sql);
+            echo "Table Created successfully";
+            return true;
+        }
+
+        catch (PDOException $exception) {
+            echo "Error occured {$exception->getMessage()}";
+            return false;
+        }
+
+    }
+
+    public final function create_ads_table () : bool
+    {
+
+        $sql = "CREATE TABLE IF NOT EXISTS {$this->ads_table_name}(
+
+          id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY , 
+          title VARCHAR (1000) NOT NULL  , 
+          link VARCHAR  (10000) NOT NULL  , 
+          description VARCHAR (10000) NOT NULL DEFAULT 'description goes here',
+          image VARCHAR (1000) NOT NULL , 
+          ad_type VARCHAR (1000) NOT  NULL DEFAULT 'ppc' COMMENT 'ppc - Pay per click , ppv - Pay per view , ppa - Pay per affiliate',
+          paused INT (10) NOT NULL  DEFAULT  0 COMMENT '1 true , 0 false',
+          posted_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+          balance BIGINT NOT  NULL DEFAULT 0,
+          amount_paid BIGINT NOT NULL DEFAULT 0,
+          number_of_clicks_paid_for BIGINT NOT NULL DEFAULT 0,
+          number_of_views_paid_for BIGINT NOT NULL  DEFAULT 0,
+          number_of_affiliates_paid_for BIGINT NOT NULL  DEFAULT 0,
+          number_of_clicks BIGINT NOT NULL  DEFAULT 0,
+          number_of_views BIGINT NOT NULL  DEFAULT 0,
+          number_of_affiliates_reached BIGINT NOT NULL  DEFAULT 0,
+          ad_id VARCHAR (100) NOT  NULL ,
+          posted_by VARCHAR (100) NOT NULL ,
+          link_short_url VARCHAR (100) NOT NULL ,
+          location VARCHAR (1000) NOT NULL ,
+          campaign_name VARCHAR (1000) NOT NULL ,
+          active INT NOT NULL DEFAULT 1 COMMENT '1 true , 0 false' ,
+          approved INT NOT NULL DEFAULT  1 COMMENT '1 true 0 false', 
+          contact VARCHAR (100) NULL  DEFAULT  '0707',
+          last_paid VARCHAR (100) NOT NULL  DEFAULT 'today'
+      )";
+        try {
+
+            $this->conn->exec($sql);
+            echo "Table Created successfully";
+            return true;
+        }
+
+        catch (PDOException $exception) {
+            echo "Error occured {$exception->getMessage()}";
+            return false;
+        }
+
+    }
 
     public final  function  create_queries_table() : bool  {
 
@@ -273,4 +352,13 @@ ALTER TABLE users ADD last_free_mode_time VARCHAR( 255 ) NOT NULL DEFAULT '0';
 $DatabaseConnection = new DatabaseConnection();
 //$DatabaseConnection->create_words_table();
 //$DatabaseConnection->create_queries_table();
+//$DatabaseConnection->executeSQL("DROP TABLE ads");
+//$DatabaseConnection->executeSQL("DROP TABLE users");
+
+//$DatabaseConnection->create_ads_table();
+//$DatabaseConnection->create_users_table();
+
+//$DatabaseConnection->create_users_table();
+//$DatabaseConnection->create_ads_table();
+
 ?>
