@@ -342,3 +342,8 @@ input[type="text"].disabled {
     background-color: #ecf0f5;
     display: block;
 }
+.activate-account-text{
+    font-size: 12px;
+    font-weight: bold;
+    opacity: .6;
+}

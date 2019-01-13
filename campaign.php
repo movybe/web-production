@@ -14,7 +14,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
 
     <?php
 
-    $stylesheets = array("materialize.min.css" , "material-icons.css" , "main.css" , "merchant.css" , "jquery.lightbox.css" , "footer.css");
+    $stylesheets = array("materialize.min.css" , "campaign-header.css" ,  "material-icons.css" , "main.css" , "merchant.css" , "jquery.lightbox.css" , "footer.css");
     $scripts = array("babel.min.js" , "react.development.js" , "react-dom.development.js" , "redux.min.js" , "react-redux.min.js");
     echo $functions->printAssets($stylesheets , "css" , false)."\n".$functions->printAssets($scripts);
     ?>
@@ -32,7 +32,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
 
  <?php
  $scripts = array("cookie.min.js" , "request.js" , "jquery.min.js" , "timeago.min.js" , "bgset.min.js" ,"lazy-bg.js" , "materialize.min.js" , "defaults.js" , "test.js" , "jquery.lightbox.js" , "particles.js" , "app.js");
- $components = array("campaign.js" , "merchant.js" , "campaign-settings.js" , "jquery.validate.js");
+ $components = array("campaign.js" ,"merchant-header.js" ,  "merchant.js" , "campaign-settings.js" , "jquery.validate.js");
  echo $functions->printAssets($scripts).$functions->printAssets($components , "babel");
  ?>
 

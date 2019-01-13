@@ -1001,8 +1001,8 @@ class Application extends React.Component {
                                 <input  onBlur={() => {
 
 
-                                    if(!this.searchQueryField.val().length) return;
-                                    if(this.lastSearchQuery === $.trim(this.searchQueryField.val().toLowerCase()) || this.formSubmitted){
+                                   // if(!this.searchQueryField.val().length) return;
+                                    if(this.props.locale[0].titles.length){
 
                                         this.searchTabs.show();
 

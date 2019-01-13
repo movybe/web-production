@@ -43,7 +43,7 @@
 .tab a{
     font-size :small !important;;
 }
-#merchant-email-address{
+.email-address{
     font-size:small;
     position: relative;
     -ms-text-overflow: ellipsis;
@@ -53,4 +53,36 @@
 div.activate-account.materialize-red-text{
     color : rgba(255 , 120 , 123) !important;
     font-weight: bold;
+}
+
+.notice-board
+{
+    background-color : #00c0ef;
+    border : 1px solid #00acd6;
+    margin-top : 30px;
+}
+.notice-header{
+    color : #fff;
+    text-shadow: 1px 1px 0 rgba(255,255,255,.5);
+    text-decoration: underline;
+    text-decoration-color: rgba(212 , 212 , 212 , .5);
+    font-weight: bolder;
+    text-decoration-color: white;
+    
+}
+
+.notice-message{
+    color : #fff;
+    opacity: .9;
+    position: relative;
+    text-align: left;
+    top : -18px;
+    text-justify:auto;
+    font-weight: bold;
+}
+.activateaccount-button
+{
+    font-size: 10px !important;
+    position: relative;
+    left: 10px;
 }

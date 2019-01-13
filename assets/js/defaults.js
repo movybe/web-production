@@ -56,6 +56,8 @@ class Defaults {
 
     constructor () {
 
+        this.whatsappContact = "+234 708 441 9530";
+        this.whatsappContactLink = `https://wa.me/${this.whatsappContact.replace(/ /g,'')}?text=Hello%20Omoba`;
         this.imageDirectory = '/assets/img/';
         this.processorsFolder = '/processors/';
         this.queryProcessor = this.processorsFolder + 'query.php';

@@ -1,0 +1,23 @@
+.bonus-text {
+    font-size: 18px !important;
+}
+
+@media only screen and (min-width:996px) {
+
+
+    .badge{
+        position : relative !important;
+        top : -10px;
+        border-radius : 10px !important;
+    }
+}
+
+li a {
+    text-decoration: none;
+}
+.watch-demo-video.brand-logo{
+    font-size: 15px; !important;
+    text-decoration: navajowhite;
+    font-weight: bolder;
+    opacity: .9;
+}

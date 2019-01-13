@@ -22,7 +22,7 @@ class Merchant extends React.Component
         $.post(defaults.activity , {data} , response => {
 
 
-            this.timeago = timeago.format(this.props.user.registered_on);
+            this.registeredTimeago = timeago.format(this.props.user.registered_on);
             response = JSON.parse(response);
 
             this.props.resetState({...this.props , user : response.user , ads : response.ads});
@@ -36,9 +36,25 @@ class Merchant extends React.Component
 
 
         const subscriptionButtonType = parseInt(this.props.user.subscribed) ?
-            <div className="green-text"><span className="subscription-active-text">active</span><a className="waves-effect waves-light disabled btn-small right">Paid  &#8358; 700</a></div>     : <div className="materialize-red-text activate-account">Activate <a className="waves-effect waves-light btn-small right">Pay  &#8358; 700</a></div>;
+            <div className="green-text"><span className="subscription-active-text">active</span><a className="waves-effect waves-light disabled btn-small right">Paid  &#8358; 700</a></div>     : <div><span className="materialize-red-text activate-account-text">NOT ACTIVATED</span> <a className="waves-effect waves-light btn-small right activateaccount-button">Activate  &#8358; 700</a></div>;
         return (
+            <div>
+                <MerchantHeader />
             <div className="container">
+                <div className="row notice-board z-depth-3">
+                    <div className="col s12 valign-wrapper">
+                        <p className="notice-header flow-text">Public message to advertisers</p>
+                    </div>
+                    <div className="col s12 valign-wrapper">
+
+                    <p className="notice-message">
+                        New Merchants are adviced to read our FAQ and our Terms of Service before proceeding with further actions on this page.
+                        <br />our Demo Video is also a good tour guide.
+                       </p>
+                    </div>
+                </div>
+
+
                 <div className="row">
 
 
@@ -82,20 +98,21 @@ class Merchant extends React.Component
                             <div className="card-tabs">
                                 <ul className="tabs tabs-fixed-width account-info-tabs">
                                     <li className="tab" id="email-tab"><a href="#email-address">E-mail</a></li>
-                                    <li className="tab"><a href="#test5" className="flow-text">Subscr</a></li>
+                                    <li className="tab"><a href="#test5" className="flow-text">Status</a></li>
                                     <li className="tab"><a href="#test6" className="flow-text">Account</a></li>
                                    </ul>
                             </div>
                             <div className="card-content grey lighten-4">
-                                <div  id="email-address" style={{display : 'none'}}>Account E-mail<span className="right amount-value" id="merchant-email-address">{this.props.user.email.truncate(defaults.emailTruncateSize)}</span></div>
+                                <div  id="email-address" style={{display : 'none'}}>Account E-mail<span className="right amount-value email-address" id="merchant-email-address">{this.props.user.email.truncate(defaults.emailTruncateSize)}</span></div>
                                 <div id="test5" className="active">{subscriptionButtonType}</div>
-                                <div id="test6" style={{ display : 'none'}}>Registered <span className="right">{this.timeago}</span>
+                                <div id="test6" style={{ display : 'none'}}>Registered <span className="right">{this.registeredTimeago}</span>
                                 </div>
                             </div>
                         </div>
                         </div>
 
                 </div>
+            </div>
             </div>
         );
     }
