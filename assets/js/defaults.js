@@ -67,6 +67,7 @@ class Defaults {
         this.maxTitleLength = 60;
         this.maxDescriptionLength = 160;
         this.maxLinkLength = 45;
+        this.merchantActivationFee = 700;
         this.searchResultPreloaders = "search-result-preloaders";
         this.searchResultPreloader = "search-result-preloader";
         this.websiteLiLinks = "website-li-links";

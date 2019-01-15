@@ -86,3 +86,14 @@ div.activate-account.materialize-red-text{
     position: relative;
     left: 10px;
 }
+footer{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left :0;
+    right : 0;
+}
+.faq-question{
+    font-weight: bold;
+    opacity: .7;
+}

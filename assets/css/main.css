@@ -347,3 +347,7 @@ input[type="text"].disabled {
     font-weight: bold;
     opacity: .6;
 }
+
+.no-underline {
+    text-decoration: none;
+}
