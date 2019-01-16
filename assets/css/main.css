@@ -351,3 +351,10 @@ input[type="text"].disabled {
 .no-underline {
     text-decoration: none;
 }
+strong , .strong{
+    font-weight: bold;
+}
+.light
+{
+    opacity: .8;
+}

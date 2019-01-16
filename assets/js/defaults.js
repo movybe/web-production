@@ -86,11 +86,14 @@ class Defaults {
         this.searchSuggestionsLimit = 7;
         this.siteName = "Omoba";
         this.siteOwner = "Omoba Inc.";
+        this.siteAddress = this.siteName.toLowerCase() + ".ng";
+        this.siteAddressHttp = "http://" + this.siteAddress;
         this.merchantAccountType = "merchant";
         this.memberAccountType = "member";
         this.disabledTrue = ["disabled" , true];
         this.disabledFalse = ["disabled" , false];
         this.activity = this.processorsFolder + "activity.php";
+        this.minimumAffliateProfit = 3500;
         this.ensureAllFieldsAreFieldError = "fill all fields correctly";
         this.banks = ["Access Bank" , "CitiBank" , "Coronation Merchant Bank" , "Diamond Bank" , "Ecobank Nigeria" , "Enterprise Bank Limited" , "FBN Merchant Bank" ,"Fidelity Bank Nigeria",
             "First Bank of Nigeria" , "First City Monument Bank" , "FSDH Merchant Bank" , "Guarantee Trust Bank" , "Heritage Bank Plc" ,"Jaiz Bank Limited" ,
@@ -102,6 +105,7 @@ class Defaults {
         };
        this.emailTruncateSize = 15;
 
+       this.merchantYoutubeVideo = "https://www.youtube.com/embed/VH26lrd6LSY?rel=0&showinfo=1";
      }
 
 }
