@@ -162,7 +162,7 @@ class Application extends React.Component {
 
                     let html;
                     try{
-                        html = $(response.contents).find('.b-list-advert__template').has('img.squared.js-api-lazy-image');
+                        html = $(response.contents).find('.b-list-advert__template');
                     }
                     catch (e) {
                         showError();
@@ -193,8 +193,9 @@ class Application extends React.Component {
                             price = $.trim($(this).find('.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
                             link = $(this).find('.js-advert-link');
 
-                            image = $(this).find('img').attr('data-src');
+                            image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
 
+                            console.log(image);
 
 
 

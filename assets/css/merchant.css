@@ -97,3 +97,33 @@ footer{
     font-weight: bold;
     opacity: .7;
 }
+
+.merchant-ad-number-message
+{
+    border: 1px solid #ccc;
+    background-color: #ffff;
+    border-radius: 2px;
+    
+}
+
+p.number-of-merchant-ads{
+   color : rgba(0 , 0 , 0 , .6);
+    width: 100%;
+
+}
+.add-ad-icon
+{
+
+    
+  position: relative;
+    top : 5px;
+    color : green;
+    cursor: pointer;
+}
+
+#close-new-ad-form{
+    
+    position: relative;
+    top : 9px;
+    left : 5px;
+}

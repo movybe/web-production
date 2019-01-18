@@ -13,6 +13,7 @@ class DatabaseConnection {
     public $queries_table_name = "queries";
     public $users_table_name = "users";
     public $ads_table_name = "ads";
+    public $visitors_table_name = "visitors";
     final protected  function  establish_database_connection () : bool
 
     {
@@ -59,7 +60,7 @@ class DatabaseConnection {
     public final  function  create_words_table() : bool  {
 
         $sql = "CREATE TABLE IF NOT EXISTS {$this->words_table_name}(
-        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL ,
         word VARCHAR (100) NOT NULL  UNIQUE ,
         occurrence BIGINT NOT NULL  
     )";
@@ -80,6 +81,30 @@ class DatabaseConnection {
 
     }
 
+    public final  function create_visitors_table () : bool
+    {
+
+        $sql = "CREATE TABLE IF NOT EXISTS {$this->visitors_table_name}(
+
+             id BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+             ip_address VARCHAR (100) UNIQUE NOT NULL DEFAULT 'zyxwvuts', 
+             visitor_id VARCHAR (100) UNIQUE NOT NULL DEFAULT 'abcdefgh'
+)";
+
+        try {
+
+            $this->conn->exec($sql);
+            echo "Table Created successfully";
+            return true;
+        }
+
+        catch (PDOException $exception) {
+            echo "Error occured {$exception->getMessage()}";
+            return false;
+        }
+
+    }
+
     public final  function  create_users_table() : bool
     {
         $sql = "CREATE TABLE IF NOT EXISTS {$this->users_table_name}(
@@ -96,9 +121,13 @@ class DatabaseConnection {
         total_income_earned BIGINT NOT NULL DEFAULT  0,
         total_referrer_amount_earned BIGINT NOT NULL DEFAULT  0,
         total_amount_funded BIGINT ( 255 ) NOT NULL DEFAULT 0,
-        user_id VARCHAR (1000) NOT NULL DEFAULT 'abcdefgh'
+        user_id VARCHAR (1000) NOT NULL DEFAULT 'abcdefgh',
+        ip_address VARCHAR(100) NOT NULL UNIQUE DEFAULT '010.199.212.002',
+        last_paid VARCHAR (100) NOT NULL  DEFAULT 'today'
         
     )";
+
+
 
         try {
 
@@ -142,8 +171,8 @@ class DatabaseConnection {
           campaign_name VARCHAR (1000) NOT NULL ,
           active INT NOT NULL DEFAULT 1 COMMENT '1 true , 0 false' ,
           approved INT NOT NULL DEFAULT  1 COMMENT '1 true 0 false', 
-          contact VARCHAR (100) NULL  DEFAULT  '0707',
-          last_paid VARCHAR (100) NOT NULL  DEFAULT 'today'
+          contact VARCHAR (100) NULL  DEFAULT  '0707'
+        
       )";
         try {
 
@@ -362,5 +391,5 @@ $DatabaseConnection = new DatabaseConnection();
 
 //$DatabaseConnection->create_users_table();
 //$DatabaseConnection->create_ads_table();
-
+//$DatabaseConnection->create_visitors_table();
 ?>

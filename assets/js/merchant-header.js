@@ -61,7 +61,7 @@ class  MerchantHeader extends React.Component {
         {
             question : `If my ad gets Rejected, what happens to my money` ,
             answer : <span>
-                Merchants are required to change the content of the Ad that goes against our Ad policy,<br />
+                Merchants are required to modify the content of the Ad that goes against our Ad policy,<br />
                 either the title of the Ad , landing page or the Ad image.
                 <br />once the Ad detail have been Modified, you're expected to wait for about 5 mins for approval.
                 <br />Once approved, your ad is good to go.

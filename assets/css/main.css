@@ -358,3 +358,6 @@ strong , .strong{
 {
     opacity: .8;
 }
+a.sidenav-trigger {
+    text-decoration: none;
+}

@@ -93,6 +93,7 @@ class Defaults {
         this.disabledTrue = ["disabled" , true];
         this.disabledFalse = ["disabled" , false];
         this.activity = this.processorsFolder + "activity.php";
+
         this.minimumAffliateProfit = 3500;
         this.ensureAllFieldsAreFieldError = "fill all fields correctly";
         this.banks = ["Access Bank" , "CitiBank" , "Coronation Merchant Bank" , "Diamond Bank" , "Ecobank Nigeria" , "Enterprise Bank Limited" , "FBN Merchant Bank" ,"Fidelity Bank Nigeria",

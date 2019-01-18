@@ -2,8 +2,8 @@
 
 require_once 'DatabaseConnection.php';
 require_once 'config.php';
-
-
+//require_once 'detect.php';
+//echo $ip_address = Detect::ip();
 class Functions extends  DatabaseConnection {
 
     public final function escape_string (string $string){
