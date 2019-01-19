@@ -122,6 +122,17 @@ class Functions extends  DatabaseConnection {
         }
         return $files_resources;
     }
+
+
+
+
+
+
+
+
+
+
+
 }
 
 $functions = new Functions();

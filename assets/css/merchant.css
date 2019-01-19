@@ -127,3 +127,42 @@ p.number-of-merchant-ads{
     top : 9px;
     left : 5px;
 }
+.merchant-ad-image
+{
+    display: none;
+}
+
+label.merchant-ad-image-label.valign-wrapper
+{
+    cursor: pointer;
+    border : 1px solid lightgrey;
+    width : 100px;
+    height: 100px;
+    text-align: center !important;
+  /*background-image: url("/assets/img/dummy.png"); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    
+}
+.material-icons.merchant-upload-image-icon{
+  
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+div.merchant-upload-image-file-path-wrapper
+{
+    display: block !important;
+    position: relative;
+    top : 70px;
+    left : -10px;
+}
+
+.error-text.image-upload-error
+{
+    font-size: 14px;
+    position: relative;
+    left:10px;
+}

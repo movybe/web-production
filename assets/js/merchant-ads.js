@@ -9,7 +9,8 @@ class MerchantAds extends React.Component
         minAdDescriptionLength : 10,
         maxAdDescriptionLength : defaults.maxDescriptionLength,
         maxAdCampaignNameLength : 120,
-        maxCampaignLocationLength : 120
+        maxCampaignLocationLength : 120,
+        maxAdImageSize : 2
     };
 
     defaultActions = () =>
@@ -19,7 +20,8 @@ class MerchantAds extends React.Component
         this.newAdModalPopUp.modal({dismissible:false});
         this.newAdForm = $('#new-ad-form');
 
-        this.newAdFormFields = $('.new-ad-form-fields')
+        this.newAdFormFields = $('.new-ad-form-fields');
+        this.newImageUploadError = $('.new-image-upload-error');
 
     };
 
@@ -55,6 +57,56 @@ class MerchantAds extends React.Component
 
     };
 
+    isValidUploadedImage = (e , labelID) =>
+    {
+
+
+            if (!window.FileReader && !window.Blob) {
+                // All the File APIs are supported.
+                return true;
+            }
+
+            const elemID = e.target.id;
+            const  control = document.getElementById(elemID);
+            const file = control.files[0];
+            const fileType = file.type;
+            const fileSize = file.size;
+            const fileSizeInMb = Math.round(fileSize/102400);
+            const imageFileFormats = ["image/png", "image/jpeg"];
+
+        $('#' + labelID).children('i').show();
+        $('#'+ elemID).css('background-image' , 'url()');
+        this.newImageUploadError.text(null);
+    if ($.inArray(fileType, imageFileFormats) === -1) {
+        this.newImageUploadError.text(`only png and jpeg images are allowed`);
+        return false;
+    }
+    else if (fileSizeInMb > this.newAdFormRules.maxAdImageSize){
+                this.newImageUploadError.text(`image size must not exceed ${this.newAdFormRules.maxAdImageSize}mb`);
+                return false;
+            }
+
+
+
+
+                else if(labelID)
+        {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#' + labelID).css('background-image' , `url(${e.target.result})`);
+                $('#' + labelID).children('i').hide();
+            };
+
+            reader.readAsDataURL(file);
+
+
+        }
+            };
+
+
+
+
 
     newAdModal = () =>
     {
@@ -63,8 +115,11 @@ class MerchantAds extends React.Component
                 <div className="modal-content">
                     <h5>Ad details</h5>
                     <div className="row">
+                        {/* Fieldset for new ad form */}
                         <fieldset id="new-ad-form-fieldset">
-                            <form className="col s12" autoComplete= "on" onSubmit={this.handleNewAdForm} name="new-ad-form" id="new-ad-form" action="#">
+                            {/* New ad form */}
+                            <form className="col s12" autoComplete= "on" onSubmit={this.handleNewAdForm} name="new-ad-form" id="new-ad-form" action="#" encType="mutipart/form-data">
+                                {/* Title */}
                                 <div className="row">
                                     <div className="input-field col s12">
                                         <input placeholder="Please write a clear title for your ad" id="new-ad-title" minLength={this.newAdFormRules.minAdTitleLength}
@@ -75,17 +130,18 @@ class MerchantAds extends React.Component
                                 </div>
 
 
-
+                                {/* Description */}
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <input placeholder= "Enter a detailed description" id="new-ad-description" minLength={this.newAdFormRules.minAdDescriptionLength}
+                                        <textarea placeholder= "Enter a detailed description" id="new-ad-description" minLength={this.newAdFormRules.minAdDescriptionLength}
                                                  name = "new-ad-description"
                                                 type="text"
-                                                className="validate new-ad-form-fields" maxLength={this.newAdFormRules.maxAdDescriptionLength}  required="required" />
+                                                  rows="2"
+                                                  className="validate new-ad-form-fields materialize-textarea" maxLength={this.newAdFormRules.maxAdDescriptionLength}  required="required"></textarea>
                                         <label htmlFor="new-ad-description" className="active">Description</label>
                                     </div>
                                 </div>
-
+                                {/* Landing page */}
                                 <div className="row">
                                     <div className="input-field col s12">
                                         <input placeholder= "e.g http://www.your-website.com/link" id="new-ad-link"
@@ -98,6 +154,7 @@ class MerchantAds extends React.Component
                                     </div>
                                 </div>
 
+                                {/* Contact (if any) */}
                                 <div className="row">
                                     <div className="input-field col s12">
                                         <input placeholder= "e.g +234 70 844 195 30" id="new-ad-contact"
@@ -109,7 +166,7 @@ class MerchantAds extends React.Component
                                         <span className="helper-text" data-error="Please enter a valid phone number" data-success=""> </span>
                                     </div>
                                 </div>
-
+                                {/* Campaign/Business Name */}
                                 <div className="row">
                                     <div className="input-field col s12">
                                         <input placeholder= "Enter your business name" id="new-ad-campaign-name"
@@ -119,15 +176,56 @@ class MerchantAds extends React.Component
                                         <label htmlFor="new-ad-contact" className="active">Campaign/Business Name</label>
                                       </div>
                                 </div>
-
+                                {/* Business Location */}
                                 <div className="row">
                                     <div className="input-field col s12">
                                         <input placeholder= "Valid location (if any)" id="new-ad-location"
                                                name = "new-ad-location"
                                                type="text"
-                                               className="validate new-ad-form-fields" minLength= "1" maxLength={this.newAdFormRules.maxCampaignLocationLength} required="required" />
+                                               className="validate new-ad-form-fields"
+                                               minLength= "1"
+                                               maxLength={this.newAdFormRules.maxCampaignLocationLength} required="required" />
                                         <label htmlFor="new-ad-contact" className="active">Location</label>
                                        </div>
+                                </div>
+
+                                {/* Hidden input field */}
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <input placeholder= "Valid location (if any)"                                              name = "new-ad-location"
+                                               type="hidden"
+                                               id ="hidden-field"
+                                                />
+                                        <label htmlFor="new-ad-image" className="active">Banner image</label>
+                                     </div>
+                                </div>
+
+
+
+                                {/* Banner Image */}
+                                <div className="row">
+                                    <span className="image-upload-error red-text new-image-upload-error error-text"></span>
+
+                                    <div className="input-field file-field col s12">
+                                        <input
+                                            placeholder= "Link to your image" id="new-ad-image"
+                                               name = "new-ad-image"
+                                               type="file"
+                                               className="validate merchant-ad-image new-ad-form-fields"
+                                               required="required"
+                                               accept="image/jpeg , image/png , image/x-png"
+                                               onChange={e => {this.isValidUploadedImage(e , 'new-ad-image-label')}}
+                                        />
+
+                                        <label htmlFor="new-ad-image" className="active merchant-ad-image-label valign-wrapper" id="new-ad-image-label">
+                                            <i className="large material-icons merchant-upload-image-icon">insert_photo</i>
+                                        </label>
+                                        <div className="file-path-wrapper merchant-upload-image-file-path-wrapper">
+                                            <input className="file-path validate" type="text"
+                                                   placeholder="Click on the icon" onKeyPress ={(e) => {e.preventDefault(0);}} />
+                                        </div>
+
+                                    </div>
                                 </div>
 
 
