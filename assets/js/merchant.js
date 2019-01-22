@@ -28,15 +28,41 @@ class Merchant extends React.Component
             this.props.resetState({...this.props , user : response.user , ads : response.ads});
         });
     }
+
     componentDidUpdate () {
       this.defaultActions();
     }
+
+
+
+    activateMerchantAccount = () =>
+    {
+
+        defaults.payWithPaystack(this.props.email , defaults.convertToPaystack(defaults.merchantActivationFee) , "Account Activation" , (response) => {
+            if(response.status !== "success") return defaults.showToast(defaults.transactionNotSuccessfulMessage);
+            console.log(response);
+            let data = {email : this.props.email , action : 'ACTIVATE_MERCHANT_ACCOUNT' , reference : response.reference};
+            data = JSON.stringify(data);
+            $.post(defaults.activity , {data} , response => {
+
+                console.log(response);
+                response = JSON.parse(response);
+
+                this.props.resetState({...this.props , user : response.user});
+            })
+        });
+
+    };
+
+
+
     render() {
 
 
 
-        const subscriptionButtonType = parseInt(this.props.user.subscribed) ?
-            <div className="green-text"><span className="subscription-active-text">active</span><a className="waves-effect waves-light disabled btn-small right">Paid  &#8358; 700</a></div>     : <div><span className="materialize-red-text activate-account-text">NOT ACTIVATED</span> <a className="waves-effect waves-light btn-small right activateaccount-button">Activate  &#8358; 700</a></div>;
+        let userSubscriptionStatus = Number(this.props.user.subscribed);
+        const subscriptionButtonType =  userSubscriptionStatus ?
+            <div className="green-text"><span className="subscription-active-text">active</span><a className="waves-effect waves-light disabled btn-small right">Paid  &#8358; 700</a></div>     : <div><span className="materialize-red-text activate-account-text">NOT ACTIVATED</span> <a className="waves-effect waves-light btn-small right activate-account-button" onClick={this.activateMerchantAccount}>Activate  &#8358; {defaults.merchantActivationFee}</a></div>;
         return (
             <div>
                 <MerchantHeader />

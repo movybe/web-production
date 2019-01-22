@@ -35,6 +35,7 @@ class CampaignSettings{
                 return {...newState};
 
             case 'MODIFY_STATE' :
+                localStorage.setItem(defaults.savedCampaignState , JSON.stringify({...action.state}));
                 return {...action.state};
 
         }

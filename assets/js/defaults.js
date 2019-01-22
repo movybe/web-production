@@ -93,21 +93,70 @@ class Defaults {
         this.disabledTrue = ["disabled" , true];
         this.disabledFalse = ["disabled" , false];
         this.activity = this.processorsFolder + "activity.php";
-
+        this.numberOfAdSpaceForMerchant = [1 , 2];
         this.minimumAffliateProfit = 3500;
+        this.transactionNotSuccessfulMessage = "Transaction not successful";
         this.ensureAllFieldsAreFieldError = "fill all fields correctly";
         this.banks = ["Access Bank" , "CitiBank" , "Coronation Merchant Bank" , "Diamond Bank" , "Ecobank Nigeria" , "Enterprise Bank Limited" , "FBN Merchant Bank" ,"Fidelity Bank Nigeria",
             "First Bank of Nigeria" , "First City Monument Bank" , "FSDH Merchant Bank" , "Guarantee Trust Bank" , "Heritage Bank Plc" ,"Jaiz Bank Limited" ,
             "Keystone Bank Limited" , "Polaris Bank" , "Providus Bank Plc" ,  "Rand Merchant Bank" , "Stanbic IBTC Bank Nigeria Limited" , "Standard Chartered Bank" ,
             "Sterling Bank" , "Suntrust Bank Nigeria Limited" ,  "Union Bank of Nigeria" , "United Bank for Africa Plc" , "Unity Bank Plc" , "Wema Bank" , "Zenith Bank"];
-
+        this.paystackKey = 'pk_test_671c2b9a8312b7c29aaed707662496895826855c';
         this.showToast = message => {
             M.toast({html: message});
         };
+
        this.emailTruncateSize = 15;
 
-       this.merchantYoutubeVideo = "https://www.youtube.com/embed/VH26lrd6LSY?rel=0&showinfo=1";
-     }
+       this.merchantYoutubeVideo = "#https://www.youtube.com/embed/VH26lrd6LSY?rel=0&showinfo=1";
+
+        this.payWithPaystack = (email , amount , name , call) =>
+        {
+
+           // const materializeCss = $('#materialize-css');
+           // const bootstrapCss = $('#bootstrap-css');
+           // const media = 'screen and (min-width:3000px)';
+            //materializeCss.attr('media' , media);
+           // bootstrapCss.removeAttr('media');
+
+
+            const handler = PaystackPop.setup({
+                key: this.paystackKey,
+                email: email,
+                amount,
+                currency : "NGN",
+                ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: name,
+                            variable_name: "email_address",
+                            value: email
+                        }
+                    ]
+                },
+                callback: function(response)
+                {
+                  call(response);
+                },
+                onClose: function(){
+                    window.console.log('window closed');
+                }
+            });
+            handler.openIframe();
+        };
+
+        this.convertToPaystack = (naira) =>
+        {
+            const nairaToKobo = naira * 100;
+            const onePoint5Percent = (1.5 / 100) *  nairaToKobo;
+            return Number(onePoint5Percent.toFixed(2)) + nairaToKobo;
+        };
+
+
+
+    }
+
 
 }
 

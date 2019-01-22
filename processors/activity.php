@@ -6,7 +6,7 @@ require_once '../config/functions.php';
 class Activity extends  Functions
 {
 
-    private $data , $error , $success , $action , $email , $username , $user_details;
+    private $data , $error , $success , $action , $email , $username , $user_details , $reference;
     private $errorText = "error" , $successText = "success";
     private $networkErrorOccured = "unknown network error";
 
@@ -64,6 +64,13 @@ class Activity extends  Functions
         return $this->record_exists_in_table($this->users_table_name , "username" , $this->username);
     }
 
+    private function activateMerchantAccount () : bool
+    {
+
+        return $this->update_multiple_fields($this->users_table_name, ["subscribed" => 1, "reference_code" => $this->reference], "email = '{$this->email}'");
+
+    }
+
 
 
     public function actionProcessor () : string
@@ -83,7 +90,10 @@ class Activity extends  Functions
                 return json_encode([$this->successText => 1 , $this->errorText => $this->create_new_merchant_account()]);
             case 'FETCH_MERCHANT_DETAILS' :
                   return json_encode(array_merge($this->fetchMerchantDetails() , [$this->errorText => 1 ,$this->successText => 1]));
-
+            case 'ACTIVATE_MERCHANT_ACCOUNT' :
+                $this->email = $this->data['email'];
+                $this->reference = $this->data['reference'];
+                return json_encode([$this->errorText => $this->activateMerchantAccount() , $this->successText => 1 , "user" => $this->getUserDetails()]);
         }
 
     }

@@ -341,6 +341,7 @@ class Campaign extends  React.Component
          return (
 
             <div id="campaign">
+                <div id="paystackEmbedContainer"></div>
                 {templateToShow}
             </div>
         )

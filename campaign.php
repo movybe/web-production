@@ -11,12 +11,16 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     <title><?php echo $website_details->SiteName; ?> • Join Our Campaign and Become a Merchant/Affiliate</title>
     <link rel="canonical" href="<?php echo $website_details->SiteNameWithHttps; ?>" />
     <meta name="robot" content="index, follow" />
-
+    <script type="text/javascript" language="JavaScript" src="https://js.paystack.co/v1/inline.js"></script>
     <?php
 
-    $stylesheets = array("materialize.min.css" , "campaign-header.css" ,  "material-icons.css" , "main.css" , "merchant.css" , "jquery.lightbox.css" , "footer.css");
+    $materialize_css = array("materialize.min.css");
+    $bootstrap_css = array("bootstrap.min.css");
+    $stylesheets = array("campaign-header.css" ,  "material-icons.css" , "main.css" , "merchant.css" , "jquery.lightbox.css" , "footer.css");
     $scripts = array("babel.min.js" , "react.development.js" , "react-dom.development.js" , "redux.min.js" , "react-redux.min.js");
     echo $functions->printAssets($stylesheets , "css" , false)."\n".$functions->printAssets($scripts);
+    echo $functions->printAssets($materialize_css , "css" , false , null , "id='materialize-css'");
+    echo $functions->printAssets($bootstrap_css , "css" , false , null , "id='bootstrap-css' media='screen and (min-width:3000px)'");
     ?>
 
     <link rel="icon" type="image/png" href="<?php echo $website_details->IMG_FOLDER;?>m.png" />
@@ -31,7 +35,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
 
 
  <?php
- $scripts = array("cookie.min.js" , "request.js" , "jquery.min.js" , "timeago.min.js" , "bgset.min.js" ,"lazy-bg.js" , "materialize.min.js" , "defaults.js" , "test.js" , "jquery.lightbox.js" , "particles.js" , "app.js");
+ $scripts = array("cookie.min.js" , "request.js" , "jquery.min.js" , "timeago.min.js" , "bgset.min.js" ,"lazy-bg.js" , "materialize.min.js" ,  "defaults.js" , "test.js" , "jquery.lightbox.js" , "particles.js" , "app.js");
  $components = array("footer.js" , "campaign.js" ,"merchant-header.js" ,  "merchant-ads.js" , "merchant.js" , "campaign-settings.js" , "jquery.validate.js");
  echo $functions->printAssets($scripts).$functions->printAssets($components , "babel");
  ?>

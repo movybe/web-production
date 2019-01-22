@@ -317,13 +317,16 @@ class Application extends React.Component {
                     let filterAction = backup ? this.filterTitles(titlesArray) : null;
 
 
+                    let specialPrice;
                     resultObject.forEach(obj => {
 
 
                         selectedEcommerce.titles.push(obj.name.truncate(defaults.maxTitleLength));
                         selectedEcommerce.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
                         selectedEcommerce.images.push("https://www-konga-com-res.cloudinary.com/w_auto,f_auto,fl_lossy,dpr_auto,q_auto/media/catalog/product" + obj.image_thumbnail_path);
-                        selectedEcommerce.prices.push(obj.price.toLocaleString());
+
+                        specialPrice = obj.special_price || obj.price;
+                        selectedEcommerce.prices.push(specialPrice.toLocaleString());
                         selectedEcommerce.locations.push("");
 
                         selectedEcommerce.links.push('https://konga.com/product/' + obj.url_key);
