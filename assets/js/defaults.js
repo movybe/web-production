@@ -95,6 +95,8 @@ class Defaults {
         this.activity = this.processorsFolder + "activity.php";
         this.numberOfAdSpaceForMerchant = [1 , 2];
         this.minimumAffliateProfit = 3500;
+        this.minimumAccountUsernameLength = 5;
+        this.maximumAccountUsernameLength = 12;
         this.transactionNotSuccessfulMessage = "Transaction not successful";
         this.ensureAllFieldsAreFieldError = "fill all fields correctly";
         this.banks = ["Access Bank" , "CitiBank" , "Coronation Merchant Bank" , "Diamond Bank" , "Ecobank Nigeria" , "Enterprise Bank Limited" , "FBN Merchant Bank" ,"Fidelity Bank Nigeria",
@@ -108,6 +110,7 @@ class Defaults {
 
        this.emailTruncateSize = 15;
 
+       this.accountActivationText = "Account activation";
        this.merchantYoutubeVideo = "#https://www.youtube.com/embed/VH26lrd6LSY?rel=0&showinfo=1";
 
         this.payWithPaystack = (email , amount , name , call) =>

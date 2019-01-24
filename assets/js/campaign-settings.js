@@ -11,7 +11,8 @@ class CampaignSettings{
         emailVerified : false,
         showAccountTypeSelection : false ,
         stateReset : true ,
-        user : {}
+        user : {} ,
+
 
     };
 

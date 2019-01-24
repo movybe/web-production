@@ -166,3 +166,31 @@ div.merchant-upload-image-file-path-wrapper
     position: relative;
     left:10px;
 }
+.modal-activate-account-content{
+    border : 1px solid silver;
+    height: 100%;
+    background-color: rgba(212 , 212 , 212 , .45);
+    border-radius: 2px;
+}
+
+.modal-activate-account-content div {
+    position: relative;
+top: 50%;
+transform: translateY(-50%);
+    text-align: center;
+    width : 100%;
+}
+.activate-account-modal-button{
+    position: relative;
+    top : 10px;
+}
+.modal-account-activation-text{
+    font-size: 20px;
+    opacity: .7;
+}
+a#close-new-ad-form.right.no-underline{
+
+    position: relative;
+    right : 30px;
+    left : -10px;
+}

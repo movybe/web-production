@@ -12,6 +12,7 @@ class Campaign extends  React.Component
         this.referer = this.main.attr('data-referer');
         this.refererUsername.val(this.referer ? this.referer : this.refererUsername.val());
         this.campaignFormFieldset = $('#campaign-form-fieldset');
+
         this.selectBankName = $('#select-bank-name');
 
 
@@ -143,7 +144,7 @@ class Campaign extends  React.Component
 
 
         }
-        
+
         getSelectedCampaignType = () => {
             let selectedCampaignType = this.selectCampaignType.formSelect('getSelectedValues');
 
@@ -151,7 +152,7 @@ class Campaign extends  React.Component
             return selectedCampaignType.indexOf("merchant") ? "merchant" : "member";
 
 
-        }; 
+        };
     handleCampaignTypeChange = (e) => {
 
 
@@ -165,13 +166,13 @@ class Campaign extends  React.Component
 
     handleCampaignFormSubmit = e => {
 
-
-        this.campaignForm = $(e.target);
-
-        this.labels = $('label');
-
         e.preventDefault();
-        this.labels.hide("");
+
+
+        const formID = e.target.id;
+        this.campaignForm = $(formID);
+        M.updateTextFields();
+        this.campaignForm.validate();
 
         this.campaignFormFieldset.prop(...defaults.disabledTrue);
         if(!this.campaignForm.valid()) return M.toast({html: defaults.ensureAllFieldsAreFieldError});
@@ -241,9 +242,9 @@ class Campaign extends  React.Component
 
     <div className="row">
           <div className="input-field col s12">
-              <input id="referer-username" name="referer-username" type="text" required pattern="[a-zA-Z0-9]{5,12}" className="validate" />
+              <input id="referer-username" name="referer-username" type="text" required = "required" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} className="validate" />
               <label htmlFor="referer-username" className="active">Referer username</label>
-              <span className="helper-text referer-username" data-error="try,check the username again" data-success="">referer username is mandatory</span>
+              <span className="helper-text referer-username" data-error="please,check the username again" data-success="">referer username is mandatory</span>
           </div>
       </div>
     <div className="row">
@@ -255,17 +256,17 @@ class Campaign extends  React.Component
     </div>
         <div className="row">
               <div className="input-field col s12">
-          <input id="account-name" name = "account-name" type="text" required pattern="[a-zA-Z ]{2,60}" className="validate"/>
+          <input id="account-name" name = "account-name" type="text" required="required" pattern="[a-zA-Z ]{2,60}" className="validate"/>
           <label htmlFor="account-name" className="active">Your account name</label>
-      <span className="helper-text account-name" data-error="Please enter a valid account name" data-success="">Note: Bank details can't be changed later.</span>
+      <span className="helper-text account-name strong" data-error="Please enter a valid account name" data-success="">Note: Bank details can't be changed later.</span>
       </div>
   </div>
 
     <div className="row">
         <div className="input-field col s12">
-            <input id="account-number" data-length = "10" pattern="(\d{10})$" required name = "account-number" type="text" className="validate" />
+            <input id="account-number" data-length = "10" maxLength="10" minLength="10" pattern="(\d{10})$" required="required" name = "account-number" type="text" className="validate" />
             <label htmlFor="account-number" className="active">Your account number</label>
-            <span className="helper-text account-number" data-length = "10"  data-error="Please enter valid account number" data-success="">Acc No : 10 digits in length</span>
+            <span className="helper-text account-number" data-length = "10"  data-error="Please enter a valid account number" data-success="">valid account number</span>
         </div>
     </div>
     <div className="row">
@@ -288,9 +289,9 @@ class Campaign extends  React.Component
 
     <div className="row">
         <div className="input-field col s12">
-            <input id="username"  name = "username" type="text"  pattern="[a-zA-Z0-9]{5,12}" required className="validate"/>
+            <input id="username"  name = "username" type="text" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} required="required" className="validate" />
             <label htmlFor="username" className="active">Your username</label>
-            <span className="helper-text username" data-length = "12" data-error="username must be alpha numeric between 5-12 characters long" data-success="valid username">alpha numeric between 5 - 12 characters e.g (emax101 , anabel)</span>
+            <span className="helper-text username"  data-error="username must be alpha numeric between 5-12 characters long" data-success="valid username">e.g (emax101 , anabel)</span>
         </div>
     </div>
 
@@ -304,10 +305,10 @@ class Campaign extends  React.Component
 
                     <div className="row">
                         <fieldset id="campaign-form-fieldset">
-                        <form className="col s12"  name="campaign-form" id="campaign-form" action="#" method="POST" onSubmit={this.handleCampaignFormSubmit}>
+                        <form className="col s12" autoComplete="on"  name="campaign-form" id="campaign-form" action="#" onSubmit={this.handleCampaignFormSubmit} noValidate="noValidate">
                             <div className="row">
                                 <div className="input-field col s12">
-                                    <input   id="email" autoComplete="off"  name = "email" required  type="text" className="validate"
+                                    <input   id="email" autoComplete="off"  name = "email" required="required"  type="text" className="validate"
                                             pattern="([a-zA-Z0-9_\-\._]+)@([a-zA-Z0-9_\-\._]+)\.([a-zA-Z0-9_\-\.]{2,5})$" />
                                         <label htmlFor="email" className="active">Your Email</label>
                                         <span className="helper-text email" data-error="please enter a valid email" data-success="">Please enter a valid email address</span>

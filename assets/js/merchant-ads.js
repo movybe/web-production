@@ -49,8 +49,6 @@ class MerchantAds extends React.Component {
 
         M.updateTextFields();
 
-
-        const parent = this;
         this.newAdForm.validate();
 
 
@@ -100,18 +98,39 @@ class MerchantAds extends React.Component {
         }
     };
 
+    newAdModal = () =>
+    {
 
-    newAdModal = () => {
+        const proceedButton =Number(this.props.user.subscribed) ?
+            <button type="submit" form="new-ad-form" className="waves-effect waves-light btn" id="login-proceed" value="Proceed">Proceed</button> : null;
+        const closeModalButtonPositionLeftOrRight = proceedButton === null ? "right"  : "left";
         return (
             <div id="new-ad-modal" className="modal modal-fixed-footer">
                 <div className="modal-content">
-                    <h5>Ad details</h5>
+                    {this.newAdModalContent()}
+            </div>
+    <div className="modal-footer">
+        {proceedButton}
+        <a href="#" onClick={() => this.newAdModalPopUp.modal('close')}
+           className={`no-underline ${closeModalButtonPositionLeftOrRight} grey-text`} id="close-new-ad-form">CLOSE</a>
+        </div>
+    </div>
+        )
+    };
+
+    adForm = () =>
+    {
+        return (
+
+
+
                     <div className="row">
+                        <h5>Ad details</h5>
                         {/* Fieldset for new ad form */}
                         <fieldset id="new-ad-form-fieldset">
                             {/* New ad form */}
                             <form className="col s12" autoComplete="on" onSubmit={this.handleNewAdForm}
-                                  name="new-ad-form" id="new-ad-form" action="#" encType="mutipart/form-data">
+                                  name="new-ad-form" id="new-ad-form" action="#" encType="mutipart/form-data" noValidate="noValidate">
                                 {/* Title */}
                                 <div className="row">
                                     <div className="input-field col s12">
@@ -280,15 +299,20 @@ class MerchantAds extends React.Component {
                             </form>
                         </fieldset>
                     </div>
-                </div>
-                <div className="modal-footer">
-                    <button type="submit" form="new-ad-form" className="waves-effect waves-light btn" id="login-proceed"
-                            value="Proceed">Proceed
-                    </button>
-                    <a href="#" onClick={() => this.newAdModalPopUp.modal('close')}
-                       className="no-underline left grey-text" id="close-new-ad-form">CLOSE</a>
-                </div>
-            </div>
+
+        )
+    };
+    newAdModalContent = () => {
+
+        const modalContent  = Number(this.props.user.subscribed) ?
+            this.adForm() : <div className="modal-activate-account-content">
+                <div className="modal-account-activation-text"> Your account has not been activated yet.</div>
+                <div className="modal-activate-button-container center-block"><button className="btn btn-small activate-account-modal-button" onClick={this.props.activateMerchantAccount}>Activate now</button></div>
+
+            </div>;
+        return (
+
+            modalContent
         )
     };
 
@@ -314,7 +338,7 @@ class MerchantAds extends React.Component {
 
                     <div className="col s12 valign-wrapper">
                         <p className="notice-header flow-text number-of-merchant-ads">{adsNumberMessage}
-                            <a title="modify this ad" href="#new-ad-modal" id="new-ad-dropdown"
+                            <a title="modify this ad" href="#new-ad-modal"  id="new-ad-dropdown"
                                className="material-icons add-ad-icon right modal-trigger  no-underline">mode_edit</a>
                         </p>
                     </div>
