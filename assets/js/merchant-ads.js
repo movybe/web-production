@@ -178,7 +178,7 @@ class MerchantAds extends React.Component {
                                 {/* Title */}
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <i className="material-icons prefix">short_text</i>
+                                        <i className="material-icons small prefix">short_text</i>
                                         <input placeholder="Please write a clear title for your ad" id="new-ad-title"
                                                minLength={this.newAdFormRules.minAdTitleLength}
                                                name="new-ad-title" type="text"
@@ -192,7 +192,7 @@ class MerchantAds extends React.Component {
                                 {/* Description */}
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <i className="material-icons prefix">subject</i>
+                                        <i className="material-icons small prefix">subject</i>
                                         <textarea placeholder="Enter a detailed description" id="new-ad-description"
                                                   minLength={this.newAdFormRules.minAdDescriptionLength}
                                                   name="new-ad-description"
@@ -206,7 +206,7 @@ class MerchantAds extends React.Component {
                                 {/* Landing page */}
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <i className="material-icons prefix">link</i>
+                                        <i className="material-icons small prefix">link</i>
                                         <input placeholder="e.g http://www.your-website.com/link" id="new-ad-link"
                                                name="new-ad-link"
                                                type="text"
@@ -221,7 +221,7 @@ class MerchantAds extends React.Component {
                                 {/* Contact (if any) */}
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <i className="material-icons prefix">phone</i>
+                                        <i className="material-icons small prefix">phone</i>
                                         <input placeholder="e.g +234 70 844 195 30" id="new-ad-contact"
                                                name="new-ad-contact"
                                                type="text"
@@ -235,7 +235,7 @@ class MerchantAds extends React.Component {
                                 {/* Campaign/Business Name */}
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <i className="material-icons prefix">business</i>
+                                        <i className="material-icons prefix small">business</i>
                                         <input placeholder="Enter your business name" id="new-ad-campaign-name"
                                                name="new-ad-campaign-name"
                                                type="text"
@@ -249,7 +249,7 @@ class MerchantAds extends React.Component {
                                 {/* Business Location */}
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <i className="material-icons prefix">location_on</i>
+                                        <i className="material-icons prefix small">location_on</i>
                                         <input placeholder="e.g Lagos, Nigeria (if any)" id="new-ad-location"
                                                name="new-ad-location"
                                                type="text"
@@ -264,7 +264,7 @@ class MerchantAds extends React.Component {
                                 {/* Select Ad type */}
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <i className="material-icons prefix">public</i>
+                                        <i className="material-icons prefix small">public</i>
                                         <select required="required" id="ad-type-selection" onChange={this.getTotalAdCharge}>
                                             <option value="" disabled="disabled">Choose your Ad option</option>
                                             <option value="ppv">Pay per view @ &#8358;{this.props.adRates.cpv} </option>
@@ -279,7 +279,7 @@ class MerchantAds extends React.Component {
                                 {/* Number of units */}
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <i className="material-icons prefix">shopping_cart</i>
+                                        <i className="material-icons prefix small">shopping_cart</i>
                                         <input placeholder="10+" id="new-ad-unit"
                                                name="new-ad-location"
                                                type="number"
@@ -296,7 +296,7 @@ class MerchantAds extends React.Component {
                                 <div className="row">
                                     <div className="input-field col s12">
 
-                                        <p>You will be charged : <strong className="strong">&#8358;<span id = "total-ad-charge"></span></strong></p>
+                                        <p>You will be charged : <strong className="strong">&#8358;<span id = "total-ad-charge">0</span></strong></p>
                                     </div>
                                 </div>
 
