@@ -146,10 +146,7 @@ class Campaign extends  React.Component
         }
 
         getSelectedCampaignType = () => {
-            let selectedCampaignType = this.selectCampaignType.formSelect('getSelectedValues');
-
-            selectedCampaignType = selectedCampaignType[0].toLowerCase();
-            return selectedCampaignType.indexOf("merchant") ? "merchant" : "publisher";
+            return this.selectCampaignType.val();
 
 
         };

@@ -136,8 +136,8 @@ label.merchant-ad-image-label.valign-wrapper
 {
     cursor: pointer;
     border : 1px solid lightgrey;
-    width : 100px;
-    height: 100px;
+    width : 180px;
+    height: 90px;
     text-align: center !important;
   /*background-image: url("/assets/img/dummy.png"); */
     background-size: contain;

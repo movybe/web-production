@@ -31,9 +31,10 @@ class MerchantAds extends React.Component {
 
         this.newAdFormFields = $('.new-ad-form-fields');
         this.newImageUploadError = $('.new-image-upload-error');
-
         this.adTypeSelection = $('#ad-type-selection');
+        this.adTypeSelection.formSelect();
         this.adUnit = $('#new-ad-unit');
+        this.totalAdCharge = $('#total-ad-charge');
     };
 
     componentDidMount() {
@@ -106,9 +107,7 @@ class MerchantAds extends React.Component {
 
     getSelectedAdType = () => {
 
-        let selectedAdType = this.adTypeSelection.formSelect('getSelectedValues');
-
-        selectedAdType = selectedAdType[0].toLowerCase();
+        let selectedAdType = this.adTypeSelection.val();
 
         switch (selectedAdType) {
             case "ppv" :
@@ -137,11 +136,11 @@ class MerchantAds extends React.Component {
 
         let paystackAmount = defaults.convertToPaystack(totalAmount);
 
-        totalAmount = (paystackAmount / 100).toFixed(2);
+        totalAmount = Number((paystackAmount / 100).toFixed(2));
 
 
 
-        $('#total-ad-charge').text(totalAmount);
+        this.totalAdCharge.text(totalAmount.toLocaleString());
          return [totalAmount , paystackAmount];
     };
     newAdModal = () =>
@@ -197,7 +196,6 @@ class MerchantAds extends React.Component {
                                         <textarea placeholder="Enter a detailed description" id="new-ad-description"
                                                   minLength={this.newAdFormRules.minAdDescriptionLength}
                                                   name="new-ad-description"
-                                                  type="text"
                                                   rows="2"
                                                   className="validate new-ad-form-fields materialize-textarea"
                                                   maxLength={this.newAdFormRules.maxAdDescriptionLength}
@@ -309,7 +307,7 @@ class MerchantAds extends React.Component {
                                                type="hidden"
                                                id="hidden-field"
                                         />
-                                        <label htmlFor="new-ad-image" className="active">Banner image</label>
+                                        <label htmlFor="new-ad-image" className="active">Banner image (2 x 1) rect.</label>
                                     </div>
                                 </div>
 
