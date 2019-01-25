@@ -94,6 +94,11 @@ class Activity extends  Functions
                 $this->email = $this->data['email'];
                 $this->reference = $this->data['reference'];
                 return json_encode([$this->errorText => $this->activateMerchantAccount() , $this->successText => 1 , "user" => $this->getUserDetails()]);
+            case 'FETCH_AD_RATES' :
+                $cpc = 5.2;
+                $cpv = 1.2;
+                $cpa = 10;
+                return json_encode(array("cpc" => $cpc , "cpv" => $cpv , "cpa"=>  $cpa));
         }
 
     }

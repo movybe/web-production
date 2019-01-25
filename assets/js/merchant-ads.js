@@ -2,6 +2,8 @@ class MerchantAds extends React.Component {
 
 
 
+    units = 0;
+
     newAdFormRules = {
         minAdTitleLength: 20,
         maxAdTitleLength: defaults.maxTitleLength,
@@ -11,6 +13,7 @@ class MerchantAds extends React.Component {
         maxCampaignLocationLength: 120,
         maxAdImageSize: 2
     };
+
 
 
     constructor ()
@@ -29,17 +32,19 @@ class MerchantAds extends React.Component {
         this.newAdFormFields = $('.new-ad-form-fields');
         this.newImageUploadError = $('.new-image-upload-error');
 
+        this.adTypeSelection = $('#ad-type-selection');
+        this.adUnit = $('#new-ad-unit');
     };
 
     componentDidMount() {
 
         this.defaultActions();
 
-
     }
 
     componentDidUpdate() {
         this.defaultActions();
+        //console.log(this.props);
     }
 
     handleNewAdForm = (e) => {
@@ -98,6 +103,47 @@ class MerchantAds extends React.Component {
         }
     };
 
+
+    getSelectedAdType = () => {
+
+        let selectedAdType = this.adTypeSelection.formSelect('getSelectedValues');
+
+        selectedAdType = selectedAdType[0].toLowerCase();
+
+        switch (selectedAdType) {
+            case "ppv" :
+                selectedAdType = "cpv";
+                break;
+            case "ppc" :
+                selectedAdType = "cpc";
+                break;
+            case "ppa" :
+                selectedAdType = "cpa";
+                break;
+        }
+
+        return selectedAdType;
+    };
+
+
+
+    getTotalAdCharge = () => {
+
+
+        const rate =  this.props.adRates[this.getSelectedAdType()];
+
+        let totalAmount =  Number((rate  * Number(this.adUnit.val())).toFixed(2));
+
+
+        let paystackAmount = defaults.convertToPaystack(totalAmount);
+
+        totalAmount = (paystackAmount / 100).toFixed(2);
+
+
+
+        $('#total-ad-charge').text(totalAmount);
+         return [totalAmount , paystackAmount];
+    };
     newAdModal = () =>
     {
 
@@ -118,8 +164,7 @@ class MerchantAds extends React.Component {
         )
     };
 
-    adForm = () =>
-    {
+    adForm = (newAd = true , adID = 1234 , index) => {
         return (
 
 
@@ -156,7 +201,7 @@ class MerchantAds extends React.Component {
                                                   rows="2"
                                                   className="validate new-ad-form-fields materialize-textarea"
                                                   maxLength={this.newAdFormRules.maxAdDescriptionLength}
-                                                  required="required"></textarea>
+                                                  required="required" />
                                         <label htmlFor="new-ad-description" className="active">Description</label>
                                     </div>
                                 </div>
@@ -222,14 +267,13 @@ class MerchantAds extends React.Component {
                                 <div className="row">
                                     <div className="input-field col s12">
                                         <i className="material-icons prefix">public</i>
-                                        <select required="required">
-                                            <option value="" disabled={"diabled"}>Choose your Ad option</option>
-                                            <option value="ppv">Pay per view</option>
-                                            <option value="ppc">Pay per click</option>
-                                            <option value="ppa" disabled="disabled">Pay per affiliate</option>
+                                        <select required="required" id="ad-type-selection" onChange={this.getTotalAdCharge}>
+                                            <option value="" disabled="disabled">Choose your Ad option</option>
+                                            <option value="ppv">Pay per view @ &#8358;{this.props.adRates.cpv} </option>
+                                            <option value="ppc">Pay per click @ &#8358;{this.props.adRates.cpc}</option>
+                                            <option value="ppa" disabled="disabled">Pay per affiliate @ &#8358;{this.props.adRates.cpa}</option>
                                         </select>
-                                        <span
-                                            className="blue-grey-text">our PPA option is unavailable at the moment</span>
+                                        <span className="blue-grey-text">our PPA option is unavailable at the moment</span>
                                         <label className="active">Ad type</label>
                                     </div>
                                 </div>
@@ -238,19 +282,27 @@ class MerchantAds extends React.Component {
                                 <div className="row">
                                     <div className="input-field col s12">
                                         <i className="material-icons prefix">shopping_cart</i>
-                                        <input placeholder="10+" id="new-ad-location"
+                                        <input placeholder="10+" id="new-ad-unit"
                                                name="new-ad-location"
                                                type="number"
+                                               onChange={this.getTotalAdCharge}
                                                className="validate new-ad-form-fields"
                                                min="10"
                                                max="1000"
-                                               required="required"/>
+                                               required="required"
+                                               />
                                         <label htmlFor="new-ad-contact" className="active">No.of Units</label>
                                     </div>
                                 </div>
 
+                                <div className="row">
+                                    <div className="input-field col s12">
 
-                                {/* Hidden input field */}
+                                        <p>You will be charged : <strong className="strong">&#8358;<span id = "total-ad-charge"></span></strong></p>
+                                    </div>
+                                </div>
+
+                                    {/* Hidden input field */}
                                 <div className="row">
                                     <div className="input-field col s12">
                                         <input placeholder="Valid location (if any)" name="new-ad-location"

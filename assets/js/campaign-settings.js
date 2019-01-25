@@ -12,8 +12,8 @@ class CampaignSettings{
         showAccountTypeSelection : false ,
         stateReset : true ,
         user : {} ,
-
-
+        adRates : {cpc : 1 , cpv : 2 , cpa : 3},
+        units : 10
     };
 
 

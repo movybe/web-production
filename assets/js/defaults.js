@@ -97,6 +97,9 @@ class Defaults {
         this.minimumAffliateProfit = 3500;
         this.minimumAccountUsernameLength = 5;
         this.maximumAccountUsernameLength = 12;
+        this.amountPaidForReferer = 1400;
+        this.amountPaidForUserInteraction = 20;
+        this.amountPaidForUniqueVisitor = 5;
         this.transactionNotSuccessfulMessage = "Transaction not successful";
         this.ensureAllFieldsAreFieldError = "fill all fields correctly";
         this.banks = ["Access Bank" , "CitiBank" , "Coronation Merchant Bank" , "Diamond Bank" , "Ecobank Nigeria" , "Enterprise Bank Limited" , "FBN Merchant Bank" ,"Fidelity Bank Nigeria",
@@ -153,7 +156,9 @@ class Defaults {
         {
             const nairaToKobo = naira * 100;
             const onePoint5Percent = (1.5 / 100) *  nairaToKobo;
-            return Number(onePoint5Percent.toFixed(2)) + nairaToKobo;
+            let amount = Number(onePoint5Percent + nairaToKobo);
+            amount = Number(amount.toFixed(2));
+            return amount;
         };
 
 

@@ -87,7 +87,7 @@ class Campaign extends  React.Component
 
 
 
-            const stateToReset = this.stateRestored ? {...this.props , stateReset : true , emailVerified: false} : {...storageObj , stateReset : true , emailVerified: false};
+            const stateToReset = this.stateRestored ? {...this.props , stateReset : true , emailVerified: false , showRefererEmailField : false} : {...storageObj , stateReset : true , emailVerified: false , showRefererEmailField : false};
             this.props.resetState(stateToReset , () => {
 
                if (!this.props.alreadyExistingAccount) {
@@ -149,7 +149,7 @@ class Campaign extends  React.Component
             let selectedCampaignType = this.selectCampaignType.formSelect('getSelectedValues');
 
             selectedCampaignType = selectedCampaignType[0].toLowerCase();
-            return selectedCampaignType.indexOf("merchant") ? "merchant" : "member";
+            return selectedCampaignType.indexOf("merchant") ? "merchant" : "publisher";
 
 
         };
@@ -169,14 +169,15 @@ class Campaign extends  React.Component
         e.preventDefault();
 
 
+
         const formID = e.target.id;
-        this.campaignForm = $(formID);
+        this.campaignForm = $('#'+formID);
         M.updateTextFields();
-        this.campaignForm.validate();
 
-        this.campaignFormFieldset.prop(...defaults.disabledTrue);
+         this.campaignForm.validate();
+
+       // this.campaignFormFieldset.prop(...defaults.disabledTrue);
         if(!this.campaignForm.valid()) return M.toast({html: defaults.ensureAllFieldsAreFieldError});
-
         this.emailField.prop(...defaults.disabledTrue);
         this.emailField.addClass('disabled');
 
@@ -230,7 +231,7 @@ class Campaign extends  React.Component
                   <select id="select-campaign-type" autoComplete="off" required onChange={this.handleCampaignTypeChange}>
                       <option defaultValue="" disabled>Choose your campaign type</option>
                       <option defaultValue="merchant" >Merchant/Advertiser</option>
-                      <option defaultValue="affiliate">Affiliate/Member</option>
+                      <option defaultValue="publisher">Affiliate/Publisher</option>
                   </select>
                   <label className="active">Campaign type</label>
               </div>
@@ -264,7 +265,7 @@ class Campaign extends  React.Component
 
     <div className="row">
         <div className="input-field col s12">
-            <input id="account-number" data-length = "10" maxLength="10" minLength="10" pattern="(\d{10})$" required="required" name = "account-number" type="text" className="validate" />
+            <input id="account-number" data-length = "10" size = "10" maxLength="10" minLength="10" pattern="(\d{10})$" required="required" name = "account-number" type="text" className="validate" />
             <label htmlFor="account-number" className="active">Your account number</label>
             <span className="helper-text account-number" data-length = "10"  data-error="Please enter a valid account number" data-success="">valid account number</span>
         </div>
@@ -291,24 +292,38 @@ class Campaign extends  React.Component
         <div className="input-field col s12">
             <input id="username"  name = "username" type="text" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} required="required" className="validate" />
             <label htmlFor="username" className="active">Your username</label>
-            <span className="helper-text username"  data-error="username must be alpha numeric between 5-12 characters long" data-success="valid username">e.g (emax101 , anabel)</span>
+            <span className="helper-text username"  data-error="username must be alpha numeric between 5-12 characters long" data-success="">e.g (emax101 , anabel)</span>
         </div>
     </div>
 
 </div>
   : null;
-  return <div id="login-modal" className="modal modal-fixed-footer">
+      let  headerToShow = this.props.showRefererEmailField ? <span>How Affiliate Works</span> : <span>How Merchant works</span>;
+  headerToShow = this.props.emailVerified ? headerToShow : <span>Welcome to {defaults.siteName} Campaign</span>;
+  let summaryToShow = this.props.showRefererEmailField ?
+      <div>
+          <p>Now, earning money has become easier with our affiliate account, we pay you <strong className="strong">&#8358;{defaults.amountPaidForReferer}</strong> for each user you refer.</p>
+          <p>We pay you <strong className="strong">&#8358;{defaults.amountPaidForUserInteraction}</strong> everyday, when you interact with our website.</p>
+          <p>You also get paid <strong className="strong">&#8358;{defaults.amountPaidForUniqueVisitor}</strong> when a unique user visits our website via your link.</p>
+          <p>We pay you when you share our ads on your social media account, and lots more.</p>
+      </div>
+      :
+      <div>
+      <p>You can now promote your products/services, to the reach of  millions of potential customers, at the cheapest price.</p>
+      <p>Sign up now to get started:</p>
+      </div>
+      summaryToShow = this.props.emailVerified ? summaryToShow : null;
+      return <div id="login-modal" className="modal modal-fixed-footer">
                 <div className="modal-content">
-                <h5>Connect with more customers</h5>
-                <p>Be seen at the top of our Search page, with a badge of trust. <br/>
-                    Advertising with the {defaults.siteName} guarantee is a powerful way to attract new customers. <br /> Get started: </p>
+                <h5>{headerToShow}</h5>
+                    {summaryToShow}
 
                     <div className="row">
                         <fieldset id="campaign-form-fieldset">
                         <form className="col s12" autoComplete="on"  name="campaign-form" id="campaign-form" action="#" onSubmit={this.handleCampaignFormSubmit} noValidate="noValidate">
                             <div className="row">
                                 <div className="input-field col s12">
-                                    <input   id="email" autoComplete="off"  name = "email" required="required"  type="text" className="validate"
+                                    <input id="email" autoComplete="off"  name = "email" required="required"  type="text" className="validate"
                                             pattern="([a-zA-Z0-9_\-\._]+)@([a-zA-Z0-9_\-\._]+)\.([a-zA-Z0-9_\-\.]{2,5})$" />
                                         <label htmlFor="email" className="active">Your Email</label>
                                         <span className="helper-text email" data-error="please enter a valid email" data-success="">Please enter a valid email address</span>

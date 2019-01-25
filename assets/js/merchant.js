@@ -2,6 +2,7 @@ class Merchant extends React.Component
 {
 
 
+    adRates = {};
     defaultActions = () =>
     {
 
@@ -19,14 +20,26 @@ class Merchant extends React.Component
         this.defaultActions();
         let data = {email : this.props.email , action : 'FETCH_MERCHANT_DETAILS'};
         data = JSON.stringify(data);
-        $.post(defaults.activity , {data} , response => {
+        $.post(defaults.activity , {data} , response1 => {
 
 
             this.registeredTimeago = timeago.format(this.props.user.registered_on);
-            response = JSON.parse(response);
+            response1 = JSON.parse(response1);
 
-            this.props.resetState({...this.props , user : response.user , ads : response.ads});
+
+            data = {email : this.props.email , action : 'FETCH_AD_RATES'};
+            data = JSON.stringify(data);
+            $.post(defaults.activity , {data : data} , response2 =>  {
+
+                response2 = JSON.parse(response2);
+                this.props.resetState({...this.props , user : response1.user , ads : response1.ads , adRates : {...response2}});
+            });
+
         });
+
+
+
+
     }
 
     componentDidUpdate () {
@@ -45,7 +58,6 @@ class Merchant extends React.Component
             data = JSON.stringify(data);
             $.post(defaults.activity , {data} , response => {
 
-                console.log(response);
                 response = JSON.parse(response);
 
                 this.props.resetState({...this.props , user : response.user});
