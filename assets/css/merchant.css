@@ -194,3 +194,19 @@ a#close-new-ad-form.right.no-underline{
     right : 30px;
     left : -10px;
 }
+label.strong{
+    font-weight: bolder !important;
+}
+
+.ad-preview.row{
+    margin-top : 70px;
+}
+
+.image-container.ad-image-previews-container
+{
+    margin-top: 20px;
+    border : 1px solid lightgrey;
+    background-color : rgba(192 , 192 ,192 , .2);
+    cursor: initial;
+    
+}
