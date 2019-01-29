@@ -93,7 +93,7 @@ class MerchantAds extends React.Component {
 
 
 
-        this.updateAdPreview();
+      //  this.updateAdPreview();
     };
 
 
@@ -130,7 +130,9 @@ class MerchantAds extends React.Component {
           formData.append("email" , this.props.user.email);
           formData.append("action" , "NEW_AD");
           formData.append('UPLOAD_IMAGE' , true);
-          formData.append("ad_id" , null);
+          formData.append("ad_id" , "");
+          formData.append("reference_code" , "abcd");
+          formData.set("location" , this.updateAdPreview());
 
         $.ajax({
             url: defaults.handleAdForm,

@@ -80,13 +80,16 @@ class FileHandler
         }
     }
 
-    public  final function  upload_image ($image , $new_name , $target_directory , $error)
+    public  final function  upload_image ($image  , $target_directory , $change_name = false, $error = null , $new_name = "name")
     {
         $filename = $image["name"];
         $tmp_name = $image["tmp_name"];
-        $new_name = $this->changeFileName($filename, $new_name);
-        $new_filename = $target_directory.$new_name;
-        if (move_uploaded_file($tmp_name, $new_filename)) {
+        $target_file = $target_directory.basename($filename);
+        $new_name = $target_directory.$this->changeFileName($filename, $new_name);
+        //$new_filename = $target_directory.$new_name;
+        if (move_uploaded_file($tmp_name, $target_file)) {
+
+            if($change_name) rename($target_file , $new_name);
             return true;
         }
 

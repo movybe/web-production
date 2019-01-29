@@ -22,7 +22,6 @@ class Merchant extends React.Component
         data = JSON.stringify(data);
         $.post(defaults.actions , {data} , response1 => {
 
-
             this.registeredTimeago = timeago.format(this.props.user.registered_on);
             response1 = JSON.parse(response1);
 
@@ -53,7 +52,6 @@ class Merchant extends React.Component
 
         defaults.payWithPaystack(this.props.email , defaults.convertToPaystack(defaults.merchantActivationFee) , "Account Activation" , (response) => {
             if(response.status !== "success") return defaults.showToast(defaults.transactionNotSuccessfulMessage);
-            console.log(response);
             let data = {email : this.props.email , action : 'ACTIVATE_MERCHANT_ACCOUNT' , reference : response.reference};
             data = JSON.stringify(data);
             $.post(defaults.actions , {data} , response => {
@@ -73,6 +71,7 @@ class Merchant extends React.Component
 
 
         let userSubscriptionStatus = Number(this.props.user.subscribed);
+        let defaultEmailToShow = (this.props.user.email || "user@domain.com").truncate(defaults.emailTruncateSize);
         const subscriptionButtonType =  userSubscriptionStatus ?
             <div className="green-text"><span className="subscription-active-text">active</span><a className="waves-effect waves-light disabled btn-small right">Paid  &#8358; 700</a></div>     : <div><span className="materialize-red-text activate-account-text">NOT ACTIVATED</span> <a className="waves-effect waves-light btn-small right activate-account-button" onClick={this.activateMerchantAccount}>Activate  &#8358; {defaults.merchantActivationFee}</a></div>;
         return (
@@ -141,7 +140,7 @@ class Merchant extends React.Component
                                    </ul>
                             </div>
                             <div className="card-content grey lighten-4">
-                                <div  id="email-address" style={{display : 'none'}}>Account E-mail<span className="right amount-value email-address" id="merchant-email-address">{this.props.user.email.truncate(defaults.emailTruncateSize)}</span></div>
+                                <div  id="email-address" style={{display : 'none'}}>Account E-mail<span className="right amount-value email-address" id="merchant-email-address">{defaultEmailToShow}</span></div>
                                 <div id="test5" className="active">{subscriptionButtonType}</div>
                                 <div id="test6" style={{ display : 'none'}}>Registered <span className="right">{this.registeredTimeago}</span>
                                 </div>

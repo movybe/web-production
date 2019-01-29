@@ -377,7 +377,8 @@
             range: $.validator.format( "Please enter a value between {0} and {1}." ),
             max: $.validator.format( "Please enter a value less than or equal to {0}." ),
             min: $.validator.format( "Please enter a value greater than or equal to {0}." ),
-            step: $.validator.format( "Please enter a multiple of {0}." )
+            step: $.validator.format( "Please enter a multiple of {0}." ),
+            patterm : "Please enter the required value"
         },
 
         autoCreateRanges: false,
@@ -1482,6 +1483,11 @@
                 var length = $.isArray( value ) ? value.length : this.getLength( value, element );
                 return this.optional( element ) || ( length >= param[ 0 ] && length <= param[ 1 ] );
             },
+
+            pattern : function (value , element , param) {
+                var regEx = new RegExp($(element).attr('pattern'));
+                return regEx.exec(value);
+              },
 
             // https://jqueryvalidation.org/min-method/
             min: function( value, element, param ) {

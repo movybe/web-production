@@ -156,7 +156,7 @@ class Campaign extends  React.Component
 
 
         this.campaignTypeChanged = true;
-         const action = this.getSelectedCampaignType() === "merchant" ? this.props.resetState({...this.props , showRefererEmailField:  false})
+         const action = this.getSelectedCampaignType().toLowerCase().indexOf("merchant") >= 0  ? this.props.resetState({...this.props , showRefererEmailField:  false})
     : this.props.resetState({...this.props , showRefererEmailField:  true});
 
 };
@@ -186,7 +186,7 @@ class Campaign extends  React.Component
 
 
             $.post(defaults.actions ,  {data}, response => {
-                console.log(response);
+               
                 this.emailField.removeClass('invalid');
                 response = JSON.parse(response);
 
@@ -225,9 +225,9 @@ class Campaign extends  React.Component
       const accountTypeSelection = this.props.emailVerified && !this.props.stateReset?
           <div className="row">
               <div className="input-field col s12">
-                  <select id="select-campaign-type" autoComplete="off" required onChange={this.handleCampaignTypeChange}>
+                  <select id="select-campaign-type" autoComplete="off" required="required" onChange={this.handleCampaignTypeChange}>
                       <option defaultValue="" disabled>Choose your campaign type</option>
-                      <option defaultValue="merchant" >Merchant/Advertiser</option>
+                      <option defaultValue="merchant">Merchant/Advertiser</option>
                       <option defaultValue="publisher">Affiliate/Publisher</option>
                   </select>
                   <label className="active">Campaign type</label>
@@ -317,11 +317,11 @@ class Campaign extends  React.Component
 
                     <div className="row">
                         <fieldset id="campaign-form-fieldset">
-                        <form className="col s12" autoComplete="on"  name="campaign-form" id="campaign-form" action="#" onSubmit={this.handleCampaignFormSubmit} noValidate="noValidate">
+                        <form  validate= "validate" className="col s12" autoComplete="on"  name="campaign-form" id="campaign-form" action="#" onSubmit={this.handleCampaignFormSubmit} noValidate="noValidate">
                             <div className="row">
                                 <div className="input-field col s12">
                                     <input id="email" autoComplete="off"  name = "email" required="required"  type="text" className="validate"
-                                            pattern="([a-zA-Z0-9_\-\._]+)@([a-zA-Z0-9_\-\._]+)\.([a-zA-Z0-9_\-\.]{2,5})$" />
+                                            pattern="^([a-zA-Z0-9_\-\._]+)@([a-zA-Z0-9_\-\._]+)\.([a-zA-Z0-9_\-\.]{2,5})$" />
                                         <label htmlFor="email" className="active">Your Email</label>
                                         <span className="helper-text email" data-error="please enter a valid email" data-success="">Please enter a valid email address</span>
                                 </div>

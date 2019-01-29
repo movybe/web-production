@@ -124,17 +124,17 @@ class DatabaseConnection {
         $sql = "CREATE TABLE IF NOT EXISTS {$this->users_table_name}(
         id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         email VARCHAR (100) NOT NULL  UNIQUE ,
-        account_balance BIGINT NOT NULL DEFAULT  0, 
+        account_balance DOUBLE(16,2) NOT NULL DEFAULT 0, 
         account_type VARCHAR (100) NOT NULL , 
-        username VARCHAR (100) NOT NULL DEFAULT 0, 
-        number_of_users_refered BIGINT NOT NULL  DEFAULT  0,
-        registered_on TIMESTAMP NOT NULL  DEFAULT  CURRENT_TIMESTAMP , 
-        referred_by VARCHAR (100) NOT NULL  DEFAULT  0 , 
-        subscribed INT  NOT NULL  DEFAULT  0 COMMENT 'true 1 false 0' , 
+        username VARCHAR (100) NOT NULL DEFAULT 'username', 
+        number_of_users_refered BIGINT NOT NULL DEFAULT 0,
+        registered_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+        referred_by VARCHAR (100) NOT NULL DEFAULT 0 , 
+        subscribed INT  NOT NULL  DEFAULT 0 COMMENT 'true 1 false 0' , 
         approved INT NOT NULL DEFAULT 0 COMMENT 'true 1 false 0',
-        total_income_earned BIGINT NOT NULL DEFAULT  0,
-        total_referrer_amount_earned BIGINT NOT NULL DEFAULT  0,
-        total_amount_funded BIGINT ( 255 ) NOT NULL DEFAULT 0,
+        total_income_earned DOUBLE(16,2) NOT NULL DEFAULT 0,
+        total_referrer_amount_earned DOUBLE(16,2) NOT NULL DEFAULT 0,
+        total_amount_funded DOUBLE(16,2) NOT NULL DEFAULT 0,
         user_id VARCHAR (1000) NOT NULL DEFAULT 'abcdefgh',
         ip_address VARCHAR(100) NOT NULL UNIQUE DEFAULT '010.199.212.002',
         last_paid VARCHAR (100) NOT NULL  DEFAULT 'today',
@@ -171,8 +171,9 @@ class DatabaseConnection {
           ad_type VARCHAR (1000) NOT  NULL DEFAULT 'ppc' COMMENT 'ppc - Pay per click , ppv - Pay per view , ppa - Pay per affiliate',
           paused INT (10) NOT NULL  DEFAULT  0 COMMENT '1 true , 0 false',
           posted_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-          balance BIGINT NOT  NULL DEFAULT 0,
-          amount_paid BIGINT NOT NULL DEFAULT 0,
+          updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+          balance DOUBLE(16,2) NOT  NULL DEFAULT 0,
+          amount_paid DOUBLE (16 , 2) NOT NULL DEFAULT 0,
           number_of_clicks_paid_for BIGINT NOT NULL DEFAULT 0,
           number_of_views_paid_for BIGINT NOT NULL  DEFAULT 0,
           number_of_affiliates_paid_for BIGINT NOT NULL  DEFAULT 0,
@@ -188,8 +189,8 @@ class DatabaseConnection {
           approved INT NOT NULL DEFAULT  1 COMMENT '1 true 0 false', 
           contact VARCHAR (100) NULL  DEFAULT  '0707',
           reference_code VARCHAR (400) NOT NULL  DEFAULT  'aghdjjshuueosmjs',
-          ad_rate BIGINT NOT NULL DEFAULT 1 
-        
+          ad_rate DOUBLE (16 , 2) NOT NULL DEFAULT 1 ,
+          last_paid TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP   
       )";
         try {
 
@@ -262,7 +263,7 @@ class DatabaseConnection {
 
     }
 
-    public final function insert_into_table(string $table_name , array $fields_and_values){
+    public final function insert_into_table(string $table_name , array $fields_and_values , $msg = null){
         $field_string = "";
         $field_length = count($fields_and_values);
         $values_string = "";
@@ -285,7 +286,7 @@ class DatabaseConnection {
 
         catch (PDOException $exception) {
             $msg = $exception->getMessage();
-
+            echo $msg;
             return true;
         }
 
