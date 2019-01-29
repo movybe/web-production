@@ -22,6 +22,7 @@ abstract class WebsiteConfigurationSettings {
     public  $WebsiteSubject = "Compare price of Products in Nigeria";
     public  $WebsiteClassification = "Search";
     public  $DOCUMENT_ROOT;
+    public  $LinkShortUrlLength = 5;
     public  $STATIC_FOLDER;
     public  $JS_FOLDER;
     public  $CSS_FOLDER;
@@ -34,6 +35,7 @@ abstract class WebsiteConfigurationSettings {
     public  $MessageEmailPassword = '4mdcfohb';
     public  $PrimaryEmailPassword = '4mdcfohb';
     public  $ContactEmail;
+    public  $BANNER_IMAGES_FOLDER;
     public  $ErrorPage = "/404.php";
     public  $PageDescription = "Compare price of products in Nigeria";
     public  $ParentCompanyName = "Omoba Inc.";
@@ -51,6 +53,7 @@ abstract class WebsiteConfigurationSettings {
         $this->JS_FOLDER = $this->STATIC_FOLDER."js/";
         $this->CSS_FOLDER = $this->STATIC_FOLDER."css/";
         $this->INCS_FOLDER = $_SERVER['DOCUMENT_ROOT'].$this->STATIC_FOLDER."incs/";
+        $this->BANNER_IMAGES_FOLDER = $this->DOCUMENT_ROOT."/banners/";
         $this->IMG_FOLDER = $this->STATIC_FOLDER."img/";
         $this->SiteNameWithHttps = "https://{$this->SiteNameWithoutHttps}";
         $this->FacebookUrl = "{$this->Https}{$this->Www}facebook.com";
@@ -62,9 +65,8 @@ abstract class WebsiteConfigurationSettings {
         $this->HeadOffice = "Block 2A , Quarters 3 PH Int'l Airport Omagwa.";
         $this->MaximumUserProfileImageSizeInWords = strval($this->MaximumUserProfileImageSize / 10). "mb";
         $this->ContactEmail  = 'contact@'.$this->SiteName;
-        $this->DefaultAdminUserID = "Jvli";
-        $this->defaultBotProfilePicture = $this->IMG_FOLDER.'spider.png';
-         $this->COMPONENTS_FOLDER = $this->JS_FOLDER."components/";
+        $this->COMPONENTS_FOLDER = $this->JS_FOLDER."components/";
+        $this->AD_ID_LENGTH = 7;
         $this->AboutUs = <<<AboutUs
 <p>
                                        Search the price of anything.  

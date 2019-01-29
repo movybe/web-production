@@ -3,7 +3,8 @@
 
 require_once '../config/functions.php';
 
-class Activity extends  Functions
+
+class Actions extends  Functions
 {
 
     private $data , $error , $success , $action , $email , $username , $user_details , $reference;
@@ -99,6 +100,9 @@ class Activity extends  Functions
                 $cpv = 1.2;
                 $cpa = 10;
                 return json_encode(array("cpc" => $cpc , "cpv" => $cpv , "cpa"=>  $cpa));
+            case 'EDIT_AD' :
+                return "wants to edit ad";
+
         }
 
     }
@@ -118,6 +122,6 @@ class Activity extends  Functions
 
 }
 
-$activity = new Activity();
-echo $activity->actionProcessor();
+$actions = new Actions();
+echo $actions->actionProcessor();
 ?>

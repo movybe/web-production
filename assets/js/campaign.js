@@ -185,7 +185,7 @@ class Campaign extends  React.Component
             data = JSON.stringify(data);
 
 
-            $.post(defaults.activity ,  {data}, response => {
+            $.post(defaults.actions ,  {data}, response => {
                 console.log(response);
                 this.emailField.removeClass('invalid');
                 response = JSON.parse(response);
@@ -202,7 +202,7 @@ class Campaign extends  React.Component
             data = {action : "SIGNUP_MERCHANT" , email , accountType: defaults.merchantAccountType};
             data = JSON.stringify(data);
 
-            $.post(defaults.activity , {data} , response => {
+            $.post(defaults.actions , {data} , response => {
               response = JSON.parse(response);
               const action = response.error ? this.props.resetState({...this.props , email , accountType: defaults.merchantAccountType , alreadyExistingAccount: true}) : defaults.showToast(defaults.checkNetworkConnectionError);
               //this.campaignFormFieldset.prop(...defaults.disabledFalse);

@@ -62,6 +62,34 @@ class MerchantAds extends React.Component {
         this.mainAdLocation = "";
         this.adImage = $('#ad-image');
         this.adImageLabel = $('#ad-image-label');
+        this.adModalPopup.modal('open');
+
+        let parent =  this;
+        this.adEditForm.on('submit' , function (e) {
+
+            e.preventDefault();
+            e.stopImmediatePropagation();
+             let form = this;
+            parent.handleAdForm(e , form);
+        });
+
+
+        const fieldValues = {
+            title: "Click here to buy your 2019 JAMB e-PIN",
+            description: "purchase your jamb pin from remita , without stress",
+            link: "http:///www.google.com/remita",
+            contact: "07084419530",
+            campaign: "Remita",
+            location: "Nigeria",
+            units: 20,
+        };
+
+        Object.keys(fieldValues).forEach(function (key) {
+
+
+            $(`*[name="${key}"]`).val(fieldValues[key]);
+
+        });
 
 
 
@@ -74,6 +102,7 @@ class MerchantAds extends React.Component {
         this.defaultActions();
 
 
+
     }
 
     componentDidUpdate() {
@@ -81,17 +110,41 @@ class MerchantAds extends React.Component {
 
     }
 
-    handleAdForm = (e) => {
+
+    handleAdForm = (e , form) => {
 
 
-        e.preventDefault();
 
         M.updateTextFields();
 
-        this.adEditForm.validate();
 
-        if(!(this.adEditForm.valid() && this.isValidUploadedImage())) return;
+
+        if(!(this.adEditForm.validate() && this.adEditForm.valid() && this.isValidUploadedImage())) return;
           this.updateAdPreview();
+
+          let formData = new FormData(form);
+
+          formData.append("ad_type" , this.adTypeSelection.val());
+          formData.append("ad_rate" , this.getTotalAdCharge().rate);
+          formData.append("total_amount" , this.getTotalAdCharge().totalAmount);
+          formData.append("email" , this.props.user.email);
+          formData.append("action" , "NEW_AD");
+          formData.append('UPLOAD_IMAGE' , true);
+          formData.append("ad_id" , null);
+
+        $.ajax({
+            url: defaults.handleAdForm,
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                console.log(response);
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+
+
 
     };
 
@@ -207,7 +260,7 @@ class MerchantAds extends React.Component {
 
 
         this.totalAdCharge.text(totalAmount.toLocaleString());
-         return [totalAmount , paystackAmount];
+         return {totalAmount , paystackAmount , rate};
     };
     adModal = () =>
     {
@@ -239,7 +292,7 @@ class MerchantAds extends React.Component {
                         {/* Fieldset for new ad form */}
                         <fieldset id="ad-form-fieldset">
                             {/*Ad form */}
-                            <form className="col s12" autoComplete="on" onSubmit={this.handleAdForm}
+                            <form className="col s12" autoComplete="on"
                                   name="ad-form" id="ad-form" action="#" encType="mutipart/form-data" noValidate="noValidate">
                                 {/* Title */}
                                 <div className="row">
@@ -247,7 +300,7 @@ class MerchantAds extends React.Component {
                                         <i className="material-icons small prefix">short_text</i>
                                         <input data-name = "title" placeholder="Please write a clear title for your ad" id="ad-title"
                                                minLength={this.adFormRules.minAdTitleLength}
-                                               name="ad-title" type="text"
+                                               name="title" type="text"
                                                className="validate ad-form-fields char-counter"
                                                maxLength={this.adFormRules.maxAdTitleLength} required="required"
                                         onChange={this.updateAdPreview}/>
@@ -264,7 +317,7 @@ class MerchantAds extends React.Component {
                                         <i className="material-icons small prefix">subject</i>
                                         <textarea placeholder="Enter a detailed description" id="ad-description"
                                                   minLength={this.adFormRules.minAdDescriptionLength}
-                                                  name="ad-description"
+                                                  name="description"
                                                   rows="2"
                                                   className="validate ad-form-fields materialize-textarea char-counter"
                                                   maxLength={this.adFormRules.maxAdDescriptionLength}
@@ -283,7 +336,7 @@ class MerchantAds extends React.Component {
                                         <i className="material-icons small prefix">link</i>
                                         <input placeholder="e.g http://www.your-website.com/link"
                                                id="ad-link"
-                                               name="ad-link"
+                                               name="link"
                                                type="text"
                                                data-name = "link"
                                                onChange={this.updateAdPreview}
@@ -300,7 +353,7 @@ class MerchantAds extends React.Component {
                                     <div className="input-field col s12">
                                         <i className="material-icons small prefix">phone</i>
                                         <input placeholder="e.g +234 70 844 195 30" id="ad-contact"
-                                               name="ad-contact"
+                                               name="contact"
                                                type="text"
                                                data-name = "contact"
                                                onChange={this.updateAdPreview}
@@ -316,7 +369,7 @@ class MerchantAds extends React.Component {
                                     <div className="input-field col s12">
                                         <i className="material-icons prefix small">business</i>
                                         <input placeholder="Enter your business name" id="ad-campaign-name"
-                                               name="ad-campaign-name"
+                                               name="campaign"
                                                type="text"
                                                onChange={this.updateAdPreview}
                                                className="validate ad-form-fields" minLength="1"
@@ -333,7 +386,7 @@ class MerchantAds extends React.Component {
                                     <div className="input-field col s12">
                                         <i className="material-icons prefix small">location_on</i>
                                         <input placeholder="e.g Lagos, Nigeria (if any)" id="ad-location"
-                                               name="ad-location"
+                                               name="location"
                                                type="text"
                                                onChange={this.updateAdPreview}
                                                className="validate ad-form-fields"
@@ -365,7 +418,7 @@ class MerchantAds extends React.Component {
                                     <div className="input-field col s12">
                                         <i className="material-icons prefix small">shopping_cart</i>
                                         <input placeholder="10+" id="ad-unit"
-                                               name="ad-unit"
+                                               name="units"
                                                type="number"
                                                onChange={this.getTotalAdCharge}
                                                className="validate ad-form-fields"
@@ -387,7 +440,7 @@ class MerchantAds extends React.Component {
                                     {/* Hidden input field */}
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <input placeholder="Valid location (if any)" name="ad-location"
+                                        <input placeholder="Valid location (if any)"
                                                type="hidden"
                                                id="hidden-field"
                                         />
@@ -404,7 +457,7 @@ class MerchantAds extends React.Component {
                                     <div className="input-field file-field col s12">
                                         <input
                                             placeholder="Link to your image" id="ad-image"
-                                            name="ad-image"
+                                            name="banner"
                                             type="file"
                                             className="validate merchant-ad-image ad-form-fields"
                                             required="required"
@@ -430,7 +483,7 @@ class MerchantAds extends React.Component {
 
                                 <div className="row ad-preview">
                                     <div className="input-field col s12">
-                                        <input placeholder="Valid location (if any)" name="ad-location"
+                                        <input placeholder="Valid location (if any)"
                                                type="hidden"
                                                id="hidden-field"
                                         />

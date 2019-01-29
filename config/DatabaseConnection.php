@@ -4,6 +4,20 @@ date_default_timezone_set("Africa/Lagos");
 class DatabaseConnection {
 
 
+
+    /*
+
+
+    Renaming a column in sql
+
+    ALTER TABLE "table_name" Change "column 1" "column 2" ["Data Type"];
+    ALTER TABLE "table_name" RENAME COLUMN "column 1" TO "column 2";
+    ALTER TABLE Customer CHANGE Address Addr char(50);
+    ALTER TABLE Customer RENAME COLUMN Address TO Addr;
+
+
+    */
+
     public $database_username = "root"; // username for the database
     public $database_password = "";
     public $database_host = "localhost";
@@ -153,7 +167,7 @@ class DatabaseConnection {
           title VARCHAR (1000) NOT NULL  , 
           link VARCHAR  (10000) NOT NULL  , 
           description VARCHAR (10000) NOT NULL DEFAULT 'description goes here',
-          image VARCHAR (1000) NOT NULL , 
+          banner VARCHAR (1000) NOT NULL , 
           ad_type VARCHAR (1000) NOT  NULL DEFAULT 'ppc' COMMENT 'ppc - Pay per click , ppv - Pay per view , ppa - Pay per affiliate',
           paused INT (10) NOT NULL  DEFAULT  0 COMMENT '1 true , 0 false',
           posted_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -173,7 +187,8 @@ class DatabaseConnection {
           active INT NOT NULL DEFAULT 1 COMMENT '1 true , 0 false' ,
           approved INT NOT NULL DEFAULT  1 COMMENT '1 true 0 false', 
           contact VARCHAR (100) NULL  DEFAULT  '0707',
-          reference_code VARCHAR (400) NOT NULL  DEFAULT  'aghdjjshuueosmjs'
+          reference_code VARCHAR (400) NOT NULL  DEFAULT  'aghdjjshuueosmjs',
+          ad_rate BIGINT NOT NULL DEFAULT 1 
         
       )";
         try {

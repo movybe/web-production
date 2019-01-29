@@ -63,6 +63,7 @@ class Defaults {
         this.queryProcessor = this.processorsFolder + 'query.php';
         this.crawler = this.processorsFolder + 'crawler.php';
         this.suggestions = this.processorsFolder + 'suggestions.php';
+        this.handleAdForm = this.processorsFolder + "handle-ad-form.php";
         this.commonWords = ['what','is','the','price','of','how','much','does','cost','costs','what','why','when','who','it','buy','sell','sells'];
         this.maxTitleLength = 60;
         this.maxDescriptionLength = 160;
@@ -92,7 +93,7 @@ class Defaults {
         this.memberAccountType = "member";
         this.disabledTrue = ["disabled" , true];
         this.disabledFalse = ["disabled" , false];
-        this.activity = this.processorsFolder + "activity.php";
+        this.actions = this.processorsFolder + "actions.php";
         this.numberOfAdSpaceForMerchant = [1 , 2];
         this.minimumAffliateProfit = 3500;
         this.minimumAccountUsernameLength = 5;

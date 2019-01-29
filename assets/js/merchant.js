@@ -20,7 +20,7 @@ class Merchant extends React.Component
         this.defaultActions();
         let data = {email : this.props.email , action : 'FETCH_MERCHANT_DETAILS'};
         data = JSON.stringify(data);
-        $.post(defaults.activity , {data} , response1 => {
+        $.post(defaults.actions , {data} , response1 => {
 
 
             this.registeredTimeago = timeago.format(this.props.user.registered_on);
@@ -29,7 +29,7 @@ class Merchant extends React.Component
 
             data = {email : this.props.email , action : 'FETCH_AD_RATES'};
             data = JSON.stringify(data);
-            $.post(defaults.activity , {data : data} , response2 =>  {
+            $.post(defaults.actions , {data : data} , response2 =>  {
 
                 response2 = JSON.parse(response2);
                 this.props.resetState({...this.props , user : response1.user , ads : response1.ads , adRates : {...response2}});
@@ -56,7 +56,7 @@ class Merchant extends React.Component
             console.log(response);
             let data = {email : this.props.email , action : 'ACTIVATE_MERCHANT_ACCOUNT' , reference : response.reference};
             data = JSON.stringify(data);
-            $.post(defaults.activity , {data} , response => {
+            $.post(defaults.actions , {data} , response => {
 
                 response = JSON.parse(response);
 

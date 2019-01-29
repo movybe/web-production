@@ -96,5 +96,6 @@ class FileHandler
     }
 }
 
+$file_handler = new FileHandler();
 
 ?>
