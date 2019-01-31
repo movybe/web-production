@@ -120,7 +120,6 @@ class HandleAdForm extends  Functions
             'link_short_url' => $this->link_short_url,
             'location' => $this->location ,
             'campaign_name' => $this->campaign,
-            'approved' => 0,
             'contact' => $this->contact,
             'last_paid' => $now,
             'ad_rate' => $this->ad_rate,
@@ -150,17 +149,21 @@ class HandleAdForm extends  Functions
     private function updateUserDetailsForNewAd () : bool
     {
 
-
+           return $this->executeSQL("UPDATE {$this->users_table_name} SET account_balance = account_balance + {$this->total_amount}, total_amount_funded = total_amount_funded + {$this->total_amount} WHERE email = '{$this->email}'");
 
     }
 
 
     public function  Processor () : string
     {
-        if (!($this->isReady() && $this->setDetails())) return json_encode([$this->success_text => $this->success_value, $this->error_text => $this->unknown_error_message]);
+        if (!($this->isReady() && $this->setDetails())) return json_encode([$this->success_text => $this->failure_value, $this->error_text => $this->unknown_error_message]);
 
-        if($this->is_new_ad)$this->insertNewAdToDatabase();
-        return "Ok";
+        if(!$this->uploadAdImage()) return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->image_upload_error_message]);
+        if($this->is_new_ad && !$this->insertNewAdToDatabase()) return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->network_error]);
+        if($this->is_new_ad && !$this->updateUserDetailsForNewAd()) return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->network_error]);
+
+        return json_encode([$this->success_text => $this->success_value , $this->error_text => "success"]);
+
      }
 }
 

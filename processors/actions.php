@@ -7,7 +7,7 @@ require_once '../config/functions.php';
 class Actions extends  Functions
 {
 
-    private $data , $error , $success , $action , $email , $username , $user_details , $reference;
+    private $data , $error , $success , $action , $email , $username , $user_details , $reference , $ad_id;
     private $errorText = "error" , $successText = "success";
     private $networkErrorOccured = "unknown network error";
 
@@ -36,7 +36,7 @@ class Actions extends  Functions
     private function fetchMerchantDetails () : array{
 
         $user_details = $this->fetch_data_from_table($this->users_table_name , "email" , $this->email)[0];
-        $ad_details = $this->fetch_data_from_table($this->ads_table_name , "posted_by" , $this->getUserDetails()['email']);
+        $ad_details = $this->fetch_data_from_table($this->ads_table_name , "posted_by" , $user_details['user_id']);
 
 
         return ["user" => $user_details ,"ads" => $ad_details];
@@ -100,8 +100,16 @@ class Actions extends  Functions
                 $cpv = 1.2;
                 $cpa = 10;
                 return json_encode(array("cpc" => $cpc , "cpv" => $cpv , "cpa"=>  $cpa));
-            case 'EDIT_AD' :
-                return "wants to edit ad";
+            case 'PAUSE_AD' :
+                $this->email = $this->data['email'];
+                $this->ad_id = $this->data['id'];
+                $this->update_record($this->ads_table_name , 'paused' , 1 , 'ad_id' , $this->ad_id);
+                return json_encode([$this->successText => 1 , $this->errorText => $this->successText]);
+            case 'PLAY_AD' :
+                $this->email = $this->data['email'];
+                $this->ad_id = $this->data['id'];
+                $this->update_record($this->ads_table_name , 'paused' , 0 , 'ad_id' , $this->ad_id);
+                return json_encode([$this->successText => 1 , $this->errorText => $this->successText]);
 
         }
 

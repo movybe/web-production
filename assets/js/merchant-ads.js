@@ -26,6 +26,42 @@ class MerchantAds extends React.Component {
 
 
     }
+
+    refreshProfile () {
+
+        let data = {email : this.props.email , action : 'FETCH_MERCHANT_DETAILS'};
+        data = JSON.stringify(data);
+        $.post(defaults.actions , {data} , response1 => {
+
+            response1 = JSON.parse(response1);
+            this.props.resetState({...this.props , user : response1.user , ads : response1.ads});
+
+
+
+        });
+
+    }
+
+    changeAdActiveStatus = (e) => {
+
+        e.persist();
+        const action = $(e.target).attr('data-pause') == "true" ? 'PAUSE_AD' : 'PLAY_AD';
+        const id = $(e.target).attr('data-ad-id');
+        
+        $(e.target).hide();
+        let data = {action , id , email : this.props.email};
+        data = JSON.stringify(data);
+        console.log(data);
+        $.post(defaults.actions , {data} , response  => {
+
+            $(e.target).show();
+            
+            console.log(response);
+            this.refreshProfile();
+        });
+
+    };
+
     defaultActions = () => {
 
         this.adModalPopup = $('.modal#ad-modal');
@@ -39,6 +75,7 @@ class MerchantAds extends React.Component {
         this.adUnit = $('#ad-unit');
         this.totalAdCharge = $('#total-ad-charge');
         this.adImagePreviews = $('.ad-image-previews');
+        this.adFormFieldset = $('#ad-form-fieldset');
         $('input#ad-title').characterCounter();
         $('textarea#ad-description').characterCounter();
 
@@ -62,7 +99,7 @@ class MerchantAds extends React.Component {
         this.mainAdLocation = "";
         this.adImage = $('#ad-image');
         this.adImageLabel = $('#ad-image-label');
-        this.adModalPopup.modal('open');
+      //  this.adModalPopup.modal('open');
 
         let parent =  this;
         this.adEditForm.on('submit' , function (e) {
@@ -77,7 +114,7 @@ class MerchantAds extends React.Component {
         const fieldValues = {
             title: "Click here to buy your 2019 JAMB e-PIN",
             description: "purchase your jamb pin from remita , without stress",
-            link: "http:///www.google.com/remita",
+            link: "http://www.google.com/remita",
             contact: "07084419530",
             campaign: "Remita",
             location: "Nigeria",
@@ -93,7 +130,7 @@ class MerchantAds extends React.Component {
 
 
 
-      //  this.updateAdPreview();
+        this.updateAdPreview();
     };
 
 
@@ -121,30 +158,55 @@ class MerchantAds extends React.Component {
 
         if(!(this.adEditForm.validate() && this.adEditForm.valid() && this.isValidUploadedImage())) return;
           this.updateAdPreview();
+          this.adFormFieldset.prop(...defaults.disabledTrue);
 
-          let formData = new FormData(form);
+          defaults.payWithPaystack(this.props.user.email , this.getTotalAdCharge().paystackAmount, this.adCampaignName.val() , response =>{
 
-          formData.append("ad_type" , this.adTypeSelection.val());
-          formData.append("ad_rate" , this.getTotalAdCharge().rate);
-          formData.append("total_amount" , this.getTotalAdCharge().totalAmount);
-          formData.append("email" , this.props.user.email);
-          formData.append("action" , "NEW_AD");
-          formData.append('UPLOAD_IMAGE' , true);
-          formData.append("ad_id" , "");
-          formData.append("reference_code" , "abcd");
-          formData.set("location" , this.updateAdPreview());
 
-        $.ajax({
-            url: defaults.handleAdForm,
-            type: 'POST',
-            data: formData,
-            success: function (response) {
-                console.log(response);
-            },
-            cache: false,
-            contentType: false,
-            processData: false
-        });
+              if(response.status !== "success"){
+                  this.adFormFieldset.prop(...defaults.disabledFalse);
+                  defaults.showToast(defaults.transactionNotSuccessfulMessage);
+
+                  return;
+              }
+
+              this.adFormFieldset.prop(...defaults.disabledFalse);
+
+              let formData = new FormData(form);
+
+
+
+
+              formData.append("ad_type" , this.adTypeSelection.val());
+              formData.append("ad_rate" , this.getTotalAdCharge().rate);
+              formData.append("total_amount" , this.getTotalAdCharge().totalAmount);
+              formData.append("email" , this.props.user.email);
+              formData.append("action" , "NEW_AD");
+              formData.append('UPLOAD_IMAGE' , true);
+              formData.append("ad_id" , "");
+              formData.append("reference_code" , response.reference);
+              formData.set("location" , this.updateAdPreview());
+
+              $.ajax({
+                  url: defaults.handleAdForm,
+                  type: 'POST',
+                  data: formData,
+                  success:  (response)=> {
+
+
+                      console.log(response);
+                      this.refreshProfile();
+
+                  }
+
+                  ,
+                  cache: false,
+                  contentType: false,
+                  processData: false
+              });
+
+          });
+
 
 
 
@@ -445,6 +507,9 @@ class MerchantAds extends React.Component {
                                         <input placeholder="Valid location (if any)"
                                                type="hidden"
                                                id="hidden-field"
+                                               required="required"
+                                               value="hey there"
+
                                         />
                                         <label htmlFor="ad-image" className="active">Banner image (1000 x 500)</label>
                                     </div>
@@ -546,21 +611,53 @@ class MerchantAds extends React.Component {
     };
 
 
+
     render() {
 
-        let adsNumberMessage ,usedAdsMessage , adsPlural;
+        let adsNumberMessage ,usedAdsMessage , adsPlural , adPublishedOnText , currentAd , adPaused
+        , isEmptyAd , changeAdStatusSpan , pauseAdSpan , playAdSpan ;
+        
 
         let numberOfMerchantActiveAds = 0;
 
-        this.props.ads.forEach((index , obj) => {
+        this.props.ads.forEach((obj , index) => {
 
-            return obj.active ? numberOfMerchantActiveAds += 1 : null;
+            return Number(obj.active) ? numberOfMerchantActiveAds += 1 : null;
 
         });
 
+
+
         adsPlural = numberOfMerchantActiveAds === 1 ? "ad" : "ads";
          const newAdsModalTrigger = defaults.numberOfAdSpaceForMerchant.map(index => {
-             adsNumberMessage= this.props.ads[index] ? this.props.ads[index].title : "Edit this ad space";
+
+
+             currentAd   = this.props.ads[index] || false;
+             isEmptyAd = !Boolean(currentAd);
+             adsNumberMessage = currentAd ? currentAd.title.truncate(defaults.adListTitleLength) : "Edit this ad space";
+             adPublishedOnText = currentAd ? <span>Published  {timeago.format(currentAd.updated_on)}</span> : null;
+             
+             playAdSpan = isEmptyAd ? null : <span className = "ad-change-active-status"><span className = "activate-pause-ad-text red-text">paused </span> <i className ="ad-pause-play-icon material-icons green-text cursor-pointer" data-ad-id = {currentAd.ad_id} data-pause = {false} onClick = {this.changeAdActiveStatus}>play_arrow </i></span>;
+             pauseAdSpan =isEmptyAd ? null : <span className = "ad-change-active-status"><span className = "activate-pause-ad-text green-text">active </span><i className ="ad-pause-play-icon material-icons red-text cursor-pointer" data-ad-id = {currentAd.ad_id} data-pause = {true} onClick = {this.changeAdActiveStatus}>pause</i></span>;
+             
+             if(!isEmptyAd)
+             {
+
+                if(Number(currentAd.paused) /* i.e the ad is paused */)
+                
+                {
+                    changeAdStatusSpan = playAdSpan;
+                }
+                else 
+                {
+                    changeAdStatusSpan = pauseAdSpan;
+                }
+             }
+             else {
+                 changeAdStatusSpan = null
+             }
+             
+
 
             return (
                 <div key = {Math.random()} className="row z-depth-3 merchant-ad-number-message">
@@ -569,6 +666,10 @@ class MerchantAds extends React.Component {
                         <p className="notice-header flow-text number-of-merchant-ads">{adsNumberMessage}
                             <a title="modify this ad" href="#ad-modal"  id="new-ad-dropdown"
                                className="material-icons add-ad-icon right modal-trigger  no-underline">mode_edit</a>
+                            <a title="View stats" className ="right stats ad-stat-modal-link material-icons modal-trigger">insert_chart</a>
+                            <span className="ad-published-on-text">{adPublishedOnText}{changeAdStatusSpan}</span>
+ 
+
                         </p>
                     </div>
                 </div>

@@ -210,3 +210,27 @@ label.strong{
     cursor: initial;
     
 }
+
+.ad-stat-modal-link
+{
+    position: relative;
+    top : 5px;
+    right : 20px;
+    cursor: pointer;
+}
+
+.ad-published-on-text{
+    display: block;
+    font-size: 14px;
+    margin-top: 12px;
+}
+.ad-change-active-status
+{
+    float: right;
+    position: relative;
+    top
+}
+.ad-pause-play-icon{
+    position: relative;
+    top : 7px;
+}

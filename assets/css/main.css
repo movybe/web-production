@@ -138,6 +138,12 @@
     text-decoration: none;
 
 }
+
+.cursor-pointer {
+
+    cursor : pointer;
+
+}
 .search-result-link-description{
     display: block;
     margin-top : 5px;

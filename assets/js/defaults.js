@@ -69,6 +69,7 @@ class Defaults {
         this.maxDescriptionLength = 160;
         this.maxLinkLength = 45;
         this.merchantActivationFee = 700;
+        this.adListTitleLength = 20;
         this.searchResultPreloaders = "search-result-preloaders";
         this.searchResultPreloader = "search-result-preloader";
         this.websiteLiLinks = "website-li-links";
@@ -87,6 +88,7 @@ class Defaults {
         this.searchSuggestionsLimit = 7;
         this.siteName = "Omoba";
         this.siteOwner = "Omoba Inc.";
+    
         this.siteAddress = this.siteName.toLowerCase() + ".ng";
         this.siteAddressHttp = "http://" + this.siteAddress;
         this.merchantAccountType = "merchant";
@@ -94,7 +96,7 @@ class Defaults {
         this.disabledTrue = ["disabled" , true];
         this.disabledFalse = ["disabled" , false];
         this.actions = this.processorsFolder + "actions.php";
-        this.numberOfAdSpaceForMerchant = [1 , 2];
+        this.numberOfAdSpaceForMerchant = [0 , 1];
         this.minimumAffliateProfit = 3500;
         this.minimumAccountUsernameLength = 5;
         this.maximumAccountUsernameLength = 12;
@@ -111,7 +113,7 @@ class Defaults {
         this.showToast = message => {
             M.toast({html: message});
         };
-
+        this.waitForAdApprovalMessage = "Your ad, will be approved within 5min.";
        this.emailTruncateSize = 15;
 
        this.accountActivationText = "Account activation";
