@@ -26,6 +26,23 @@ class  LocalSearchTab extends React.Component{
     componentDidUpdate() {
         this.defaultActions();
 
+        let locale = this.props.locale;
+
+        let ad1Price, ad2Price;
+        locale.forEach(local => {
+
+
+            local.ads = local.ads.sort((a , b) => {
+                ad1Price = parseInt(a.price.toString().replace(/\D/g,''));
+                ad2Price = parseInt(b.price.toString().replace(/\D/g,''));
+
+                return ad2Price < ad1Price;
+
+            });
+        });
+
+        this.props.switchWebsite({...this.props , locale});
+
     }
     componentDidMount() {
         this.modal = $("#myModal");
@@ -37,6 +54,7 @@ class  LocalSearchTab extends React.Component{
 
 
 
+        /*
         if (localStorage.getItem(defaults.savedState)) {
             let cookieObj = JSON.parse(localStorage.getItem(defaults.savedState));
             if(this.props.switchWebsite({...cookieObj , processingAction : false})){
@@ -44,6 +62,8 @@ class  LocalSearchTab extends React.Component{
                 this.defaultActions();
             }
         }
+
+        */
     }
 
     saveImage = (alt , link , src) => {
@@ -90,14 +110,15 @@ class  LocalSearchTab extends React.Component{
         let tabContainers = locale.map((local , pos)  => {
 
 
-            loadMoreButton = (local.loadMore && !this.props.processingAction && local.titles.length) ?
+
+            loadMoreButton = (local.loadMore && !this.props.processingAction && local.ads.length) ?
                 <div className="load-more-action-button-wrapper">
                 <span className="waves-effect waves-light btn-small load-more-action" onClick={() => {this.props.switchToWebsite(local.shortName , pos , true)}}
                       id = {local.shortName + "-load-more-action"}><i className="material-icons left">refresh</i><span>More</span>
                 </span>
                 </div> : null;
 
-            loadMoreButton = (loadMoreButton === null && !this.props.loadMore && !this.props.processingAction && local.titles.length) ? <h5 className="center-align load-more-error-messages">{defaults.noMoreResultsFoundError + " on " + local.name}</h5> : loadMoreButton;
+            loadMoreButton = (loadMoreButton === null && !this.props.loadMore && !this.props.processingAction && local.ads.length) ? <h5 className="center-align load-more-error-messages">{defaults.noMoreResultsFoundError + " on " + local.name}</h5> : loadMoreButton;
 
             let showLocation;
             let showImages;
@@ -105,31 +126,31 @@ class  LocalSearchTab extends React.Component{
             let bg;
             let currency;
             let preloader;
-            let template = (local.titles.length) ? local.images.map((image, index) => {
+            let template = (local.ads.length) ? local.ads.map((ad, index) => {
                 let savedImage;
                 let imageSaved = false;
 
                 savedImage = this.props.gallery.find((imageObject , index)=> {
-                    return  image === imageObject.src;
+                    return  ad.image === imageObject.src;
                 });
 
                 imageSaved = savedImage !== undefined;
 
-                bg = `${local.images[index]}`;
-                showImages = (this.props.settings.showImages) && local.images[index] != null ?
-                    <span className="modal-link"  data-caption = {local.titles[index]} href = {local.images[index]}>
-                    <div className="image-container" onClick={  imageSaved ? null : () => {this.saveImage(local.titles[index] , local.links[index] , image)}} data-image={local.images[index]}>
+                bg = `${ad.image}`;
+                showImages = (this.props.settings.showImages) && ad.image != null ?
+                    <span className="modal-link"  data-caption = {ad.title} href = {ad.image}>
+                    <div className="image-container" onClick={  imageSaved ? null : () => {this.saveImage(ad.title , ad.link , ad.image)}} data-image={ad.image}>
                         <div className="blurred-bg lazyload" data-bgset={bg}></div>
-                    <div className="lazyload overlay" data-bgset={bg}  title = {local.titles[index]} onClick={() => {return imageSaved ? null : null}}></div>
+                    <div className="lazyload overlay" data-bgset={bg}  title = {ad.title} onClick={() => {return imageSaved ? null : null}}></div>
                     </div>
     </span>: null;
 
                 currency = this.props.settings.localSearch ? <span>&#8358;</span> : <span>$</span>;
-                showPrice = (local.prices[index]) ? <h6 className="green-text search-result-price">{currency}{local.prices[index]}</h6> : <h5 className="green-text search-result-price">price not specified</h5>;
-                showLocation = local.locations[index].length ?
+                showPrice = (ad.price) ? <h6 className="green-text search-result-price">{currency}{ad.price}</h6> : <h5 className="green-text search-result-price">price not specified</h5>;
+                showLocation = ad.location.length ?
 
                     <span className="search-result-locations blue-grey-text"><i
-                        className="tiny material-icons search-location-icons">location_on</i>{local.locations[index]}</span> : null;
+                        className="tiny material-icons search-location-icons">location_on</i>{ad.location}</span> : null;
                 return (
 
                     <div className="search-result" key = {Math.random()}>
@@ -137,18 +158,18 @@ class  LocalSearchTab extends React.Component{
                         {showPrice}
 
                         <h3 className="search-result-title-header"><a target="_blank" className="search-result-title-link"
-                                                                      href={local.links[index]}>
-                            {local.titles[index]}
+                                                                      href={ad.link}>
+                            {ad.title}
                         </a></h3>
                         <a className="search-result-link-address" target="_blank"
-                           href={local.links[index]}>
-                            {local.linkTexts[index]}
+                           href={ad.link}>
+                            {ad.linkText}
                         </a>
                         <span className="search-result-link-description">
-{local.descriptions[index]}
+{ad.description}
 </span>
                         {showImages}
-                        <a download = {local.titles[index]} target="_blank" href={image}     className="image-download-link search-result-images blue-text"><i
+                        <a download = {ad.title} target="_blank" href={ad.image}     className="image-download-link search-result-images blue-text"><i
                             className="tiny material-icons search-image-icons">image</i> {  imageSaved ? "Image Saved" : "Save Image"}</a>
                         {showLocation}
 

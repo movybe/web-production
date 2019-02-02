@@ -18,11 +18,11 @@ class Config {
         formSubmitted : false ,
         processingAction : false,
         locale : [
-            {shortName :  "olx"  , name : "olx"         ,        textColor :  'purple' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
-            {shortName :  "jiji" , name : "jiji"        ,         textColor : 'green' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] , linkTexts : [] , locations : [] , page : 0 , error : "" , loadMore : false} ,
-            {shortName : "jumia" , name : "jumia"       ,                 textColor : 'black' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,   linkTexts : [] , locations : [] , page : 0 , error : "" , loadMore : false} ,
-            {shortName : "konga" , name : "konga"       ,              textColor :  'orange' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] , linkTexts : [] , locations : [] , page : 0 , error : "" , loadMore : false} ,
-            {shortName :  "deals" ,name : "jumia deals" ,          textColor : 'indigo' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] , locations : [] , page : 0 , error : "" , loadMore : false}
+            {shortName :  "olx"  , name : "olx"         ,        textColor :  'purple' , ads : [] , page : 0 , error : "" , loadMore : false} ,
+            {shortName :  "jiji" , name : "jiji"        ,         textColor : 'green' , ads : [] ,  page : 0 , error : "" , loadMore : false} ,
+            {shortName : "jumia" , name : "jumia"       ,                 textColor : 'black' , ads : [] , page : 0 , error : "" , loadMore : false} ,
+            {shortName : "konga" , name : "konga"       ,              textColor :  'orange' , ads : [] ,  page : 0 , error : "" , loadMore : false} ,
+            {shortName :  "deals" ,name : "jumia deals" ,          textColor : 'indigo' , ads : [] , page : 0 , error : "" , loadMore : false}
 
         ] ,
         international : [
@@ -31,7 +31,9 @@ class Config {
             {shortName :  "walmart"  , name : "walmart"         ,      textColor :  '#79b9e7' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
             {shortName :  "ebay"  , name : "ebay"         ,        textColor :  '#86b817' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
             {shortName :  "bestbuy"  , name : "Best buy"         , textColor :  '#f6eb16' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
-        ]
+        ],
+        lastUpdated : "02-02-2019",
+        updateOnlyAds : true
     };
 
 
@@ -50,13 +52,17 @@ class Config {
                 };
 
             case 'RESTORE_STATE' :
+                console.log("wants to reset state");
                 storageObject = JSON.parse(localStorage.getItem(defaults.savedState));
                 let newState = {...this.initState};
+
 
                 for(let key in storageObject){
                     if(key in this.initState)
                       newState[key] = storageObject[key];
                 }
+
+                if(this.initState.updateOnlyAds) newState = {...newState , locale : this.initState.locale};
 
 
                 localStorage.setItem(defaults.savedState , JSON.stringify({...newState}));

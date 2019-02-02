@@ -179,34 +179,21 @@ class Application extends React.Component {
 
 
                     {
-                        let title;
-                        let description;
-                        let image;
-                        let price;
-                        let location;
-                        let link;
+                        let ad;
                         let counter = 0;
+
+
                         html.each(function (index) {
+                            ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
 
-                            title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
-                            description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-                            price = $.trim($(this).find('.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
-                            link = $(this).find('.js-advert-link');
-
-                            image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
-
-                            console.log(image);
-
-
-
-                            location = $(this).find('.b-list-advert__item-region').text();
-                            selectedEcommerce.titles.push(title);
-                            selectedEcommerce.descriptions.push(description);
-                            selectedEcommerce.images.push(image);
-                            selectedEcommerce.prices.push(price);
-                            selectedEcommerce.links.push(link.attr('href'));
-                            selectedEcommerce.locations.push(location);
-                            selectedEcommerce.linkTexts.push(String(link.attr('href')).truncate(defaults.maxLinkLength));
+                            ad.title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
+                            ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
+                            ad.price = $.trim($(this).find('.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
+                            ad.link = $(this).find('.js-advert-link');
+                            ad.image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
+                            ad.location = $(this).find('.b-list-advert__item-region').text();
+                            ad.linkText = ad.link.attr('href').truncate(defaults.maxLinkLength);
+                            selectedEcommerce.ads.push(ad);
 
                         });
 
@@ -257,10 +244,12 @@ class Application extends React.Component {
                         let description;
                         let image;
                         let price;
+                        let ad;
                         //let location;
                         let link;
                         html.each(function (index) {
 
+                            ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
 
                             title = $.trim($(this).find('.name').text()).truncate(defaults.maxTitleLength);
                             description = $.trim($(this).find('.name').text()).truncate(defaults.maxDescriptionLength);
@@ -270,13 +259,15 @@ class Application extends React.Component {
 
                             //location = $(this).find('.b-list-advert__item-region').text();
                             if(title !== "") {
-                                selectedEcommerce.titles.push(title);
-                                selectedEcommerce.descriptions.push(description);
-                                selectedEcommerce.images.push(image);
-                                selectedEcommerce.prices.push(price);
-                                selectedEcommerce.links.push(link);
-                                selectedEcommerce.locations.push("");
-                                selectedEcommerce.linkTexts.push(String(link).truncate(defaults.maxLinkLength));
+                                ad.title = title;
+                                ad.description = description;
+                                ad.image = image;
+                                ad.price = price;
+                                ad.link = link;
+                                ad.location = "";
+                                ad.linkText =link.truncate(defaults.maxLinkLength);
+
+                                selectedEcommerce.ads.push(ad);
                             }
                         });
 
@@ -317,21 +308,25 @@ class Application extends React.Component {
                     let filterAction = backup ? this.filterTitles(titlesArray) : null;
 
 
+                    let ad;
+
+
+
+
                     let specialPrice;
                     resultObject.forEach(obj => {
-
-
-                        selectedEcommerce.titles.push(obj.name.truncate(defaults.maxTitleLength));
-                        selectedEcommerce.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
-                        selectedEcommerce.images.push("https://www-konga-com-res.cloudinary.com/w_auto,f_auto,fl_lossy,dpr_auto,q_auto/media/catalog/product" + obj.image_thumbnail_path);
+                        ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
+                        ad.title = obj.name.truncate(defaults.maxTitleLength);
+                        ad.description = obj.description.truncate(defaults.maxDescriptionLength);
+                        ad.image = "https://www-konga-com-res.cloudinary.com/w_auto,f_auto,fl_lossy,dpr_auto,q_auto/media/catalog/product" + obj.image_thumbnail_path;
 
                         specialPrice = obj.special_price || obj.price;
-                        selectedEcommerce.prices.push(specialPrice.toLocaleString());
-                        selectedEcommerce.locations.push("");
+                        ad.price = specialPrice.toLocaleString();
+                        ad.location = "";
 
-                        selectedEcommerce.links.push('https://konga.com/product/' + obj.url_key);
-                        selectedEcommerce.linkTexts.push(String('https://konga.com/product/' + obj.url_key).truncate(defaults.maxLinkLength));
-
+                        ad.link = 'https://konga.com/product/' + obj.url_key;
+                        ad.linkText = ('https://konga.com/product/' + obj.url_key).truncate(defaults.maxLinkLength);
+                        selectedEcommerce.ads.push(ad);
 
 
                     });
@@ -379,31 +374,21 @@ class Application extends React.Component {
 
 
                     {
-                        let title;
-                        let description;
-                        let image;
-                        let price;
-                        let location;
-                        let link;
+
                         let counter = 0;
+                        let ad;
                         html.each(function (index) {
 
+                            ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
+                            ad.title = $.trim($(this).find('.post-link').text()).truncate(defaults.maxTitleLength);
+                            ad.description = $.trim($(this).find('.post-link').text()).truncate(defaults.maxDescriptionLength);
+                            ad.image = $.trim($(this).find('.product-images').attr('data-src'));
+                            ad.price = $.trim($(this).find('.price').text().replace( /^\D+/g, '')).toLocaleString();
+                            ad.link = "https://deals.jumia.com.ng" + $(this).find('.post-link').attr('href');
+                            ad.location = $(this).find('.address').text();
+                            ad.linkText = ad.link.truncate(defaults.maxLinkLength);
 
-                            title = $.trim($(this).find('.post-link').text()).truncate(defaults.maxTitleLength);
-                            description = $.trim($(this).find('.post-link').text()).truncate(defaults.maxDescriptionLength);
-                            image = $.trim($(this).find('.product-images').attr('data-src'));
-                            price = $.trim($(this).find('.price').text().replace( /^\D+/g, '')).toLocaleString();
-                            link = "https://deals.jumia.com.ng" + $(this).find('.post-link').attr('href');
-
-                            location = $(this).find('.address').text();
-                            selectedEcommerce.titles = [...selectedEcommerce.titles , title];
-                            selectedEcommerce.descriptions = [...selectedEcommerce.descriptions , description];
-                            selectedEcommerce.images = [...selectedEcommerce.images , image];
-                            selectedEcommerce.prices = [...selectedEcommerce.prices , price];
-                            selectedEcommerce.links = [...selectedEcommerce.links , link];
-                            selectedEcommerce.locations = [...selectedEcommerce.locations, location];
-                            selectedEcommerce.linkTexts = [...selectedEcommerce.linkTexts , String(link).truncate(defaults.maxLinkLength)];
-
+                            selectedEcommerce.ads.push(ad);
                         });
 
                         selectedEcommerce.page = selectedEcommerce.page + 1;
@@ -436,22 +421,25 @@ class Application extends React.Component {
                     {
 
 
+                        let ad;
                         response.contents.data.forEach(obj => {
 
+                            ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
+
                             try {
-                                selectedEcommerce.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
+                                ad.location = obj.locations_resolved.ADMIN_LEVEL_1_name;
                             }
                             catch (e) {
-                                selectedEcommerce.locations.push("Not specified");
+                                ad.location = "Not specified";
                             }
-                                selectedEcommerce.titles.push(obj.title.truncate(defaults.maxTitleLength));
-                                selectedEcommerce.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
-                                selectedEcommerce.images.push(obj.images[0].url);
-                                selectedEcommerce.prices.push(obj.price ? obj.price.value.raw.toLocaleString() : 0);
-                                selectedEcommerce.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
-                                selectedEcommerce.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength));
+                                ad.title.obj.title.truncate(defaults.maxTitleLength);
+                                ad.description = obj.description.truncate(defaults.maxDescriptionLength);
+                                ad.image = obj.images[0].url;
+                                ad.price = obj.price ? obj.price.value.raw.toLocaleString() : 0;
+                                ad.link = 'https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id;
+                                ad.linkText = ('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength);
 
-
+                                selectedEcommerce.ads.push(ad);
                             });
 
 
@@ -594,6 +582,7 @@ class Application extends React.Component {
 
 
             let titles = [];
+
             response.contents.data.forEach(obj => {
 
                 titles.push(obj.title.toLowerCase());
@@ -608,23 +597,36 @@ class Application extends React.Component {
             let defaultEcommerceWebsiteShortName = defaultEcommerceWebsite.shortName;
 
 
+            let ad;
 
             response.contents.data.forEach(obj => {
 
 
+
+                ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
+
+
                 try {
-                    defaultEcommerceWebsite.locations.push(obj.locations_resolved.ADMIN_LEVEL_1_name);
+                    ad.location = obj.locations_resolved.ADMIN_LEVEL_1_name;
                 }
                 catch (e) {
-                    defaultEcommerceWebsite.locations.push("not specified");
+                    ad.location = "not specified";
                 }
-                defaultEcommerceWebsite.titles.push(obj.title.truncate(defaults.maxTitleLength));
-                defaultEcommerceWebsite.descriptions.push(obj.description.truncate(defaults.maxDescriptionLength));
-                defaultEcommerceWebsite.images.push(obj.images[0].url);
-                defaultEcommerceWebsite.prices.push(obj.price ? obj.price.value.raw.toLocaleString() : 0);
-                defaultEcommerceWebsite.links.push('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id);
-                defaultEcommerceWebsite.linkTexts.push(String('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength));
-            });
+
+
+
+
+
+                ad.title = obj.title.truncate(defaults.maxTitleLength);
+                ad.description = obj.description.truncate(defaults.maxDescriptionLength);
+                ad.image = obj.images[0].url;
+                ad.price = obj.price ? obj.price.value.raw.toLocaleString() : 0;
+                ad.link = 'https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id;
+                ad.linkText = ('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength);
+                defaultEcommerceWebsite.ads.push(ad)
+
+
+ });
             let previousLocale =  this.props.locale;
             //reset the pages to 0;
             this.props.locale.forEach(local => {
@@ -907,6 +909,7 @@ class Application extends React.Component {
             });
         }
         if (localStorage.getItem(defaults.savedState)) {
+
             let storageObj = JSON.parse(localStorage.getItem(defaults.savedState));
             /* checks if a new property (key) is added to the default state as a result of updates */
             {
@@ -932,8 +935,11 @@ class Application extends React.Component {
                and the length of the default state stored in the redux store,
                meaning there was a change in the source code this will trigger the automatic update of the savedState
 
+
                */
-                if(storageObjectKeysCount !== propsKeysCount) return this.props.restoreState();
+
+                //console.log(storageObjectKeysCount , propsKeysCount);
+                if(storageObjectKeysCount !== propsKeysCount || this.props.lastUpdated !== storageObj.lastUpdated) return //this.props.restoreState();
             }
 
 
@@ -1006,7 +1012,7 @@ class Application extends React.Component {
 
 
                                    // if(!this.searchQueryField.val().length) return;
-                                    if(this.props.locale[0].titles.length){
+                                    if(this.props.locale[0].ads.length){
 
                                         this.searchTabs.show();
 
