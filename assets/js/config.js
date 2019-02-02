@@ -18,11 +18,11 @@ class Config {
         formSubmitted : false ,
         processingAction : false,
         locale : [
-            {shortName :  "olx"  , name : "olx"         ,        textColor :  'purple' , ads : [] , page : 0 , error : "" , loadMore : false} ,
-            {shortName :  "jiji" , name : "jiji"        ,         textColor : 'green' , ads : [] ,  page : 0 , error : "" , loadMore : false} ,
-            {shortName : "jumia" , name : "jumia"       ,                 textColor : 'black' , ads : [] , page : 0 , error : "" , loadMore : false} ,
-            {shortName : "konga" , name : "konga"       ,              textColor :  'orange' , ads : [] ,  page : 0 , error : "" , loadMore : false} ,
-            {shortName :  "deals" ,name : "jumia deals" ,          textColor : 'indigo' , ads : [] , page : 0 , error : "" , loadMore : false}
+            {shortName :  "olx"  , name : "olx"         ,        textColor :  'purple' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0} ,
+            {shortName :  "jiji" , name : "jiji"        ,         textColor : 'green' , ads : [] ,  page : 0 , error : "" , loadMore : false , average : 0} ,
+            {shortName : "jumia" , name : "jumia"       ,                 textColor : 'black' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0} ,
+            {shortName : "konga" , name : "konga"       ,              textColor :  'orange' , ads : [] ,  page : 0 , error : "" , loadMore : false , average : 0} ,
+            {shortName :  "deals" ,name : "jumia deals" ,          textColor : 'indigo' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0}
 
         ] ,
         international : [
@@ -32,7 +32,7 @@ class Config {
             {shortName :  "ebay"  , name : "ebay"         ,        textColor :  '#86b817' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
             {shortName :  "bestbuy"  , name : "Best buy"         , textColor :  '#f6eb16' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
         ],
-        lastUpdated : "02-02-2019",
+        lastUpdated : "02-04-2019",
         updateOnlyAds : true
     };
 

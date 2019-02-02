@@ -803,17 +803,16 @@ class Application extends React.Component {
 
 
         //Filter the user search query
-
         let searchQueryToArray = this.searchQuery.split(" ");
 
         //Remove words that are not found in the list of titles from the array
-
+        /*
         searchQueryToArray = searchQueryToArray.filter((word, index) => {
 
 
             return validTitles.indexOf(word) >= 0 && searchQueryToArray[index] !== searchQueryToArray[index + 1];
         });
-
+*/
 
         this.searchQuery = searchQueryToArray.join(" ");
 

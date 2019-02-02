@@ -29,7 +29,11 @@ class  LocalSearchTab extends React.Component{
         let locale = this.props.locale;
 
         let ad1Price, ad2Price;
+
+        let x ,sum, price , priceList , adsLength , isOddAdLength , average , priceListLengthDividedBy4 , firstNPrice , lastNPrice , sumOfFirstNPrice , sumOfLatNPrice ,
+            newAdsPriceSum , newPriceList , newPriceListAverage , newSum;
         locale.forEach(local => {
+
 
 
             local.ads = local.ads.sort((a , b) => {
@@ -39,9 +43,83 @@ class  LocalSearchTab extends React.Component{
                 return ad2Price < ad1Price;
 
             });
+
+
+            if(!local.ads.length || local.ads.length <= 8) {
+                local.average = 0;
+                return;
+            }
+            // Calculate average price
+
+            sum = 0;
+            price = 0;
+            priceList = [];
+            adsLength = local.ads.length;
+            isOddAdLength = adsLength%2!==0;
+
+            local.ads.forEach(ad => {
+                price = parseInt(ad.price.toString().replace(/\D/g,''));
+                priceList.push(price);
+                sum += price;
+            });
+
+
+            //if the total ads length is an odd number
+            if(isOddAdLength)
+            {
+                average = Math.round(sum / adsLength);
+
+                //add the average to the priceList to make the length of the priceList an even number
+                priceList.push(average);
+
+                //sort the price list
+
+                priceList.sort((a , b ) => b > a)
+
+
+                  }
+
+
+
+
+                  //PriceList length dividedby2 divided by 2
+
+            priceListLengthDividedBy4 = priceList.length / 4;
+
+            //console.log(priceListLengthDividedBy4);
+
+
+            //Removing the first n elements of the price list array
+
+                      priceList.splice(0 , priceListLengthDividedBy4);
+
+
+
+
+                      //Removing the last n elements of the price list array we have
+
+            priceList = priceList.slice(0 , priceList.length - priceListLengthDividedBy4);
+
+
+
+            sum = priceList.reduce((a , b) => a + b);
+
+
+            average = Math.round(sum / priceList.length);
+
+
+            local.average = average.toLocaleString();
+
+
+
+
         });
 
+
         this.props.switchWebsite({...this.props , locale});
+
+
+
 
     }
     componentDidMount() {
@@ -103,6 +181,8 @@ class  LocalSearchTab extends React.Component{
             )
 
 
+
+
         });
 
 
@@ -126,6 +206,7 @@ class  LocalSearchTab extends React.Component{
             let bg;
             let currency;
             let preloader;
+            let averagePrice;
             let template = (local.ads.length) ? local.ads.map((ad, index) => {
                 let savedImage;
                 let imageSaved = false;
@@ -192,13 +273,14 @@ class  LocalSearchTab extends React.Component{
                 : null;
 
             template = (template === null && this.props.processingAction) ? <h5 className="center-align load-more-error-messages">{defaults.pleaseWaitText}</h5> : template;
-
+            averagePrice = local.average !== 0 ? <span className="average-price right">~ &#8358;{local.average}</span> : null;
 
             return (
 
                 <div id={local.shortName} className="col s12 gallery" key={local.name}>
 
-                    <p className='flow-text' style={{color : local.textColor}}>{local.name}</p>
+                    <p className='flow-text' style={{color : local.textColor}}>{local.name} {averagePrice}</p>
+
                     {preloader}
                     <div id={local.shortName + searchResults}>
 
