@@ -18,11 +18,11 @@ class Config {
         formSubmitted : false ,
         processingAction : false,
         locale : [
-            {shortName :  "olx"  , name : "olx"         ,        textColor :  'purple' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0} ,
-            {shortName :  "jiji" , name : "jiji"        ,         textColor : 'green' , ads : [] ,  page : 0 , error : "" , loadMore : false , average : 0} ,
-            {shortName : "jumia" , name : "jumia"       ,                 textColor : 'black' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0} ,
-            {shortName : "konga" , name : "konga"       ,              textColor :  'orange' , ads : [] ,  page : 0 , error : "" , loadMore : false , average : 0} ,
-            {shortName :  "deals" ,name : "jumia deals" ,          textColor : 'indigo' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0}
+            {shortName :  "olx"  , name : "olx"         ,        textColor :  'purple' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0 , max : 0} ,
+            {shortName :  "jiji" , name : "jiji"        ,         textColor : 'green' , ads : [] ,  page : 0 , error : "" , loadMore : false , average : 0 , max : 0} ,
+            {shortName : "jumia" , name : "jumia"       ,                 textColor : 'black' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0 , max : 0} ,
+            {shortName : "konga" , name : "konga"       ,              textColor :  'orange' , ads : [] ,  page : 0 , error : "" , loadMore : false , average : 0 , max : 0} ,
+            {shortName :  "deals" ,name : "jumia deals" ,          textColor : 'indigo' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0 , max : 0}
 
         ] ,
         international : [

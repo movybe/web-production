@@ -45,10 +45,23 @@ class  LocalSearchTab extends React.Component{
             });
 
 
+
             if(!local.ads.length || local.ads.length <= 8) {
-                local.average = 0;
                 return;
             }
+            else if(local.ads.length > 1)
+            {
+                local.average = numeral(local.ads[0].price).format('0.0a');
+
+            }
+            else {
+                local.average = 0;
+                local.max = 0;
+                return;
+            }
+
+            local.max = numeral(local.ads[local.ads.length -1].price).format('0.0a');
+
             // Calculate average price
 
             sum = 0;
@@ -108,7 +121,9 @@ class  LocalSearchTab extends React.Component{
             average = Math.round(sum / priceList.length);
 
 
-            local.average = average.toLocaleString();
+            local.average = numeral(average).format('0.0a');
+
+
 
 
 
@@ -273,7 +288,7 @@ class  LocalSearchTab extends React.Component{
                 : null;
 
             template = (template === null && this.props.processingAction) ? <h5 className="center-align load-more-error-messages">{defaults.pleaseWaitText}</h5> : template;
-            averagePrice = local.average !== 0 ? <span className="average-price right">~ &#8358;{local.average}</span> : null;
+            averagePrice = local.average !== 0 ? <span className="average-price right"><span className="market-price">Mkt Price:</span> &#8358;{local.average} - &#8358;{local.max} </span> : null;
 
             return (
 

@@ -372,3 +372,7 @@ a.sidenav-trigger {
     font-size: 16px;
     font-weight: bolder;
 }
+.market-price{
+    color : rgba(0 , 192 , 192 , .5);
+    margin-right: 5px;  
+}

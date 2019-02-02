@@ -530,6 +530,10 @@ class Application extends React.Component {
                 if (Array.isArray(obj[key])) {
                     obj[key] = [];
                 }
+                else if(key === "average")
+                {
+                    obj[key] = 0;
+                }
             })
 
 
