@@ -28,6 +28,7 @@ class DatabaseConnection {
     public $users_table_name = "users";
     public $ads_table_name = "ads";
     public $visitors_table_name = "visitors";
+    public $site_statistics_table_name = "site_statistics";
     final protected  function  establish_database_connection () : bool
 
     {
@@ -190,7 +191,9 @@ class DatabaseConnection {
           contact VARCHAR (100) NULL  DEFAULT  '0707',
           reference_code VARCHAR (400) NOT NULL  DEFAULT  'aghdjjshuueosmjs',
           ad_rate DOUBLE (16 , 2) NOT NULL DEFAULT 1 ,
-          last_paid TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP   
+          last_paid TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          total_units_paid_for BIGINT NOT NULL DEFAULT 0 ,
+          remaining_units BIGINT NOT NULL  DEFAULT  0
       )";
         try {
 
@@ -203,6 +206,39 @@ class DatabaseConnection {
             echo "Error occured {$exception->getMessage()}";
             return false;
         }
+
+    }
+
+    public final function create_site_statistics_table () : bool
+    {
+
+        $sql = "CREATE TABLE IF NOT EXISTS {$this->site_statistics_table_name}(
+
+               id BIGINT AUTO_INCREMENT PRIMARY KEY NOT  NULL ,
+               account_balance DOUBLE(16, 3) NOT NULL DEFAULT  0.0 COMMENT 'This is the account balance',
+               total_number_of_users BIGINT NOT NULL DEFAULT  0 , 
+               profit DOUBLE(16 , 3) NOT NULL DEFAULT  0.0,
+               total_number_of_ads BIGINT NOT  NULL  DEFAULT  0,
+               total_number_of_active_ads BIGINT NOT NULL DEFAULT  0,
+               total_amount_paid_out DOUBLE(16 , 3) NOT NULL DEFAULT 0.0,
+               total_number_of_merchants BIGINT  NOT NULL  DEFAULT  0,
+               total_number_of_publishers BIGINT NOT NULL  DEFAULT  0
+                )";
+
+        try {
+
+            $this->conn->exec($sql);
+            $msg = "";
+            echo "Table Created successfully";
+            return $this->insert_into_table($this->site_statistics_table_name , [] , $msg);
+        }
+
+        catch (PDOException $exception) {
+            echo "Error occured {$exception->getMessage()}";
+            return false;
+        }
+
+
 
     }
 
@@ -360,6 +396,7 @@ ALTER TABLE users ADD last_free_mode_time VARCHAR( 255 ) NOT NULL DEFAULT '0';
         return true;
     }
 
+
     public final function fetch_data_from_table(string $table , string $row , string $value): array
 
     {
@@ -399,6 +436,7 @@ ALTER TABLE users ADD last_free_mode_time VARCHAR( 255 ) NOT NULL DEFAULT '0';
 
 
 $DatabaseConnection = new DatabaseConnection();
+
 //$DatabaseConnection->create_words_table();
 //$DatabaseConnection->create_queries_table();
 //$DatabaseConnection->executeSQL("DROP TABLE ads");
@@ -410,4 +448,5 @@ $DatabaseConnection = new DatabaseConnection();
 //$DatabaseConnection->create_users_table();
 //$DatabaseConnection->create_ads_table();
 //$DatabaseConnection->create_visitors_table();
+//$DatabaseConnection->create_site_statistics_table();
 ?>

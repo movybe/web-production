@@ -51,8 +51,10 @@ class Actions extends  Functions
     }
     private function create_new_merchant_account () : bool
     {
-        global $website_details;
-        return $this->insert_into_table($this->users_table_name , ["email" => $this->email , "account_type" => $this->data['accountType'] , "user_id" => $this->generateUserId()]);
+        if(!$this->insert_into_table($this->users_table_name , ["email" => $this->email , "account_type" => $this->data['accountType'] , "user_id" => $this->generateUserId()])) return false;
+
+        return $this->update_multiple_fields($this->site_statistics_table_name , ['total_number_of_users' => 'total_number_od_users + 1', 'total_number_of_merchants' => 'total_number_of_merchants + 1'] , 'id = 1');
+
 
     }
     private function emailExistsInTable () : bool
@@ -116,7 +118,6 @@ class Actions extends  Functions
     }
 
     public function __construct()
-
     {
 
         parent::__construct();

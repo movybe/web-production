@@ -234,3 +234,20 @@ label.strong{
     position: relative;
     top : 7px;
 }
+.close-modal-right.close-modal-right
+{
+    position: relative;
+    left : -20px !important;
+    
+}
+
+.value{
+    float: right;
+    font-weight: bold;
+    color : rgba(0 , 0 , 0 , .4);
+}
+p.ad-stats-property-value
+{
+
+    border-bottom: 1px solid rgba(192 , 192 , 192 , .5);
+}

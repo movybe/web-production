@@ -2,6 +2,10 @@ class MerchantAds extends React.Component {
 
 
 
+
+    state = {currentlyViewedAdID : null , currentlyViewedAd : {}};
+
+
     units = 0;
     adFormRules = {
         minAdTitleLength: 20,
@@ -56,7 +60,6 @@ class MerchantAds extends React.Component {
 
             $(e.target).show();
             
-            console.log(response);
             this.refreshProfile();
         });
 
@@ -99,7 +102,11 @@ class MerchantAds extends React.Component {
         this.mainAdLocation = "";
         this.adImage = $('#ad-image');
         this.adImageLabel = $('#ad-image-label');
-      //  this.adModalPopup.modal('open');
+        this.adStatModalPopup = $('#ad-stat-modal');
+        $('.modal').modal();
+        this.adStatModalPopup.modal({dismissible: false});
+        this.adStatModalTrigger = $('#ad-stat-modal-trigger');
+        //  this.adModalPopup.modal('open');
 
         let parent =  this;
         this.adEditForm.on('submit' , function (e) {
@@ -108,6 +115,11 @@ class MerchantAds extends React.Component {
             e.stopImmediatePropagation();
              let form = this;
             parent.handleAdForm(e , form);
+        });
+
+        this.adStatModalTrigger.on('click' , function () {
+
+            parent.showCurrentAdStat(this);
         });
 
 
@@ -307,6 +319,116 @@ class MerchantAds extends React.Component {
     };
 
 
+    getAdTypeTexts = ad_type => {
+        switch (ad_type) {
+
+            case 'ppc':
+                return {plural : 'clicks' , singular : 'click' , payper : 'pay per click'};
+            case 'ppv':
+                return {plural : 'views' , singular : 'view' , payper : 'pay per view'};
+            case 'ppa':
+                return {plular : 'affiliates' , singular :'affiliate' , payper : 'pay per affiliate'};
+
+        }
+        return {plular : 'affiliates' , singular :'affiliate'};
+    };
+
+    adStatModal = () => {
+
+
+        const getAdTypeTexts = ad_type => {
+
+            return this.getAdTypeTexts(ad_type);
+        };
+
+
+        const isValidAd =  this.state.currentlyViewedAd !== null;
+        const adType =  isValidAd ? this.state.currentlyViewedAd.ad_type : null;
+        const modalContent = !isValidAd ? null :
+
+            <div>
+            <h5>{this.state.currentlyViewedAd.title}</h5>
+            <p className="ad-stats-property-value">
+                <span className="left-aligned property">Posted</span>
+                <span className="right-align value">{timeago.format(this.state.currentlyViewedAd.posted_on)}</span>
+            </p>
+
+            <p className="ad-stats-property-value">
+                <span className="left-aligned property">Last updated</span>
+                <span className="right-align value">{timeago.format(this.state.currentlyViewedAd.updated_on)}</span>
+            </p>
+
+            <p className="ad-stats-property-value">
+                <span className="left-align property">Balance</span>
+                <span className="right-align value">&#8358;{this.state.currentlyViewedAd.balance}</span>
+            </p>
+
+            <p className="ad-stats-property-value">
+                <span className="left-align property">Cost</span>
+                <span className="right-align value">&#8358;{this.state.currentlyViewedAd.amount_paid}</span>
+            </p>
+
+
+            <p className="ad-stats-property-value">
+                <span className="left-align property">Ad ID</span>
+                <span className="right-align value">{this.state.currentlyViewedAd.ad_id}</span>
+            </p>
+
+            <p className="ad-stats-property-value">
+                <span className="left-align property">Active</span>
+                <span className="right-align value">{Number(this.state.currentlyViewedAd.active) ? "YES" : "NO"}</span>
+            </p>
+
+            <p className="ad-stats-property-value">
+                <span className="left-align property">Approved</span>
+                <span className="right-align value">{Number(this.state.currentlyViewedAd.approved) ? "YES" : "NO"}</span>
+            </p>
+
+                <p className="ad-stats-property-value">
+                    <span className="left-align property">Ad type</span>
+                    <span className="right-align value">{getAdTypeTexts(adType).payper}</span>
+                </p>
+
+                <p className="ad-stats-property-value">
+                    <span className="left-align property">Ad rate</span>
+                    <span className="right-align value">&#8358;{this.state.currentlyViewedAd.ad_rate + ' per ' + getAdTypeTexts(adType).singular}</span>
+                </p>
+
+                <p className="ad-stats-property-value">
+                    <span className="left-align property">Total units paid</span>
+                    <span className="right-align value">&#8358;{this.state.currentlyViewedAd.total_units_paid_for + ' ' + getAdTypeTexts(adType).plural}</span>
+                </p>
+
+                <p className="ad-stats-property-value">
+                    <span className="left-align property">Remaining units</span>
+                    <span className="right-align value">&#8358;{this.state.currentlyViewedAd.remaining_units + ' ' + getAdTypeTexts(adType).plural}</span>
+                </p>
+
+
+                <p className="ad-stats-property-value">
+                    <span className="left-align property">Payment Code</span>
+                    <span className="right-align value">{this.state.currentlyViewedAd.reference_code}</span>
+                </p>
+
+
+
+
+            </div>
+        return (
+
+            <div id="ad-stat-modal" className="modal modal-fixed-footer">
+                <div className="modal-content">
+
+                        {modalContent}
+
+                </div>
+                <div className="modal-footer">
+                    <a href="#" onClick={() => this.adStatModalPopup.modal('close')}
+                       className={`no-underline grey-text close-modal-right`} id="close-new-ad-form">CLOSE</a>
+                </div>
+            </div>
+        )
+    };
 
     getTotalAdCharge = () => {
 
@@ -612,9 +734,35 @@ class MerchantAds extends React.Component {
 
 
 
+    showCurrentAdStat = target => {
+
+
+        const currentlyViewedAdID = $(target).attr('data-ad-id');
+        let currentlyViewedAd= "a";
+        this.props.ads.forEach(ad => {
+
+            if(ad.ad_id === currentlyViewedAdID) {
+              currentlyViewedAd = ad;
+              return 0;
+            }
+        });
+
+        console.log(currentlyViewedAd);
+        this.setState({
+            ...this.state ,
+            currentlyViewedAd,
+            currentlyViewedAdID
+        });
+
+
+
+
+};
+
+
     render() {
 
-        let adsNumberMessage ,usedAdsMessage , adsPlural , adPublishedOnText , currentAd , adPaused
+        let adsNumberMessage ,usedAdsMessage , adsPlural , adPublishedOnText , currentAd , adStatsModalLink
         , isEmptyAd , changeAdStatusSpan , pauseAdSpan , playAdSpan ;
         
 
@@ -628,11 +776,14 @@ class MerchantAds extends React.Component {
 
 
 
+
         adsPlural = numberOfMerchantActiveAds === 1 ? "ad" : "ads";
          const newAdsModalTrigger = defaults.numberOfAdSpaceForMerchant.map(index => {
 
 
              currentAd   = this.props.ads[index] || false;
+             adStatsModalLink = currentAd !== false && currentAd.updated_on ?  <a title="View stats" id = "ad-stat-modal-trigger" data-ad-id = {currentAd.ad_id} href="#ad-stat-modal" className ="right stats ad-stat-modal-link material-icons modal-trigger">insert_chart</a>
+              : null;
              isEmptyAd = !Boolean(currentAd);
              adsNumberMessage = currentAd ? currentAd.title.truncate(defaults.adListTitleLength) : "Edit this ad space";
              adPublishedOnText = currentAd ? <span>Published  {timeago.format(currentAd.updated_on)}</span> : null;
@@ -659,6 +810,7 @@ class MerchantAds extends React.Component {
              
 
 
+
             return (
                 <div key = {Math.random()} className="row z-depth-3 merchant-ad-number-message">
 
@@ -666,9 +818,8 @@ class MerchantAds extends React.Component {
                         <p className="notice-header flow-text number-of-merchant-ads">{adsNumberMessage}
                             <a title="modify this ad" href="#ad-modal"  id="new-ad-dropdown"
                                className="material-icons add-ad-icon right modal-trigger  no-underline">mode_edit</a>
-                            <a title="View stats" className ="right stats ad-stat-modal-link material-icons modal-trigger">insert_chart</a>
+                            {adStatsModalLink}
                             <span className="ad-published-on-text">{adPublishedOnText}{changeAdStatusSpan}</span>
- 
 
                         </p>
                     </div>
@@ -684,6 +835,7 @@ class MerchantAds extends React.Component {
             <div id="new-ad-form-container">
 
                 {this.adModal()}
+                {this.adStatModal()}
                 <div className="col s12 valign-wrapper">
                 <h6 className="blue-grey-text">You have <strong className="strong">{numberOfMerchantActiveAds}</strong> active {adsPlural} </h6>
                 </div>

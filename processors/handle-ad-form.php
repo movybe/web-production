@@ -124,7 +124,9 @@ class HandleAdForm extends  Functions
             'last_paid' => $now,
             'ad_rate' => $this->ad_rate,
             'updated_on' => $now,
-            'reference_code' => $this->reference_code
+            'reference_code' => $this->reference_code,
+            'total_units_paid_for' => $this->units,
+            'remaining_units' => $this->units
         ];
 
         return $this->insert_into_table($this->ads_table_name ,$data_fields_and_values);
@@ -149,7 +151,8 @@ class HandleAdForm extends  Functions
     private function updateUserDetailsForNewAd () : bool
     {
 
-           return $this->executeSQL("UPDATE {$this->users_table_name} SET account_balance = account_balance + {$this->total_amount}, total_amount_funded = total_amount_funded + {$this->total_amount} WHERE email = '{$this->email}'");
+           if(!$this->executeSQL("UPDATE {$this->users_table_name} SET account_balance = account_balance + {$this->total_amount}, total_amount_funded = total_amount_funded + {$this->total_amount} WHERE email = '{$this->email}'"))return false;
+           return $this->update_multiple_fields($this->site_statistics_table_name , ['profit' => "profit + {$this->total_amount}",'account_balance' => "account_balance + {$this->total_amount}" ,'total_number_of_ads' => 'total_number_of_ads + 1' , 'number_of_active_ads' => "total_number_of_active_ads + 1"], "id = 1");
 
     }
 
@@ -164,7 +167,7 @@ class HandleAdForm extends  Functions
 
         return json_encode([$this->success_text => $this->success_value , $this->error_text => "success"]);
 
-     }
+    }
 }
 
 $handle_ad_form = new HandleAdForm();
