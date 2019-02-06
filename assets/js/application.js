@@ -189,10 +189,10 @@ class Application extends React.Component {
                             ad.title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
                             ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
                             ad.price = $.trim($(this).find('.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
-                            ad.link = $(this).find('.js-advert-link');
+                            ad.link = $(this).find('.js-advert-link').attr('href');
                             ad.image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
                             ad.location = $(this).find('.b-list-advert__item-region').text();
-                            ad.linkText = ad.link.attr('href').truncate(defaults.maxLinkLength);
+                            ad.linkText = ad.link.truncate(defaults.maxLinkLength);
                             selectedEcommerce.ads.push(ad);
 
                         });
