@@ -30,7 +30,7 @@ class  LocalSearchTab extends React.Component{
 
         let ad1Price, ad2Price;
 
-        let x ,sum, price , priceList , adsLength , isOddAdLength , average , priceListLengthDividedBy4 , firstNPrice , lastNPrice , sumOfFirstNPrice , sumOfLatNPrice ,
+        let x ,sum, price , priceList , adsLength , isOddAdLength , average , priceListLengthDividedBy4 , priceListLengthDividedBy2, median , middleSum,  firstNPrice , lastNPrice , sumOfFirstNPrice , sumOfLatNPrice ,
             newAdsPriceSum , newPriceList , newPriceListAverage , newSum;
         locale.forEach(local => {
 
@@ -40,6 +40,7 @@ class  LocalSearchTab extends React.Component{
                 ad1Price = parseInt(a.price.toString().replace(/\D/g,''));
                 ad2Price = parseInt(b.price.toString().replace(/\D/g,''));
 
+                //sort from lowest to highest
                 return ad2Price < ad1Price;
 
             });
@@ -92,36 +93,45 @@ class  LocalSearchTab extends React.Component{
 
                   }
 
+            local.max = numeral(local.ads[local.ads.length -1].price).format('0.0a');
 
 
 
                   //PriceList length dividedby2 divided by 2
 
             priceListLengthDividedBy4 = priceList.length / 4;
+            priceListLengthDividedBy2 = priceList.length / 2;
+
+
+            middleSum = priceList[priceListLengthDividedBy2 - 1] + priceList[priceListLengthDividedBy2];
 
             //console.log(priceListLengthDividedBy4);
 
 
             //Removing the first n elements of the price list array
 
-                      priceList.splice(0 , priceListLengthDividedBy4);
+                   if(local.page < 2) {
+                       priceList.splice(0, priceListLengthDividedBy4);
 
 
+                       //Removing the last n elements of the price list array we have
 
+                       priceList = priceList.slice(0, priceList.length - priceListLengthDividedBy4);
+                   }
 
-                      //Removing the last n elements of the price list array we have
-
-            priceList = priceList.slice(0 , priceList.length - priceListLengthDividedBy4);
+            median = middleSum / 2;
+            median = median.toFixed(2);
 
 
 
             sum = priceList.reduce((a , b) => a + b);
 
 
-            average = Math.round(sum / priceList.length);
+//            average = Math.round(sum / priceList.length);
 
 
-            local.average = numeral(average).format('0.0a');
+
+            local.average = numeral(median).format('0.0a');
 
 
 

@@ -185,6 +185,7 @@ class DatabaseConnection {
           posted_by VARCHAR (100) NOT NULL ,
           link_short_url VARCHAR (100) NOT NULL ,
           location VARCHAR (1000) NOT NULL ,
+          ad_location VARCHAR(1000) NOT NULL DEFAULT 'Nigeria',
           campaign_name VARCHAR (1000) NOT NULL ,
           active INT NOT NULL DEFAULT 1 COMMENT '1 true , 0 false' ,
           approved INT NOT NULL DEFAULT  1 COMMENT '1 true 0 false', 

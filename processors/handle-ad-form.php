@@ -8,7 +8,7 @@ class HandleAdForm extends  Functions
 {
 
     private $title , $ad_id, $description , $link , $contact , $campaign, $location ,  $ad_type , $units , $is_new_ad = false ,
-        $email , $total_amount , $action , $ad_rate , $upload_image = false , $file_handler , $user_id , $link_short_url , $reference_code;
+        $email , $total_amount , $action , $ad_rate , $ad_location ,  $upload_image = false , $file_handler , $user_id , $link_short_url , $reference_code;
 
     private $error_message = "";
     private $unknown_error_message = "an unknown error occured";
@@ -68,6 +68,7 @@ class HandleAdForm extends  Functions
         echo $this->ad_id =  $_POST['ad_id'] !== "" ? $_POST['ad_id'] : $this->generateAdID();
         $this->user_id = $this->fetch_data_from_table($this->users_table_name , 'email' , $this->email)[0]['user_id'];
         $this->link_short_url = $this->generateLinkShortUrl();
+        $this->ad_location = $_POST['ad_location'];
 
         if($this->action != 'NEW_AD') return true;
 
@@ -126,7 +127,8 @@ class HandleAdForm extends  Functions
             'updated_on' => $now,
             'reference_code' => $this->reference_code,
             'total_units_paid_for' => $this->units,
-            'remaining_units' => $this->units
+            'remaining_units' => $this->units,
+            'ad_location' => $this->ad_location
         ];
 
         return $this->insert_into_table($this->ads_table_name ,$data_fields_and_values);

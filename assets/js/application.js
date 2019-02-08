@@ -432,7 +432,7 @@ class Application extends React.Component {
                             catch (e) {
                                 ad.location = "Not specified";
                             }
-                                ad.title.obj.title.truncate(defaults.maxTitleLength);
+                                ad.title = obj.title.truncate(defaults.maxTitleLength);
                                 ad.description = obj.description.truncate(defaults.maxDescriptionLength);
                                 ad.image = obj.images[0].url;
                                 ad.price = obj.price ? obj.price.value.raw.toLocaleString() : 0;

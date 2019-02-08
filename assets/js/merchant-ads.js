@@ -3,8 +3,15 @@ class MerchantAds extends React.Component {
 
 
 
-    state = {currentlyViewedAdID : null , currentlyViewedAd : {}};
-
+    editAdFormActions = {UPDATE : "UPDATE" , RENEW : "RENEW" , NEW : "NEW"};
+    
+    state = {
+    currentlyViewedAdID : null , 
+    currentlyViewedAd : {} ,  
+    editAdFormID : null , editAd : {} , 
+    editAdFormAction : this.editAdFormActions.UPDATE,
+    uploadImage : false
+};
 
     units = 0;
     adFormRules = {
@@ -26,6 +33,7 @@ class MerchantAds extends React.Component {
     constructor ()
     {
         super();
+
 
 
 
@@ -55,8 +63,7 @@ class MerchantAds extends React.Component {
         $(e.target).hide();
         let data = {action , id , email : this.props.email};
         data = JSON.stringify(data);
-        console.log(data);
-        $.post(defaults.actions , {data} , response  => {
+          $.post(defaults.actions , {data} , response  => {
 
             $(e.target).show();
             
@@ -103,28 +110,30 @@ class MerchantAds extends React.Component {
         this.adImage = $('#ad-image');
         this.adImageLabel = $('#ad-image-label');
         this.adStatModalPopup = $('#ad-stat-modal');
+
         $('.modal').modal();
         this.adStatModalPopup.modal({dismissible: false});
-        this.adStatModalTrigger = $('#ad-stat-modal-trigger');
-        //  this.adModalPopup.modal('open');
-
+        this.adStatModalTrigger = $('.ad-stat-modal-trigger');
+        this.editAdModalTrigger = $('.edit-ad-modal-trigger');
+          //  this.adModalPopup.modal('open');
         let parent =  this;
         this.adEditForm.on('submit' , function (e) {
 
             e.preventDefault();
             e.stopImmediatePropagation();
-             let form = this;
+            let form = this;
             parent.handleAdForm(e , form);
         });
 
-        this.adStatModalTrigger.on('click' , function () {
-
-            parent.showCurrentAdStat(this);
+        this.adStatModalTrigger.on('click' , this.showCurrentAdStat);
+        this.editAdModalTrigger.on('click' , function (){
+           parent.modifyAdForm(this);
         });
 
+      
 
         const fieldValues = {
-            title: "Click here to buy your 2019 JAMB e-PIN",
+            title: "Click here to buy your 2019 JAM e-PIN",
             description: "purchase your jamb pin from remita , without stress",
             link: "http://www.google.com/remita",
             contact: "07084419530",
@@ -133,12 +142,14 @@ class MerchantAds extends React.Component {
             units: 20,
         };
 
+
         Object.keys(fieldValues).forEach(function (key) {
 
 
             $(`*[name="${key}"]`).val(fieldValues[key]);
 
         });
+
 
 
 
@@ -168,7 +179,25 @@ class MerchantAds extends React.Component {
 
 
 
-        if(!(this.adEditForm.validate() && this.adEditForm.valid() && this.isValidUploadedImage())) return;
+        var shouldReturn = false;
+        //Check if the form fields are valid
+        if(!(this.adEditForm.validate() && this.adEditForm.valid())) {
+            shouldReturn = true;
+        }
+
+        //Check if it's a new ad and the image is valid
+        else if((this.state.editAdFormAction === this.editAdFormActions.NEW) && !this.isValidUploadedImage()){
+            console.log("Not a valid image");
+            shouldReturn = true;
+        }
+        // if the user wants to chenge the already existing image, check if it's a valid image
+        else if(this.state.editAdFormAction === (this.editAdFormActions.RENEW || this.editAdFormActions.UPDATE) && (this.state.uploadImage && !this.isValidUploadedImage())){
+            shouldReturn = true;
+        }
+
+        if(shouldReturn) return;
+
+
           this.updateAdPreview();
           this.adFormFieldset.prop(...defaults.disabledTrue);
 
@@ -198,7 +227,7 @@ class MerchantAds extends React.Component {
               formData.append("ad_id" , "");
               formData.append("reference_code" , response.reference);
               formData.set("location" , this.updateAdPreview());
-
+              formData.append("ad_location" , this.adLocation.val()); 
               $.ajax({
                   url: defaults.handleAdForm,
                   type: 'POST',
@@ -206,7 +235,6 @@ class MerchantAds extends React.Component {
                   success:  (response)=> {
 
 
-                      console.log(response);
                       this.refreshProfile();
 
                   }
@@ -228,6 +256,7 @@ class MerchantAds extends React.Component {
 
 
 
+
         this.adTitlePreview.text(this.adTitle.val().truncate(defaults.maxTitleLength) || this.defaultAdTitlePreviewText);
         this.adLinkPreview.text(this.adLink.val().truncate(defaults.maxLinkLength) || this.defaultAdLinkPreviewText.truncate(defaults.maxLinkLength));
         this.adLinkPreview.attr('href' , this.adLink.val() || this.defaultAdLinkPreviewText);
@@ -236,16 +265,45 @@ class MerchantAds extends React.Component {
         this.mainAdLocation = (this.adLocation.val().truncate(this.adFormRules.maxAdLocationLength) || this.defaultAdLocationPreviewText) + `. ${this.adCampaignName.val().truncate(this.adFormRules.maxAdCampaignNameLength)} ${this.adContact.val()}`;
         this.adLocationPreview.text(this.mainAdLocation);
         return this.mainAdLocation;
+        /*
+        this.adTitlePreview.text(isValidState ? this.state.editAd.title.truncate(defaults.maxTitleLength) : this.adTitle.val().truncate(defaults.maxTitleLength) || this.defaultAdTitlePreviewText);
+        this.adLinkPreview.text(isValidState ? this.state.editAd.link.truncate(defaults.maxLinkLength) : this.adLink.val().truncate(defaults.maxLinkLength) || this.defaultAdLinkPreviewText.truncate(defaults.maxLinkLength));
+        this.adLinkPreview.attr('href' , isValidState ? this.state.editAd.link : this.adLink.val() || this.defaultAdLinkPreviewText);
+        this.adTitlePreview.attr('href' , isValidState ? this.state.editAd.link : this.adLink.val() || this.defaultAdLinkPreviewText);
+        this.adDescriptionPreview.text(isValidState ? this.state.editAd.description.truncate(defaults.maxDescriptionLength): this.adDescription.val().truncate(defaults.maxDescriptionLength) || this.defaultAdDescriptionPreviewText);
+        this.mainAdLocation = (isValidState ? this.state.editAd.ad_location.truncate(this.adFormRules.maxAdLocationLength) : this.adLocation.val().truncate(this.adFormRules.maxAdLocationLength) || this.defaultAdLocationPreviewText) + `. ${this.adCampaignName.val().truncate(this.adFormRules.maxAdCampaignNameLength)} ${this.adContact.val()}`;
+        this.adLocationPreview.text(this.mainAdLocation);
+        */
+        return this.mainAdLocation;
+
+    };
+
+    updateEditAdFormFromState = () => {
+
+        const isValidState = this.state.editAd.title !== undefined;
+
+        this.adTitle.val(this.state.editAd.title || null);
+        this.adDescription.val(this.state.editAd.description || null);
+        this.adLink.val(this.state.editAd.link || null);
+        this.adContact.val(this.state.editAd.contact || null);
+        this.adCampaignName.val(this.state.editAd.campaign_name || null);
+        this.adLocation.val(this.state.editAd.ad_location || null);
+
+
+
 
     };
 
     isValidUploadedImage = () => {
 
 
+        if(!this.state.uploadImage) this.setState({...this.state , uploadImage : true});
+
         if (!window.FileReader && !window.Blob) {
             // All the File APIs are supported.
             return true;
         }
+
 
         const labelID = this.adImageLabel.attr('id');
 
@@ -327,8 +385,7 @@ class MerchantAds extends React.Component {
             case 'ppv':
                 return {plural : 'views' , singular : 'view' , payper : 'pay per view'};
             case 'ppa':
-                return {plular : 'affiliates' , singular :'affiliate' , payper : 'pay per affiliate'};
-
+                return {plural : 'affiliates' , singular :'affiliate' , payper : 'pay per affiliate'};
         }
         return {plular : 'affiliates' , singular :'affiliate'};
     };
@@ -469,6 +526,9 @@ class MerchantAds extends React.Component {
     };
 
     adForm = () => {
+        const adTypeAndAdUnitsStyle = this.state.editAdFormAction ===  (this.editAdFormActions.NEW || this.editAdFormActions.RENEW) ?
+            {} : {display: 'none'};
+
         return (
 
 
@@ -583,9 +643,8 @@ class MerchantAds extends React.Component {
                                         <label htmlFor="ad-contact" className="active">Location</label>
                                     </div>
                                 </div>
-
                                 {/* Select Ad type */}
-                                <div className="row">
+                                <div className="row" style={adTypeAndAdUnitsStyle}>
                                     <div className="input-field col s12">
                                         <i className="material-icons prefix small">public</i>
                                         <select required="required" id="ad-type-selection" onChange={this.getTotalAdCharge}>
@@ -600,7 +659,7 @@ class MerchantAds extends React.Component {
                                 </div>
 
                                 {/* Number of units */}
-                                <div className="row">
+                                <div className="row" style={adTypeAndAdUnitsStyle}>
                                     <div className="input-field col s12">
                                         <i className="material-icons prefix small">shopping_cart</i>
                                         <input placeholder="10+" id="ad-unit"
@@ -611,11 +670,10 @@ class MerchantAds extends React.Component {
                                                min="10"
                                                required="required"
                                                data-name = "units"
-                                               />
+                                        />
                                         <label htmlFor="ad-unit" className="active">No.of Units</label>
                                     </div>
                                 </div>
-
                                 <div className="row">
                                     <div className="input-field col s12">
 
@@ -733,9 +791,40 @@ class MerchantAds extends React.Component {
     };
 
 
+    modifyAdForm = target => {
+
+        const action = $(target).attr('data-edit-ad-form-action');
+        let adID , clickedAd;
+        switch (action) {
+            case this.editAdFormActions.UPDATE:
+            case this.editAdFormActions.RENEW:
+
+                adID = $(target).attr('data-ad-id');
+
+                this.props.ads.forEach(ad => {
+
+                    if(ad.ad_id === adID) {
+                        clickedAd = ad;
+                        return 0;
+                    }
+                });
+
+                this.setState({...this.state , editAdFormAction : action , editAdFormID : adID , editAd : clickedAd});
+                this.updateEditAdFormFromState();
+                return;
+        }
+
+        this.setState({...this.state , editAdFormAction : this.editAdFormActions.NEW , editAdFormID : null , editAd : {}});
+        this.updateAdPreview();
+        return 0;
+
+
+
+    };
+
+
 
     showCurrentAdStat = target => {
-
 
         const currentlyViewedAdID = $(target).attr('data-ad-id');
         let currentlyViewedAd= "a";
@@ -746,24 +835,18 @@ class MerchantAds extends React.Component {
               return 0;
             }
         });
-
-        console.log(currentlyViewedAd);
         this.setState({
             ...this.state ,
             currentlyViewedAd,
             currentlyViewedAdID
         });
-
-
-
-
-};
+    };
 
 
     render() {
 
         let adsNumberMessage ,usedAdsMessage , adsPlural , adPublishedOnText , currentAd , adStatsModalLink
-        , isEmptyAd , changeAdStatusSpan , pauseAdSpan , playAdSpan ;
+        , isEmptyAd , changeAdStatusSpan , pauseAdSpan , playAdSpan,editAdFormAction ;
         
 
         let numberOfMerchantActiveAds = 0;
@@ -790,10 +873,10 @@ class MerchantAds extends React.Component {
              
              playAdSpan = isEmptyAd ? null : <span className = "ad-change-active-status"><span className = "activate-pause-ad-text red-text">PAUSED </span> <i className ="ad-pause-play-icon material-icons green-text cursor-pointer" data-ad-id = {currentAd.ad_id} data-pause = {false} onClick = {this.changeAdActiveStatus}>play_arrow </i></span>;
              pauseAdSpan =isEmptyAd ? null : <span className = "ad-change-active-status"><span className = "activate-pause-ad-text green-text">ACTIVE </span><i className ="ad-pause-play-icon material-icons red-text cursor-pointer" data-ad-id = {currentAd.ad_id} data-pause = {true} onClick = {this.changeAdActiveStatus}>pause</i></span>;
-             
+
              if(!isEmptyAd)
              {
-
+                 editAdFormAction = Number(currentAd.active) ? this.editAdFormActions.UPDATE : this.editAdFormActions.RENEW;
                 if(Number(currentAd.paused) /* i.e the ad is paused */)
                 
                 {
@@ -805,8 +888,10 @@ class MerchantAds extends React.Component {
                 }
              }
              else {
-                 changeAdStatusSpan = null
+                 changeAdStatusSpan = null;
+                 editAdFormAction = this.editAdFormActions.NEW;
              }
+
              
 
 
@@ -816,8 +901,8 @@ class MerchantAds extends React.Component {
 
                     <div className="col s12 valign-wrapper">
                         <p className="notice-header flow-text number-of-merchant-ads">{adsNumberMessage}
-                            <a title="modify this ad" href="#ad-modal"  id="new-ad-dropdown"
-                               className="material-icons add-ad-icon right modal-trigger  no-underline">mode_edit</a>
+                            <a title="modify this ad" href="#ad-modal"  id="new-ad-dropdown" data-ad-id = {currentAd.ad_id}
+                               className="material-icons add-ad-icon right modal-trigger edit-ad-modal-trigger no-underline" data-edit-ad-form-action = {editAdFormAction}>mode_edit</a>
                             {adStatsModalLink}
                             <span className="ad-published-on-text">{adPublishedOnText}{changeAdStatusSpan}</span>
 
