@@ -70,7 +70,7 @@ class HandleAdForm extends  Functions
         $this->link_short_url = $this->generateLinkShortUrl();
         $this->ad_location = $_POST['ad_location'];
 
-        if($this->action != 'NEW_AD') return true;
+        if($this->action != ('NEW_AD' || 'RENEW_AD')) return true;
 
         $this->ad_type = $_POST['ad_type'];
         $this->is_new_ad = true;
@@ -153,9 +153,8 @@ class HandleAdForm extends  Functions
     private function updateUserDetailsForNewAd () : bool
     {
 
-           if(!$this->executeSQL("UPDATE {$this->users_table_name} SET account_balance = account_balance + {$this->total_amount}, total_amount_funded = total_amount_funded + {$this->total_amount} WHERE email = '{$this->email}'"))return false;
-           return $this->update_multiple_fields($this->site_statistics_table_name , ['profit' => "profit + {$this->total_amount}",'account_balance' => "account_balance + {$this->total_amount}" ,'total_number_of_ads' => 'total_number_of_ads + 1' , 'number_of_active_ads' => "total_number_of_active_ads + 1"], "id = 1");
-
+        if (!$this->executeSQL("UPDATE {$this->users_table_name} SET account_balance = account_balance + {$this->total_amount}, total_amount_funded = total_amount_funded + {$this->total_amount} WHERE email = '{$this->email}'")) return false;
+        return $this->executeSQL("UPDATE {$this->site_statistics_table_name} SET profit = profit + {$this->total_amount} , account_balance = account_balance + {$this->total_amount} , total_number_of_ads = total_number_of_ads + 1, total_number_of_active_ads = total_number_of_active_ads + 1");
     }
 
 

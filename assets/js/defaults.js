@@ -155,6 +155,8 @@ class Defaults {
             handler.openIframe();
         };
 
+        this.mainPayWithPaystack = this.payWithPaystack;
+        
         this.convertToPaystack = (naira) =>
         {
             const nairaToKobo = naira * 100;

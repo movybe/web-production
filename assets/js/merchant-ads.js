@@ -4,6 +4,7 @@ class MerchantAds extends React.Component {
 
 
     editAdFormActions = {UPDATE : "UPDATE" , RENEW : "RENEW" , NEW : "NEW"};
+    serverFormActions = {UPDATE : 'UPDATE_AD' , RENEW : 'RENEW_AD' , NEW : 'NEW_AD'};
     
     state = {
     currentlyViewedAdID : null , 
@@ -108,6 +109,9 @@ class MerchantAds extends React.Component {
         this.adContact = $('#ad-contact');
         this.mainAdLocation = "";
         this.adImage = $('#ad-image');
+        this.adImage.on('click' , () => {
+            if(!this.state.uploadImage) this.setState({...this.state , uploadImage : true});
+        });
         this.adImageLabel = $('#ad-image-label');
         this.adStatModalPopup = $('#ad-stat-modal');
 
@@ -133,12 +137,12 @@ class MerchantAds extends React.Component {
       
 
         const fieldValues = {
-            title: "Click here to buy your 2019 JAM e-PIN",
-            description: "purchase your jamb pin from remita , without stress",
-            link: "http://www.google.com/remita",
+            title: "Your ad title goes here",
+            description: "your ad description goes here",
+            link: "http://www.link-to-your-ad.com",
             contact: "07084419530",
-            campaign: "Remita",
-            location: "Nigeria",
+            campaign: "Company name",
+            location: "e.g Lagos, Nigeria",
             units: 20,
         };
 
@@ -201,7 +205,11 @@ class MerchantAds extends React.Component {
           this.updateAdPreview();
           this.adFormFieldset.prop(...defaults.disabledTrue);
 
-          defaults.payWithPaystack(this.props.user.email , this.getTotalAdCharge().paystackAmount, this.adCampaignName.val() , response =>{
+          let payWithPaystack = this.state.editAdFormAction === (this.editAdFormActions.NEW || this.editAdFormActions.RENEW) ? defaults.payWithPaystack :
+            function(email , amount , name , callback){
+                callback("response");
+            };          
+          payWithPaystack(this.props.user.email , this.getTotalAdCharge().paystackAmount, this.adCampaignName.val() , response =>{
 
 
               if(response.status !== "success"){
@@ -211,21 +219,52 @@ class MerchantAds extends React.Component {
                   return;
               }
 
+              
               this.adFormFieldset.prop(...defaults.disabledFalse);
 
               let formData = new FormData(form);
 
 
 
+              
+              if(this.state.editAdFormAction === (this.editAdFormActions.NEW || this.editAdFormActions.RENEW))
+              {
 
               formData.append("ad_type" , this.adTypeSelection.val());
               formData.append("ad_rate" , this.getTotalAdCharge().rate);
               formData.append("total_amount" , this.getTotalAdCharge().totalAmount);
-              formData.append("email" , this.props.user.email);
-              formData.append("action" , "NEW_AD");
-              formData.append('UPLOAD_IMAGE' , true);
-              formData.append("ad_id" , "");
               formData.append("reference_code" , response.reference);
+            }
+
+
+            
+           
+
+            //Get the current form action and send it to the server
+
+            let serverFormAction;
+            switch (this.state.editAdFormAction)
+            {
+                case this.editAdFormActions.RENEW :
+                serverFormAction = this.serverFormActions.RENEW;
+                break;
+                
+                case this.editAdFormActions.NEW :
+                serverFormAction = this.serverFormActions.NEW;
+                break;
+
+                case this.editAdFormActions.UPDATE :
+                serverFormAction = this.serverFormActions.UPDATE;
+                break;
+
+            }
+
+
+             formData.append("email" , this.props.user.email);
+              formData.append("action" , "NEW_AD");
+              formData.append('UPLOAD_IMAGE' , this.state.uploadImage);
+              formData.append("ad_id" , this.state.editAdFormID || "");
+              
               formData.set("location" , this.updateAdPreview());
               formData.append("ad_location" , this.adLocation.val()); 
               $.ajax({
@@ -234,6 +273,8 @@ class MerchantAds extends React.Component {
                   data: formData,
                   success:  (response)=> {
 
+
+                  //  console.log(response);
 
                       this.refreshProfile();
 
@@ -297,7 +338,6 @@ class MerchantAds extends React.Component {
     isValidUploadedImage = () => {
 
 
-        if(!this.state.uploadImage) this.setState({...this.state , uploadImage : true});
 
         if (!window.FileReader && !window.Blob) {
             // All the File APIs are supported.
