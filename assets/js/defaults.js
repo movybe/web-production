@@ -88,7 +88,7 @@ class Defaults {
         this.searchSuggestionsLimit = 7;
         this.siteName = "Omoba";
         this.siteOwner = "Omoba Inc.";
-    
+        this.bannerImageLocation = "/banners/";
         this.siteAddress = this.siteName.toLowerCase() + ".ng";
         this.siteAddressHttp = "http://" + this.siteAddress;
         this.merchantAccountType = "merchant";
@@ -155,8 +155,6 @@ class Defaults {
             handler.openIframe();
         };
 
-        this.mainPayWithPaystack = this.payWithPaystack;
-        
         this.convertToPaystack = (naira) =>
         {
             const nairaToKobo = naira * 100;

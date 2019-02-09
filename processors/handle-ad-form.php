@@ -8,7 +8,7 @@ class HandleAdForm extends  Functions
 {
 
     private $title , $ad_id, $description , $link , $contact , $campaign, $location ,  $ad_type , $units , $is_new_ad = false ,
-        $email , $total_amount , $action , $ad_rate , $ad_location ,  $upload_image = false , $file_handler , $user_id , $link_short_url , $reference_code;
+        $is_renewed_ad = false, $email , $total_amount , $action , $ad_rate , $ad_location ,  $upload_image = false , $file_handler , $user_id , $link_short_url , $reference_code;
 
     private $error_message = "";
     private $unknown_error_message = "an unknown error occured";
@@ -62,30 +62,57 @@ class HandleAdForm extends  Functions
         $this->contact = $this->escape_string($_POST['contact']);
         $this->campaign = $this->escape_string($_POST['campaign']);
         $this->location = $this->escape_string($_POST['location']);
-        $this->upload_image = $_POST['UPLOAD_IMAGE'];
+        $this->upload_image = $_POST['UPLOAD_IMAGE'] === "true";
         $this->action = $_POST['action'];
         $this->email = $_POST['email'];
-        echo $this->ad_id =  $_POST['ad_id'] !== "" ? $_POST['ad_id'] : $this->generateAdID();
+        $this->ad_id =  $_POST['ad_id'] !== "" ? $_POST['ad_id'] : $this->generateAdID();
         $this->user_id = $this->fetch_data_from_table($this->users_table_name , 'email' , $this->email)[0]['user_id'];
         $this->link_short_url = $this->generateLinkShortUrl();
-        $this->ad_location = $_POST['ad_location'];
+        $this->ad_location = $this->escape_string($_POST['ad_location']);
 
-        if($this->action != ('NEW_AD' || 'RENEW_AD')) return true;
 
+        if($this->action === 'UPDATE_AD') return true;
         $this->ad_type = $_POST['ad_type'];
-        $this->is_new_ad = true;
+        $this->is_new_ad = $this->action === 'NEW_AD';
+        $this->is_renewed_ad = !$this->is_new_ad;
         $this->ad_rate = (double)$_POST['ad_rate'];
         $this->total_amount = (int)$_POST['total_amount'];
         $this->units = (int)$_POST['units'];
         $this->reference_code = $_POST['reference_code'];
 
-
-
         return true;
-
-
     }
 
+    private function updateAd () : bool {
+
+        $now = date('Y-m-d H:i:s');
+
+        $fields_and_values = array(
+            'title' => $this->title,
+            'link' => $this->link,
+            'description' => $this->description ,
+            'updated_on' => $now ,
+            'location' => $this->location,
+            'campaign_name' => $this->campaign ,
+            'contact' => $this->contact ,
+            'ad_location' => $this->ad_location
+        );
+
+
+        if($this->upload_image)
+        {
+
+            $bannerExtension = $this->file_handler->getExtension($_FILES['banner']['name']);
+            $bannerImage = $this->ad_id.$bannerExtension;
+
+            $fields_and_values2 = ['banner' => $bannerImage];
+            $fields_and_values = array_merge($fields_and_values , $fields_and_values2);
+        }
+
+
+
+        return $this->update_multiple_fields($this->ads_table_name , $fields_and_values , "ad_id = '{$this->ad_id}'");
+    }
 
     private function insertNewAdToDatabase () : bool
     {
@@ -136,25 +163,30 @@ class HandleAdForm extends  Functions
 
     }
 
-    private function uploadAdImage() : bool {
+    private function uploadAdImage() : bool
+    {
 
-        global  $website_details;
+        global $website_details;
 
         //Delete previous banner image if the user wants to edit the ad and upload new image
-        if(!$this->is_new_ad && $this->upload_image){
-            $previous_ad_banner = $this->fetch_data_from_table($this->ads_table_name , 'ad_id' , $this->ad_id)[0]['banner'];
-            unlink($website_details->BANNER_IMAGES_FOLDER.$previous_ad_banner);
+
+        if ($this->upload_image) {
+            if (!$this->is_new_ad) {
+                //Delete the previous image with the same id
+                $previous_ad_banner = $this->fetch_data_from_table($this->ads_table_name, 'ad_id', $this->ad_id)[0]['banner'];
+                unlink($website_details->BANNER_IMAGES_FOLDER . $previous_ad_banner);
+            }
+            //Now upload the banner
+            return $this->file_handler->upload_image($_FILES['banner'], $website_details->BANNER_IMAGES_FOLDER, true, "", $this->ad_id);
         }
-
-        return $this->file_handler->upload_image($_FILES['banner'] , $website_details->BANNER_IMAGES_FOLDER , true , "" , $this->ad_id );
+        return true;
     }
-
-
     private function updateUserDetailsForNewAd () : bool
     {
 
         if (!$this->executeSQL("UPDATE {$this->users_table_name} SET account_balance = account_balance + {$this->total_amount}, total_amount_funded = total_amount_funded + {$this->total_amount} WHERE email = '{$this->email}'")) return false;
         return $this->executeSQL("UPDATE {$this->site_statistics_table_name} SET profit = profit + {$this->total_amount} , account_balance = account_balance + {$this->total_amount} , total_number_of_ads = total_number_of_ads + 1, total_number_of_active_ads = total_number_of_active_ads + 1");
+
     }
 
 
@@ -162,12 +194,17 @@ class HandleAdForm extends  Functions
     {
         if (!($this->isReady() && $this->setDetails())) return json_encode([$this->success_text => $this->failure_value, $this->error_text => $this->unknown_error_message]);
 
-        if(!$this->uploadAdImage()) return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->image_upload_error_message]);
-        if($this->is_new_ad && !$this->insertNewAdToDatabase()) return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->network_error]);
-        if($this->is_new_ad && !$this->updateUserDetailsForNewAd()) return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->network_error]);
 
+        $this->uploadAdImage(); // return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->image_upload_error_message]);
+        if($this->is_new_ad){
+            if(!$this->insertNewAdToDatabase()) return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->network_error]);
+            if(!$this->updateUserDetailsForNewAd()) return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->network_error]);
+        }
+        else if(!($this->is_new_ad && $this->is_renewed_ad)){
+            //it is an updated ad
+            if(!$this->updateAd())return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->unknown_error_message]);
+        }
         return json_encode([$this->success_text => $this->success_value , $this->error_text => "success"]);
-
     }
 }
 
