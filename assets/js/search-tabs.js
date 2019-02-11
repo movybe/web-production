@@ -26,122 +26,103 @@ class  LocalSearchTab extends React.Component{
     componentDidUpdate() {
         this.defaultActions();
 
-        let locale = this.props.locale;
 
-        let ad1Price, ad2Price;
 
         let x ,sum, price , priceList , adsLength , isOddAdLength , average , priceListLengthDividedBy4 , priceListLengthDividedBy2, median , middleSum,  firstNPrice , lastNPrice , sumOfFirstNPrice , sumOfLatNPrice ,
-            newAdsPriceSum , newPriceList , newPriceListAverage , newSum;
-        locale.forEach(local => {
+            newAdsPriceSum , newPriceList , newPriceListAverage , newSum , sortAdInAscendingOrder;
 
 
 
-            local.ads = local.ads.sort((a , b) => {
-                ad1Price = parseInt(a.price.toString().replace(/\D/g,''));
-                ad2Price = parseInt(b.price.toString().replace(/\D/g,''));
+        let locale = this.props.locale;
 
-                //sort from lowest to highest
-                return ad2Price < ad1Price;
+
+
+
+            let ad1Price, ad2Price;
+            locale.forEach(local => {
+
+                //Prevent the function from performing same action on same ad page
+                if(!local.page || local.page === local.lastSortedPage || !local.ads.length || local.ads.length < 8) return;
+
+
+                sortAdInAscendingOrder = () => {
+
+
+                   local.ads.sort((a , b) => {
+                       ad1Price = parseInt(a.price.toString().replace(/\D/g,''));
+                       ad2Price = parseInt(b.price.toString().replace(/\D/g,''));
+                       return ad1Price - ad2Price;
+                   });
+
+
+                };
+
+
+
+
+
+
+
+
+               isOddAdLength = !(!(local.ads.length%2));
+
+                //Check if the ad length is an odd number
+
+                priceList = [];
+
+                local.ads.forEach((ad) => {
+
+                    price = parseInt(ad.price.toString().replace(/\D/g,''));
+                        priceList.push(price);
+                });
+
+
+                if(isOddAdLength)
+                {
+
+                    sum = priceList.reduce((prev , next) => prev + next);
+
+                    average = Math.round(sum / priceList.length);
+
+                    priceList.push(average);
+                }
+
+
+                sortAdInAscendingOrder();
+
+                //Sort the priceList
+                priceList.sort((a , b) => a - b);
+
+
+                priceListLengthDividedBy2 = priceList.length / 2;
+
+
+                //Get the middle numbers of the price
+                middleSum = priceList[priceListLengthDividedBy2 - 1] + priceList[priceListLengthDividedBy2];
+
+
+                median = Math.round(middleSum / 2);
+
+
+
+
+
+
+                local.average = numeral(median).format('0.0a');
+                local.max = numeral(local.ads[local.ads.length -1].price).format('0.0a');
+
+                //To prevent resorting of already sorted ad array
+                local.lastSortedPage += 1;
+
 
             });
 
 
-
-            if(!local.ads.length || local.ads.length <= 8) {
-                return;
-            }
-            else if(local.ads.length > 1)
-            {
-                local.average = numeral(local.ads[0].price).format('0.0a');
-
-            }
-            else {
-                local.average = 0;
-                local.max = 0;
-                return;
-            }
-
-            local.max = numeral(local.ads[local.ads.length -1].price).format('0.0a');
-
-            // Calculate average price
-
-            sum = 0;
-            price = 0;
-            priceList = [];
-            adsLength = local.ads.length;
-            isOddAdLength = adsLength%2!==0;
-
-            local.ads.forEach(ad => {
-                price = parseInt(ad.price.toString().replace(/\D/g,''));
-                priceList.push(price);
-                sum += price;
-            });
-
-
-            //if the total ads length is an odd number
-            if(isOddAdLength)
-            {
-                average = Math.round(sum / adsLength);
-
-                //add the average to the priceList to make the length of the priceList an even number
-                priceList.push(average);
-
-                //sort the price list
-
-                priceList.sort((a , b ) => b > a)
-
-
-                  }
-
-            local.max = numeral(local.ads[local.ads.length -1].price).format('0.0a');
-
-
-
-                  //PriceList length dividedby2 divided by 2
-
-            priceListLengthDividedBy4 = priceList.length / 4;
-            priceListLengthDividedBy2 = priceList.length / 2;
-
-
-            middleSum = priceList[priceListLengthDividedBy2 - 1] + priceList[priceListLengthDividedBy2];
-
-            //console.log(priceListLengthDividedBy4);
-
-
-            //Removing the first n elements of the price list array
-
-                   if(local.page < 2) {
-                       priceList.splice(0, priceListLengthDividedBy4);
-
-
-                       //Removing the last n elements of the price list array we have
-
-                       priceList = priceList.slice(0, priceList.length - priceListLengthDividedBy4);
-                   }
-
-            median = middleSum / 2;
-            median = median.toFixed(2);
-
-
-
-            sum = priceList.reduce((a , b) => a + b);
-
-
-//            average = Math.round(sum / priceList.length);
-
-
-
-            local.average = numeral(median).format('0.0a');
-
-
-
-
-
-
-        });
-
-
+       // this.props.switchWebsite({...this.props , locale});
         this.props.switchWebsite({...this.props , locale});
+
+
+
 
 
 

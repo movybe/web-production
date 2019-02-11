@@ -534,6 +534,10 @@ class Application extends React.Component {
                 {
                     obj[key] = 0;
                 }
+                else if(key === "lastSortedPage")
+                {
+                    obj[key] = 0;
+                }
             })
 
 
