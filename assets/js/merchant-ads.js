@@ -11,7 +11,8 @@ class MerchantAds extends React.Component {
     currentlyViewedAd : {} ,  
     editAdFormID : null , editAd : {} , 
     editAdFormAction : this.editAdFormActions.UPDATE,
-    uploadImage : false
+    uploadImage : false ,
+    adFormTriggerClicked : false
 };
 
     defaultActionDone = false;
@@ -109,15 +110,17 @@ class MerchantAds extends React.Component {
             units: 20,
         };
 
+        if(!this.state.editAd.title){
 
-        Object.keys(fieldValues).forEach(function (key) {
+            Object.keys(fieldValues).forEach(function (key) {
 
 
-            $(`*[name="${key}"]`).val(fieldValues[key]);
+                $(`*[name="${key}"]`).val(fieldValues[key]);
 
-        });
+            });
 
-        this.updateAdPreview();
+        }
+
         this.defaultActionDone = true;
 
         
@@ -133,7 +136,6 @@ class MerchantAds extends React.Component {
         this.adTypeSelection.formSelect();
         this.adUnit = $('#ad-unit');
         this.totalAdCharge = $('#total-ad-charge');
-        this.adImagePreviews = $('.ad-image-previews');
         this.adFormFieldset = $('#ad-form-fieldset');
         $('input#ad-title').characterCounter();
         $('textarea#ad-description').characterCounter();
@@ -142,6 +144,12 @@ class MerchantAds extends React.Component {
         this.adLinkPreview = $('#ad-link-preview');
         this.adDescriptionPreview = $('#ad-description-preview');
         this.adLocationPreview = $('#ad-location-preview');
+
+
+        this.defaultAdLinkPreviewText = "https://www.olx.com.ng/item/mac-book-pro-2017-iid-1051056268";
+        this.defaultAdTitlePreviewText = "mac book pro 2017";
+        this.defaultAdDescriptionPreviewText = "8gb ram 2.3ghz Intel core i5 13inch display";
+        this.defaultAdLocationPreviewText = "Lagos";
 
         this.adTitle = $('#ad-title');
         this.adDescription = $('#ad-description');
@@ -221,7 +229,8 @@ class MerchantAds extends React.Component {
           this.updateAdPreview();
           this.adFormFieldset.prop(...defaults.disabledTrue);
 
-          let payWithPaystack = this.state.editAdFormAction === (this.editAdFormActions.NEW || this.editAdFormActions.RENEW) ? defaults.payWithPaystack :
+          const isNewOrRenewedAd = this.state.editAdFormAction === this.editAdFormActions.NEW || this.state.editAdFormAction === this.editAdFormActions.RENEW; 
+          let payWithPaystack = isNewOrRenewedAd ? defaults.payWithPaystack :
             function(email , amount = 5000 , name , callback){
                 callback({status : "success"});
             
@@ -245,9 +254,11 @@ class MerchantAds extends React.Component {
 
 
               
-              if(this.state.editAdFormAction === (this.editAdFormActions.NEW || this.editAdFormActions.RENEW))
+              
+              if(isNewOrRenewedAd)
               {
 
+                  
               formData.append("ad_type" , this.adTypeSelection.val());
               formData.append("ad_rate" , this.getTotalAdCharge().rate);
               formData.append("total_amount" , this.getTotalAdCharge().totalAmount);
@@ -277,6 +288,7 @@ class MerchantAds extends React.Component {
 
             }
 
+           
 
 
              formData.append("email" , this.props.user.email);
@@ -292,7 +304,6 @@ class MerchantAds extends React.Component {
                   data: formData,
                   success:  response => {
 
-
                     response = JSON.parse(response);
 
                       this.adFormFieldset.prop(...defaults.disabledFalse);
@@ -301,7 +312,9 @@ class MerchantAds extends React.Component {
                       this.refreshProfile();
 
                       this.adModalPopup.modal('close');
-                      }
+                      this.setState({...this.state , adFormTriggerClicked : false});
+                      
+                    }
 
                   ,
                   cache: false,
@@ -326,6 +339,7 @@ class MerchantAds extends React.Component {
 
 
 
+
         this.adTitlePreview.text(this.adTitle.val().truncate(defaults.maxTitleLength) || this.defaultAdTitlePreviewText);
         this.adLinkPreview.text(this.adLink.val().truncate(defaults.maxLinkLength) || this.defaultAdLinkPreviewText.truncate(defaults.maxLinkLength));
         this.adLinkPreview.attr('href' , this.adLink.val() || this.defaultAdLinkPreviewText);
@@ -342,8 +356,8 @@ class MerchantAds extends React.Component {
         this.adDescriptionPreview.text(isValidState ? this.state.editAd.description.truncate(defaults.maxDescriptionLength): this.adDescription.val().truncate(defaults.maxDescriptionLength) || this.defaultAdDescriptionPreviewText);
         this.mainAdLocation = (isValidState ? this.state.editAd.ad_location.truncate(this.adFormRules.maxAdLocationLength) : this.adLocation.val().truncate(this.adFormRules.maxAdLocationLength) || this.defaultAdLocationPreviewText) + `. ${this.adCampaignName.val().truncate(this.adFormRules.maxAdCampaignNameLength)} ${this.adContact.val()}`;
         this.adLocationPreview.text(this.mainAdLocation);
-        */
-        return this.mainAdLocation;
+*/
+         return this.mainAdLocation;
 
     };
 
@@ -351,12 +365,15 @@ class MerchantAds extends React.Component {
 
         const isValidState = this.state.editAd.title !== undefined;
 
-        this.adTitle.val(this.state.editAd.title || null);
-        this.adDescription.val(this.state.editAd.description || null);
-        this.adLink.val(this.state.editAd.link || null);
-        this.adContact.val(this.state.editAd.contact || null);
-        this.adCampaignName.val(this.state.editAd.campaign_name || null);
-        this.adLocation.val(this.state.editAd.ad_location || null);
+
+        if(isValidState) {
+            this.adTitle.val(this.state.editAd.title || null);
+            this.adDescription.val(this.state.editAd.description || null);
+            this.adLink.val(this.state.editAd.link || null);
+            this.adContact.val(this.state.editAd.contact || null);
+            this.adCampaignName.val(this.state.editAd.campaign_name || null);
+            this.adLocation.val(this.state.editAd.ad_location || null);
+        }
 
 
 
@@ -594,7 +611,7 @@ class MerchantAds extends React.Component {
     };
 
     adForm = () => {
-        const adTypeAndAdUnitsStyle = this.state.editAdFormAction ===  (this.editAdFormActions.NEW || this.editAdFormActions.RENEW) ?
+        const adTypeAndAdUnitsStyle = this.state.editAdFormAction ===  this.editAdFormActions.NEW || this.state.editAdFormAction === this.editAdFormActions.RENEW  ?
             {} : {display: 'none'};
 
         return (
@@ -844,6 +861,7 @@ class MerchantAds extends React.Component {
         )
     };
 
+    
     adModalContent = () => {
 
         const modalContent  = Number(this.props.user.subscribed) ?
@@ -877,9 +895,8 @@ class MerchantAds extends React.Component {
                         return 0;
                     }
                 });
-                if(!adID) return;
 
-                this.setState({...this.state , editAdFormAction : action , editAdFormID : adID , editAd : clickedAd , uploadImage : false});
+
                 this.updateEditAdFormFromState();
                 //To prevent caching of images
                 
@@ -890,13 +907,19 @@ class MerchantAds extends React.Component {
 
                 this.filePath.val(clickedAd.banner);
                 this.merchantUploadImageIcon.hide();
-                this.updateAdPreview();
 
-                return;
+                this.setState({...this.state , editAdFormAction : this.editAdFormActions.NEW , editAdFormID : adID , editAd : clickedAd , adFormTriggerClicked : true});
+                break;
         }
+        if(!adID) {
 
-        this.setState({...this.state , editAdFormAction : this.editAdFormActions.NEW , editAdFormID : null , editAd : {}});
+            this.adImageLabel.css('background-image' , `url()`);
+            this.adImagePreviews.css('background-image' , `url()`);
+            this.setState({...this.state , editAdFormAction : action , editAd : {} ,  editAdFormID : adID , uploadImage : false , adFormTriggerClicked : true});
+            return;
+        }
         this.updateAdPreview();
+        this.updateEditAdFormFromState();
         return 0;
 
 
@@ -929,7 +952,7 @@ class MerchantAds extends React.Component {
     render() {
 
         let adsNumberMessage ,usedAdsMessage , adsPlural , adPublishedOnText , currentAd , adStatsModalLink
-        , isEmptyAd , changeAdStatusSpan , pauseAdSpan , playAdSpan,editAdFormAction ;
+        , isEmptyAd , changeAdStatusSpan , pauseAdSpan , playAdSpan,editAdFormAction, suspended = null ,expired = null;
         
 
         let numberOfMerchantActiveAds = 0;
@@ -953,14 +976,16 @@ class MerchantAds extends React.Component {
              isEmptyAd = !Boolean(currentAd);
              adsNumberMessage = currentAd ? currentAd.title.truncate(defaults.adListTitleLength) : "Edit this ad space";
              adPublishedOnText = currentAd ? <span>Published  {timeago.format(currentAd.posted_on)}</span> : null;
-             
+
              playAdSpan = isEmptyAd ? null : <span className = "ad-change-active-status"><span className = "activate-pause-ad-text red-text">PAUSED </span> <i className ="ad-pause-play-icon material-icons green-text cursor-pointer" data-ad-id = {currentAd.ad_id} data-pause = {false} onClick = {this.changeAdActiveStatus}>play_arrow </i></span>;
              pauseAdSpan =isEmptyAd ? null : <span className = "ad-change-active-status"><span className = "activate-pause-ad-text green-text">ACTIVE </span><i className ="ad-pause-play-icon material-icons red-text cursor-pointer" data-ad-id = {currentAd.ad_id} data-pause = {true} onClick = {this.changeAdActiveStatus}>pause</i></span>;
 
              if(!isEmptyAd)
              {
                  editAdFormAction = Number(currentAd.active) ? this.editAdFormActions.UPDATE : this.editAdFormActions.RENEW;
-                if(Number(currentAd.paused) /* i.e the ad is paused */)
+
+                 expired = !Number(currentAd.active)? <span className="red-text expired suspended">expired</span> : null;
+                 if(Number(currentAd.paused) /* i.e the ad is paused */)
                 
                 {
                     changeAdStatusSpan = playAdSpan;
@@ -973,6 +998,7 @@ class MerchantAds extends React.Component {
              else {
                  changeAdStatusSpan = null;
                  editAdFormAction = this.editAdFormActions.NEW;
+                 expired = null;
              }
 
              
@@ -988,7 +1014,7 @@ class MerchantAds extends React.Component {
                                className="material-icons add-ad-icon right modal-trigger edit-ad-modal-trigger no-underline" data-edit-ad-form-action = {editAdFormAction}>mode_edit</a>
                             {adStatsModalLink}
                             <span className="ad-published-on-text">{adPublishedOnText}{changeAdStatusSpan}</span>
-
+                            {expired}
                         </p>
                     </div>
                 </div>

@@ -75,6 +75,7 @@ class HandleAdForm extends  Functions
         $this->ad_type = $_POST['ad_type'];
         $this->is_new_ad = $this->action === 'NEW_AD';
         $this->is_renewed_ad = !$this->is_new_ad;
+
         $this->ad_rate = (double)$_POST['ad_rate'];
         $this->total_amount = (int)$_POST['total_amount'];
         $this->units = (int)$_POST['units'];
@@ -113,6 +114,68 @@ class HandleAdForm extends  Functions
 
         return $this->update_multiple_fields($this->ads_table_name , $fields_and_values , "ad_id = '{$this->ad_id}'");
     }
+
+    private function renewAd ()  : bool
+    {
+
+        switch ($this->ad_type)
+        {
+            case 'ppv':
+                $ad_type_paid_for = "number_of_views_paid_for";
+                break;
+            case 'ppc':
+                $ad_type_paid_for = 'number_of_clicks_paid_for';
+                break;
+            case 'ppa':
+                $ad_type_paid_for = 'number_of_affiliates_paid_for';
+                break;
+        }
+
+        $now = date('Y-m-d H:i:s');
+        $fields_and_values = array(
+            'title' => $this->title,
+            'link' => $this->link,
+            'description' => $this->description ,
+            'updated_on' => $now ,
+            'location' => $this->location,
+            'campaign_name' => $this->campaign ,
+            'contact' => $this->contact ,
+            'ad_location' => $this->ad_location,
+            'paused' => 0,
+            'posted_on' => $now,
+            'balance' => $this->total_amount ,
+            'amount_paid' => $this->total_amount ,
+            $ad_type_paid_for => $this->units ,
+            'number_of_clicks' => 0,
+            'number_of_views' => 0,
+            'number_of_affiliates_reached' => 0,
+            'active' => 1,
+            'approved' => 1,
+            'reference_code' => $this->reference_code ,
+            'ad_rate' => $this->ad_rate ,
+            'last_paid' => $now ,
+            'total_units_paid_for' => $this->units ,
+            'remaining_units' => $this->units
+        );
+
+
+        if($this->upload_image)
+        {
+
+            $bannerExtension = $this->file_handler->getExtension($_FILES['banner']['name']);
+            $bannerImage = $this->ad_id.$bannerExtension;
+
+            $fields_and_values2 = ['banner' => $bannerImage];
+            $fields_and_values = array_merge($fields_and_values , $fields_and_values2);
+        }
+
+
+
+        return $this->update_multiple_fields($this->ads_table_name , $fields_and_values , "ad_id = '{$this->ad_id}'");
+
+
+    }
+
 
     private function insertNewAdToDatabase () : bool
     {
@@ -200,9 +263,16 @@ class HandleAdForm extends  Functions
             if(!$this->insertNewAdToDatabase()) return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->network_error]);
             if(!$this->updateUserDetailsForNewAd()) return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->network_error]);
         }
-        else if(!($this->is_new_ad && $this->is_renewed_ad)){
+        else if(!($this->is_new_ad or $this->is_renewed_ad)){
             //it is an updated ad
             if(!$this->updateAd())return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->unknown_error_message]);
+        }
+        else if($this->is_renewed_ad)
+        {
+            if(!$this->renewAd())return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->unknown_error_message]);
+
+            if(!$this->updateUserDetailsForNewAd()) return json_encode([$this->success_text => $this->failure_value , $this->error_text => $this->network_error]);
+
         }
         return json_encode([$this->success_text => $this->success_value , $this->error_text => "success"]);
     }

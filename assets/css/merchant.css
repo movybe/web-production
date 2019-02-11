@@ -251,3 +251,7 @@ p.ad-stats-property-value
 
     border-bottom: 1px solid rgba(192 , 192 , 192 , .5);
 }
+span.expired.suspended
+{
+    font-size: 15px;
+}
