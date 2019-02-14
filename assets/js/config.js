@@ -17,12 +17,13 @@ class Config {
         q : null,
         formSubmitted : false ,
         processingAction : false,
+        sponsoredAds : [],
         locale : [
-            {shortName :  "olx"  , name : "olx"         ,        textColor :  'purple' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0 , max : 0 , lastSortedPage : 0} ,
-            {shortName :  "jiji" , name : "jiji"        ,         textColor : 'green' , ads : [] ,  page : 0 , error : "" , loadMore : false , average : 0 , max : 0 , lastSortedPage : 0} ,
-            {shortName : "jumia" , name : "jumia"       ,                 textColor : 'black' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0 , max : 0 , lastSortedPage : 0} ,
-            {shortName : "konga" , name : "konga"       ,              textColor :  'orange' , ads : [] ,  page : 0 , error : "" , loadMore : false , average : 0 , max : 0 , lastSortedPage : 0} ,
-            {shortName :  "deals" ,name : "jumia deals" ,          textColor : 'indigo' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0 , max : 0 , lastSortedPage : 0}
+            {shortName :  "olx"  , name : "olx"         ,        textColor :  'purple' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0 , max : 0 , lastSortedPage : 0 , shownSponsoredAds : false} ,
+            {shortName :  "jiji" , name : "jiji"        ,         textColor : 'green' , ads : [] ,  page : 0 , error : "" , loadMore : false , average : 0 , max : 0 , lastSortedPage : 0 , shownSponsoredAds : false} ,
+            {shortName : "jumia" , name : "jumia"       ,                 textColor : 'black' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0 , max : 0 , lastSortedPage : 0 , shownSponsoredAds : false} ,
+            {shortName : "konga" , name : "konga"       ,              textColor :  'orange' , ads : [] ,  page : 0 , error : "" , loadMore : false , average : 0 , max : 0 , lastSortedPage : 0 , shownSponsoredAds : false} ,
+            {shortName :  "deals" ,name : "jumia deals" ,          textColor : 'indigo' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0 , max : 0 , lastSortedPage : 0 , shownSponsoredAds : false}
 
         ] ,
         international : [
@@ -52,7 +53,6 @@ class Config {
                 };
 
             case 'RESTORE_STATE' :
-                console.log("wants to reset state");
                 storageObject = JSON.parse(localStorage.getItem(defaults.savedState));
                 let newState = {...this.initState};
 

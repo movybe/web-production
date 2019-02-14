@@ -99,9 +99,6 @@ class Campaign extends  React.Component
                     this.loginModalPopup.modal('open');
 
 
-
-
-
                 }
 
 
@@ -115,6 +112,8 @@ class Campaign extends  React.Component
 
     componentDidUpdate()
     {
+
+
         try {
             this.initActions();
             const selectBankNameID = "select-bank-name";
@@ -134,6 +133,16 @@ class Campaign extends  React.Component
 
 
             const formSelectAction = this.selectBankName ? this.selectBankName.formSelect() : null;
+
+            if(this.props.reloadPage){
+
+                this.loginModalPopup.modal('open');
+                this.emailField.prop(...defaults.disabledTrue);
+                this.emailField.addClass('disabled');
+
+                this.props.resetState({...this.props , reloadPage : false});
+                return;
+            }
 
 
         }
@@ -228,7 +237,7 @@ class Campaign extends  React.Component
               <div className="input-field col s12">
                   <select id="select-campaign-type" autoComplete="off" required="required" onChange={this.handleCampaignTypeChange}>
                       <option defaultValue="" disabled>Choose your campaign type</option>
-                      <option defaultValue="merchant">Merchant/Advertiser</option>
+                      <option defaultValue="merchant" disabled>Merchant/Advertiser</option>
                       <option defaultValue="publisher">Affiliate/Publisher</option>
                   </select>
                   <label className="active">Campaign type</label>

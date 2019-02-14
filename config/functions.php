@@ -123,6 +123,19 @@ class Functions extends  DatabaseConnection {
         return $files_resources;
     }
 
+    public final function  increment_value(string $table_name  , string $field_name , float $increment_by , string  $where_clause)
+    {
+
+        return $this->executeSQL("UPDATE {$table_name} SET {$field_name} = $field_name + {$increment_by} WHERE $where_clause");
+    }
+
+    public final function  decrement_value(string $table_name  , string $field_name , float $decrement_by , string  $where_clause)
+    {
+
+        return $this->executeSQL("UPDATE {$table_name} SET {$field_name} = $field_name - {$decrement_by} WHERE $where_clause");
+    }
+
+
 
 
 

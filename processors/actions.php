@@ -73,6 +73,48 @@ class Actions extends  Functions
 
     }
 
+    private function fetch_sponsored_ads () : array {
+
+
+        $sponsored_ads = $this->fetch_data_from_sql("SELECT * FROM ads WHERE paused = 0 and active = 1 and approved = 1 and remaining_units > 0
+ORDER BY RAND() LIMIT 3");
+
+        $ad_rate = null;
+        $ad_id = null;
+
+        foreach ($sponsored_ads as $sponsored_ad)
+
+        {
+            //Check if ad is a pay per view ad
+            $ad_rate = $sponsored_ad['ad_rate'];
+            $posted_by = $sponsored_ad['posted_by'];
+            $ad_id = $sponsored_ad['ad_id'];
+
+            if($sponsored_ad['ad_type'] === 'ppv')
+            {
+
+                //Decrement the remaining units and also minus the ad_rate from the balance;
+                $this->decrement_values($this->ads_table_name , ['remaining_units' , 'balance'] , [$ad_rate , 1] , "ad_id='{$ad_id}'");
+
+                //Increment the number of views the ad has
+                $this->increment_value($this->ads_table_name , 'number_of_views' , 1 , " ad_id = '{$ad_id}'");
+
+                //Decrement the account balance of the user
+                $this->decrement_value($this->users_table_name , 'account_balance' , $ad_rate , " user_id = '{$posted_by}'");
+
+                //if the remaining_units is 0, deactivate the ad
+                if(($sponsored_ad['remaining_units'] - 1)  === 0)
+                {
+                    //Deactivate the ad
+                    $this->update_record($this->ads_table_name , 'active' , 0 , 'ad_id' , $ad_id);
+                }
+
+
+            }
+        }
+        return $sponsored_ads;
+    }
+
 
 
     public function actionProcessor () : string
@@ -111,6 +153,9 @@ class Actions extends  Functions
                 $this->ad_id = $this->data['id'];
                 $this->update_record($this->ads_table_name , 'paused' , 0 , 'ad_id' , $this->ad_id);
                 return json_encode([$this->successText => 1 , $this->errorText => $this->successText]);
+            case 'FETCH_SPONSORED_ADS':
+                return json_encode([$this->successText => 1 , $this->errorText => $this->successText , "sponsored_ads"=> $this->fetch_sponsored_ads()]);
+
 
         }
 

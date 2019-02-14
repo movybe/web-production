@@ -13,7 +13,8 @@ class CampaignSettings{
         stateReset : true ,
         user : {} ,
         adRates : {cpc : 1 , cpv : 2 , cpa : 3},
-        units : 10
+        units : 10,
+        reloadPage : false
     };
 
 
@@ -38,7 +39,9 @@ class CampaignSettings{
             case 'MODIFY_STATE' :
                 localStorage.setItem(defaults.savedCampaignState , JSON.stringify({...action.state}));
                 return {...action.state};
-
+            case 'FACTORY_RESET' :
+                localStorage.setItem(defaults.savedCampaignState , JSON.stringify({}));
+                return {...this.initState};
         }
 
         return state;
@@ -68,7 +71,14 @@ class CampaignSettings{
             modifyState : state => {
                 dispatch({type : 'MODIFY_STATE' , state});
                 return true;
+            },
+            factoryReset : (callback = null) => {
+                dispatch({type:'FACTORY_RESET'});
+                if(callback) callback();
+                return true;
             }
+
+
 
         }
     };

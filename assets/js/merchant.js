@@ -47,7 +47,7 @@ class Merchant extends React.Component
 
 
 
-    activateMerchantAccount = () =>
+    activateMerchantAccount = (callback = null) =>
     {
 
         defaults.payWithPaystack(this.props.email , defaults.convertToPaystack(defaults.merchantActivationFee) , "Account Activation" , (response) => {
@@ -58,7 +58,10 @@ class Merchant extends React.Component
 
                 response = JSON.parse(response);
 
-                this.props.resetState({...this.props , user : response.user});
+                if(this.props.resetState({...this.props , user : response.user})){
+                   if(callback)callback();
+                }
+
             })
         });
 
@@ -178,6 +181,10 @@ const  mapDispatchToProps = dispatch =>
         } ,
         modifyState : state => {
             dispatch({type : 'MODIFY_STATE' , state});
+        },
+        factoryReset : (callback = () => {}) => {
+            dispatch({type:'FACTORY_RESET'});
+            return true;
         }
 
     }

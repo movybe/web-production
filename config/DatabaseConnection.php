@@ -137,7 +137,7 @@ class DatabaseConnection {
         total_referrer_amount_earned DOUBLE(16,2) NOT NULL DEFAULT 0,
         total_amount_funded DOUBLE(16,2) NOT NULL DEFAULT 0,
         user_id VARCHAR (1000) NOT NULL DEFAULT 'abcdefgh',
-        ip_address VARCHAR(100) NOT NULL UNIQUE DEFAULT '010.199.212.002',
+        ip_address VARCHAR(100) NOT NULL DEFAULT '010.199.212.002',
         last_paid VARCHAR (100) NOT NULL  DEFAULT 'today',
         reference_code VARCHAR (400) NOT NULL  DEFAULT  'aghdjjshuueosmjs'
         
@@ -410,6 +410,15 @@ ALTER TABLE users ADD last_free_mode_time VARCHAR( 255 ) NOT NULL DEFAULT '0';
         return $record;
     }
 
+    public function fetch_data_from_sql (string $sql) : array {
+
+        $result = $this->conn->prepare($sql);
+        $result->execute();
+        $set_type_record = $result->setFetchMode(PDO::FETCH_ASSOC);
+        $record = $result->fetchAll();
+        return $record;
+    }
+
     public  final  function fetch_data_from_table_with_conditions(string  $table , string $conditions){
         $sql = "SELECT * FROM $table  WHERE $conditions";
         $result = $this->conn->prepare($sql);
@@ -420,13 +429,51 @@ ALTER TABLE users ADD last_free_mode_time VARCHAR( 255 ) NOT NULL DEFAULT '0';
 
     }
 
-    public final function executeSQL (string $sql){
+    public final function executeSQL (string $sql) : bool{
 
         $result = $this->conn->prepare($sql);
         $result->execute();
 
         return true;
 
+    }
+
+
+    public final function  decrement_values (string $table_name , array  $field_names, array  $decrement_values , $where_clause) : bool {
+
+
+        $sql = "UPDATE {$table_name} SET ";
+
+        $fields_and_values_length = count($field_names);
+        for($i = 0; $i < $fields_and_values_length ; ++$i)
+        {
+            $show_or_hide_comma = ($i + 1) == $fields_and_values_length ? "" : ",";
+            $current_field = $field_names[$i];
+            $current_decrement_value = $decrement_values[$i];
+            $sql.= "{$current_field} = {$current_field} - {$current_decrement_value}$show_or_hide_comma ";
+        }
+
+        $sql.= "WHERE $where_clause";
+
+        return $this->executeSQL($sql);
+
+    }
+
+    public final function  increment_values (string $table_name , array  $field_names, array  $increment_values , $where_clause) : bool{
+
+
+        $sql = "UPDATE {$table_name} SET ";
+
+        $fields_and_values_length = count($field_names);
+        for($i = 0; $i < $fields_and_values_length ; ++$i)
+        {
+            $show_or_hide_comma = ($i + 1) == $fields_and_values_length ? "" : ",";
+            $current_field = $field_names[$i];
+            $current_increment_value = $increment_values[$i];
+            $sql.= "{$current_field} = {$current_field} + {$current_increment_value}$show_or_hide_comma ";
+        }
+        $sql.= "WHERE $where_clause";
+        return $this->executeSQL($sql);
     }
 
 

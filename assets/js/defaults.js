@@ -103,6 +103,7 @@ class Defaults {
         this.amountPaidForReferer = 1400;
         this.amountPaidForUserInteraction = 20;
         this.amountPaidForUniqueVisitor = 5;
+        this.priceNotSpecifiedText = "price not specified";
         this.transactionNotSuccessfulMessage = "Transaction not successful";
         this.ensureAllFieldsAreFieldError = "fill all fields correctly";
         this.banks = ["Access Bank" , "CitiBank" , "Coronation Merchant Bank" , "Diamond Bank" , "Ecobank Nigeria" , "Enterprise Bank Limited" , "FBN Merchant Bank" ,"Fidelity Bank Nigeria",
@@ -118,6 +119,7 @@ class Defaults {
 
        this.accountActivationText = "Account activation";
        this.merchantYoutubeVideo = "#https://www.youtube.com/embed/VH26lrd6LSY?rel=0&showinfo=1";
+       this.sponsoredAdText = "AD";
 
         this.payWithPaystack = (email , amount , name , call) =>
         {

@@ -187,6 +187,16 @@ class  MerchantHeader extends React.Component {
 
     };
 
+    logout = () => {
+
+
+        if(this.props.factoryReset())
+        {
+            window.location.reload();
+        }
+    };
+    
+
 
     componentDidUpdate =() => {
         //Initialize the Modals
@@ -202,6 +212,7 @@ class  MerchantHeader extends React.Component {
                     <span className="new badge blue notification-badge" data-badge-caption="Must read"></span></a></li>
                 <li className="header-nav"><a className="modal-trigger" onClick={this.handleNavClick} href="#tos-modal"><i className="material-icons small left">assignment</i>Terms of service <span className="new badge play-badge" data-badge-caption = "updated"></span></a></li>
                 <li ><a onClick={this.handleNavClick} href= {defaults.whatsappContactLink}><i className = "material-icons small left">message</i>{defaults.whatsappContact}</a> </li>
+                <li ><a onClick= {this.logout} href= "#"><i className = "material-icons small left">power_settings_new</i>Logout</a> </li>
             </div>
         )
     };

@@ -233,9 +233,8 @@ class  LocalSearchTab extends React.Component{
     </span>: null;
 
                 currency = this.props.settings.localSearch ? <span>&#8358;</span> : <span>$</span>;
-                showPrice = (ad.price) ? <h6 className="green-text search-result-price">{currency}{ad.price}</h6> : <h5 className="green-text search-result-price">price not specified</h5>;
+                showPrice = (ad.price !== 0) ? <h6 className="green-text search-result-price">{currency}{ad.price}</h6> : <h5 className="green-text search-result-price">{defaults.priceNotSpecifiedText}</h5>;
                 showLocation = ad.location.length ?
-
                     <span className="search-result-locations blue-grey-text"><i
                         className="tiny material-icons search-location-icons">location_on</i>{ad.location}</span> : null;
                 return (
