@@ -103,6 +103,8 @@ class Defaults {
         this.amountPaidForReferer = 1400;
         this.amountPaidForUserInteraction = 20;
         this.amountPaidForUniqueVisitor = 5;
+        this.maxSponsoredAdsToShow = 2;
+        this.dummyEmail = "omobadotng@mail.com";
         this.priceNotSpecifiedText = "price not specified";
         this.transactionNotSuccessfulMessage = "Transaction not successful";
         this.ensureAllFieldsAreFieldError = "fill all fields correctly";

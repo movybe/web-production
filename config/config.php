@@ -23,6 +23,7 @@ abstract class WebsiteConfigurationSettings {
     public  $WebsiteClassification = "Search";
     public  $DOCUMENT_ROOT;
     public  $LinkShortUrlLength = 5;
+    public  $NumberOfSponsoredAdsToShow = 3;
     public  $STATIC_FOLDER;
     public  $JS_FOLDER;
     public  $CSS_FOLDER;

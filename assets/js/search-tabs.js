@@ -26,8 +26,6 @@ class  LocalSearchTab extends React.Component{
     componentDidUpdate() {
         this.defaultActions();
 
-
-
         let x ,sum, price , priceList , adsLength , isOddAdLength , average , priceListLengthDividedBy4 , priceListLengthDividedBy2, median , middleSum,  firstNPrice , lastNPrice , sumOfFirstNPrice , sumOfLatNPrice ,
             newAdsPriceSum , newPriceList , newPriceListAverage , newSum , sortAdInAscendingOrder;
 
@@ -41,8 +39,20 @@ class  LocalSearchTab extends React.Component{
             let ad1Price, ad2Price;
             locale.forEach(local => {
 
+
+
                 //Prevent the function from performing same action on same ad page
                 if(!local.page || local.page === local.lastSortedPage || !local.ads.length || local.ads.length < 8) return;
+
+
+                if (!local.shownSponsoredAds) {
+                    local.ads.push(...this.props.sponsoredAds);
+                    local.shownSponsoredAds = true;
+                }
+
+                if(!local.shownSponsoredAds ) return;
+
+
 
 
                 sortAdInAscendingOrder = () => {
@@ -159,6 +169,24 @@ class  LocalSearchTab extends React.Component{
     };
 
 
+    handleSponsoredAdClicked = (e) => {
+
+        const element = $(e.target);
+        const adID = element.attr('data-ad-id');
+
+        let data = {action : 'SPONSORED_AD_CLICKED' , email : defaults.dummyEmail , ad_id : adID};
+        data = JSON.stringify(data);
+
+        $.post(defaults.actions , {data} , response => {
+
+            const sponsoredAdsClicked = [...this.props.sponsoredAdsClicked , adID];
+
+            console.log(sponsoredAdsClicked);
+            this.props.switchWebsite({...this.props , sponsoredAdsClicked});
+
+        });
+    };
+
 
 
     render() {
@@ -213,6 +241,9 @@ class  LocalSearchTab extends React.Component{
             let currency;
             let preloader;
             let averagePrice;
+            let sponsoredAdLength = 0;
+            let isValidSponsoredAd;
+
             let template = (local.ads.length) ? local.ads.map((ad, index) => {
                 let savedImage;
                 let imageSaved = false;
@@ -223,6 +254,8 @@ class  LocalSearchTab extends React.Component{
 
                 imageSaved = savedImage !== undefined;
 
+
+
                 bg = `${ad.image}`;
                 showImages = (this.props.settings.showImages) && ad.image != null ?
                     <span className="modal-link"  data-caption = {ad.title} href = {ad.image}>
@@ -232,8 +265,10 @@ class  LocalSearchTab extends React.Component{
                     </div>
     </span>: null;
 
+                isValidSponsoredAd = ad.is_sponsored_ad && ad.ad_type === 'ppc'  && this.props.sponsoredAdsClicked.indexOf(ad.ad_id) < 0;
                 currency = this.props.settings.localSearch ? <span>&#8358;</span> : <span>$</span>;
                 showPrice = (ad.price !== 0) ? <h6 className="green-text search-result-price">{currency}{ad.price}</h6> : <h5 className="green-text search-result-price">{defaults.priceNotSpecifiedText}</h5>;
+                showPrice = (ad.is_sponsored_ad) ? <h6 className="green-text search-result-price">{defaults.sponsoredAdText}</h6> : showPrice;
                 showLocation = ad.location.length ?
                     <span className="search-result-locations blue-grey-text"><i
                         className="tiny material-icons search-location-icons">location_on</i>{ad.location}</span> : null;
@@ -243,12 +278,12 @@ class  LocalSearchTab extends React.Component{
 
                         {showPrice}
 
-                        <h3 className="search-result-title-header"><a target="_blank" className="search-result-title-link"
+                        <h3 className="search-result-title-header"><a target="_blank" data-ad-id = {isValidSponsoredAd ? ad.ad_id : null}  onClick={isValidSponsoredAd ? this.handleSponsoredAdClicked : null} className="search-result-title-link"
                                                                       href={ad.link}>
                             {ad.title}
                         </a></h3>
-                        <a className="search-result-link-address" target="_blank"
-                           href={ad.link}>
+                        <a className="search-result-link-address"
+                           href="#">
                             {ad.linkText}
                         </a>
                         <span className="search-result-link-description">

@@ -467,6 +467,27 @@ class Application extends React.Component {
 
 
 
+    fetchSponsoredAds = (callback) => {
+
+        let data = {action : 'FETCH_SPONSORED_ADS' , email : 'test@mail.com'};
+        data = JSON.stringify(data);
+        $.post(defaults.actions , {data} , response => {
+            response = JSON.parse(response);
+
+            response.sponsored_ads.forEach(sponsored_ad => {
+                sponsored_ad.is_sponsored_ad = true;
+                sponsored_ad.image = defaults.bannerImageLocation + sponsored_ad.banner;
+                sponsored_ad.linkText = sponsored_ad.link.truncate(defaults.maxLinkLength);
+                sponsored_ad.price = 0;
+            });
+
+            response = response.sponsored_ads;
+
+            callback(response);
+        });
+
+    };
+
 
     /*******     ***********/
 
@@ -527,18 +548,19 @@ class Application extends React.Component {
 
             Object.keys(obj).map(key => {
 
+
                 if (Array.isArray(obj[key])) {
                     obj[key] = [];
                 }
-                else if(key === "average")
-                {
-                    obj[key] = 0;
+                switch (key) {
+                    case "average":
+                    case "lastSortedPage":
+                        obj[key] = 0;
+                        break;
+                    case "shownSponsoredAds":
+                        obj[key] = false;
                 }
-                else if(key === "lastSortedPage")
-                {
-                    obj[key] = 0;
-                }
-            })
+            });
 
 
         });
@@ -546,9 +568,12 @@ class Application extends React.Component {
 
         //set the loadMore key of this website object to false
         this.props.locale[0].loadMore = true;
-        if(!this.props.switchWebsite({...this.props , currentWebsite : this.props.locale[0].shortName , noDefaultResultsFound : false , processingAction : true}))return;
+        let returnNow = false;
+        this.fetchSponsoredAds(response => {
+            if(!this.props.switchWebsite({...this.props , currentWebsite : this.props.locale[0].shortName , noDefaultResultsFound : false , processingAction : true , sponsoredAds : response}))returnNow = true;
+        });
 
-
+        if(returnNow) return;
         $.get(defaults.crawler, {url: searchFilterUrl}, response => {
 
 
@@ -809,7 +834,6 @@ class Application extends React.Component {
         });
 
 
-
         //Filter the user search query
         let searchQueryToArray = this.searchQuery.split(" ");
 
@@ -880,6 +904,8 @@ class Application extends React.Component {
         });
 
     };
+
+
 
     componentDidMount() {
         this.localSearchTabContainer = $('#local-search-tab-container');
