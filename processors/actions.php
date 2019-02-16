@@ -44,8 +44,8 @@ class Actions extends  Functions
     }
 
     private function generateUserId () : string {
-        global  $website_details;
-        $user_id = $this->generateID($website_details->UserIdLength);
+        
+        $user_id = $this->generateID($this->website_details->UserIdLength);
         if($this->record_exists_in_table($this->users_table_name , "user_id" , $user_id)) $this->generateUserId();
         return $user_id;
     }
@@ -76,14 +76,18 @@ class Actions extends  Functions
     private  function perform_ad_actions ($sponsored_ad , bool $increment_views = true) : bool
     {
 
+        
         //Check if ad is a pay per view ad
         $ad_rate = $sponsored_ad['ad_rate'];
         $posted_by = $sponsored_ad['posted_by'];
         $ad_id = $sponsored_ad['ad_id'];
 
+        $poster_details = $this->fetch_data_from_table($this->users_table_name , 'user_id' , $posted_by)[0];
         //Decrement the remaining units and also minus the ad_rate from the balance;
 
-        if (($sponsored_ad['remaining_units'] - 1) >= 0 ){
+        $is_omoba_ad = strtolower($poster_details['email']) == strtolower($this->website_details->siteEmail);
+
+        if ((($sponsored_ad['remaining_units'] - 1) >= 0) &&  !$is_omoba_ad){
             $this->decrement_values($this->ads_table_name, ['remaining_units', 'balance'], [$ad_rate, 1], "ad_id='{$ad_id}'");
             $this->decrement_value($this->users_table_name, 'account_balance', $ad_rate, " user_id = '{$posted_by}'");
     }
@@ -108,9 +112,9 @@ class Actions extends  Functions
     private function fetch_sponsored_ads () : array {
 
 
-        global  $website_details;
+        
         $sponsored_ads = $this->fetch_data_from_sql("SELECT * FROM ads WHERE paused = 0 and active = 1 and approved = 1 and remaining_units > 0
-ORDER BY RAND() LIMIT {$website_details->NumberOfSponsoredAdsToShow}");
+ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
         $ad_rate = null;
         $ad_id = null;

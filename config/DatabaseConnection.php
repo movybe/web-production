@@ -29,6 +29,7 @@ class DatabaseConnection {
     public $ads_table_name = "ads";
     public $visitors_table_name = "visitors";
     public $site_statistics_table_name = "site_statistics";
+    public $website_details;
     final protected  function  establish_database_connection () : bool
 
     {
@@ -54,11 +55,14 @@ class DatabaseConnection {
 
         function __construct () {
 
+        global $website_details;
             // Establish  connection with the Database
 
 
             $this->establish_database_connection();
+            $this->website_details = $website_details;
             return true;
+
 
 
         }

@@ -7,6 +7,7 @@ abstract class WebsiteConfigurationSettings {
 	public  $Https = "https://";
 	public  $Www = "www.";
 	public  $SiteNameWithoutHttps = "www.omoba.epizy.com";
+	public  $siteEmail = "omobadotng@gmail.com";
 	public  $SiteNameWithHttps = "";
     public  $FacebookUrl = "";
     public  $TwitterUrl  = "";
@@ -23,7 +24,7 @@ abstract class WebsiteConfigurationSettings {
     public  $WebsiteClassification = "Search";
     public  $DOCUMENT_ROOT;
     public  $LinkShortUrlLength = 5;
-    public  $NumberOfSponsoredAdsToShow = 3;
+    public  $NumberOfSponsoredAdsToShow = 2;
     public  $STATIC_FOLDER;
     public  $JS_FOLDER;
     public  $CSS_FOLDER;

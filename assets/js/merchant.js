@@ -143,7 +143,7 @@ class Merchant extends React.Component
                                    </ul>
                             </div>
                             <div className="card-content grey lighten-4">
-                                <div  id="email-address" style={{display : 'none'}}>Account E-mail<span className="right amount-value email-address" id="merchant-email-address">{defaultEmailToShow}</span></div>
+                                <div  id="email-address" style={{display : 'none'}}>E-mail<span className="right amount-value email-address" id="merchant-email-address">{defaultEmailToShow}</span></div>
                                 <div id="test5" className="active">{subscriptionButtonType}</div>
                                 <div id="test6" style={{ display : 'none'}}>Registered <span className="right">{this.registeredTimeago}</span>
                                 </div>

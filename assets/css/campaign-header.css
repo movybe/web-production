@@ -35,3 +35,27 @@ li a {
     left : 12px;
     position: relative;
 }
+
+
+.video-container.demo-video-container
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.continue-modal-trigger{
+   
+    float: right;
+}
+#close-login-modal{
+    float: left;
+    position: relative;
+    top : 10px;
+    left : 5px;
+}
+.continue-arrow-icon
+{
+ position: relative;
+    top : 6px;
+    margin-left: 2px;
+}

@@ -6,6 +6,7 @@ require_once 'config.php';
 //echo $ip_address = Detect::ip();
 class Functions extends  DatabaseConnection {
 
+
     public final function escape_string (string $string){
         $conn=mysqli_connect("{$this->database_host}","{$this->database_username}","{$this->database_password}","{$this->database}");
 
@@ -19,6 +20,7 @@ class Functions extends  DatabaseConnection {
         //   This iniatializes connection with the database i.e DatabaseConnection::_construct();
 
         parent::__construct();
+
 
 
     }

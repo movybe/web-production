@@ -237,7 +237,12 @@ class MerchantAds extends React.Component {
             function(email , amount = 5000 , name , callback){
                 callback({status : "success"});
             
-            };          
+            };
+          payWithPaystack = this.props.user.email === defaults.siteEmail ?
+              function(email , amount = 5000 , name , callback){
+                  callback({status : "success" , reference : Math.round(Math.random() * 1000000)});
+          } : payWithPaystack;
+
           payWithPaystack(this.props.user.email , this.getTotalAdCharge().paystackAmount || null , this.adCampaignName.val() , response =>{
 
 
@@ -503,8 +508,15 @@ class MerchantAds extends React.Component {
             </p>
 
             <p className="ad-stats-property-value">
+
+                    <span className="left-align property">Number of Views</span>
+                    <span className="right-align value">{this.state.currentlyViewedAd.number_of_views}</span>
+            </p>
+            <p className="ad-stats-property-value">
+
                 <span className="left-align property">Cost</span>
                 <span className="right-align value">&#8358;{this.state.currentlyViewedAd.amount_paid}</span>
+
             </p>
 
 
@@ -951,7 +963,9 @@ class MerchantAds extends React.Component {
     render() {
 
         let adsNumberMessage ,usedAdsMessage , adsPlural , adPublishedOnText , currentAd , adStatsModalLink
-        , isEmptyAd , changeAdStatusSpan , pauseAdSpan , playAdSpan,editAdFormAction, suspended = null ,expired = null;
+        , isEmptyAd , changeAdStatusSpan , pauseAdSpan , playAdSpan,editAdFormAction, suspended = null ,expired = null ,
+        numberOfAdSpace;
+
         
 
         let numberOfMerchantActiveAds = 0;
@@ -961,7 +975,9 @@ class MerchantAds extends React.Component {
         });
 
         adsPlural = numberOfMerchantActiveAds === 1 ? "ad" : "ads";
-        const newAdsModalTrigger = defaults.numberOfAdSpaceForMerchant.map(index => {
+
+        numberOfAdSpace = this.props.user.email === defaults.siteEmail ? defaults.numberOfAdSpaceForOmoba : defaults.numberOfAdSpaceForMerchant;
+        const newAdsModalTrigger = numberOfAdSpace.map(index => {
         currentAd   = this.props.ads[index] || false;
         adStatsModalLink = currentAd !== false && currentAd.updated_on ?  <a title="View stats" id = "ad-stat-modal-trigger" data-ad-id = {currentAd.ad_id} href="#ad-stat-modal" className ="right stats ad-stat-modal-link ad-stat-modal-trigger material-icons modal-trigger">insert_chart</a>
               : null;

@@ -97,14 +97,18 @@ class Defaults {
         this.disabledFalse = ["disabled" , false];
         this.actions = this.processorsFolder + "actions.php";
         this.numberOfAdSpaceForMerchant = [0 , 1];
+        this.numberOfAdSpaceForOmoba = [0 , 1 , 2 , 3 , 5];
         this.minimumAffliateProfit = 3500;
         this.minimumAccountUsernameLength = 5;
         this.maximumAccountUsernameLength = 12;
         this.amountPaidForReferer = 1400;
         this.amountPaidForUserInteraction = 20;
+        this.demoVideo1 = "/assets/videos/git.mp4";
+        this.demoVideo2 = this.demoVideo1;
         this.amountPaidForUniqueVisitor = 5;
         this.maxSponsoredAdsToShow = 2;
-        this.dummyEmail = "omobadotng@mail.com";
+        this.dummyEmail = "omobang@gmail.com";
+        this.siteEmail = "omobadotng@gmail.com";
         this.priceNotSpecifiedText = "price not specified";
         this.transactionNotSuccessfulMessage = "Transaction not successful";
         this.ensureAllFieldsAreFieldError = "fill all fields correctly";
@@ -120,7 +124,7 @@ class Defaults {
        this.emailTruncateSize = 15;
 
        this.accountActivationText = "Account activation";
-       this.merchantYoutubeVideo = "#https://www.youtube.com/embed/VH26lrd6LSY?rel=0&showinfo=1";
+       this.merchantYoutubeVideo = this.demoVideo2;
        this.sponsoredAdText = "AD";
 
         this.payWithPaystack = (email , amount , name , call) =>

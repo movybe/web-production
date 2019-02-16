@@ -195,7 +195,7 @@ class  MerchantHeader extends React.Component {
             window.location.reload();
         }
     };
-    
+
 
 
     componentDidUpdate =() => {

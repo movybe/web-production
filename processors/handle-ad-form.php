@@ -24,6 +24,7 @@ class HandleAdForm extends  Functions
         global  $file_handler;
         parent::__construct();
         $this->file_handler = $file_handler;
+        
     }
 
 
@@ -35,7 +36,7 @@ class HandleAdForm extends  Functions
 
     private function  generateAdID () : string {
         global  $website_details;
-        $ad_id = $this->generateID($website_details->AD_ID_LENGTH);
+        $ad_id = $this->generateID($this->website_details->AD_ID_LENGTH);
         if($this->record_exists_in_table($this->ads_table_name , "ad_id" , $ad_id)) $this->generateAdId();
         return $ad_id;
     }
@@ -43,7 +44,7 @@ class HandleAdForm extends  Functions
     private function  generateLinkShortUrl () : string
     {
         global  $website_details;
-        $short_link = $this->generateID($website_details->LinkShortUrlLength);
+        $short_link = $this->generateID($this->website_details->LinkShortUrlLength);
         if($this->record_exists_in_table($this->ads_table_name , "link_short_url" , $short_link)) $this->generateAdId();
         return $short_link;
     }
@@ -80,7 +81,6 @@ class HandleAdForm extends  Functions
         $this->total_amount = (int)$_POST['total_amount'];
         $this->units = (int)$_POST['units'];
         $this->reference_code = $_POST['reference_code'];
-
         return true;
     }
 
@@ -229,7 +229,7 @@ class HandleAdForm extends  Functions
     private function uploadAdImage() : bool
     {
 
-        global $website_details;
+        
 
         //Delete previous banner image if the user wants to edit the ad and upload new image
 
@@ -237,19 +237,19 @@ class HandleAdForm extends  Functions
             if (!$this->is_new_ad) {
                 //Delete the previous image with the same id
                 $previous_ad_banner = $this->fetch_data_from_table($this->ads_table_name, 'ad_id', $this->ad_id)[0]['banner'];
-                unlink($website_details->BANNER_IMAGES_FOLDER . $previous_ad_banner);
+                unlink($this->website_details->BANNER_IMAGES_FOLDER . $previous_ad_banner);
             }
             //Now upload the banner
-            return $this->file_handler->upload_image($_FILES['banner'], $website_details->BANNER_IMAGES_FOLDER, true, "", $this->ad_id);
+            return $this->file_handler->upload_image($_FILES['banner'], $this->website_details->BANNER_IMAGES_FOLDER, true, "", $this->ad_id);
         }
         return true;
     }
     private function updateUserDetailsForNewAd () : bool
     {
 
-        if (!$this->executeSQL("UPDATE {$this->users_table_name} SET account_balance = account_balance + {$this->total_amount}, total_amount_funded = total_amount_funded + {$this->total_amount} WHERE email = '{$this->email}'")) return false;
-        return $this->executeSQL("UPDATE {$this->site_statistics_table_name} SET profit = profit + {$this->total_amount} , account_balance = account_balance + {$this->total_amount} , total_number_of_ads = total_number_of_ads + 1, total_number_of_active_ads = total_number_of_active_ads + 1");
-
+        
+        if (!$this->increment_values($this->users_table_name ,['account_balance' , 'total_amount_funded'] , [$this->total_amount , $this->total_amount] ,  "email = '{$this->email}'")) return false;
+        return strtolower($this->email) !== strtolower($this->website_details->siteEmail) ? $this->executeSQL("UPDATE {$this->site_statistics_table_name} SET profit = profit + {$this->total_amount} , account_balance = account_balance + {$this->total_amount} , total_number_of_ads = total_number_of_ads + 1, total_number_of_active_ads = total_number_of_active_ads + 1") : true;
     }
 
 

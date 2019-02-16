@@ -12,7 +12,6 @@ class Footer extends  React.Component
                         <a className="grey-text text-lighten-4 right no-underline" href="#">{this.props.accountType} account</a>
                     </div>
                 </div>
-
             </footer>
 
         )

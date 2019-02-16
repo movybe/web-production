@@ -152,31 +152,61 @@ class Campaign extends  React.Component
 
 
                         <div className="col s12 m6">
-                            <h5 className="status-headers">How {defaults.siteName} Affiliate works</h5>
+                            <h5 className="status-headers">How {defaults.siteName} Affiliate works:</h5>
                             <div className="card">
                                 <div className="card-content">
                                     <p>
-                                        Watch the CEO explain how {defaults.siteName} Affiliate works,
-                                        and how you too can start making money right now at the comform of your bedroom with {defaults.siteName} Affiliate.
+                                        Watch as our CEO explains how {defaults.siteName} Affiliate works,
+                                        and how you too can start making money right now with {defaults.siteName} Affiliate.
                                     </p>
+                                    <div className="video-container demo-video-container">
+                                        {/*
+                                        <iframe width="853" height="480" src={defaults.demoVideo1}
+                                                frameBorder="0" allowFullScreen></iframe>
+                                                */}
+                                        <video className="responsive-video" controls>
+                                            <source src={defaults.demoVideo2} type="video/mp4"></source>
+                                        </video>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="col s12 m6">
 
-                            <h5 className="status-headers">How {defaults.siteName} Merchant works</h5>
+                            <h5 className="status-headers">How {defaults.siteName} Merchant works:</h5>
                             <div className="card">
                                 <div className="card-content">
-                                    <p>Watch the CEO explain how Businesses can advertise their products/services to reach millions of potential customers on {defaults.siteName}.</p>
+                                    <p>Watch as our CEO explains how Businesses can advertise their products/services and millions of potential customers with {defaults.siteName} Merchant.</p>
+                                    <div className="video-container demo-video-container">
+                                        {/*
+                                        <iframe width="853" height="480" src={defaults.demoVideo2} frameBorder="0" allowFullScreen></iframe>
+                                    */}
+
+                                        <video className="responsive-video" controls>
+                                            <source src={defaults.demoVideo2} type="video/mp4"></source>
+                                        </video>
+                                    </div>
                                 </div>
 
                             </div>
                         </div>
 
+                        <div className="row z-depth-3 merchant-ad-number-message">
+
+                            <div className="col s12 valign-wrapper">
+                                <p className="notice-header flow-text number-of-merchant-ads">
+                                    <a title="Login or Signup" href="#login-modal"
+                                       className="modal-trigger text-right continue-modal-trigger no-underline">Continue<i className="material-icons continue-arrow-icon">arrow_forward</i> </a>
+                                                                  </p>
+                            </div>
+                        </div>
+
+
                     </div>
 
                 </div>
 
+                <Footer accountType = "Campaign" />
             </div>
 
 
@@ -422,6 +452,8 @@ class Campaign extends  React.Component
                     </div>
             </div>
             <div className="modal-footer">
+                <a href="#" onClick={() => this.loginModalPopup.modal('close')}
+                   className='no-underline grey-text' id="close-login-modal">CLOSE</a>
 <button type="submit" form="campaign-form" className="waves-effect waves-light btn" id="login-proceed" value="Proceed">Proceed</button>
             </div>
              </div>;
@@ -435,14 +467,14 @@ class Campaign extends  React.Component
     {
 
         const templateToShow = !this.props.alreadyExistingAccount ? this.loginModal() : <Merchant />;
+        const homePageToShow = this.props.user.account_balance ? null : this.defaultPage();
          return (
 
             <div id="campaign">
-                {/*
+
                     <div id="paystackEmbedContainer"></div>
                 {templateToShow}
-                */}
-                {this.defaultPage()}
+                {homePageToShow}
             </div>
         )
     }
