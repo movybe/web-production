@@ -21,3 +21,17 @@ li a {
     font-weight: bolder;
     opacity: .9;
 }
+
+.campaign-page-header 
+{
+    position: relative;
+    left : 53px !important;
+    font-size: 13px !important;
+}
+
+.bullhorn-icon
+{
+    font-size: 23px !important;
+    left : 12px;
+    position: relative;
+}

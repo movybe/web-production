@@ -15,7 +15,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
 
     $materialize_css = array("materialize.min.css");
     $bootstrap_css = array("bootstrap.min.css");
-    $stylesheets = array("campaign-header.css" ,  "material-icons.css" , "main.css" , "merchant.css" , "jquery.lightbox.css" , "footer.css");
+    $stylesheets = array("campaign-header.css" ,  "material-icons.css" , "main.css" , "font-awesome.min.css" , "merchant.css" , "jquery.lightbox.css" , "footer.css");
     $scripts = array("babel.min.js" , "react.development.js" , "react-dom.development.js" , "redux.min.js" , "react-redux.min.js");
     echo $functions->printAssets($stylesheets , "css" , false)."\n".$functions->printAssets($scripts);
     echo $functions->printAssets($materialize_css , "css" , false , null , "id='materialize-css'");
@@ -34,7 +34,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
 
 
  <?php
- $scripts = array("cookie.min.js" , "request.js"  , "paystack.js"  , "jquery.min.js" , "timeago.min.js" , "bgset.min.js" ,"lazy-bg.js" , "materialize.min.js" ,  "defaults.js" , "test.js" , "jquery.lightbox.js" , "particles.js" , "app.js");
+ $scripts = array("cookie.min.js" , "request.js"  /*, "paystack.js"  */, "jquery.min.js" , "timeago.min.js" , "bgset.min.js" ,"lazy-bg.js" , "materialize.min.js" ,  "defaults.js" , "test.js" , "jquery.lightbox.js" , "particles.js" , "app.js");
  $components = array("footer.js" , "campaign.js" ,"merchant-header.js" ,  "merchant-ads.js" , "merchant.js" , "campaign-settings.js" , "jquery.validate.js");
  echo $functions->printAssets($scripts).$functions->printAssets($components , "babel");
  ?>

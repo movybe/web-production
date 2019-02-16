@@ -87,6 +87,7 @@ class Campaign extends  React.Component
 
 
 
+
             const stateToReset = this.stateRestored ? {...this.props , stateReset : true , emailVerified: false , showRefererEmailField : false} : {...storageObj , stateReset : true , emailVerified: false , showRefererEmailField : false};
             this.props.resetState(stateToReset , () => {
 
@@ -96,7 +97,7 @@ class Campaign extends  React.Component
                     this.loginModalPopup = $('.modal#login-modal');
                     this.loginModalPopup.modal({dismissible: false});
 
-                    this.loginModalPopup.modal('open');
+                   //this.loginModalPopup.modal('open');
 
 
                 }
@@ -109,6 +110,79 @@ class Campaign extends  React.Component
 
 
     }
+
+
+    defaultPage = () => {
+
+        return (
+
+
+            <div className="site-header">
+
+                <nav>
+                    <div className="nav-wrapper">
+                        <span className="bullhorn-icon-container"><i className="fa fa-bullhorn bullhorn-icon"></i></span>
+                        <a href="#" className="brand-logo  left watch-demo-video campaign-page-header">{defaults.siteName} Campaign Programme
+                        </a>
+                                      </div>
+                </nav>
+
+                <div className = "container">
+                <div className="row notice-board z-depth-3">
+                    <div className="col s12 valign-wrapper">
+                        <p className="notice-header flow-text">Welcome to {defaults.siteName} Campaign.</p>
+                    </div>
+                    <div className="col s12 valign-wrapper">
+                        <p className="notice-message">
+                            <h5>Affiliate/Publishers</h5>
+                            This is the easiest way to get paid from the comfort of your home in Nigeria, by simply referring your friends & family to {defaults.siteName}.
+
+                            <h5>Merchant/Advertisers</h5>
+                            Business owners can also Create a Merchant account to Advertise their Product/Services at a very affordable rate.
+                            <br />
+
+
+                             <br />Watch our demo videos below to understand better.
+                        </p>
+                    </div>
+                </div>
+
+
+                    <div className="row">
+
+
+                        <div className="col s12 m6">
+                            <h5 className="status-headers">How {defaults.siteName} Affiliate works</h5>
+                            <div className="card">
+                                <div className="card-content">
+                                    <p>
+                                        Watch the CEO explain how {defaults.siteName} Affiliate works,
+                                        and how you too can start making money right now at the comform of your bedroom with {defaults.siteName} Affiliate.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col s12 m6">
+
+                            <h5 className="status-headers">How {defaults.siteName} Merchant works</h5>
+                            <div className="card">
+                                <div className="card-content">
+                                    <p>Watch the CEO explain how Businesses can advertise their products/services to reach millions of potential customers on {defaults.siteName}.</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        )
+
+    };
 
     componentDidUpdate()
     {
@@ -364,8 +438,11 @@ class Campaign extends  React.Component
          return (
 
             <div id="campaign">
-                <div id="paystackEmbedContainer"></div>
+                {/*
+                    <div id="paystackEmbedContainer"></div>
                 {templateToShow}
+                */}
+                {this.defaultPage()}
             </div>
         )
     }
