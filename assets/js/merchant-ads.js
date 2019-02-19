@@ -512,6 +512,12 @@ class MerchantAds extends React.Component {
                     <span className="left-align property">Number of Views</span>
                     <span className="right-align value">{this.state.currentlyViewedAd.number_of_views}</span>
             </p>
+
+            <p className="ad-stats-property-value">
+
+                <span className="left-align property">Number of Clicks</span>
+                <span className="right-align value">{this.state.currentlyViewedAd.number_of_clicks}</span>
+            </p>
             <p className="ad-stats-property-value">
 
                 <span className="left-align property">Cost</span>
@@ -964,7 +970,7 @@ class MerchantAds extends React.Component {
 
         let adsNumberMessage ,usedAdsMessage , adsPlural , adPublishedOnText , currentAd , adStatsModalLink
         , isEmptyAd , changeAdStatusSpan , pauseAdSpan , playAdSpan,editAdFormAction, suspended = null ,expired = null ,
-        numberOfAdSpace;
+        numberOfAdSpace, suspendedAdMessage;
 
         
 
@@ -986,11 +992,14 @@ class MerchantAds extends React.Component {
         adPublishedOnText = currentAd ? <span>Published  {timeago.format(currentAd.posted_on)}</span> : null;
         playAdSpan = isEmptyAd ? null : <span className = "ad-change-active-status"><span className = "activate-pause-ad-text red-text">PAUSED </span> <i className ="ad-pause-play-icon material-icons green-text cursor-pointer" data-ad-id = {currentAd.ad_id} data-pause = {false} onClick = {this.changeAdActiveStatus}>play_arrow </i></span>;
         pauseAdSpan =isEmptyAd ? null : <span className = "ad-change-active-status"><span className = "activate-pause-ad-text green-text">ACTIVE </span><i className ="ad-pause-play-icon material-icons red-text cursor-pointer" data-ad-id = {currentAd.ad_id} data-pause = {true} onClick = {this.changeAdActiveStatus}>pause</i></span>;
-        if(!isEmptyAd)
+        suspendedAdMessage = null;
+        expired = null;
+            if(!isEmptyAd)
              {
                  editAdFormAction = Number(currentAd.active) ? this.editAdFormActions.UPDATE : this.editAdFormActions.RENEW;
 
-                 expired = !Number(currentAd.active)? <span className="red-text expired suspended">expired</span> : null;
+                 suspendedAdMessage = !Number(currentAd.approved) ? <p><span className="suspended-text red-text">suspended :</span><span className="suspended-reason black-text">{currentAd.admin_message}</span><span></span></p> : suspendedAdMessage;
+                 expired = !Number(currentAd.active)? <span className="red-text expired suspended">expired</span> : expired;
                  if(Number(currentAd.paused) /* i.e the ad is paused */)
                 
                 {
@@ -1004,8 +1013,7 @@ class MerchantAds extends React.Component {
              else {
                  changeAdStatusSpan = null;
                  editAdFormAction = this.editAdFormActions.NEW;
-                 expired = null;
-             }
+                 }
 
              
 
@@ -1021,6 +1029,7 @@ class MerchantAds extends React.Component {
                             {adStatsModalLink}
                             <span className="ad-published-on-text">{adPublishedOnText}{changeAdStatusSpan}</span>
                             {expired}
+                            {suspendedAdMessage}
                         </p>
                     </div>
                 </div>

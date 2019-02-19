@@ -281,9 +281,11 @@ class  MerchantHeader extends React.Component {
                         Watch our Demo Video
                     </h5>
                         <div className="video-container">
+                            {/*
                             <iframe width="1102" height="620"
                                     src={defaults.merchantYoutubeVideo} frameBorder="0"
-                                    allowFullScreen></iframe>
+                                    allowFullScreen ></iframe>
+                                    */}
                         </div>
 
                 </div>

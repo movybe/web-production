@@ -134,7 +134,6 @@ class DatabaseConnection {
         username VARCHAR (100) NOT NULL DEFAULT 'username', 
         number_of_users_refered BIGINT NOT NULL DEFAULT 0,
         registered_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
-        referred_by VARCHAR (100) NOT NULL DEFAULT 0 , 
         subscribed INT  NOT NULL  DEFAULT 0 COMMENT 'true 1 false 0' , 
         approved INT NOT NULL DEFAULT 0 COMMENT 'true 1 false 0',
         total_income_earned DOUBLE(16,2) NOT NULL DEFAULT 0,
@@ -143,9 +142,14 @@ class DatabaseConnection {
         user_id VARCHAR (1000) NOT NULL DEFAULT 'abcdefgh',
         ip_address VARCHAR(100) NOT NULL DEFAULT '010.199.212.002',
         last_paid VARCHAR (100) NOT NULL  DEFAULT 'today',
-        reference_code VARCHAR (400) NOT NULL  DEFAULT  'aghdjjshuueosmjs'
-        
-    )";
+        reference_code VARCHAR (400) NOT NULL  DEFAULT  'aghdjjshuueosmjs',
+        last_subscription_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        referer_username VARCHAR(100) NOT NULL DEFAULT 'omoba',
+        bank_name varchar (1000) NOT NULL DEFAULT  'Wema Bank',
+        account_name VARCHAR (1000) NOT NULL DEFAULT  'Omoba NG',
+        account_number VARCHAR (30) NOT NULL DEFAULT  '2093954338',
+        amount_earned_for_the_month DOUBLE(16,2) NOT NULL DEFAULT 0
+        )";
 
 
 
@@ -165,7 +169,6 @@ class DatabaseConnection {
 
     public final function create_ads_table () : bool
     {
-
         $sql = "CREATE TABLE IF NOT EXISTS {$this->ads_table_name}(
 
           id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY , 
@@ -198,7 +201,8 @@ class DatabaseConnection {
           ad_rate DOUBLE (16 , 2) NOT NULL DEFAULT 1 ,
           last_paid TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
           total_units_paid_for BIGINT NOT NULL DEFAULT 0 ,
-          remaining_units BIGINT NOT NULL  DEFAULT  0
+          remaining_units BIGINT NOT NULL  DEFAULT  0,
+          admin_message VARCHAR (2000) NOT NULL DEFAULT 'this ad contains some banned contents',
       )";
         try {
 

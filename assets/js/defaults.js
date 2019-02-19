@@ -105,7 +105,7 @@ class Defaults {
         this.amountPaidForUserInteraction = 20;
         this.demoVideo1 = "/assets/videos/git.mp4";
         this.demoVideo2 = this.demoVideo1;
-        this.amountPaidForUniqueVisitor = 5;
+        this.amountPaidForUniqueVisitor = 30;
         this.maxSponsoredAdsToShow = 2;
         this.dummyEmail = "omobang@gmail.com";
         this.siteEmail = "omobadotng@gmail.com";

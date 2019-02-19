@@ -27,7 +27,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
 <body id = "particles-js" class="lazyloads"  data-bgset="<?php echo $website_details->IMG_FOLDER.'campaign-background.jpg'?>">
 <div>
 
-<main id="app" data-referer = "<?php echo isset($_GET['referer']) ?  $_GET['referer'] : null; ?>">
+<main id="app" data-referer = "<?php echo isset($_GET['r']) ?  $_GET['r'] : null; ?>">
 
             </main>
        </div>

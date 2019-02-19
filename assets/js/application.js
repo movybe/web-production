@@ -473,7 +473,6 @@ class Application extends React.Component {
         data = JSON.stringify(data);
         $.post(defaults.actions , {data} , response => {
             response = JSON.parse(response);
-
             response.sponsored_ads.forEach(sponsored_ad => {
                 sponsored_ad.is_sponsored_ad = true;
                 sponsored_ad.image = defaults.bannerImageLocation + sponsored_ad.banner;
@@ -559,15 +558,17 @@ class Application extends React.Component {
                         break;
                     case "shownSponsoredAds":
                         obj[key] = false;
+                        break;
                 }
             });
-
-
         });
+
+
 
 
         //set the loadMore key of this website object to false
         this.props.locale[0].loadMore = true;
+        this.props.sponsoredAdsClicked = [];
         let returnNow = false;
         this.fetchSponsoredAds(response => {
             if(!this.props.switchWebsite({...this.props , currentWebsite : this.props.locale[0].shortName , noDefaultResultsFound : false , processingAction : true , sponsoredAds : response}))returnNow = true;
@@ -759,6 +760,7 @@ class Application extends React.Component {
 
         let data = {query: this.searchQuery};
         $.post(defaults.suggestions, {data: JSON.stringify(data)}, response => {
+
 
             let resp = JSON.parse(response);
 

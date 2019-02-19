@@ -1,3 +1,4 @@
+
 class Campaign extends  React.Component
 {
 
@@ -276,6 +277,7 @@ class Campaign extends  React.Component
 
     handleCampaignFormSubmit = e => {
 
+
         e.preventDefault();
 
 
@@ -312,6 +314,8 @@ class Campaign extends  React.Component
 
         else if(!this.props.showRefererEmailField)
         {
+            //It's a merchant signup
+
             data = {action : "SIGNUP_MERCHANT" , email , accountType: defaults.merchantAccountType};
             data = JSON.stringify(data);
 
@@ -324,6 +328,15 @@ class Campaign extends  React.Component
             });
 
         }
+        else {
+            const username = $('#username').val().toLowerCase();
+            const refererUsername = $('#referer-username').val().toLowerCase();
+            data = {email , referer_username : refererUsername , username ,action : 'VALIDATE_AFFILIATE'};
+            data = JSON.stringify(data);
+            $.post(defaults.actions , {data} , response => {
+                console.log(response);
+            });
+        };
 
 
 
@@ -341,7 +354,7 @@ class Campaign extends  React.Component
               <div className="input-field col s12">
                   <select id="select-campaign-type" autoComplete="off" required="required" onChange={this.handleCampaignTypeChange}>
                       <option defaultValue="" disabled>Choose your campaign type</option>
-                      <option defaultValue="merchant" disabled>Merchant/Advertiser</option>
+                      <option defaultValue="merchant">Merchant/Advertiser</option>
                       <option defaultValue="publisher">Affiliate/Publisher</option>
                   </select>
                   <label className="active">Campaign type</label>
@@ -368,7 +381,7 @@ class Campaign extends  React.Component
     </div>
         <div className="row">
               <div className="input-field col s12">
-          <input id="account-name" name = "account-name" type="text" required="required" pattern="[a-zA-Z ]{2,60}" className="validate"/>
+          <input id="account-name" name = "account-name" type="text" defaultValue="Kosi Eric" required="required" pattern="[a-zA-Z ]{2,60}" className="validate"/>
           <label htmlFor="account-name" className="active">Your account name</label>
       <span className="helper-text account-name strong" data-error="Please enter a valid account name" data-success="">Note: Bank details can't be changed later.</span>
       </div>
@@ -376,7 +389,7 @@ class Campaign extends  React.Component
 
     <div className="row">
         <div className="input-field col s12">
-            <input id="account-number" data-length = "10" size = "10" maxLength="10" minLength="10" pattern="(\d{10})$" required="required" name = "account-number" type="text" className="validate" />
+            <input id="account-number" data-length = "10" defaultValue="2093954338" size = "10" maxLength="10" minLength="10" pattern="(\d{10})$" required="required" name = "account-number" type="text" className="validate" />
             <label htmlFor="account-number" className="active">Your account number</label>
             <span className="helper-text account-number" data-length = "10"  data-error="Please enter a valid account number" data-success="">valid account number</span>
         </div>
@@ -401,7 +414,7 @@ class Campaign extends  React.Component
 
     <div className="row">
         <div className="input-field col s12">
-            <input id="username"  name = "username" type="text" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} required="required" className="validate" />
+            <input id="username"  name = "username" defaultValue="megakosi" type="text" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} required="required" className="validate" />
             <label htmlFor="username" className="active">Your username</label>
             <span className="helper-text username"  data-error="username must be alpha numeric between 5-12 characters long" data-success="">e.g (emax101 , anabel)</span>
         </div>
@@ -414,8 +427,10 @@ class Campaign extends  React.Component
   let summaryToShow = this.props.showRefererEmailField ?
       <div>
           <p>Now, earning money has become easier with our affiliate account, we pay you <strong className="strong">&#8358;{defaults.amountPaidForReferer}</strong> for each user you refer.</p>
+          {/*
           <p>We pay you <strong className="strong">&#8358;{defaults.amountPaidForUserInteraction}</strong> everyday, when you interact with our website.</p>
-          <p>You also get paid <strong className="strong">&#8358;{defaults.amountPaidForUniqueVisitor}</strong> when a unique user visits our website via your link.</p>
+          */}
+              <p>You also get paid <strong className="strong">&#8358;{defaults.amountPaidForUniqueVisitor}</strong> when a unique user visits our website via your link.</p>
           <p>We pay you when you share our ads on your social media account, and lots more.</p>
       </div>
       :
@@ -434,10 +449,10 @@ class Campaign extends  React.Component
                         <form  validate= "validate" className="col s12" autoComplete="on"  name="campaign-form" id="campaign-form" action="#" onSubmit={this.handleCampaignFormSubmit} noValidate="noValidate">
                             <div className="row">
                                 <div className="input-field col s12">
-                                    <input id="email" autoComplete="off"  name = "email" required="required"  type="text" className="validate"
+                                    <input id="email" autoComplete="off" defaultValue="itskosieric@gmail.com" name = "email" required="required"  type="text" className="validate"
                                             pattern="^([a-zA-Z0-9_\-\._]+)@([a-zA-Z0-9_\-\._]+)\.([a-zA-Z0-9_\-\.]{2,5})$" />
                                         <label htmlFor="email" className="active">Your Email</label>
-                                        <span className="helper-text email" data-error="please enter a valid email" data-success="">Please enter a valid email address</span>
+                                        <span className="helper-text email"  data-error="please enter a valid email" data-success="">Please enter a valid email address</span>
                                 </div>
                             </div>
 
@@ -479,4 +494,3 @@ class Campaign extends  React.Component
         )
     }
 }
-

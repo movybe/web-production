@@ -96,7 +96,8 @@ class HandleAdForm extends  Functions
             'location' => $this->location,
             'campaign_name' => $this->campaign ,
             'contact' => $this->contact ,
-            'ad_location' => $this->ad_location
+            'ad_location' => $this->ad_location,
+            'approved' => 1
         );
 
 
@@ -218,7 +219,8 @@ class HandleAdForm extends  Functions
             'reference_code' => $this->reference_code,
             'total_units_paid_for' => $this->units,
             'remaining_units' => $this->units,
-            'ad_location' => $this->ad_location
+            'ad_location' => $this->ad_location,
+
         ];
 
         return $this->insert_into_table($this->ads_table_name ,$data_fields_and_values);

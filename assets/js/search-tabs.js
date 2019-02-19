@@ -169,19 +169,20 @@ class  LocalSearchTab extends React.Component{
     };
 
 
-    handleSponsoredAdClicked = (e) => {
+    handleSponsoredAdClicked = e => {
 
         const element = $(e.target);
         const adID = element.attr('data-ad-id');
 
+        console.log(adID);
         let data = {action : 'SPONSORED_AD_CLICKED' , email : defaults.dummyEmail , ad_id : adID};
         data = JSON.stringify(data);
 
         $.post(defaults.actions , {data} , response => {
 
+            console.log(response);
             const sponsoredAdsClicked = [...this.props.sponsoredAdsClicked , adID];
 
-            console.log(sponsoredAdsClicked);
             this.props.switchWebsite({...this.props , sponsoredAdsClicked});
 
         });
@@ -265,7 +266,7 @@ class  LocalSearchTab extends React.Component{
                     </div>
     </span>: null;
 
-                isValidSponsoredAd = ad.is_sponsored_ad && ad.ad_type === 'ppc'  && this.props.sponsoredAdsClicked.indexOf(ad.ad_id) < 0;
+                isValidSponsoredAd = ad.is_sponsored_ad && this.props.sponsoredAdsClicked.indexOf(ad.ad_id) < 0;
                 currency = this.props.settings.localSearch ? <span>&#8358;</span> : <span>$</span>;
                 showPrice = (ad.price !== 0) ? <h6 className="green-text search-result-price">{currency}{ad.price}</h6> : <h5 className="green-text search-result-price">{defaults.priceNotSpecifiedText}</h5>;
                 showPrice = (ad.is_sponsored_ad) ? <h6 className="green-text search-result-price">{defaults.sponsoredAdText}</h6> : showPrice;

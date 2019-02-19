@@ -255,3 +255,9 @@ span.expired.suspended
 {
     font-size: 15px;
 }
+.suspended-text{
+    margin-right: 10px;
+}
+.suspended-text , .suspended-reason{
+    font-size: 13px;
+}

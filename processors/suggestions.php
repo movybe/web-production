@@ -3,13 +3,14 @@
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
 class Suggestions extends  Functions{
 
-    private $query , $data ,$success = "success" , $suggestions , $error_occured = "error occured" , $error = "error" , $website_details;
+    private $query , $data ,$success = "success" , $suggestions , $error_occured = "error occured" , $error = "error";
 
 
     public function __construct()
     {
+        global $website_details;
         parent:: __construct();
-        $this->website_details = new WebsiteDetails();
+        $this->website_details = $website_details;
     }
 
     function __destruct()
@@ -48,12 +49,8 @@ class Suggestions extends  Functions{
 
         if(!$this->process()) return $default_error;
 
-
         return json_encode([$this->error => "success" , $this->success => 1 , "suggestions" => $this->suggestions]);
-
     }
-
-
 
 
 }

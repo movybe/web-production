@@ -10,7 +10,11 @@ class Actions extends  Functions
     private $data , $error , $success , $action , $email , $username , $user_details , $reference , $ad_id , $sponsored_ad;
     private $errorText = "error" , $successText = "success";
     private $networkErrorOccured = "unknown network error";
-
+    private $emailAddressAlreadyExistsErrorMessage = "Sorry, email already exists";
+    private $usernameAlreadyExistsErrorMessage = "Sorry, username already taken";
+    private $refererUsernameNotFoundMessage = "Sorry, referer username not found";
+    private $refererAccountExpiredMessage = "Your referer is no longer active";
+    private $userIsNotAnAffiliateMemberMessage = "the referer is not an affiliate member";
     private final  function  isReady () : bool
     {
         return isset($_POST['data']) && !empty($this->data = json_decode($_POST['data'] , true));
@@ -73,7 +77,7 @@ class Actions extends  Functions
 
     }
 
-    private  function perform_ad_actions ($sponsored_ad , bool $increment_views = true) : bool
+    private  function perform_ad_actions ($sponsored_ad , bool $increment_views = true , $increment_clicks = false) : bool
     {
 
         
@@ -94,6 +98,10 @@ class Actions extends  Functions
         //Increment the number of views the ad has
         if($increment_views){
             $this->increment_value($this->ads_table_name , 'number_of_views' , 1 , " ad_id = '{$ad_id}'");
+
+        }
+        else if($increment_clicks){
+            $this->increment_value($this->ads_table_name , 'number_of_clicks' , 1 , " ad_id = '{$ad_id}'");
         }
 
         //Decrement the account balance of the user
@@ -129,11 +137,88 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                 $this->perform_ad_actions($sponsored_ad);
 
             }
+
+
         }
+
+
         return $sponsored_ads;
+
     }
 
 
+
+
+    private function validate_affiliate() : string{
+
+        $email = $this->escape_string($this->data['email']);
+        //Check if email address exists
+        if($this->record_exists_in_table($this->users_table_name , 'email' , $email)){
+            return json_encode([$this->errorText => $this->emailAddressAlreadyExistsErrorMessage , $this->successText => 0]);
+        }
+        $username = $this->escape_string($this->data['username']);
+
+        //Check if username has already been taken
+        if($this->record_exists_in_table($this->users_table_name , "username" , $username))
+        {
+            return json_encode([$this->errorText => $this->usernameAlreadyExistsErrorMessage , $this->successText => 0]);
+        }
+
+        $referer_username = $this->escape_string($this->data['referer_username']);
+
+        //Check if the referer username exists
+        if(!$this->record_exists_in_table($this->users_table_name , "username" , $referer_username))
+        {
+            return json_encode([$this->errorText => $this->refererUsernameNotFoundMessage , $this->successText => 0]);
+        }
+
+
+
+        $referer_details = $this->fetch_data_from_table($this->users_table_name , 'username' , $referer_username)[0];
+
+        //Check if the account type of the user is affiliate;
+        if($referer_details['account_type'] != 'affiliate') {
+            return json_encode([$this->errorText => $this->userIsNotAnAffiliateMemberMessage , $this->successText => 0]);
+        }
+
+
+        //Check if the user referer account has expired
+        if($referer_details['subscribed'] != '1')
+        {
+            return json_encode([$this->errorText => $this->refererAccountExpiredMessage , $this->successText => 0]);
+        }
+
+        //Now check if the user account has exceeded a month
+
+        $now = date('Y-m-d H:i:s');
+        $last_subscription_date = $referer_details['last_subscription_date'] ;
+        $amount_earned_for_the_month = (double)$referer_details['amount_earned_for_the_month'];
+        $login_date = strtotime($last_subscription_date); // change x with your login date var
+        $current_date = strtotime($now); // change y with your current date var
+        $datediff = $current_date - $login_date;
+        $days = floor($datediff/(60*60*24));
+
+        //Check if the referer has made more than N5000 in the last month
+        if($days > $this->website_details->subscriptionDurationInDays && $amount_earned_for_the_month >= $amount_earned_for_the_month)
+        {
+
+            //Unsubscribe the user
+            $this->update_record($this->users_table_name , 'subscribed' , 0 , 'username' , $referer_username);
+            return json_encode([$this->errorText => $this->refererAccountExpiredMessage , $this->successText => 0]);
+        }
+
+
+        return json_encode([$this->errorText => $this->successText , $this->successText => 1]);
+
+
+
+
+
+
+        //Check if referer username
+
+
+    }
 
     public function actionProcessor () : string
     {
@@ -176,7 +261,9 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
             case 'SPONSORED_AD_CLICKED' :
                 $this->ad_id = $this->data['ad_id'];
                 $this->sponsored_ad = $this->fetch_data_from_table($this->ads_table_name , 'ad_id' , $this->ad_id)[0];
-                return json_encode([$this->successText => $this->perform_ad_actions($this->sponsored_ad , false) , $this->errorText => $this->successText]);
+                return json_encode([$this->successText => $this->perform_ad_actions($this->sponsored_ad , false, true) , $this->errorText => $this->successText]);
+            case 'VALIDATE_AFFILIATE':
+                return $this->validate_affiliate();
         }
     }
 
