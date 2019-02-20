@@ -49,6 +49,9 @@ abstract class WebsiteConfigurationSettings {
     public $UserIdLength = 6;
     public $subscriptionDurationInDays = 30;
     public $minimumEarningExpected = 5000;
+    public $affiliateSignupFee = 2100;
+    public $siteAffiliateSignupFee = 700;
+    public $amountPaidToAffiliateForReferer = 1400;
     abstract function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords);
 
     public function __construct() {
@@ -72,6 +75,8 @@ abstract class WebsiteConfigurationSettings {
         $this->COMPONENTS_FOLDER = $this->JS_FOLDER."components/";
         $this->AD_ID_LENGTH = 7;
 
+        $this->amountPaidToAffiliateForReferer = (2 / 3) * $this->affiliateSignupFee;
+        $siteAffiliateSignupFee = $this->affiliateSignupFee -$this->amountPaidToAffiliateForReferer;
         $this->AboutUs = <<<AboutUs
 <p>
                                        Search the price of anything.  

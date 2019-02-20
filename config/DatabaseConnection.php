@@ -132,24 +132,24 @@ class DatabaseConnection {
         account_balance DOUBLE(16,2) NOT NULL DEFAULT 0, 
         account_type VARCHAR (100) NOT NULL , 
         username VARCHAR (100) NOT NULL DEFAULT 'username', 
-        number_of_users_refered BIGINT NOT NULL DEFAULT 0,
+        number_of_users_referred BIGINT NOT NULL DEFAULT 0,
         registered_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
         subscribed INT  NOT NULL  DEFAULT 0 COMMENT 'true 1 false 0' , 
         approved INT NOT NULL DEFAULT 0 COMMENT 'true 1 false 0',
         total_income_earned DOUBLE(16,2) NOT NULL DEFAULT 0,
-        total_referrer_amount_earned DOUBLE(16,2) NOT NULL DEFAULT 0,
+        total_referer_amount_earned DOUBLE(16,2) NOT NULL DEFAULT 0,
         total_amount_funded DOUBLE(16,2) NOT NULL DEFAULT 0,
         user_id VARCHAR (1000) NOT NULL DEFAULT 'abcdefgh',
         ip_address VARCHAR(100) NOT NULL DEFAULT '010.199.212.002',
         last_paid VARCHAR (100) NOT NULL  DEFAULT 'today',
         reference_code VARCHAR (400) NOT NULL  DEFAULT  'aghdjjshuueosmjs',
-        last_subscription_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        referer_username VARCHAR(100) NOT NULL DEFAULT 'omoba',
+        amount_earned_for_the_month DOUBLE(16,2) NOT NULL DEFAULT 0,
         bank_name varchar (1000) NOT NULL DEFAULT  'Wema Bank',
         account_name VARCHAR (1000) NOT NULL DEFAULT  'Omoba NG',
         account_number VARCHAR (30) NOT NULL DEFAULT  '2093954338',
-        amount_earned_for_the_month DOUBLE(16,2) NOT NULL DEFAULT 0
-        )";
+        last_subscription_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        referer_username VARCHAR(100) NOT NULL DEFAULT 'omoba',
+         )";
 
 
 
@@ -231,7 +231,7 @@ class DatabaseConnection {
                total_number_of_active_ads BIGINT NOT NULL DEFAULT  0,
                total_amount_paid_out DOUBLE(16 , 3) NOT NULL DEFAULT 0.0,
                total_number_of_merchants BIGINT  NOT NULL  DEFAULT  0,
-               total_number_of_publishers BIGINT NOT NULL  DEFAULT  0
+               total_number_of_affiliates BIGINT NOT NULL  DEFAULT  0
                 )";
 
         try {
@@ -446,44 +446,38 @@ ALTER TABLE users ADD last_free_mode_time VARCHAR( 255 ) NOT NULL DEFAULT '0';
 
     }
 
-
-    public final function  decrement_values (string $table_name , array  $field_names, array  $decrement_values , $where_clause) : bool {
-
-
-        $sql = "UPDATE {$table_name} SET ";
-
-        $fields_and_values_length = count($field_names);
-        for($i = 0; $i < $fields_and_values_length ; ++$i)
-        {
-            $show_or_hide_comma = ($i + 1) == $fields_and_values_length ? "" : ",";
-            $current_field = $field_names[$i];
-            $current_decrement_value = $decrement_values[$i];
-            $sql.= "{$current_field} = {$current_field} - {$current_decrement_value}$show_or_hide_comma ";
-        }
-
-        $sql.= "WHERE $where_clause";
-
-        return $this->executeSQL($sql);
-
-    }
-
-    public final function  increment_values (string $table_name , array  $field_names, array  $increment_values , $where_clause) : bool{
+    public final function  decrement_values (string $table_name , array  $field_names_and_decrement_values,   $where_clause) : bool {
 
 
         $sql = "UPDATE {$table_name} SET ";
 
-        $fields_and_values_length = count($field_names);
-        for($i = 0; $i < $fields_and_values_length ; ++$i)
+        $fields_and_values_length = count($field_names_and_decrement_values);
+        $count = 0;
+        foreach($field_names_and_decrement_values as $field_name => $decrement_value)
         {
-            $show_or_hide_comma = ($i + 1) == $fields_and_values_length ? "" : ",";
-            $current_field = $field_names[$i];
-            $current_increment_value = $increment_values[$i];
-            $sql.= "{$current_field} = {$current_field} + {$current_increment_value}$show_or_hide_comma ";
+            $show_or_hide_comma = ($count + 1) == $fields_and_values_length ? "" : ",";
+            $sql.= "{$field_name} = {$field_name} - {$decrement_value}$show_or_hide_comma ";
+            $count ++;
         }
-        $sql.= "WHERE $where_clause";
+        $sql.= "WHERE {$where_clause};";
         return $this->executeSQL($sql);
     }
+    function  increment_values (string $table_name , array  $field_names_and_increment_values,   $where_clause) : bool {
 
+
+        $sql = "UPDATE {$table_name} SET ";
+
+        $fields_and_values_length = count($field_names_and_increment_values);
+        $count = 0;
+        foreach($field_names_and_increment_values as $field_name => $increment_value)
+        {
+            $show_or_hide_comma = ($count + 1) == $fields_and_values_length ? "" : ",";
+            $sql.= "{$field_name} = {$field_name} + {$increment_value}$show_or_hide_comma ";
+            $count ++;
+        }
+        $sql.= "WHERE {$where_clause};";
+        return $this->executeSQL($sql);
+    }
 
 
 

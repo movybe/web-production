@@ -127,6 +127,7 @@ class Defaults {
        this.merchantYoutubeVideo = this.demoVideo2;
        this.sponsoredAdText = "AD";
 
+       this.successText="success";
         this.payWithPaystack = (email , amount , name , call) =>
         {
 

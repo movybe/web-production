@@ -250,7 +250,10 @@ class HandleAdForm extends  Functions
     {
 
         
-        if (!$this->increment_values($this->users_table_name ,['account_balance' , 'total_amount_funded'] , [$this->total_amount , $this->total_amount] ,  "email = '{$this->email}'")) return false;
+        if (!$this->increment_values($this->users_table_name ,
+            ['account_balance' => $this->total_amount ,
+                'total_amount_funded' => $this->total_amount
+            ] ,  "email = '{$this->email}'")) return false;
         return strtolower($this->email) !== strtolower($this->website_details->siteEmail) ? $this->executeSQL("UPDATE {$this->site_statistics_table_name} SET profit = profit + {$this->total_amount} , account_balance = account_balance + {$this->total_amount} , total_number_of_ads = total_number_of_ads + 1, total_number_of_active_ads = total_number_of_active_ads + 1") : true;
     }
 

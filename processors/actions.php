@@ -57,8 +57,8 @@ class Actions extends  Functions
     {
         if(!$this->insert_into_table($this->users_table_name , ["email" => $this->email , "account_type" => $this->data['accountType'] , "user_id" => $this->generateUserId()])) return false;
 
-        return $this->executeSQL("UPDATE {$this->site_statistics_table_name} SET total_number_of_users = total_number_of_users + 1 , total_number_of_merchants = total_number_of_merchants + 1;");
 
+        return $this->increment_values($this->site_statistics_table_name , ['total_number_of_users' => 1 , 'total_number_of_merchants' => 1] , 'id = 1');
     }
     private function emailExistsInTable () : bool
     {
@@ -92,7 +92,10 @@ class Actions extends  Functions
         $is_omoba_ad = strtolower($poster_details['email']) == strtolower($this->website_details->siteEmail);
 
         if ((($sponsored_ad['remaining_units'] - 1) >= 0) &&  !$is_omoba_ad){
-            $this->decrement_values($this->ads_table_name, ['remaining_units', 'balance'], [$ad_rate, 1], "ad_id='{$ad_id}'");
+            $this->decrement_values($this->ads_table_name, [
+                'remaining_units' => $ad_rate ,
+                'balance' => $ad_rate
+            ], "ad_id='{$ad_id}'");
             $this->decrement_value($this->users_table_name, 'account_balance', $ad_rate, " user_id = '{$posted_by}'");
     }
         //Increment the number of views the ad has
@@ -208,7 +211,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         }
 
 
-        return json_encode([$this->errorText => $this->successText , $this->successText => 1]);
+        return json_encode([$this->errorText => $this->successText , $this->successText => 1 , "amount" => $this->website_details->affiliateSignupFee]);
 
 
 
@@ -220,6 +223,64 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
     }
 
+    private function create_new_affiliate_account () : string {
+
+        $username  = $this->data['username'];
+        $account_name = $this->data['account_name'];
+        $account_number = $this->data['account_number'];
+        $bank_name = $this->data['bank_name'];
+        $referer_username = $this->data['referer_username'];
+        $user_id = $this->generateUserId();
+        $reference_code = $this->data['reference_code'];
+        if($this->record_exists_in_table($this->users_table_name , 'user_id' , $user_id))$this->signup_merchant();
+
+        $fields_and_values = [
+            'username' => $username,
+            'account_name' => $account_name,
+            'account_number' => $account_number ,
+            'bank_name' => $bank_name ,
+            'referer_username' => $referer_username ,
+            'email' => $this->email ,
+            'account_type' => 'affiliate',
+            'subscribed' => 1,
+            'approved' => 1,
+            'reference_code' => $reference_code
+
+        ];
+
+        $msg = "hi";
+        //Insert the
+        if($this->insert_into_table($this->users_table_name , $fields_and_values ,$msg))
+        {
+            //Add the amount to profit
+
+            $this->increment_values($this->site_statistics_table_name ,
+                [
+                    'account_balance' => $this->website_details->siteAffiliateSignupFee ,
+                    'total_number_of_users' => 1,
+                    'profit' => $this->website_details->siteAffiliateSignupFee ,
+                    'total_number_of_affiliates' => 1] , "id = 1");
+
+
+            //Increment the account balance of the referer
+
+            $this->increment_values($this->users_table_name ,
+                [
+                    'account_balance' => $this->website_details->amountPaidToAffiliateForReferer,
+                    'number_of_users_referred' => 1
+                    ,'total_income_earned' => $this->website_details->amountPaidToAffiliateForReferer ,
+                    'total_referer_amount_earned' => $this->website_details->amountPaidToAffiliateForReferer,
+                    'amount_earned_for_the_month' => $this->website_details->amountPaidToAffiliateForReferer
+                ]
+           , "username = '{$referer_username}'");
+        }
+
+        $new_user_details = $this->fetch_data_from_table($this->users_table_name , 'username' , $username)[0];
+        return json_encode([$this->errorText => $this->successText , $this->successText => 1 , 'user' => $new_user_details]);
+
+
+
+    }
     public function actionProcessor () : string
     {
         if(!$this->isReady() or !$this->setDetails()) return json_encode([$this->errorText => $this->networkErrorOccured , $this->successText => 0]);
@@ -264,6 +325,8 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                 return json_encode([$this->successText => $this->perform_ad_actions($this->sponsored_ad , false, true) , $this->errorText => $this->successText]);
             case 'VALIDATE_AFFILIATE':
                 return $this->validate_affiliate();
+            case 'SIGNUP_AFFILIATE' :
+                return $this->create_new_affiliate_account();
         }
     }
 

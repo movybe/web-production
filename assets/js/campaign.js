@@ -275,6 +275,13 @@ class Campaign extends  React.Component
 
 };
 
+    enableStuffs = () => {
+        this.emailField.prop(...defaults.disabledFalse);
+        this.emailField.removeClass('disabled');
+        this.loginModalPopup.modal('close');
+
+    };
+
     handleCampaignFormSubmit = e => {
 
 
@@ -296,22 +303,36 @@ class Campaign extends  React.Component
         let data , email = this.emailField.val().toLowerCase();
         if(!this.props.emailVerified) {
 
-            data = {email , action : 'EMAIL_EXISTS'};
+            data = {email, action: 'EMAIL_EXISTS'};
             data = JSON.stringify(data);
 
 
-            $.post(defaults.actions ,  {data}, response => {
+            $.post(defaults.actions, {data}, response => {
 
                 this.emailField.removeClass('invalid');
                 response = JSON.parse(response);
 
+
                 //return;
-                const action = !response.error  ? this.props.resetState({...this.props  ,  emailVerified:  true , stateReset : false}) : this.loginModalPopup.modal('close') && this.props.resetState({...this.props , emailVerified:  true , stateReset : false , email , user : response.user ,  accountType : response.user.account_type , alreadyExistingAccount: true});
+                const action = !response.error ? this.props.resetState({
+                    ...this.props,
+                    emailVerified: true,
+                    stateReset: false
+                }) : this.loginModalPopup.modal('close') && this.props.resetState({
+                    ...this.props,
+                    emailVerified: true,
+                    stateReset: false,
+                    email,
+                    user: response.user,
+                    accountType: response.user.account_type,
+                    alreadyExistingAccount: true
+                });
                 this.campaignFormFieldset.prop(...defaults.disabledFalse);
+
+
             });
 
         }
-
         else if(!this.props.showRefererEmailField)
         {
             //It's a merchant signup
@@ -322,19 +343,51 @@ class Campaign extends  React.Component
             $.post(defaults.actions , {data} , response => {
 
               response = JSON.parse(response);
+              this.enableStuffs();
               const action = response.error ? this.props.resetState({...this.props , email , accountType: defaults.merchantAccountType , alreadyExistingAccount: true}) : defaults.showToast(defaults.checkNetworkConnectionError);
-              //this.campaignFormFieldset.prop(...defaults.disabledFalse);
-
             });
-
         }
         else {
+            //Affiliate signup
+
             const username = $('#username').val().toLowerCase();
             const refererUsername = $('#referer-username').val().toLowerCase();
             data = {email , referer_username : refererUsername , username ,action : 'VALIDATE_AFFILIATE'};
             data = JSON.stringify(data);
             $.post(defaults.actions , {data} , response => {
-                console.log(response);
+               response = JSON.parse(response);
+               if(!response.success) return defaults.showToast(response.error);
+
+
+               //Disable the form field set
+               this.campaignFormFieldset.prop(...defaults.disabledTrue);
+
+               const amount = response.amount;
+               const accountName = $('#account-name').val();
+               const accountNumber = $('#account-number').val();
+               const bankName = $('#select-bank-name').val();
+               defaults.payWithPaystack(email , defaults.convertToPaystack(amount) , accountName , response => {
+
+                   if(response.status !== defaults.successText)return defaults.showToast(defaults.transactionNotSuccessfulMessage);
+
+                   let  data = {email , referer_username : refererUsername , username , action : 'SIGNUP_AFFILIATE' ,
+                       account_name :accountName , account_number : accountNumber , bank_name : bankName , reference_code :
+                       response.reference};
+                   data = JSON.stringify(data);
+                   $.post(defaults.actions , {data} , response =>{
+
+                       console.log(response);
+                       response = JSON.parse(response);
+
+                       this.enableStuffs();
+
+                       const action = !response.success  ? this.props.resetState({...this.props  ,  emailVerified:  true , stateReset : false}) : this.loginModalPopup.modal('close') && this.props.resetState({...this.props , emailVerified:  true , stateReset : false , email , user : response.user ,  accountType : response.user.account_type , alreadyExistingAccount: true});
+
+                   });
+
+
+
+               });
             });
         };
 
@@ -381,7 +434,7 @@ class Campaign extends  React.Component
     </div>
         <div className="row">
               <div className="input-field col s12">
-          <input id="account-name" name = "account-name" type="text" defaultValue="Kosi Eric" required="required" pattern="[a-zA-Z ]{2,60}" className="validate"/>
+          <input id="account-name" name = "account-name" type="text"  required="required" pattern="[a-zA-Z ]{2,60}" className="validate"/>
           <label htmlFor="account-name" className="active">Your account name</label>
       <span className="helper-text account-name strong" data-error="Please enter a valid account name" data-success="">Note: Bank details can't be changed later.</span>
       </div>
@@ -389,7 +442,7 @@ class Campaign extends  React.Component
 
     <div className="row">
         <div className="input-field col s12">
-            <input id="account-number" data-length = "10" defaultValue="2093954338" size = "10" maxLength="10" minLength="10" pattern="(\d{10})$" required="required" name = "account-number" type="text" className="validate" />
+            <input id="account-number" data-length = "10"  size = "10" maxLength="10" minLength="10" pattern="(\d{10})$" required="required" name = "account-number" type="text" className="validate" />
             <label htmlFor="account-number" className="active">Your account number</label>
             <span className="helper-text account-number" data-length = "10"  data-error="Please enter a valid account number" data-success="">valid account number</span>
         </div>
@@ -414,7 +467,7 @@ class Campaign extends  React.Component
 
     <div className="row">
         <div className="input-field col s12">
-            <input id="username"  name = "username" defaultValue="megakosi" type="text" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} required="required" className="validate" />
+            <input id="username"  name = "username"  type="text" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} required="required" className="validate" />
             <label htmlFor="username" className="active">Your username</label>
             <span className="helper-text username"  data-error="username must be alpha numeric between 5-12 characters long" data-success="">e.g (emax101 , anabel)</span>
         </div>
@@ -449,7 +502,7 @@ class Campaign extends  React.Component
                         <form  validate= "validate" className="col s12" autoComplete="on"  name="campaign-form" id="campaign-form" action="#" onSubmit={this.handleCampaignFormSubmit} noValidate="noValidate">
                             <div className="row">
                                 <div className="input-field col s12">
-                                    <input id="email" autoComplete="off" defaultValue="itskosieric@gmail.com" name = "email" required="required"  type="text" className="validate"
+                                    <input id="email" autoComplete="off" name = "email" required="required"  type="text" className="validate"
                                             pattern="^([a-zA-Z0-9_\-\._]+)@([a-zA-Z0-9_\-\._]+)\.([a-zA-Z0-9_\-\.]{2,5})$" />
                                         <label htmlFor="email" className="active">Your Email</label>
                                         <span className="helper-text email"  data-error="please enter a valid email" data-success="">Please enter a valid email address</span>
@@ -483,7 +536,7 @@ class Campaign extends  React.Component
 
         const templateToShow = !this.props.alreadyExistingAccount ? this.loginModal() : <Merchant />;
         const homePageToShow = this.props.user.account_balance ? null : this.defaultPage();
-         return (
+        return (
 
             <div id="campaign">
 
