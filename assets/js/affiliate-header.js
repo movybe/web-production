@@ -148,12 +148,14 @@ class  AffiliateHeader extends React.Component {
 
                 response = JSON.parse(response);
                 this.withdrawalResponseMessage.text(response.error);
+                this.withdrawalResponseMessage.show();
                 defaults.showToast(response.error);
                 this.withdrawalFieldSet.prop(...defaults.disabledFalse);
 
                 if(response.success){
                     this.withdrawalResponseMessage.removeClass('red-text');
                     this.withdrawalResponseMessage.addClass('green-text');
+                    this.withdrawalAmount.val(null);
                     this.refreshProfile();
                 }
                 else {
@@ -165,6 +167,7 @@ class  AffiliateHeader extends React.Component {
                 setTimeout(() => {
 
                     this.withdrawalResponseMessage.text(null);
+                    this.withdrawalResponseMessage.hide();
                 } , 5000);
 
 
@@ -209,24 +212,23 @@ class  AffiliateHeader extends React.Component {
                            <div className="row">
                                <div className="input-field col s12">
                                    <h5>Your bank details</h5>
-                               <span id="account-name" className="bank-account-details">{this.props.user.account_name}</span>
-                               <span id="account-number" className="bank-account-details">{this.props.user.account_number}</span>
+                               <span id="account-name" className="bank-account-details">{this.props.user.account_name.truncate(defaults.accountNameLengthToShow)}</span>
+                               <span id="account-number" className="bank-account-details">{this.props.user.account_number.toString().truncate(defaults.accountNumberDigitLengthToShow)}</span>
                                <span id="bank-name" className="bank-account-details">{this.props.user.bank_name}</span>
-                           </div>
+                                   <span className="right">Account Bal: <span className="strong">&#8358; {this.props.user.account_balance.toLocaleString()}</span> </span>
+                               </div>
                            </div>
                            <div className="row">
                                <div className="input-field col s12">
                                    <input id="withdrawal-amount"  pattern="(\d)$" required="required" name = "withdrawal-amount" type="number" min = {defaults.minimumWithdrawalAmount} className="validate" />
                                    <label htmlFor="withdrawal-amount" className="active">Amount</label>
-                                   <span className="helper-text" id = "withdrawal-response-message"></span><br />
+                                   <span className="helper-text" id = "withdrawal-response-message"></span>
 
-                                   <span className="helper-text" id = "withdrawal-error-message" data-error="Please enter a valid amount" data-success="">Amount you to withdraw</span><br />
-                                   <span className="helper-text"><span className="strong">&#8358;{defaults.withdrawalCharge}</span> will be charged for transaction.</span>
-                                </div>
+                                   <button type="submit" id="withdrawal-submit-button" className="waves-effect waves-light btn-small">Proceed</button>
+                                   <span className="helper-text right" id ="withdrawal-charge-message">QuickTeller will charge <span className="strong">&#8358;{defaults.withdrawalCharge}</span> for this transfer.</span>
+                               </div>
                            </div>
-                           <span className="right">Account Bal: <span className="strong">&#8358; {this.props.user.account_balance.toLocaleString()}</span> </span>
-                           <button type="submit" className="waves-effect waves-light btn-small">Proceed</button>
-                       </form>
+                          </form>
                    </fieldset>
                 </div>
                 <div className="modal-footer">
@@ -259,7 +261,6 @@ class  AffiliateHeader extends React.Component {
             </div>
         );
     };
-
     faqModal = () => {
 
         let faqsQuestionsAndAnswers = this.faqs.map(faq => {

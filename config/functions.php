@@ -25,7 +25,7 @@ class Functions extends  DatabaseConnection {
 
     }
 
-    public final function generateID (int  $length) : string {
+    public final function generateID (int  $length , string $table_name = null , string $field_name = null) : string {
 
         $letters = Array("A" , "B" , "C" , "D" , "E" , "F" , "G" , "H" ,  "I" , "J" , "K" ,"L" ,"M" ,"N" ,"O" ,"P" ,"Q" ,"R" ,"S" , "T" ,
             "U" ,"V" ,"W" ,"X" ,"Y" ,"Z" ,"a" ,"b" ,"c" ,"d" ,"e" ,"f" ,"g" ,"h" ,"i" ,"j" ,"k" ,"l" ,"m" ,"n" ,"o" ,
@@ -37,6 +37,11 @@ class Functions extends  DatabaseConnection {
         for($i = 0; $i < $length; $i++) {
             $random_string.= $letters[rand(0 , $string_length-1)];
 
+        }
+
+        if($table_name && $field_name && $this->record_exists_in_table($table_name , $field_name , $random_string))
+        {
+            $this->generateID($length , $table_name , $field_name);
         }
 
         return $random_string;

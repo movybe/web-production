@@ -72,3 +72,8 @@ li a {
     display: block;
     margin-bottom: 2px;
 }
+
+#withdrawal-charge-message{
+    display: block;
+    margin-top: 10px;
+}

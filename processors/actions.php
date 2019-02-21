@@ -58,11 +58,13 @@ class Actions extends  Functions
         foreach ($withdrawal_requests_by_affiliate as $withdrawal) {
             $total_withdrawal_amount += (double)$withdrawal['amount'];
         }
+        $username = $user_details['username'];
+        $payments_made = $this->fetch_data_from_table_with_conditions($this->withdrawals_table_name , " username = '{$username}' AND paid = 1 AND seen = 0");
 
         $number_of_withdrawal_requests = count($withdrawal_requests_by_affiliate);
-        $user_details_2 = ['withdrawal_requests' => $number_of_withdrawal_requests , 'total_withdrawal_amount' => $total_withdrawal_amount];
+        $user_details_2 = ['withdrawal_requests' => $number_of_withdrawal_requests , 'payments' => $payments_made , 'total_withdrawal_amount' => $total_withdrawal_amount];
         $user_details = array_merge($user_details , $user_details_2);
-        return ["user" => $user_details ,"ads" => $ad_details];
+        return ["user" => $user_details ,"ads" => $ad_details , ];
     }
 
 
@@ -84,7 +86,8 @@ class Actions extends  Functions
         {
             $this->insert_into_table($this->withdrawals_table_name , [
                 'amount' => $amount ,
-                'username' => $user_details['username']
+                'username' => $user_details['username'] ,
+                'reference_code' => $this->generateID($this->website_details->withdrawalReferenceCodeLength , $this->withdrawals_table_name , 'reference_code')
                 ]);
 
             //Decrement the payment charge from website account balance
@@ -92,7 +95,9 @@ class Actions extends  Functions
             return json_encode([$this->errorText => "Withdrawal Successful, your account will be credited within the next 15min" , $this->successText => 1]);
         }
 
+        return "a";
     }
+
     private function generateUserId () : string {
         
         $user_id = $this->generateID($this->website_details->UserIdLength);
@@ -147,7 +152,6 @@ class Actions extends  Functions
         //Increment the number of views the ad has
         if($increment_views){
             $this->increment_value($this->ads_table_name , 'number_of_views' , 1 , " ad_id = '{$ad_id}'");
-
         }
         else if($increment_clicks){
             $this->increment_value($this->ads_table_name , 'number_of_clicks' , 1 , " ad_id = '{$ad_id}'");
@@ -330,6 +334,14 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
 
     }
+
+    private function deletePaymentHistory () : string  {
+
+        $this->update_record($this->withdrawals_table_name , 'seen' , 1 , 'reference_code' , $this->data['reference_code']);
+
+        return json_encode([$this->successText => 1 , $this->errorText => $this->successText]);
+
+    }
     public function actionProcessor () : string
     {
         if(!$this->isReady() or !$this->setDetails()) return json_encode([$this->errorText => $this->networkErrorOccured , $this->successText => 0]);
@@ -380,6 +392,8 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                 return json_encode(array_merge($this->fetchAffiliateDetails() , [$this->errorText => 1 ,$this->successText => 1]));
             case 'AFFILIATE_WITHDRAWAL':
                 return $this->affiliateWithdrawal();
+            case 'DELETE_PAYMENT_HISTORY' :
+                return $this->deletePaymentHistory();
         }
     }
 

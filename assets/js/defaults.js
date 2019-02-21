@@ -70,6 +70,8 @@ class Defaults {
         this.maxLinkLength = 45;
         this.merchantActivationFee = 700;
         this.adListTitleLength = 20;
+        this.accountNumberDigitLengthToShow = 6;
+        this.accountNameLengthToShow = 10;
         this.searchResultPreloaders = "search-result-preloaders";
         this.searchResultPreloader = "search-result-preloader";
         this.websiteLiLinks = "website-li-links";
@@ -100,12 +102,12 @@ class Defaults {
         this.actions = this.processorsFolder + "actions.php";
         this.numberOfAdSpaceForMerchant = [0 , 1];
         this.numberOfAdSpaceForOmoba = [0 , 1 , 2 , 3 , 5];
-        this.minimumAffliateProfit = 3500;
+        this.minimumAffliateProfit = 5000;
         this.minimumAccountUsernameLength = 5;
         this.maximumAccountUsernameLength = 12;
         this.amountPaidForReferer = 1400;
         this.amountPaidForUserInteraction = 20;
-        this.minimumWithdrawalAmount = 1000;
+        this.minimumWithdrawalAmount = 2500;
         this.demoVideo1 = "/assets/videos/git.mp4";
         this.demoVideo2 = this.demoVideo1;
         this.amountPaidForUniqueVisitor = 30;

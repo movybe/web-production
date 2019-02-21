@@ -84,8 +84,10 @@ class DatabaseConnection {
     amount DOUBLE(16,2) NOT NULL DEFAULT 0,
     withdrawal_date TIMESTAMP NOT NULL  DEFAULT  CURRENT_TIMESTAMP ,
     payment_date TIMESTAMP NOT NULL  DEFAULT  CURRENT_TIMESTAMP,
-    paid INT NOT NULL  DEFAULT  0 COMMENT 'true 1 false 0'
-)";
+    paid INT NOT NULL  DEFAULT  0 COMMENT 'true 1 false 0',
+    reference_code VARCHAR(100) NOT NULL UNIQUE,
+    seen int not null DEFAULT 0 comment '0 false, 1 true'
+    )";
         try {
 
             $this->conn->exec($sql);

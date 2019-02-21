@@ -52,6 +52,7 @@ abstract class WebsiteConfigurationSettings {
     public $affiliateSignupFee = 2100;
     public $siteAffiliateSignupFee = 700;
     public $amountPaidToAffiliateForReferer = 1400;
+    public $withdrawalReferenceCodeLength = 8;
     abstract function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords);
 
     public function __construct() {

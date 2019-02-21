@@ -67,19 +67,62 @@ class Affiliate extends React.Component
     };
 
 
+    deletePaymentHistory = (reference_code) => {
+
+
+        let data = {action : 'DELETE_PAYMENT_HISTORY' , reference_code , email : this.props.email};
+        data = JSON.stringify(data);
+
+        $.post(defaults.actions , {data} , response => {
+            response = JSON.parse(response);
+            if(response.success)this.refreshProfile();
+
+        });
+    };
 
     render() {
 
 
 
         let userSubscriptionStatus = Number(this.props.user.subscribed);
+        let withdrawalPaymentsSingularOrPlural = this.props.user.withdrawal_requests != 1 ? "payments" : "payment";
+        let paymentsHistory = this.props.user.payments.length ? <h5>Payments History({this.props.user.payments.length})</h5> : null;
+        let withdrawalRequests = this.props.user.withdrawal_requests ? <h5>Withdrawal Requests({this.props.user.withdrawal_requests})</h5> : null;
+
+        let paymentsMade = this.props.user.payments.map(payment => {
+            return (
+
+                <div className="row notice-board z-depth-3 payments-notice-board card-panel" key = {payment.reference_code}>
+                    <i className="material-icons hide-payment-history-icon" onClick={() => this.deletePaymentHistory(payment.reference_code)}>cancel</i>
+                    <div className="col s12 valign-wrapper">
+                        <span className="affiliate-withdrawal-requests-message"><strong className="strong">&#8358;{payment.amount.toLocaleString()}</strong> was paid to your account {timeago.format(payment.payment_date)}
+                        </span>
+                    </div>
+                    <span className="affiliate-payment-reference-code">ID : <strong className="strong">{payment.reference_code}</strong></span>
+
+                </div>
+
+            )
+        });
+        let withdrawalRequestsMessage =this.props.user.withdrawal_requests ?
+                <span className="affiliate-withdrawal-requests-message">You have <strong className="strong">{this.props.user.withdrawal_requests}</strong> pending {withdrawalPaymentsSingularOrPlural} of  <strong className="strong">&#8358;{this.props.user.total_withdrawal_amount.toLocaleString()}</strong> </span>: null;
         let defaultEmailToShow = (this.props.user.email || "user@domain.com").truncate(defaults.emailTruncateSize);
         const subscriptionButtonType =  userSubscriptionStatus ?
-            <div className="green-text"><span className="subscription-active-text">active</span><a className="waves-effect waves-light disabled btn-small right">Paid  &#8358; 700</a></div>     : <div><span className="materialize-red-text activate-account-text">NOT ACTIVATED</span> <a className="waves-effect waves-light btn-small right activate-account-button" onClick={this.activateMerchantAccount}>Activate  &#8358; {defaults.merchantActivationFee}</a></div>;
+            <div className="green-text"><span className="subscription-active-text">active</span><a className="waves-effect waves-light disabled btn-small right">Paid </a></div>     : <div><span className="materialize-red-text activate-account-text">NOT ACTIVATED</span> <a className="waves-effect waves-light btn-small right activate-account-button" onClick={this.activateMerchantAccount}>Activate  &#8358; {defaults.merchantActivationFee}</a></div>;
         return (
             <div>
                 <AffiliateHeader refreshProfile = {this.refreshProfile} />
                 <div className="container">
+                    {withdrawalRequests}
+                    <div className="row notice-board z-depth-3 withdrawal-notice-board card-panel">
+                        <div className="col s12 valign-wrapper">
+
+                        {withdrawalRequestsMessage}
+
+                        </div>
+                    </div>
+                    {paymentsHistory}
+                    {paymentsMade}
                     <div className="row notice-board z-depth-3">
                         <div className="col s12 valign-wrapper">
                             <p className="notice-header flow-text">Public message to Affiliates</p>
