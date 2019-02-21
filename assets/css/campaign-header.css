@@ -59,3 +59,16 @@ li a {
     top : 6px;
     margin-left: 2px;
 }
+.back-arrow-icon{
+    display: none !important;;
+    margin-right: -90px !important;
+    position: relative;
+    top : 5px;
+    
+}
+
+.bank-account-details
+{
+    display: block;
+    margin-bottom: 2px;
+}

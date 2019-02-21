@@ -118,6 +118,7 @@ class Campaign extends  React.Component
         return (
 
 
+
             <div className="site-header">
 
                 <nav>
@@ -128,6 +129,7 @@ class Campaign extends  React.Component
                                       </div>
                 </nav>
 
+                {this.loginModal()}
                 <div className = "container">
                 <div className="row notice-board z-depth-3">
                     <div className="col s12 valign-wrapper">
@@ -196,8 +198,12 @@ class Campaign extends  React.Component
 
                             <div className="col s12 valign-wrapper">
                                 <p className="notice-header flow-text number-of-merchant-ads">
+                                    <a title="Home page" href="/"
+                                       className="no-underline back-url"><i className="material-icons back-arrow-icon">arrow_backward</i><span className="back-text">Back</span></a>
+
                                     <a title="Login or Signup" href="#login-modal"
                                        className="modal-trigger text-right continue-modal-trigger no-underline">Continue<i className="material-icons continue-arrow-icon">arrow_forward</i> </a>
+
                                                                   </p>
                             </div>
                         </div>
@@ -524,7 +530,7 @@ class Campaign extends  React.Component
                    className='no-underline grey-text' id="close-login-modal">CLOSE</a>
 <button type="submit" form="campaign-form" className="waves-effect waves-light btn" id="login-proceed" value="Proceed">Proceed</button>
             </div>
-             </div>;
+             </div>
 
 
 };
@@ -534,15 +540,23 @@ class Campaign extends  React.Component
     render ()
     {
 
-        const templateToShow = !this.props.alreadyExistingAccount ? this.loginModal() : <Merchant />;
-        const homePageToShow = this.props.user.account_balance ? null : this.defaultPage();
+        let template = null;
+        if(this.props.user.account_type !== undefined)
+        {
+
+            template  = this.props.user.account_type === "merchant" ? <Merchant /> : <Affiliate />;
+
+        }
+        else {
+            template = this.defaultPage();
+        }
         return (
 
             <div id="campaign">
 
+                {template}
                     <div id="paystackEmbedContainer"></div>
-                {templateToShow}
-                {homePageToShow}
+
             </div>
         )
     }

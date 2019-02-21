@@ -47,6 +47,52 @@ class Actions extends  Functions
 
     }
 
+    private function fetchAffiliateDetails () : array {
+        $user_details = $this->fetch_data_from_table($this->users_table_name , "email" , $this->email)[0];
+        $ad_details = $this->fetch_data_from_table($this->ads_table_name , "posted_by" , $user_details['user_id']);
+
+        $withdrawal_requests_by_affiliate = $this->fetch_data_from_sql("SELECT * FROM {$this->withdrawals_table_name} WHERE paid = 0");
+
+        $total_withdrawal_amount = 0;
+
+        foreach ($withdrawal_requests_by_affiliate as $withdrawal) {
+            $total_withdrawal_amount += (double)$withdrawal['amount'];
+        }
+
+        $number_of_withdrawal_requests = count($withdrawal_requests_by_affiliate);
+        $user_details_2 = ['withdrawal_requests' => $number_of_withdrawal_requests , 'total_withdrawal_amount' => $total_withdrawal_amount];
+        $user_details = array_merge($user_details , $user_details_2);
+        return ["user" => $user_details ,"ads" => $ad_details];
+    }
+
+
+    private function affiliateWithdrawal () : string  {
+
+        $amount =(double)$this->data['amount'];
+
+        $withdrawal_charge = (double)$this->data['withdrawal_charge'];
+        $user_details = $this->fetch_data_from_table($this->users_table_name , 'email'  , $this->email)[0];
+
+        $user_account_balance = (double)$user_details['account_balance'];
+
+        if($user_account_balance < $amount)
+        {
+            return json_encode([$this->errorText => "Withdrawal failed due to insufficient funds" , $this->successText => 0]);
+        }
+
+        else if($this->decrement_value($this->users_table_name , 'account_balance' , $amount + $withdrawal_charge, "email = '{$this->email}'"))
+        {
+            $this->insert_into_table($this->withdrawals_table_name , [
+                'amount' => $amount ,
+                'username' => $user_details['username']
+                ]);
+
+            //Decrement the payment charge from website account balance
+            $this->decrement_value($this->site_statistics_table_name , 'account_balance' , $withdrawal_charge , 'id = 1');
+            return json_encode([$this->errorText => "Withdrawal Successful, your account will be credited within the next 15min" , $this->successText => 1]);
+        }
+
+    }
     private function generateUserId () : string {
         
         $user_id = $this->generateID($this->website_details->UserIdLength);
@@ -114,6 +160,9 @@ class Actions extends  Functions
         {
             //Deactivate the ad
             $this->update_record($this->ads_table_name , 'active' , 0 , 'ad_id' , $ad_id);
+
+            //Decrement the number of active ads from the site statistics table
+            $this->decrement_value($this->site_statistics_table_name , 'total_number_of_active_ads' , 1 , ' id = 1');
         }
         return true;
 
@@ -256,7 +305,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
             $this->increment_values($this->site_statistics_table_name ,
                 [
-                    'account_balance' => $this->website_details->siteAffiliateSignupFee ,
+                    'account_balance' => $this->website_details->amountPaidToAffiliateForReferer ,
                     'total_number_of_users' => 1,
                     'profit' => $this->website_details->siteAffiliateSignupFee ,
                     'total_number_of_affiliates' => 1] , "id = 1");
@@ -327,6 +376,10 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                 return $this->validate_affiliate();
             case 'SIGNUP_AFFILIATE' :
                 return $this->create_new_affiliate_account();
+            case 'FETCH_AFFILIATE_DETAILS':
+                return json_encode(array_merge($this->fetchAffiliateDetails() , [$this->errorText => 1 ,$this->successText => 1]));
+            case 'AFFILIATE_WITHDRAWAL':
+                return $this->affiliateWithdrawal();
         }
     }
 

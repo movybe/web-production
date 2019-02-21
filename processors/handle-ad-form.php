@@ -18,7 +18,7 @@ class HandleAdForm extends  Functions
     private $success_text = "success";
     private $success_value = true;
     private $failure_value = false;
-
+    private $not_advert_by_omoba;
     public function __construct()
     {
         global  $file_handler;
@@ -71,6 +71,7 @@ class HandleAdForm extends  Functions
         $this->link_short_url = $this->generateLinkShortUrl();
         $this->ad_location = $this->escape_string($_POST['ad_location']);
 
+        $this->not_advert_by_omoba = strtolower($this->email) !== strtolower($this->website_details->siteEmail);
 
         if($this->action === 'UPDATE_AD') return true;
         $this->ad_type = $_POST['ad_type'];
@@ -159,7 +160,6 @@ class HandleAdForm extends  Functions
             'remaining_units' => $this->units
         );
 
-
         if($this->upload_image)
         {
 
@@ -170,11 +170,17 @@ class HandleAdForm extends  Functions
             $fields_and_values = array_merge($fields_and_values , $fields_and_values2);
         }
 
+         if($this->update_multiple_fields($this->ads_table_name , $fields_and_values , "ad_id = '{$this->ad_id}'") && !$this->not_advert_by_omoba){
 
+             return $this->increment_values($this->site_statistics_table_name , [
 
-        return $this->update_multiple_fields($this->ads_table_name , $fields_and_values , "ad_id = '{$this->ad_id}'");
+                 'profit' => $this->total_amount ,
+                 'total_number_of_active_ads' => 1
+             ] , 'id = 1');
 
+         }
 
+         return true;
     }
 
 
@@ -223,7 +229,17 @@ class HandleAdForm extends  Functions
 
         ];
 
-        return $this->insert_into_table($this->ads_table_name ,$data_fields_and_values);
+        if($this->insert_into_table($this->ads_table_name ,$data_fields_and_values) && !$this->not_advert_by_omoba){
+
+            return $this->increment_values($this->site_statistics_table_name , [
+
+                'profit' => $this->total_amount ,
+                'total_number_of_ads' => 1 ,
+                'total_number_of_active_ads' => 1
+            ] , 'id = 1');
+        }
+
+        return true;
 
 
     }
@@ -254,7 +270,6 @@ class HandleAdForm extends  Functions
             ['account_balance' => $this->total_amount ,
                 'total_amount_funded' => $this->total_amount
             ] ,  "email = '{$this->email}'")) return false;
-        return strtolower($this->email) !== strtolower($this->website_details->siteEmail) ? $this->executeSQL("UPDATE {$this->site_statistics_table_name} SET profit = profit + {$this->total_amount} , account_balance = account_balance + {$this->total_amount} , total_number_of_ads = total_number_of_ads + 1, total_number_of_active_ads = total_number_of_active_ads + 1") : true;
     }
 
 

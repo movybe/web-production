@@ -29,6 +29,7 @@ class DatabaseConnection {
     public $ads_table_name = "ads";
     public $visitors_table_name = "visitors";
     public $site_statistics_table_name = "site_statistics";
+    public $withdrawals_table_name = "withdrawals";
     public $website_details;
     final protected  function  establish_database_connection () : bool
 
@@ -75,6 +76,31 @@ class DatabaseConnection {
 
     }
 
+    public final function create_withdrawals_table () : bool
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS {$this->withdrawals_table_name}(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT  NULL  ,
+    username VARCHAR (100) NOT NULL DEFAULT  'omoba',
+    amount DOUBLE(16,2) NOT NULL DEFAULT 0,
+    withdrawal_date TIMESTAMP NOT NULL  DEFAULT  CURRENT_TIMESTAMP ,
+    payment_date TIMESTAMP NOT NULL  DEFAULT  CURRENT_TIMESTAMP,
+    paid INT NOT NULL  DEFAULT  0 COMMENT 'true 1 false 0'
+)";
+        try {
+
+            $this->conn->exec($sql);
+            echo "Table Created successfully";
+            return true;
+        }
+
+        catch (PDOException $exception) {
+            echo "Error occured {$exception->getMessage()}";
+            return false;
+        }
+
+
+
+    }
 
     public final  function  create_words_table() : bool  {
 
@@ -149,7 +175,8 @@ class DatabaseConnection {
         account_number VARCHAR (30) NOT NULL DEFAULT  '2093954338',
         last_subscription_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         referer_username VARCHAR(100) NOT NULL DEFAULT 'omoba',
-         )";
+        number_of_account_renewals bigint NOT NULL DEFAULT 1
+        )";
 
 
 
@@ -499,4 +526,5 @@ $DatabaseConnection = new DatabaseConnection();
 //$DatabaseConnection->create_ads_table();
 //$DatabaseConnection->create_visitors_table();
 //$DatabaseConnection->create_site_statistics_table();
+//$DatabaseConnection->create_withdrawals_table();
 ?>

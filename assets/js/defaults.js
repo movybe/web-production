@@ -91,7 +91,9 @@ class Defaults {
         this.bannerImageLocation = "/banners/";
         this.siteAddress = this.siteName.toLowerCase() + ".ng";
         this.siteAddressHttp = "http://" + this.siteAddress;
+        this.siteAddressHttps = "https://" + this.siteAddress;
         this.merchantAccountType = "merchant";
+        this.withdrawalCharge = 100;
         this.memberAccountType = "member";
         this.disabledTrue = ["disabled" , true];
         this.disabledFalse = ["disabled" , false];
@@ -103,11 +105,13 @@ class Defaults {
         this.maximumAccountUsernameLength = 12;
         this.amountPaidForReferer = 1400;
         this.amountPaidForUserInteraction = 20;
+        this.minimumWithdrawalAmount = 1000;
         this.demoVideo1 = "/assets/videos/git.mp4";
         this.demoVideo2 = this.demoVideo1;
         this.amountPaidForUniqueVisitor = 30;
         this.maxSponsoredAdsToShow = 2;
         this.dummyEmail = "omobang@gmail.com";
+        this.thresholdAmount = 5000;
         this.siteEmail = "omobadotng@gmail.com";
         this.priceNotSpecifiedText = "price not specified";
         this.transactionNotSuccessfulMessage = "Transaction not successful";

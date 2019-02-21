@@ -75,7 +75,6 @@ abstract class WebsiteConfigurationSettings {
         $this->COMPONENTS_FOLDER = $this->JS_FOLDER."components/";
         $this->AD_ID_LENGTH = 7;
 
-        $this->amountPaidToAffiliateForReferer = (2 / 3) * $this->affiliateSignupFee;
         $siteAffiliateSignupFee = $this->affiliateSignupFee -$this->amountPaidToAffiliateForReferer;
         $this->AboutUs = <<<AboutUs
 <p>

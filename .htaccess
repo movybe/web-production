@@ -13,7 +13,7 @@ RewriteRule ^([^/.]+)/?$ $1.html
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule .* - [L]
-#RewriteRule (.*)$ profile.php?u=$1 [NC]
+RewriteRule (.*)$ campaign.php?r=$1 [NC]
 Options All -Indexes
 DirectoryIndex index.php
 <IfModule mod_headers.c>

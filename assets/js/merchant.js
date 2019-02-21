@@ -113,7 +113,7 @@ class Merchant extends React.Component
                                      </ul>
                             </div>
                             <div className="card-content grey lighten-4">
-                                <div id="account-balance" style={{display : 'none'}}>Your ad balance :
+                                <div id="account-balance" style={{display : 'none'}}>Ad balance :
                                 <span className="right amount-value">&#8358;{Number(this.props.user.account_balance).toLocaleString()}</span>
                                 </div>
                                 <div id="total-amount-funded">Total transactions :
