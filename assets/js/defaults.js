@@ -96,6 +96,7 @@ class Defaults {
         this.siteAddressHttps = "https://" + this.siteAddress;
         this.merchantAccountType = "merchant";
         this.withdrawalCharge = 100;
+        this.enterNewRefererUsernameMessage = "This user had previously referred you, enter a new username";
         this.memberAccountType = "member";
         this.disabledTrue = ["disabled" , true];
         this.disabledFalse = ["disabled" , false];

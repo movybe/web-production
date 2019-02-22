@@ -58,6 +58,7 @@ class HandleAdForm extends  Functions
         $this->action = $_POST['action'];
         $this->email = $_POST['email'];
         $this->ad_id =  $_POST['ad_id'] !== "" ? $_POST['ad_id'] : $this->generateID($this->website_details->AD_ID_LENGTH , $this->ads_table_name , 'ad_id');
+        $this->ad_id = $this->escape_string($this->ad_id);
         $this->user_id = $this->fetch_data_from_table($this->users_table_name , 'email' , $this->email)[0]['user_id'];
         $this->link_short_url = $this->generateLinkShortUrl();
         $this->ad_location = $this->escape_string($_POST['ad_location']);

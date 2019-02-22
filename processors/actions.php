@@ -48,23 +48,46 @@ class Actions extends  Functions
     }
 
     private function fetchAffiliateDetails () : array {
+
+
         $user_details = $this->fetch_data_from_table($this->users_table_name , "email" , $this->email)[0];
+        $username = $user_details['username'];
+
+        if($user_details['subscribed'] == 1) {
+            $now = date('Y-m-d H:i:s');
+            $last_subscription_date = $user_details['last_subscription_date'];
+            $amount_earned_for_the_month = (double)$user_details['amount_earned_for_the_month'];
+            $login_date = strtotime($last_subscription_date); // change x with your login date var
+            $current_date = strtotime($now); // change y with your current date var
+            $datediff = $current_date - $login_date;
+            $days = floor($datediff / (60 * 60 * 24));
+            if($days > $this->website_details->subscriptionDurationInDays && $amount_earned_for_the_month >= $amount_earned_for_the_month)
+            {
+                //Unsubscribe the user
+                $this->update_record($this->users_table_name , 'subscribed' , 0 , 'username' , $username);
+            }
+
+        }
+        $user_details = $this->fetch_data_from_table($this->users_table_name , "email" , $this->email)[0];
+
+        //Check if the user has made more than N5000 in the last month
+
         $ad_details = $this->fetch_data_from_table($this->ads_table_name , "posted_by" , $user_details['user_id']);
-
-        $withdrawal_requests_by_affiliate = $this->fetch_data_from_sql("SELECT * FROM {$this->withdrawals_table_name} WHERE paid = 0");
-
+        $withdrawal_requests_by_affiliate = $this->fetch_data_from_table_with_conditions($this->withdrawals_table_name , "paid = 0 AND username = '{$username}'");
         $total_withdrawal_amount = 0;
 
         foreach ($withdrawal_requests_by_affiliate as $withdrawal) {
             $total_withdrawal_amount += (double)$withdrawal['amount'];
         }
-        $username = $user_details['username'];
-        $payments_made = $this->fetch_data_from_table_with_conditions($this->withdrawals_table_name , " username = '{$username}' AND paid = 1 AND seen = 0");
+        $payments_made = $this->fetch_data_from_table_with_conditions($this->withdrawals_table_name , "username = '{$username}' AND paid = 1 AND seen = 0");
 
         $number_of_withdrawal_requests = count($withdrawal_requests_by_affiliate);
         $user_details_2 = ['withdrawal_requests' => $number_of_withdrawal_requests , 'payments' => $payments_made , 'total_withdrawal_amount' => $total_withdrawal_amount];
         $user_details = array_merge($user_details , $user_details_2);
-        return ["user" => $user_details ,"ads" => $ad_details , ];
+
+
+
+        return ["user" => $user_details ,"ads" => $ad_details];
     }
 
 
@@ -106,7 +129,12 @@ class Actions extends  Functions
     }
     private function create_new_merchant_account () : bool
     {
-        if(!$this->insert_into_table($this->users_table_name , ["email" => $this->email , "account_type" => $this->data['accountType'] , "user_id" => $this->generateUserId()])) return false;
+        if(!$this->insert_into_table($this->users_table_name , [
+            "email" => $this->email ,
+            "account_type" => $this->data['accountType'] ,
+            "user_id" => $this->generateUserId(),
+            'referer_usernames' => '[]'
+        ])){return false;}
 
 
         return $this->increment_values($this->site_statistics_table_name , ['total_number_of_users' => 1 , 'total_number_of_merchants' => 1] , 'id = 1');
@@ -257,7 +285,6 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         //Check if the referer has made more than N5000 in the last month
         if($days > $this->website_details->subscriptionDurationInDays && $amount_earned_for_the_month >= $amount_earned_for_the_month)
         {
-
             //Unsubscribe the user
             $this->update_record($this->users_table_name , 'subscribed' , 0 , 'username' , $referer_username);
             return json_encode([$this->errorText => $this->refererAccountExpiredMessage , $this->successText => 0]);
@@ -278,15 +305,15 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
     private function create_new_affiliate_account () : string {
 
-        $username  = $this->data['username'];
-        $account_name = $this->data['account_name'];
+        $username  = strtolower($this->escape_string($this->data['username']));
+        $account_name = $this->escape_string($this->data['account_name']);
         $account_number = $this->data['account_number'];
         $bank_name = $this->data['bank_name'];
-        $referer_username = $this->data['referer_username'];
-        $user_id = $this->generateUserId();
+        $referer_username = strtolower($this->escape_string($this->data['referer_username']));
+        $user_id = $this->escape_string($this->generateUserId());
         $reference_code = $this->data['reference_code'];
+        $referer_usernames = json_encode([$referer_username]);
         if($this->record_exists_in_table($this->users_table_name , 'user_id' , $user_id))$this->signup_merchant();
-
         $fields_and_values = [
             'username' => $username,
             'account_name' => $account_name,
@@ -297,8 +324,8 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
             'account_type' => 'affiliate',
             'subscribed' => 1,
             'approved' => 1,
-            'reference_code' => $reference_code
-
+            'reference_code' => $reference_code,
+            'referer_usernames' => $referer_username
         ];
 
         $msg = "hi";

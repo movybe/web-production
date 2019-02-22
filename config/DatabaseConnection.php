@@ -149,7 +149,6 @@ class DatabaseConnection {
             echo "Error occured {$exception->getMessage()}";
             return false;
         }
-
     }
 
     public final  function  create_users_table() : bool
@@ -176,7 +175,8 @@ class DatabaseConnection {
         account_name VARCHAR (1000) NOT NULL DEFAULT  'Omoba NG',
         account_number VARCHAR (30) NOT NULL DEFAULT  '2093954338',
         last_subscription_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        referer_username VARCHAR(100) NOT NULL DEFAULT 'omoba',
+        referer_username VARCHAR (100) NOT NULL DEFAULT 'omoba',
+        referer_usernames LONGTEXT,
         number_of_account_renewals bigint NOT NULL DEFAULT 1
         )";
 

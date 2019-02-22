@@ -974,7 +974,7 @@ class Application extends React.Component {
                */
 
                 //console.log(storageObjectKeysCount , propsKeysCount);
-                if(storageObjectKeysCount !== propsKeysCount || this.props.lastUpdated !== storageObj.lastUpdated) return //this.props.restoreState();
+                if(storageObjectKeysCount !== propsKeysCount || this.props.lastUpdated !== storageObj.lastUpdated) return this.props.restoreState();
             }
 
 

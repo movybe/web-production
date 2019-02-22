@@ -86,11 +86,11 @@ class  AffiliateHeader extends React.Component {
 
         this.headerNav = $('li.header-nav');
         this.withdrawalForm = $('#withdrawal-form');
+
         this.withdrawalFieldSet = $('#withdrawal-fieldset');
         this.withdrawalAmount = $('#withdrawal-amount');
         this.withdrawalResponseMessage = $('#withdrawal-response-message');
         this.defaultAction();
-
 
     };
 
@@ -129,7 +129,7 @@ class  AffiliateHeader extends React.Component {
     handleWithdrawalForm = e => {
         e.preventDefault();
 
-        this.withdrawalForm.validate();
+
 
         if(this.withdrawalForm.valid())
         {

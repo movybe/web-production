@@ -24,17 +24,84 @@ class Affiliate extends React.Component
         });
     };
 
+    handleAccountActivation = e => {
+
+        e.preventDefault();
+
+        if(!this.accountActivationForm.valid()) return 0;
+
+        const refererUsername = this.refererUsername.val().toLowerCase();
+
+        const refererUsernames = JSON.parse(this.props.user.referer_usernames);
+
+        if(refererUsernames.indexOf(refererUsername) >= 0)
+        {
+            defaults.showToast(defaults.enterNewRefererUsernameMessage);
+            return 0;
+        }
+
+
+        this.accountActivationFieldset.prop(...defaults.disabledTrue);
+
+
+
+
+
+    };
+
+    accountActivationModal = ()  => {
+
+        return (
+
+            <div id="account-activation-modal" className="modal modal-fixed-footer">
+                <div className="modal-content">
+                    <fieldset id="account-activation-fieldset">
+                        <form id = "account-activation-form" method="POST" action="#" onSubmit={this.handleAccountActivation}>
+                            <div className="row">
+                                <div className="input-field col s12">
+                                    <input id="account-activation-referer-username" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} required="required" name = "withdrawal-amount" type="text"  className="validate" />
+                                    <label htmlFor="referer-username" className="active">Referer</label>
+                                    <span className="helper-text" id = "account-activation-response-message"></span>
+                                    <button type="submit" id="withdrawal-submit-button" className="waves-effect waves-light btn-small">Proceed</button>
+                                    <span className="helper-text right" id ="withdrawal-charge-message">You can no longer use <span className="strong">{this.props.user.referer_username}</span> as your referer</span>
+                                </div>
+                            </div>
+                        </form>
+                    </fieldset>
+                </div>
+                <div className="modal-footer">
+                    <a href="#" onClick={() => {this.accountActivationModalPopUp.modal('close')}} className="modal-close waves-effect waves-green btn-flat no-underline strong light">CLOSE</a>
+                </div>
+            </div>
+        )
+    };
+
     componentDidMount()
     {
+
         this.defaultActions();
+
+
+
+
         let data = {email : this.props.email , action : 'FETCH_AFFILIATE_DETAILS'};
         data = JSON.stringify(data);
         $.post(defaults.actions , {data} , response1 => {
 
+
             this.registeredTimeago = timeago.format(this.props.user.registered_on);
             response1 = JSON.parse(response1);
 
-            this.props.resetState({...this.props , user : response1.user , ads : response1.ads});
+            this.props.resetState({...this.props , user : response1.user , ads : response1.ads} , () => {
+                if(!Number(this.props.user.subscribed)){
+                    this.accountActivationModalPopUp = $('.modal#account-activation-modal');
+                    this.accountActivationModalPopUp.modal({dismissible: false});
+                    this.accountActivationFieldset = $('#account-activation-fieldset');
+                    this.accountActivationForm = $('#account-activation-form');
+                    this.refererUsername = $('#account-activation-referer-username');
+                }
+
+            });
 
         });
 
@@ -49,22 +116,6 @@ class Affiliate extends React.Component
 
 
 
-    activateMerchantAccount = (callback = null) =>
-    {
-
-        defaults.payWithPaystack(this.props.email , defaults.convertToPaystack(defaults.merchantActivationFee) , "Account Activation" , (response) => {
-            if(response.status !== defaults.successText) return defaults.showToast(defaults.transactionNotSuccessfulMessage);
-            let data = {email : this.props.email , action : 'ACTIVATE_MERCHANT_ACCOUNT' , reference : response.reference};
-            data = JSON.stringify(data);
-            $.post(defaults.actions , {data} , response => {
-                response = JSON.parse(response);
-                if(this.props.resetState({...this.props , user : response.user})){
-                    if(callback)callback();
-                }
-            })
-        });
-
-    };
 
 
     deletePaymentHistory = (reference_code) => {
@@ -84,12 +135,27 @@ class Affiliate extends React.Component
 
 
 
+        let isActivateAccount = this.props.user.subscribed == 1;
+        let accountActivationModal = isActivateAccount ? null:  this.accountActivationModal();
         let userSubscriptionStatus = Number(this.props.user.subscribed);
         let withdrawalPaymentsSingularOrPlural = this.props.user.withdrawal_requests != 1 ? "payments" : "payment";
+
         let paymentsHistory = this.props.user.payments.length ? <h5>Payments History({this.props.user.payments.length})</h5> : null;
         let withdrawalRequests = this.props.user.withdrawal_requests ? <h5>Withdrawal Requests({this.props.user.withdrawal_requests})</h5> : null;
 
-        let paymentsMade = this.props.user.payments.map(payment => {
+        let accountDeactivationMessage = !isActivateAccount ?
+
+            <div className="row notice-board z-depth-3 account-deactivation-notice-board card-panel">
+                <div className="col s12 valign-wrapper">
+                        <span className="affiliate-withdrawal-requests-message">
+                            Your account is no longer active, click <strong className="strong"><a className="modal-trigger account-activation-modal-link" href = "#account-activation-modal">here</a></strong> to re-activate.
+                        </span>
+                </div>
+
+            </div>
+ : null;
+
+         let paymentsMade = this.props.user.payments.map(payment => {
             return (
 
                 <div className="row notice-board z-depth-3 payments-notice-board card-panel" key = {payment.reference_code}>
@@ -108,10 +174,13 @@ class Affiliate extends React.Component
                 <span className="affiliate-withdrawal-requests-message">You have <strong className="strong">{this.props.user.withdrawal_requests}</strong> pending {withdrawalPaymentsSingularOrPlural} of  <strong className="strong">&#8358;{this.props.user.total_withdrawal_amount.toLocaleString()}</strong> </span>: null;
         let defaultEmailToShow = (this.props.user.email || "user@domain.com").truncate(defaults.emailTruncateSize);
         const subscriptionButtonType =  userSubscriptionStatus ?
-            <div className="green-text"><span className="subscription-active-text">active</span><a className="waves-effect waves-light disabled btn-small right">Paid </a></div>     : <div><span className="materialize-red-text activate-account-text">NOT ACTIVATED</span> <a className="waves-effect waves-light btn-small right activate-account-button" onClick={this.activateMerchantAccount}>Activate  &#8358; {defaults.merchantActivationFee}</a></div>;
+            <div className="green-text"><span className="subscription-active-text">active</span><a className="waves-effect waves-light disabled btn-small right">Paid </a></div>     : <div><span className="materialize-red-text activate-account-text">INACTIVE</span> <a className="waves-effect modal-trigger waves-light btn-small right activate-account-button" href = "#account-activation-modal">Activate</a></div>;
         return (
             <div>
                 <AffiliateHeader refreshProfile = {this.refreshProfile} />
+                {accountDeactivationMessage}
+                {accountActivationModal}
+
                 <div className="container">
                     {withdrawalRequests}
                     <div className="row notice-board z-depth-3 withdrawal-notice-board card-panel">
