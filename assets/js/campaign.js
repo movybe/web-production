@@ -179,7 +179,7 @@ class Campaign extends  React.Component
                             <h5 className="status-headers">How {defaults.siteName} Merchant works:</h5>
                             <div className="card">
                                 <div className="card-content">
-                                    <p>Watch as our CEO explains how Businesses can advertise their products/services and millions of potential customers with {defaults.siteName} Merchant.</p>
+                                    <p>Watch as our CEO explains how Businesses can advertise their products/services and millions of potential customers.</p>
                                     <div className="video-container demo-video-container">
                                         {/*
                                         <iframe width="853" height="480" src={defaults.demoVideo2} frameBorder="0" allowFullScreen></iframe>
@@ -198,7 +198,7 @@ class Campaign extends  React.Component
 
                             <div className="col s12 valign-wrapper">
                                 <p className="notice-header flow-text number-of-merchant-ads">
-                                    <a title="Home page" href="/"
+                                    <a title="Home page" href="/" style={{textDecoration : 'none'}}
                                        className="no-underline back-url"><i className="material-icons back-arrow-icon">arrow_backward</i><span className="back-text">Back</span></a>
 
                                     <a title="Login or Signup" href="#login-modal"
@@ -320,24 +320,54 @@ class Campaign extends  React.Component
 
 
                 //return;
-                const action = !response.error ? this.props.resetState({
-                    ...this.props,
-                    emailVerified: true,
-                    stateReset: false
-                }) : this.loginModalPopup.modal('close') && this.props.resetState({
-                    ...this.props,
-                    emailVerified: true,
-                    stateReset: false,
-                    email,
-                    user: response.user,
-                    accountType: response.user.account_type,
-                    alreadyExistingAccount: true
-                });
+                if(!response.error){
+
+                    this.props.resetState({
+                        ...this.props,
+                        emailVerified: true,
+                        stateReset: false
+                    })
+                }
+
+
+                else if(response.user.account_type == 'merchant') {
+                    this.loginModalPopup.modal('close');
+                    this.props.resetState({
+                            ...this.props,
+                            emailVerified: true,
+                            stateReset: false,
+                            email,
+                            user: response.user,
+                            accountType: response.user.account_type,
+                            alreadyExistingAccount: true
+                        });
+                    }
+                else {
+
+                    data = {email  , action : 'FETCH_AFFILIATE_DETAILS'};
+                    data = JSON.stringify(data);
+                    $.post(defaults.actions , {data} , response1 => {
+                        response1 = JSON.parse(response1);
+
+                        this.props.resetState({
+                            ...this.props,
+                            emailVerified: true,
+                            stateReset: false,
+                            email,
+                            user: response1.user,
+                            accountType: response1.user.account_type,
+                            alreadyExistingAccount: true
+                        });
+
+
+                    });
+
+
+                }
+
                 this.campaignFormFieldset.prop(...defaults.disabledFalse);
 
-
             });
-
         }
         else if(!this.props.showRefererEmailField)
         {

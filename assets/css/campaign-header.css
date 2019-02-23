@@ -22,7 +22,7 @@ li a {
     opacity: .9;
 }
 
-.campaign-page-header 
+.campaign-page-header
 {
     position: relative;
     left : 53px !important;
@@ -44,7 +44,7 @@ li a {
 }
 
 .continue-modal-trigger{
-   
+
     float: right;
 }
 #close-login-modal{
@@ -55,7 +55,7 @@ li a {
 }
 .continue-arrow-icon
 {
- position: relative;
+    position: relative;
     top : 6px;
     margin-left: 2px;
 }
@@ -64,7 +64,7 @@ li a {
     margin-right: -90px !important;
     position: relative;
     top : 5px;
-    
+
 }
 
 .bank-account-details

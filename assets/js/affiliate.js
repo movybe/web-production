@@ -28,11 +28,13 @@ class Affiliate extends React.Component
 
         e.preventDefault();
 
+        this.accountActivationResponseMessage.text(null);
         if(!this.accountActivationForm.valid()) return 0;
 
         const refererUsername = this.refererUsername.val().toLowerCase();
 
-        const refererUsernames = JSON.parse(this.props.user.referer_usernames);
+        const refererUsernames = this.props.user.referer_usernames.split(',');
+
 
         if(refererUsernames.indexOf(refererUsername) >= 0)
         {
@@ -41,9 +43,60 @@ class Affiliate extends React.Component
         }
 
 
+
+
+
+
+
         this.accountActivationFieldset.prop(...defaults.disabledTrue);
 
 
+        let data = {email : this.props.email , action : 'TRY_RE-ACTIVATE_AFFILIATE_ACCOUNT' , referer_username : refererUsername};
+
+        data = JSON.stringify(data);
+
+        $.post(defaults.actions , {data} , response => {
+
+            response = JSON.parse(response);
+            if(response.success) {
+                this.accountActivationModalPopUp.modal('close');
+                return this.refreshProfile();
+            }
+            else if(response.continue_with_paystack){
+
+                defaults.payWithPaystack(this.props.email , defaults.convertToPaystack(response.amount) , this.props.user.username , response => {
+
+                    if(response.status !== defaults.successText){
+                        this.accountActivationFieldset.prop(...defaults.disabledFalse);
+                        defaults.showToast(defaults.transactionNotSuccessfulMessage);
+                        return 0;
+                    }
+
+
+                    data = {reference_code : response.reference , email : this.props.email , action : 'RE-ACTIVATE_AFFILIATE_ACCOUNT' , referer_username : refererUsername};
+
+                    data = JSON.stringify(data);
+                    $.post(defaults.actions , {data} , response => {
+                        response = JSON.parse(response);
+
+                        if(response.success) {
+                            this.accountActivationModalPopUp.modal('close');
+                            return this.refreshProfile();
+                        }
+                    });
+                });
+            }
+            else {
+                this.accountActivationFieldset.prop(...defaults.disabledFalse);
+                this.accountActivationResponseMessage.text(response.error);
+                defaults.showToast(response.error);
+            }
+
+
+
+
+
+        });
 
 
 
@@ -99,6 +152,7 @@ class Affiliate extends React.Component
                     this.accountActivationFieldset = $('#account-activation-fieldset');
                     this.accountActivationForm = $('#account-activation-form');
                     this.refererUsername = $('#account-activation-referer-username');
+                    this.accountActivationResponseMessage = $('#account-activation-response-message');
                 }
 
             });

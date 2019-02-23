@@ -133,7 +133,7 @@ class Actions extends  Functions
             "email" => $this->email ,
             "account_type" => $this->data['accountType'] ,
             "user_id" => $this->generateUserId(),
-            'referer_usernames' => '[]'
+            'referer_usernames' => ''
         ])){return false;}
 
 
@@ -312,8 +312,6 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         $referer_username = strtolower($this->escape_string($this->data['referer_username']));
         $user_id = $this->escape_string($this->generateUserId());
         $reference_code = $this->data['reference_code'];
-        $referer_usernames = json_encode([$referer_username]);
-        if($this->record_exists_in_table($this->users_table_name , 'user_id' , $user_id))$this->signup_merchant();
         $fields_and_values = [
             'username' => $username,
             'account_name' => $account_name,
@@ -360,6 +358,134 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
 
 
+    }
+
+    private function activate_affiliate_account ($referer_username , $user_details , bool $withdraw_2100_from_user = false) : string {
+        //Deduct N2,100 from the user account
+
+        if($withdraw_2100_from_user) {
+            $this->decrement_value($this->users_table_name, 'account_balance', $this->website_details->affiliateSignupFee, "email = '{$this->email}'");
+        }
+        else {
+            //Update the reference code
+            $this->update_record($this->users_table_name , 'reference_code' , $this->data['reference_code'] , 'email' , $this->email);
+        }
+
+        //Update the last referer
+        $this->update_record($this->users_table_name , 'referer_username' , $referer_username , 'email' , $this->email);
+
+
+
+        //Add the amount to profit
+        $this->increment_values($this->site_statistics_table_name ,
+            [
+                'account_balance' => $this->website_details->amountPaidToAffiliateForReferer ,
+                'profit' => $this->website_details->siteAffiliateSignupFee
+            ] , "id = 1");
+
+
+        //Increment the account balance of the referer
+        $this->increment_values($this->users_table_name ,
+            [
+                'account_balance' => $this->website_details->amountPaidToAffiliateForReferer,
+                'total_income_earned' => $this->website_details->amountPaidToAffiliateForReferer ,
+                'total_referer_amount_earned' => $this->website_details->amountPaidToAffiliateForReferer,
+                'amount_earned_for_the_month' => $this->website_details->amountPaidToAffiliateForReferer,
+                'number_of_users_referred' => 1
+            ]
+            , "username = '{$referer_username}'");
+
+
+        //update the last subscription date
+        $now = date('Y-m-d H:i:s');
+        $this->update_record($this->users_table_name , 'last_subscription_date' , $now , 'email' , "{$this->email}");
+
+        //Increment the number of account_renewals
+        $this->increment_value($this->users_table_name , 'number_of_account_renewals' , 1 , "email = '{$this->email}'");
+
+        //Reset the user's amount earned for the month
+        $this->update_record($this->users_table_name , 'amount_earned_for_the_month' , 0 , 'email' , "{$this->email}");
+
+        //Add the referer to the comma-separated list of referrers;
+        $referer_usernames = $user_details['referer_usernames'].','.$referer_username;
+
+        $this->update_record($this->users_table_name , 'referer_usernames' , $referer_usernames  , 'email' , "{$this->email}");
+
+        //Subscribe the user
+        $this->update_record($this->users_table_name , 'subscribed' , 1 , 'email' , "{$this->email}");
+
+
+        return json_encode([$this->errorText => $this->successText , $this->successText => 1]);
+
+    }
+
+    private function try_reactivate_affiliate_account () : string{
+
+
+        $referer_username = $this->escape_string($this->data['referer_username']);
+
+        //Check if the referer username exists
+        if(!$this->record_exists_in_table($this->users_table_name , "username" , $referer_username))
+        {
+            return json_encode([$this->errorText => $this->refererUsernameNotFoundMessage , $this->successText => 0]);
+        }
+
+
+
+        $referer_details = $this->fetch_data_from_table($this->users_table_name , 'username' , $referer_username)[0];
+
+        //Check if the account type of the user is affiliate;
+        if($referer_details['account_type'] != 'affiliate') {
+            return json_encode([$this->errorText => $this->userIsNotAnAffiliateMemberMessage , $this->successText => 0]);
+        }
+
+
+        //Check if the user referer account has expired
+        if($referer_details['subscribed'] != '1')
+        {
+            return json_encode([$this->errorText => $this->refererAccountExpiredMessage , $this->successText => 0]);
+        }
+
+        //Now check if the user account has exceeded a month
+
+        $now = date('Y-m-d H:i:s');
+        $last_subscription_date = $referer_details['last_subscription_date'] ;
+        $amount_earned_for_the_month = (double)$referer_details['amount_earned_for_the_month'];
+        $login_date = strtotime($last_subscription_date); // change x with your login date var
+        $current_date = strtotime($now); // change y with your current date var
+        $datediff = $current_date - $login_date;
+        $days = floor($datediff/(60*60*24));
+
+        //Check if the referer has made more than N5000 in the last month
+        if($days > $this->website_details->subscriptionDurationInDays && $amount_earned_for_the_month >= $amount_earned_for_the_month)
+        {
+            //Unsubscribe the user
+            $this->update_record($this->users_table_name , 'subscribed' , 0 , 'username' , $referer_username);
+            return json_encode([$this->errorText => $this->refererAccountExpiredMessage , $this->successText => 0]);
+        }
+
+
+        $user_details = $this->fetch_data_from_table($this->users_table_name , 'email' , $this->email)[0];
+        //Check if the user has more than N2,100
+
+        if($user_details['account_balance'] >= $this->website_details->affiliateSignupFee)
+        {
+
+            return $this->activate_affiliate_account($referer_username , $user_details , true);
+        }
+
+
+         return json_encode([$this->errorText => $this->successText , $this->successText => 0 , "continue_with_paystack" => 1 ,  "amount" => $this->website_details->affiliateSignupFee]);
+
+
+    }
+
+    private  function reactivate_affiliate_account () :string
+    {
+        $referer_username = $this->escape_string($this->data['referer_username']);
+        $user_details = $this->fetch_data_from_table($this->users_table_name , 'email' , $this->email)[0];
+
+        return $this->activate_affiliate_account($referer_username , $user_details);
     }
 
     private function deletePaymentHistory () : string  {
@@ -421,6 +547,10 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                 return $this->affiliateWithdrawal();
             case 'DELETE_PAYMENT_HISTORY' :
                 return $this->deletePaymentHistory();
+            case 'TRY_RE-ACTIVATE_AFFILIATE_ACCOUNT':
+                return $this->try_reactivate_affiliate_account();
+            case 'RE-ACTIVATE_AFFILIATE_ACCOUNT' :
+                return $this->reactivate_affiliate_account();
         }
     }
 

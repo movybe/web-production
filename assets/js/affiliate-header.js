@@ -213,7 +213,7 @@ class  AffiliateHeader extends React.Component {
                                <div className="input-field col s12">
                                    <h5>Your bank details</h5>
                                <span id="account-name" className="bank-account-details">{this.props.user.account_name.truncate(defaults.accountNameLengthToShow)}</span>
-                               <span id="account-number" className="bank-account-details">{this.props.user.account_number.toString().truncate(defaults.accountNumberDigitLengthToShow)}</span>
+                               <span id="account-number" className="bank-account-details">{this.props.user.account_number.toString().substr(0 , 3) + '...' + this.props.user.account_number.toString().substr(7 , 3) }</span>
                                <span id="bank-name" className="bank-account-details">{this.props.user.bank_name}</span>
                                    <span className="right">Account Bal: <span className="strong">&#8358; {this.props.user.account_balance.toLocaleString()}</span> </span>
                                </div>
