@@ -1,5 +1,5 @@
 <?php
-/*!
+/*
  * Developed by Kevin Warren, https://twitter.com/KevinTWarren
  *
  * Released under the MIT license
@@ -8,7 +8,7 @@
  * Detect Device 1.0.4
  *
  * Last Modification Date: 20/11/2017
- */
+*/
 require_once 'Mobile_Detect.php';
 class Detect {
 	private static $ipAddress = null;
