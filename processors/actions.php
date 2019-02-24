@@ -15,6 +15,7 @@ class Actions extends  Functions
     private $refererUsernameNotFoundMessage = "Sorry, referer username not found";
     private $refererAccountExpiredMessage = "Your referer is no longer active";
     private $userIsNotAnAffiliateMemberMessage = "the referer is not an affiliate member";
+    private $successfulWithdrawalMessage = "Withdrawal Successful, your account will be credited within the next 15min";
     private final  function  isReady () : bool
     {
         return isset($_POST['data']) && !empty($this->data = json_decode($_POST['data'] , true));
@@ -115,7 +116,11 @@ class Actions extends  Functions
 
             //Decrement the payment charge from website account balance
             $this->decrement_value($this->site_statistics_table_name , 'account_balance' , $withdrawal_charge , 'id = 1');
-            return json_encode([$this->errorText => "Withdrawal Successful, your account will be credited within the next 15min" , $this->successText => 1]);
+            //Increment the profit of the site
+
+            $this->increment_value($this->site_statistics_table_name , 'profit' , $this->website_details->affiliateWithdrawalProfit , 'id = 1');
+
+            return json_encode([$this->errorText => $this->successfulWithdrawalMessage  , $this->successText => 1]);
         }
 
         return "a";

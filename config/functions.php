@@ -65,8 +65,28 @@ class Functions extends  DatabaseConnection {
 
     }
 
+    public final function data_saving_mode_is_enabled () : bool {
 
-    public  function  readBetweenFileLines(string  $filename , int $start , int $end) : string  {
+        $headers =  getallheaders();
+        $data_saving_mode_enabled  = false;
+        foreach($headers as $header => $value){
+            if(strtolower($header) == 'save-data' && $value == 'on'){
+                $data_saving_mode_enabled = true;
+
+                break;
+            }
+
+        }
+
+        return $data_saving_mode_enabled;
+}
+
+
+
+
+
+
+public  function  readBetweenFileLines(string  $filename , int $start , int $end) : string  {
 
         $f = fopen($filename, 'r');
         $lineNo = 0;

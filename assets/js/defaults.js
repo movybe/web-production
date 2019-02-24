@@ -1,3 +1,14 @@
+
+
+
+//Check for old browsers
+if(!(window.localStorage && window.Blob && window.FileReader))
+{
+
+    window.location.href = '/browser';
+
+}
+
 String.prototype.truncate = String.prototype.trunc ||
     function(n){
         return this.length>n ? this.substr(0,n-1)+'...' : this.toString();
