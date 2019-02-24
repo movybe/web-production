@@ -127,17 +127,21 @@ class Actions extends  Functions
         if($this->record_exists_in_table($this->users_table_name , "user_id" , $user_id)) $this->generateUserId();
         return $user_id;
     }
-    private function create_new_merchant_account () : bool
+    private function create_new_merchant_account () : string
     {
         if(!$this->insert_into_table($this->users_table_name , [
             "email" => $this->email ,
             "account_type" => $this->data['accountType'] ,
             "user_id" => $this->generateUserId(),
-            'referer_usernames' => ''
+            'referer_usernames' => $this->website_details->SiteName
         ])){return false;}
 
+        $user_details = $this->fetch_data_from_table($this->users_table_name , 'email' , $this->email)[0];
 
-        return $this->increment_values($this->site_statistics_table_name , ['total_number_of_users' => 1 , 'total_number_of_merchants' => 1] , 'id = 1');
+        //Increment number of users and number of merchants
+        $this->increment_values($this->site_statistics_table_name , ['total_number_of_users' => 1 , 'total_number_of_merchants' => 1] , 'id = 1');
+
+        return json_encode([$this->successText => 1 , $this->errorText => $this->successText , 'user' => $user_details]);
     }
     private function emailExistsInTable () : bool
     {
@@ -152,8 +156,14 @@ class Actions extends  Functions
     private function activateMerchantAccount () : bool
     {
 
-        return $this->update_multiple_fields($this->users_table_name, ["subscribed" => 1, "reference_code" => $this->reference], "email = '{$this->email}'");
+        $amount = $this->data['amount'];
+        $this->update_multiple_fields($this->users_table_name, ["subscribed" => 1, "reference_code" => $this->reference], "email = '{$this->email}'");
 
+        //Increment the website profit
+        $this->increment_value($this->site_statistics_table_name , 'profit' , $amount , 'id = 1');
+
+
+        return true;
     }
 
     private  function perform_ad_actions ($sponsored_ad , bool $increment_views = true , $increment_clicks = false) : bool
@@ -168,9 +178,9 @@ class Actions extends  Functions
         $poster_details = $this->fetch_data_from_table($this->users_table_name , 'user_id' , $posted_by)[0];
         //Decrement the remaining units and also minus the ad_rate from the balance;
 
-        $is_omoba_ad = strtolower($poster_details['email']) == strtolower($this->website_details->siteEmail);
+        $is_movybe_ad = strtolower($poster_details['email']) == strtolower($this->website_details->siteEmail);
 
-        if ((($sponsored_ad['remaining_units'] - 1) >= 0) &&  !$is_omoba_ad){
+        if ((($sponsored_ad['remaining_units'] - 1) >= 0) &&  !$is_movybe_ad){
             $this->decrement_values($this->ads_table_name, [
                 'remaining_units' => $ad_rate ,
                 'balance' => $ad_rate
@@ -509,7 +519,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
             case 'SIGNUP_MERCHANT' :
                 $this->email = $this->data['email'];
-                return json_encode([$this->successText => 1 , $this->errorText => $this->create_new_merchant_account()]);
+                return $this->create_new_merchant_account();
             case 'FETCH_MERCHANT_DETAILS' :
                   return json_encode(array_merge($this->fetchMerchantDetails() , [$this->errorText => 1 ,$this->successText => 1]));
             case 'ACTIVATE_MERCHANT_ACCOUNT' :

@@ -3,19 +3,19 @@ String.prototype.truncate = String.prototype.trunc ||
         return this.length>n ? this.substr(0,n-1)+'...' : this.toString();
     };
 function useStrict() {
-    "use strict";
+    'use strict';
 }
 if (typeof Array.isArray === 'undefined') {
     Array.isArray = function(obj) {
         return Object.prototype.toString.call(obj) === '[object Array]';
     }
 }
-let searchResults = "-search-results";
+let searchResults = '-search-results';
 useStrict();
 
 /*
 The function below i.e String.format works like this:
-var sentence = String.format("My name is {0} i am a {1} from {2} and i am {} years old" , "Kosi Eric" , "Programmer" , "Nigeria" , 19);
+var sentence = String.format('My name is {0} i am a {1} from {2} and i am {} years old' , 'Kosi Eric' , 'Programmer' , 'Nigeria' , 19);
 console.log(sentence)
 
 
@@ -56,51 +56,50 @@ class Defaults {
 
     constructor () {
 
-        this.whatsappContact = "+234 708 441 9530";
-        this.whatsappContactLink = `https://wa.me/${this.whatsappContact.replace(/ /g,'')}?text=Hello%20Omoba`;
+        this.whatsappContact = '+234 708 441 9530';
+        this.siteName = 'Movybe';
+        this.siteOwner = 'Movybe Inc.';
+        this.whatsappContactLink = `https://wa.me/${this.whatsappContact.replace(/ /g,'')}?text=Hello%20${this.siteName}`;
         this.imageDirectory = '/assets/img/';
         this.processorsFolder = '/processors/';
         this.queryProcessor = this.processorsFolder + 'query.php';
         this.crawler = this.processorsFolder + 'crawler.php';
         this.suggestions = this.processorsFolder + 'suggestions.php';
-        this.handleAdForm = this.processorsFolder + "handle-ad-form.php";
+        this.handleAdForm = this.processorsFolder + 'handle-ad-form.php';
         this.commonWords = ['what','is','the','price','of','how','much','does','cost','costs','what','why','when','who','it','buy','sell','sells'];
         this.maxTitleLength = 60;
         this.maxDescriptionLength = 160;
         this.maxLinkLength = 45;
         this.merchantActivationFee = 700;
         this.adListTitleLength = 20;
-        this.accountNumberDigitLengthToShow = 6;
         this.accountNameLengthToShow = 10;
-        this.searchResultPreloaders = "search-result-preloaders";
-        this.searchResultPreloader = "search-result-preloader";
-        this.websiteLiLinks = "website-li-links";
-        this.liLink = "li-link";
-        this.noDataError = "Failed to load data";
-        this.networkError = "No Results found for this query, check your connection";
-        this.noMoreResultsFoundError = "no more results found";
-        this.savedState = "savedState";
-        this.checkNetworkConnectionError = "check your network connection";
-        this.savedCampaignState = "savedCampaignState";
-        this.localSearchCookieKey = "localSearch";
-        this.showImagesCookieKey = "showImages";
-        this.lazyBG = "/assets/js/lazy-bg.js";
-        this.noResultsFoundError = "no results found";
-        this.pleaseWaitText = "Please wait...";
+        this.searchResultPreloaders = 'search-result-preloaders';
+        this.searchResultPreloader = 'search-result-preloader';
+        this.websiteLiLinks = 'website-li-links';
+        this.liLink = 'li-link';
+        this.noDataError = 'Failed to load data';
+        this.networkError = 'No Results found for this query, check your connection';
+        this.noMoreResultsFoundError = 'no more results found';
+        this.savedState = 'savedState';
+        this.checkNetworkConnectionError = 'check your network connection';
+        this.savedCampaignState = 'savedCampaignState';
+        this.localSearchCookieKey = 'localSearch';
+        this.showImagesCookieKey = 'showImages';
+        this.lazyBG = '/assets/js/lazy-bg.js';
+        this.noResultsFoundError = 'no results found';
+        this.pleaseWaitText = 'Please wait...';
         this.searchSuggestionsLimit = 7;
-        this.siteName = "Omoba";
-        this.siteOwner = "Omoba Inc.";
-        this.bannerImageLocation = "/banners/";
-        this.siteAddress = this.siteName.toLowerCase() + ".ng";
-        this.siteAddressHttp = "http://" + this.siteAddress;
-        this.siteAddressHttps = "https://" + this.siteAddress;
-        this.merchantAccountType = "merchant";
+        this.bannerImageLocation = '/banners/';
+        this.siteAddress = this.siteName.toLowerCase() + '.com';
+        this.siteAddressHttp = 'http://' + this.siteAddress;
+        this.siteAddressHttps = 'https://' + this.siteAddress;
+        this.merchantAccountType = 'merchant';
         this.withdrawalCharge = 100;
-        this.enterNewRefererUsernameMessage = "This user had previously referred you, enter a new username";
-        this.memberAccountType = "member";
-        this.disabledTrue = ["disabled" , true];
-        this.disabledFalse = ["disabled" , false];
-        this.actions = this.processorsFolder + "actions.php";
+        this.enterNewRefererUsernameMessage = 'This user had previously referred you, enter a new username';
+        this.memberAccountType = 'member';
+        this.disabledTrue = ['disabled' , true];
+        this.disabledFalse = ['disabled' , false];
+        this.actions = this.processorsFolder + 'actions.php';
         this.numberOfAdSpaceForMerchant = [0 , 1];
         this.numberOfAdSpaceForOmoba = [0 , 1 , 2 , 3 , 5];
         this.minimumAffliateProfit = 5000;
@@ -109,32 +108,33 @@ class Defaults {
         this.amountPaidForReferer = 1400;
         this.amountPaidForUserInteraction = 20;
         this.minimumWithdrawalAmount = 2500;
-        this.demoVideo1 = "/assets/videos/git.mp4";
-        this.demoVideo2 = this.demoVideo1;
+        this.affiliateIntroductionVideo = 'about:blank';
+        this.merchantIntroductionVideo = 'about:blank';
+        this.affiliateTourGuide = 'about:blank';
+        this.merchantTourGuide = 'about:blank';
         this.amountPaidForUniqueVisitor = 30;
-        this.maxSponsoredAdsToShow = 2;
-        this.dummyEmail = "omobang@gmail.com";
+        this.dummyEmail = 'omobang@gmail.com';
         this.thresholdAmount = 5000;
-        this.siteEmail = "omobadotng@gmail.com";
-        this.priceNotSpecifiedText = "price not specified";
-        this.transactionNotSuccessfulMessage = "Transaction not successful";
-        this.ensureAllFieldsAreFieldError = "fill all fields correctly";
-        this.banks = ["Access Bank" , "CitiBank" , "Coronation Merchant Bank" , "Diamond Bank" , "Ecobank Nigeria" , "Enterprise Bank Limited" , "FBN Merchant Bank" ,"Fidelity Bank Nigeria",
-            "First Bank of Nigeria" , "First City Monument Bank" , "FSDH Merchant Bank" , "Guarantee Trust Bank" , "Heritage Bank Plc" ,"Jaiz Bank Limited" ,
-            "Keystone Bank Limited" , "Polaris Bank" , "Providus Bank Plc" ,  "Rand Merchant Bank" , "Stanbic IBTC Bank Nigeria Limited" , "Standard Chartered Bank" ,
-            "Sterling Bank" , "Suntrust Bank Nigeria Limited" ,  "Union Bank of Nigeria" , "United Bank for Africa Plc" , "Unity Bank Plc" , "Wema Bank" , "Zenith Bank"];
+        this.siteEmail = 'omobadotng@gmail.com';
+        this.priceNotSpecifiedText = 'price not specified';
+        this.transactionNotSuccessfulMessage = 'Transaction not successful';
+        this.ensureAllFieldsAreFieldError = 'fill all fields correctly';
+        this.banks = ['Access Bank' , 'CitiBank' , 'Coronation Merchant Bank' , 'Diamond Bank' , 'Ecobank Nigeria' , 'Enterprise Bank Limited' , 'FBN Merchant Bank' ,'Fidelity Bank Nigeria',
+            'First Bank of Nigeria' , 'First City Monument Bank' , 'FSDH Merchant Bank' , 'Guarantee Trust Bank' , 'Heritage Bank Plc' ,'Jaiz Bank Limited' ,
+            'Keystone Bank Limited' , 'Polaris Bank' , 'Providus Bank Plc' ,  'Rand Merchant Bank' , 'Stanbic IBTC Bank Nigeria Limited' , 'Standard Chartered Bank' ,
+            'Sterling Bank' , 'Suntrust Bank Nigeria Limited' ,  'Union Bank of Nigeria' , 'United Bank for Africa Plc' , 'Unity Bank Plc' , 'Wema Bank' , 'Zenith Bank'];
         this.paystackKey = 'pk_test_671c2b9a8312b7c29aaed707662496895826855c';
         this.showToast = message => {
             M.toast({html: message});
         };
-        this.waitForAdApprovalMessage = "Your ad, will be approved within 5min.";
+        this.waitForAdApprovalMessage = 'Your ad, will be approved within 5min.';
        this.emailTruncateSize = 15;
 
-       this.accountActivationText = "Account activation";
+       this.accountActivationText = 'Account activation';
        this.merchantYoutubeVideo = this.demoVideo2;
-       this.sponsoredAdText = "AD";
+       this.sponsoredAdText = 'AD';
 
-       this.successText="success";
+       this.successText='success';
         this.payWithPaystack = (email , amount , name , call) =>
         {
 
@@ -149,13 +149,13 @@ class Defaults {
                 key: this.paystackKey,
                 email: email,
                 amount,
-                currency : "NGN",
+                currency : 'NGN',
                 ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
                 metadata: {
                     custom_fields: [
                         {
                             display_name: name,
-                            variable_name: "email_address",
+                            variable_name: 'email_address',
                             value: email
                         }
                     ]

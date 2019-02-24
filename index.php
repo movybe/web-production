@@ -21,7 +21,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     echo $functions->printAssets($scripts);
     ?>
 
-    <link rel="icon" type="image/png" href="<?php echo $website_details->IMG_FOLDER;?>m.png" />
+    <link rel="icon" type="image/jpeg" href="<?php echo $website_details->IMG_FOLDER;?>favicon.jpg" />
 </head>
 <body>
 <main class ="container">

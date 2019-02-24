@@ -163,13 +163,10 @@ class Campaign extends  React.Component
                                         and how you too can start making money right now with {defaults.siteName} Affiliate.
                                     </p>
                                     <div className="video-container demo-video-container">
-                                        {/*
-                                        <iframe width="853" height="480" src={defaults.demoVideo1}
+
+                                        <iframe width="853" height="480" src={defaults.affiliateIntroductionVideo}
                                                 frameBorder="0" allowFullScreen></iframe>
-                                                */}
-                                        <video className="responsive-video" controls>
-                                            <source src={defaults.demoVideo2} type="video/mp4"></source>
-                                        </video>
+
                                     </div>
                                 </div>
                             </div>
@@ -181,9 +178,7 @@ class Campaign extends  React.Component
                                 <div className="card-content">
                                     <p>Watch as our CEO explains how Businesses can advertise their products/services and millions of potential customers.</p>
                                     <div className="video-container demo-video-container">
-                                        {/*
-                                        <iframe width="853" height="480" src={defaults.demoVideo2} frameBorder="0" allowFullScreen></iframe>
-                                    */}
+                                        <iframe width="853" height="480" src={defaults.merchantIntroductionVideo} frameBorder="0" allowFullScreen></iframe>
 
                                         <video className="responsive-video" controls>
                                             <source src={defaults.demoVideo2} type="video/mp4"></source>
@@ -372,15 +367,13 @@ class Campaign extends  React.Component
         else if(!this.props.showRefererEmailField)
         {
             //It's a merchant signup
-
             data = {action : "SIGNUP_MERCHANT" , email , accountType: defaults.merchantAccountType};
             data = JSON.stringify(data);
 
             $.post(defaults.actions , {data} , response => {
-
-              response = JSON.parse(response);
+                response = JSON.parse(response);
               this.enableStuffs();
-              const action = response.error ? this.props.resetState({...this.props , email , accountType: defaults.merchantAccountType , alreadyExistingAccount: true}) : defaults.showToast(defaults.checkNetworkConnectionError);
+              const action = response.error ? this.props.resetState({...this.props , user : response.user ,  email , accountType: defaults.merchantAccountType , alreadyExistingAccount: true}) : defaults.showToast(defaults.checkNetworkConnectionError);
             });
         }
         else {

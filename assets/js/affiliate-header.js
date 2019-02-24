@@ -299,11 +299,10 @@ class  AffiliateHeader extends React.Component {
                         Watch our Demo Video
                     </h5>
                     <div className="video-container">
-                        {/*
-                            <iframe width="1102" height="620"
-                                    src={defaults.affiliateYoutubeVideo} frameBorder="0"
-                                    allowFullScreen></iframe>
-                                    */}
+                        <iframe width="1102" height="620"
+                                src={defaults.affiliateTourGuide} frameBorder="0"
+                                allowFullScreen ></iframe>
+
                     </div>
                 </div>
                 <div className="modal-footer">

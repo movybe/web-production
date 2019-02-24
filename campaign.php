@@ -21,8 +21,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
     echo $functions->printAssets($materialize_css , "css" , false , null , "id='materialize-css'");
   //  echo $functions->printAssets($bootstrap_css , "css" , false , null , "id='bootstrap-css' media='screen and (min-width:3000px)'");
     ?>
-
-    <link rel="icon" type="image/png" href="<?php echo $website_details->IMG_FOLDER;?>m.png" />
+    <link rel="icon" type="image/jpeg" href="<?php echo $website_details->IMG_FOLDER;?>favicon.jpg" />
 </head>
 <body id = "particles-js" class="lazyloads"  data-bgset="<?php echo $website_details->IMG_FOLDER.'campaign-background.jpg'?>">
 <div>

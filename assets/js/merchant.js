@@ -36,9 +36,6 @@ class Merchant extends React.Component
 
         });
 
-
-
-
     }
 
     componentDidUpdate () {
@@ -52,7 +49,7 @@ class Merchant extends React.Component
 
         defaults.payWithPaystack(this.props.email , defaults.convertToPaystack(defaults.merchantActivationFee) , "Account Activation" , (response) => {
             if(response.status !== defaults.successText) return defaults.showToast(defaults.transactionNotSuccessfulMessage);
-            let data = {email : this.props.email , action : 'ACTIVATE_MERCHANT_ACCOUNT' , reference : response.reference};
+            let data = {email : this.props.email , action : 'ACTIVATE_MERCHANT_ACCOUNT' , reference : response.reference , amount: defaults.merchantActivationFee};
             data = JSON.stringify(data);
             $.post(defaults.actions , {data} , response => {
                 response = JSON.parse(response);

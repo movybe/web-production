@@ -3,7 +3,7 @@
 abstract class WebsiteConfigurationSettings {
 
     
-	public  $SiteName = "Omoba";
+	public  $SiteName = "Movybe";
 	public  $Https = "https://";
 	public  $Www = "www.";
 	public  $SiteNameWithoutHttps = "www.omoba.epizy.com";
@@ -40,7 +40,7 @@ abstract class WebsiteConfigurationSettings {
     public  $BANNER_IMAGES_FOLDER;
     public  $ErrorPage = "/404.php";
     public  $PageDescription = "Compare price of products in Nigeria";
-    public  $ParentCompanyName = "Omoba Inc.";
+    public  $ParentCompanyName = "Movybe Inc.";
     public  $ParentCompanyAddress = "/";
     public $maxNumberOfSuggestion = 5;
     public $COMPONENTS_FOLDER = null;
