@@ -312,7 +312,6 @@ class MerchantAds extends React.Component {
                   data: formData,
                   success:  response => {
 
-                      console.log(response);
                     response = JSON.parse(response);
 
                       this.adFormFieldset.prop(...defaults.disabledFalse);

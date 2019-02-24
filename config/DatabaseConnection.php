@@ -96,7 +96,7 @@ class DatabaseConnection {
         }
 
         catch (PDOException $exception) {
-            echo "Error occured {$exception->getMessage()}";
+            echo "Error occurred {$exception->getMessage()}";
             return false;
         }
 
@@ -120,7 +120,7 @@ class DatabaseConnection {
         }
 
         catch (PDOException $exception) {
-            echo "Error occured {$exception->getMessage()}";
+            echo "Error occurred {$exception->getMessage()}";
             return false;
         }
 
@@ -146,7 +146,7 @@ class DatabaseConnection {
         }
 
         catch (PDOException $exception) {
-            echo "Error occured {$exception->getMessage()}";
+            echo "Error occurred {$exception->getMessage()}";
             return false;
         }
     }
@@ -190,7 +190,7 @@ class DatabaseConnection {
         }
 
         catch (PDOException $exception) {
-            echo "Error occured {$exception->getMessage()}";
+            echo "Error occurred {$exception->getMessage()}";
             return false;
         }
 
@@ -243,7 +243,7 @@ class DatabaseConnection {
         }
 
         catch (PDOException $exception) {
-            echo "Error occured {$exception->getMessage()}";
+            echo "Error occurred {$exception->getMessage()}";
             return false;
         }
 
@@ -273,7 +273,7 @@ class DatabaseConnection {
                 }
 
         catch (PDOException $exception) {
-            echo "Error occured {$exception->getMessage()}";
+            echo "Error occurred {$exception->getMessage()}";
             return false;
         }
 
@@ -297,7 +297,7 @@ class DatabaseConnection {
         }
 
         catch (PDOException $exception) {
-            echo "Error occured {$exception->getMessage()}";
+            echo "Error occurred {$exception->getMessage()}";
             return false;
         }
 
@@ -331,7 +331,7 @@ class DatabaseConnection {
         }
 
         catch (PDOException $exception) {
-            echo "Error occured {$exception->getMessage()}";
+            echo "Error occurred {$exception->getMessage()}";
 
             return false;
         }

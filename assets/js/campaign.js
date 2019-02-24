@@ -405,7 +405,6 @@ class Campaign extends  React.Component
                    data = JSON.stringify(data);
                    $.post(defaults.actions , {data} , response =>{
 
-                       console.log(response);
                        response = JSON.parse(response);
 
                        this.enableStuffs();

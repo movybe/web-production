@@ -25,7 +25,6 @@ class CampaignSettings{
                 localStorage.setItem(defaults.savedCampaignState , JSON.stringify({...action.state}));
                 return {...action.state};
             case 'RESTORE_STATE' :
-                console.log("Wants to restore state");
                 storageObject = JSON.parse(localStorage.getItem(defaults.savedCampaignState));
                 let newState = {...this.initState};
 

@@ -3,15 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="164b0cb5-d77a-4dd8-82e2-9790aebb2644" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/incs/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/assets/incs/footer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/affiliate-header.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/affiliate-header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/affiliate.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/affiliate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/application.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/footer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/test.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/campaign-settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/campaign-settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/campaign.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/campaign.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/merchant-ads.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/merchant-ads.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/oop.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/search-tabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/search-tabs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/DatabaseConnection.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/DatabaseConnection.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/processors/actions.php" beforeDir="false" afterPath="$PROJECT_DIR$/processors/actions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/processors/handle-ad-form.php" beforeDir="false" afterPath="$PROJECT_DIR$/processors/handle-ad-form.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -159,7 +157,7 @@
           <entry key="CSS" value="50" />
           <entry key="Image" value="2" />
           <entry key="JavaScript" value="251" />
-          <entry key="PHP" value="206" />
+          <entry key="PHP" value="207" />
           <entry key="PLAIN_TEXT" value="5" />
           <entry key="RNG Compact" value="1" />
           <entry key="htaccess" value="4" />
@@ -177,7 +175,7 @@
           <entry key="CSS" value="1293" />
           <entry key="HTML" value="2" />
           <entry key="JavaScript" value="134632" />
-          <entry key="PHP" value="35683" />
+          <entry key="PHP" value="35684" />
           <entry key="PLAIN_TEXT" value="29" />
           <entry key="SQL" value="94" />
           <entry key="htaccess" value="9" />
@@ -220,31 +218,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/js/campaign.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
-              <caret line="377" column="9" selection-start-line="377" selection-start-column="9" selection-end-line="377" selection-end-column="9" />
+            <state relative-caret-position="354">
+              <caret line="372" column="32" lean-forward="true" selection-start-line="372" selection-start-column="32" selection-end-line="372" selection-end-column="32" />
               <folding>
                 <element signature="n#!!block;n#componentDidMount#0;n#Campaign#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/processors/actions.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="471">
-              <caret line="203" column="9" lean-forward="true" selection-start-line="203" selection-start-column="9" selection-end-line="203" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/js/application.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="660" selection-start-line="660" selection-end-line="660" />
-              <folding>
-                <element signature="n#!!block;n#componentDidUpdate#0;n#Application#0" />
               </folding>
             </state>
           </provider>
@@ -253,17 +230,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/DatabaseConnection.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="532" selection-start-line="532" selection-end-line="532" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/classes.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+            <state relative-caret-position="267">
+              <caret line="521" column="34" selection-start-line="521" selection-start-column="34" selection-end-line="521" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -272,7 +240,7 @@
         <entry file="file://$PROJECT_DIR$/assets/js/merchant-ads.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="522">
-              <caret line="539" selection-start-line="539" selection-end-line="539" />
+              <caret line="538" selection-start-line="538" selection-end-line="538" />
             </state>
           </provider>
         </entry>
@@ -290,7 +258,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>withdrawalForm</find>
       <find>this.with</find>
       <find>.length</find>
       <find>MERCHANT</find>
@@ -320,9 +287,9 @@
       <find>withdrawalRe</find>
       <find>perf</find>
       <find>per</find>
+      <find>occured</find>
     </findStrings>
     <replaceStrings>
-      <replace>]</replace>
       <replace>prices</replace>
       <replace>this</replace>
       <replace>defaults</replace>
@@ -352,6 +319,7 @@
       <replace>$this-&gt;website_details-&gt;</replace>
       <replace>'</replace>
       <replace>movybe</replace>
+      <replace>occurred</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -397,7 +365,6 @@
         <option value="$PROJECT_DIR$/config/functions.php" />
         <option value="$PROJECT_DIR$/test.php" />
         <option value="$PROJECT_DIR$/assets/css/campaign-header.css" />
-        <option value="$PROJECT_DIR$/assets/js/campaign.js" />
         <option value="$PROJECT_DIR$/assets/js/merchant.js" />
         <option value="$PROJECT_DIR$/assets/js/defaults.js" />
         <option value="$PROJECT_DIR$/assets/js/merchant-header.js" />
@@ -411,6 +378,7 @@
         <option value="$PROJECT_DIR$/processors/actions.php" />
         <option value="$PROJECT_DIR$/assets/js/application.js" />
         <option value="$PROJECT_DIR$/config/DatabaseConnection.php" />
+        <option value="$PROJECT_DIR$/assets/js/campaign.js" />
       </list>
     </option>
   </component>
@@ -456,18 +424,6 @@
               <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
               <item name="movybe" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
-              <item name="movybe" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
-              <item name="movybe" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
@@ -633,12 +589,12 @@
       <workItem from="1550872820725" duration="11819000" />
       <workItem from="1550936957612" duration="622000" />
       <workItem from="1550954718329" duration="7124000" />
-      <workItem from="1550997543914" duration="9099000" />
+      <workItem from="1550997543914" duration="10858000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1159407000" />
+    <option name="totallyTimeSpent" value="1161166000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
@@ -677,7 +633,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/js/campaign.js</url>
-          <line>528</line>
+          <line>527</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -687,7 +643,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/js/merchant-ads.js</url>
-          <line>560</line>
+          <line>559</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -697,7 +653,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/js/merchant-ads.js</url>
-          <line>340</line>
+          <line>339</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -724,13 +680,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/assets/js/lazy-bg.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="1" column="6473" selection-start-line="1" selection-start-column="6473" selection-end-line="1" selection-end-column="6473" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/incs/htaccess-rules.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
@@ -975,16 +924,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/campaign.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="377" column="9" selection-start-line="377" selection-start-column="9" selection-end-line="377" selection-end-column="9" />
-          <folding>
-            <element signature="n#!!block;n#componentDidMount#0;n#Campaign#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/affiliate-header.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
@@ -1026,14 +965,7 @@
     <entry file="file://$PROJECT_DIR$/assets/js/merchant-ads.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="522">
-          <caret line="539" selection-start-line="539" selection-end-line="539" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/processors/actions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="203" column="9" lean-forward="true" selection-start-line="203" selection-start-column="9" selection-end-line="203" selection-end-column="9" />
+          <caret line="538" selection-start-line="538" selection-end-line="538" />
         </state>
       </provider>
     </entry>
@@ -1047,10 +979,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="13" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/processors/actions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="471">
+          <caret line="203" column="9" lean-forward="true" selection-start-line="203" selection-start-column="9" selection-end-line="203" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/campaign.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="372" column="32" lean-forward="true" selection-start-line="372" selection-start-column="32" selection-end-line="372" selection-end-column="32" />
+          <folding>
+            <element signature="n#!!block;n#componentDidMount#0;n#Campaign#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/config/DatabaseConnection.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="532" selection-start-line="532" selection-end-line="532" />
+        <state relative-caret-position="267">
+          <caret line="521" column="34" selection-start-line="521" selection-start-column="34" selection-end-line="521" selection-end-column="34" />
         </state>
       </provider>
     </entry>

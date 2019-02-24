@@ -174,14 +174,13 @@ class  LocalSearchTab extends React.Component{
         const element = $(e.target);
         const adID = element.attr('data-ad-id');
 
-        console.log(adID);
+
         let data = {action : 'SPONSORED_AD_CLICKED' , email : defaults.dummyEmail , ad_id : adID};
         data = JSON.stringify(data);
 
         $.post(defaults.actions , {data} , response => {
 
-            console.log(response);
-            const sponsoredAdsClicked = [...this.props.sponsoredAdsClicked , adID];
+                 const sponsoredAdsClicked = [...this.props.sponsoredAdsClicked , adID];
 
             this.props.switchWebsite({...this.props , sponsoredAdsClicked});
 
