@@ -232,6 +232,8 @@ class DatabaseConnection {
           total_units_paid_for BIGINT NOT NULL DEFAULT 0 ,
           remaining_units BIGINT NOT NULL  DEFAULT  0,
           admin_message VARCHAR (2000) NOT NULL DEFAULT 'this ad contains some banned contents',
+          last_viewed TIMESTAMP NOT NULL  DEFAULT CURRENT_TIMESTAMP,
+          last_clicked  TIMESTAMP NOT NULL  DEFAULT CURRENT_TIMESTAMP
       )";
         try {
 
@@ -268,8 +270,7 @@ class DatabaseConnection {
             $this->conn->exec($sql);
             $msg = "";
             echo "Table Created successfully";
-            return $this->insert_into_table($this->site_statistics_table_name , [] , $msg);
-        }
+                }
 
         catch (PDOException $exception) {
             echo "Error occured {$exception->getMessage()}";

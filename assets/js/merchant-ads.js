@@ -489,6 +489,19 @@ class MerchantAds extends React.Component {
 
         const isValidAd =  this.state.currentlyViewedAd !== null;
         const adType =  isValidAd ? this.state.currentlyViewedAd.ad_type : null;
+
+        const toggleLastViewed = this.state.currentlyViewedAd.last_viewed && this.state.currentlyViewedAd.number_of_views >=1 ?
+        <p className="ad-stats-property-value">
+            <span className="left-aligned property">Last viewed</span>
+            <span className="right-align value">{timeago.format(this.state.currentlyViewedAd.last_viewed)}</span>
+        </p> : null;
+
+        const toggleLastClicked = this.state.currentlyViewedAd.last_clicked && this.state.currentlyViewedAd.number_of_clicks >=1 ?
+            <p className="ad-stats-property-value">
+                <span className="left-aligned property">Last clicked</span>
+                <span className="right-align value">{timeago.format(this.state.currentlyViewedAd.last_clicked)}</span>
+            </p> : null;
+
         const modalContent = !isValidAd ? null :
 
             <div>
@@ -514,11 +527,17 @@ class MerchantAds extends React.Component {
                     <span className="right-align value">{this.state.currentlyViewedAd.number_of_views}</span>
             </p>
 
+                {toggleLastViewed}
+
+
             <p className="ad-stats-property-value">
 
                 <span className="left-align property">Number of Clicks</span>
                 <span className="right-align value">{this.state.currentlyViewedAd.number_of_clicks}</span>
             </p>
+
+                {toggleLastClicked}
+
             <p className="ad-stats-property-value">
 
                 <span className="left-align property">Cost</span>

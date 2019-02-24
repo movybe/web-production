@@ -226,6 +226,7 @@ class Affiliate extends React.Component
         });
         let withdrawalRequestsMessage =this.props.user.withdrawal_requests ?
                 <span className="affiliate-withdrawal-requests-message">You have <strong className="strong">{this.props.user.withdrawal_requests}</strong> pending {withdrawalPaymentsSingularOrPlural} of  <strong className="strong">&#8358;{this.props.user.total_withdrawal_amount.toLocaleString()}</strong> </span>: null;
+               let withdrawalRequestMessageExtraClass = withdrawalRequestsMessage != null ? null : 'hide';
         let defaultEmailToShow = (this.props.user.email || "user@domain.com").truncate(defaults.emailTruncateSize);
         const subscriptionButtonType =  userSubscriptionStatus ?
             <div className="green-text"><span className="subscription-active-text">active</span><a className="waves-effect waves-light disabled btn-small right">Paid </a></div>     : <div><span className="materialize-red-text activate-account-text">INACTIVE</span> <a className="waves-effect modal-trigger waves-light btn-small right activate-account-button" href = "#account-activation-modal">Activate</a></div>;
@@ -237,7 +238,7 @@ class Affiliate extends React.Component
 
                 <div className="container">
                     {withdrawalRequests}
-                    <div className="row notice-board z-depth-3 withdrawal-notice-board card-panel">
+                    <div className={`row notice-board z-depth-3  withdrawal-notice-board card-panel ${withdrawalRequestMessageExtraClass}`}>
                         <div className="col s12 valign-wrapper">
 
                         {withdrawalRequestsMessage}

@@ -4,7 +4,7 @@
         </div>    </div>
     <div class="footer-copyright">
         <div class="container">
-            <span class="white-text">A property of </span> <a class="orange-text text-lighten-3" href="/"><?php echo $website_details->ParentCompanyName; ?></a><span class="white-text"> [NG]</span>
+            <span class="white-text">A property of </span> <a class="orange-text text-lighten-3" href="/"><?php echo $website_details->ParentCompanyName; ?></a><span class="white-text"></span>
         </div>
     </div>
 </footer>

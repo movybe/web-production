@@ -569,12 +569,6 @@ class Application extends React.Component {
         //set the loadMore key of this website object to false
         this.props.locale[0].loadMore = true;
         this.props.sponsoredAdsClicked = [];
-        let returnNow = false;
-        this.fetchSponsoredAds(response => {
-            if(!this.props.switchWebsite({...this.props , currentWebsite : this.props.locale[0].shortName , noDefaultResultsFound : false , processingAction : true , sponsoredAds : response}))returnNow = true;
-        });
-
-        if(returnNow) return;
         $.get(defaults.crawler, {url: searchFilterUrl}, response => {
 
 
@@ -661,6 +655,13 @@ class Application extends React.Component {
 
 
  });
+            let returnNow = false;
+            this.fetchSponsoredAds(response => {
+                if(!this.props.switchWebsite({...this.props , currentWebsite : this.props.locale[0].shortName , noDefaultResultsFound : false , processingAction : true , sponsoredAds : response}))returnNow = true;
+            });
+
+            if(returnNow) return;
+
             let previousLocale =  this.props.locale;
             //reset the pages to 0;
             this.props.locale.forEach(local => {

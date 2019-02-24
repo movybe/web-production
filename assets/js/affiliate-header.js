@@ -156,6 +156,7 @@ class  AffiliateHeader extends React.Component {
                     this.withdrawalResponseMessage.removeClass('red-text');
                     this.withdrawalResponseMessage.addClass('green-text');
                     this.withdrawalAmount.val(null);
+                    this.withdrawalModalPopup.modal('close');
                     this.refreshProfile();
                 }
                 else {

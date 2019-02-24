@@ -166,7 +166,7 @@ class Actions extends  Functions
         return true;
     }
 
-    private  function perform_ad_actions ($sponsored_ad , bool $increment_views = true , $increment_clicks = false) : bool
+    private  function perform_ad_actions ($sponsored_ad , bool $increment_views = true , bool $increment_clicks = false, bool $deduct_from_account_balance = false) : bool
     {
 
         
@@ -179,10 +179,9 @@ class Actions extends  Functions
         //Decrement the remaining units and also minus the ad_rate from the balance;
 
         $is_movybe_ad = strtolower($poster_details['email']) == strtolower($this->website_details->siteEmail);
-
-        if ((($sponsored_ad['remaining_units'] - 1) >= 0) &&  !$is_movybe_ad){
+        if ((($sponsored_ad['remaining_units'] - 1) >= 0) &&  !$is_movybe_ad && $deduct_from_account_balance){
             $this->decrement_values($this->ads_table_name, [
-                'remaining_units' => $ad_rate ,
+                'remaining_units' => 1 ,
                 'balance' => $ad_rate
             ], "ad_id='{$ad_id}'");
             $this->decrement_value($this->users_table_name, 'account_balance', $ad_rate, " user_id = '{$posted_by}'");
@@ -190,9 +189,18 @@ class Actions extends  Functions
         //Increment the number of views the ad has
         if($increment_views){
             $this->increment_value($this->ads_table_name , 'number_of_views' , 1 , " ad_id = '{$ad_id}'");
+
+            //Update the last viewed;
+            $now = date('Y-m-d H:i:s');
+            $this->update_record($this->ads_table_name , 'last_viewed' , $now , 'ad_id' , $ad_id);
         }
         else if($increment_clicks){
             $this->increment_value($this->ads_table_name , 'number_of_clicks' , 1 , " ad_id = '{$ad_id}'");
+
+            //Update the last clicked;
+            $now = date('Y-m-d H:i:s');
+            $this->update_record($this->ads_table_name , 'last_clicked' , $now , 'ad_id' , $ad_id);
+
         }
 
         //Decrement the account balance of the user
@@ -206,6 +214,7 @@ class Actions extends  Functions
             //Decrement the number of active ads from the site statistics table
             $this->decrement_value($this->site_statistics_table_name , 'total_number_of_active_ads' , 1 , ' id = 1');
         }
+
         return true;
 
 
@@ -225,19 +234,22 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
         {
 
-            if($sponsored_ad['ad_type'] === 'ppv')
-            {
 
-                $this->perform_ad_actions($sponsored_ad);
+
+            if($sponsored_ad['ad_type'] == 'ppv'){
+                $this->perform_ad_actions($sponsored_ad , true , false , true);
+
 
             }
+            else {
+                $this->perform_ad_actions($sponsored_ad , true , true , false);
+            }
+
 
 
         }
 
-
         return $sponsored_ads;
-
     }
 
 
@@ -364,6 +376,20 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         }
 
         $new_user_details = $this->fetch_data_from_table($this->users_table_name , 'username' , $username)[0];
+
+        $payments_made = $this->fetch_data_from_table_with_conditions($this->withdrawals_table_name , "username = '{$username}' AND paid = 1 AND seen = 0");
+
+        $withdrawal_requests_by_affiliate = $this->fetch_data_from_table_with_conditions($this->withdrawals_table_name , "paid = 0 AND username = '{$username}'");
+        $total_withdrawal_amount = 0;
+
+        foreach ($withdrawal_requests_by_affiliate as $withdrawal) {
+            $total_withdrawal_amount += (double)$withdrawal['amount'];
+        }
+
+        $number_of_withdrawal_requests = count($withdrawal_requests_by_affiliate);
+        $user_details_2 = ['withdrawal_requests' => $number_of_withdrawal_requests , 'payments' => $payments_made , 'total_withdrawal_amount' => $total_withdrawal_amount];
+        $new_user_details = array_merge($new_user_details , $user_details_2);
+
         return json_encode([$this->errorText => $this->successText , $this->successText => 1 , 'user' => $new_user_details]);
 
 
@@ -546,7 +572,11 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
             case 'SPONSORED_AD_CLICKED' :
                 $this->ad_id = $this->data['ad_id'];
                 $this->sponsored_ad = $this->fetch_data_from_table($this->ads_table_name , 'ad_id' , $this->ad_id)[0];
-                return json_encode([$this->successText => $this->perform_ad_actions($this->sponsored_ad , false, true) , $this->errorText => $this->successText]);
+                if($this->sponsored_ad['ad_type'] == 'ppc'){
+                    return json_encode([$this->successText => $this->perform_ad_actions($this->sponsored_ad , false, true , true) , $this->errorText => $this->successText]);
+                }
+                return json_encode([$this->successText => $this->perform_ad_actions($this->sponsored_ad , false, true , false) , $this->errorText => $this->successText]);
+
             case 'VALIDATE_AFFILIATE':
                 return $this->validate_affiliate();
             case 'SIGNUP_AFFILIATE' :

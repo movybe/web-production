@@ -162,7 +162,7 @@ class HandleAdForm extends  Functions
             $fields_and_values = array_merge($fields_and_values , $fields_and_values2);
         }
 
-         if($this->update_multiple_fields($this->ads_table_name , $fields_and_values , "ad_id = '{$this->ad_id}'") && !$this->not_advert_by_movybe){
+         if($this->update_multiple_fields($this->ads_table_name , $fields_and_values , "ad_id = '{$this->ad_id}'") && $this->not_advert_by_movybe){
 
              return $this->increment_values($this->site_statistics_table_name , [
 
@@ -221,7 +221,7 @@ class HandleAdForm extends  Functions
 
         ];
 
-        if($this->insert_into_table($this->ads_table_name ,$data_fields_and_values) && !$this->not_advert_by_movybe){
+        if($this->insert_into_table($this->ads_table_name ,$data_fields_and_values) && $this->not_advert_by_movybe){
 
             return $this->increment_values($this->site_statistics_table_name , [
 
