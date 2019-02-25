@@ -60,8 +60,8 @@ class Actions extends  Functions
             $amount_earned_for_the_month = (double)$user_details['amount_earned_for_the_month'];
             $login_date = strtotime($last_subscription_date); // change x with your login date var
             $current_date = strtotime($now); // change y with your current date var
-            $datediff = $current_date - $login_date;
-            $days = floor($datediff / (60 * 60 * 24));
+            $date_difference = $current_date - $login_date;
+            $days = floor($date_difference / (60 * 60 * 24));
             if($days > $this->website_details->subscriptionDurationInDays && $amount_earned_for_the_month >= $amount_earned_for_the_month)
             {
                 //Unsubscribe the user

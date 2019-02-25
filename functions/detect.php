@@ -9,7 +9,7 @@
  *
  * Last Modification Date: 20/11/2017
  */
-require_once 'Mobile_Detect.php';
+require_once '../config/Mobile_Detect.php';
 class Detect {
 	private static $ipAddress = null;
 	private static $ipUrl = null;
@@ -340,4 +340,4 @@ class Debug {
 	}
 }
 
-Detect::init();
+//Detect::init();

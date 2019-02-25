@@ -176,7 +176,7 @@ class Campaign extends  React.Component
                             <h5 className="status-headers">How {defaults.siteName} Merchant works:</h5>
                             <div className="card">
                                 <div className="card-content">
-                                    <p>Watch as our CEO explains how Businesses can advertise their products/services and millions of potential customers.</p>
+                                    <p>Watch as our CEO explains how Businesses can advertise their products/services with millions of potential online customers in Nigeria.</p>
                                     <div className="video-container demo-video-container">
                                         <iframe width="853" height="480" src={defaults.merchantIntroductionVideo} frameBorder="0" allowFullScreen></iframe>
 
@@ -193,8 +193,8 @@ class Campaign extends  React.Component
 
                             <div className="col s12 valign-wrapper">
                                 <p className="notice-header flow-text number-of-merchant-ads">
-                                    <a title="Home page" href="/" style={{textDecoration : 'none'}}
-                                       className="no-underline back-url"><i className="material-icons back-arrow-icon">arrow_backward</i><span className="back-text">Back</span></a>
+                                    <a title="Home page" href="/"
+                                       className="no-underline back-url"><span className="back-text">Back</span></a>
 
                                     <a title="Login or Signup" href="#login-modal"
                                        className="modal-trigger text-right continue-modal-trigger no-underline">Continue<i className="material-icons continue-arrow-icon">arrow_forward</i> </a>

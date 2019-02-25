@@ -1,0 +1,13 @@
+.container.r-container
+{
+    width: 100% !important;
+    height: 100% !important;
+     
+}
+
+.continue-link
+{
+  font-weight: bolder;
+  position: relative;
+  left : 4px;
+}

@@ -2,7 +2,7 @@
 
 require_once 'DatabaseConnection.php';
 require_once 'config.php';
-//require_once 'detect.php';
+require_once 'detect.php';
 //echo $ip_address = Detect::ip();
 class Functions extends  DatabaseConnection {
 
@@ -79,7 +79,12 @@ class Functions extends  DatabaseConnection {
         }
 
         return $data_saving_mode_enabled;
-}
+
+    }
+
+
+
+
 
 
 
@@ -162,16 +167,30 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
         return $this->executeSQL("UPDATE {$table_name} SET {$field_name} = $field_name - {$decrement_by} WHERE $where_clause");
     }
 
+    public final  function try_insert_or_update_ip_address_in_database ()
+    {
 
 
+        $detect = new Detect();
+
+        $ip_address= Detect::ip();
+        $country = Detect::ipCountry();
+
+        if($this->record_exists_in_table($this->visitors_table_name , 'ip_address' , $ip_address))
+        {
+            $now = date('Y-m-d H:i:s');
+            $this->update_record($this->visitors_table_name , 'last_visit' , $now , 'ip_address' , $ip_address);
+            return $this->increment_value($this->visitors_table_name , 'visits' , 1 , "ip_address = '{$ip_address}'");
 
 
+        }
 
-
-
-
-
-
+           // $country = Detect::ipCountry();
+        return $this->insert_into_table($this->visitors_table_name ,
+                [
+                    'ip_address' => $ip_address ,
+                    'country' => $country]);
+           }
 
 }
 

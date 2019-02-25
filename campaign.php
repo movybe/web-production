@@ -4,6 +4,7 @@ if($functions->data_saving_mode_is_enabled())
  {
      header('location: /browser');
  }
+ $functions->try_insert_or_update_ip_address_in_database();
  ?>
 
 <!DOCTYPE html>
@@ -38,7 +39,7 @@ if($functions->data_saving_mode_is_enabled())
 
 
  <?php
- $scripts = array("cookie.min.js" , "request.js"  , "paystack.js"  ,  "jquery.min.js" , "timeago.min.js" , "bgset.min.js" ,"lazy-bg.js" , "materialize.min.js" ,  "defaults.js" , "test.js" , "jquery.lightbox.js" , "particles.js" , "app.js");
+ $scripts = array("cookie.min.js" , "request.js"  /*, "paystack.js" */  ,  "jquery.min.js" , "timeago.min.js" , "bgset.min.js" ,"lazy-bg.js" , "materialize.min.js" ,  "defaults.js" , "test.js" , "jquery.lightbox.js" , "particles.js" , "app.js");
  $components = array("footer.js" , "campaign.js" ,"merchant-header.js" ,  "merchant-ads.js" , "merchant.js" ,"affiliate-header.js", "affiliate.js" ,  "campaign-settings.js" , "jquery.validate.js");
  echo $functions->printAssets($scripts).$functions->printAssets($components , "babel");
 

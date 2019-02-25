@@ -54,6 +54,8 @@ abstract class WebsiteConfigurationSettings {
     public $amountPaidToAffiliateForReferer = 1400;
     public $withdrawalReferenceCodeLength = 8;
     public $affiliateWithdrawalProfit = 45;
+    public $maximumNumberOfInvitesForADay = 500;
+    public $amountPaidForInvite = 30;
     abstract function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords);
 
     public function __construct() {

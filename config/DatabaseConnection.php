@@ -135,7 +135,9 @@ class DatabaseConnection {
 
              id BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
              ip_address VARCHAR (100) UNIQUE NOT NULL DEFAULT 'zyxwvuts', 
-             visitor_id VARCHAR (100) UNIQUE NOT NULL DEFAULT 'abcdefgh'
+             country VARCHAR (100) NOT NULL DEFAULT 'abcdefgh',
+             visits BIGINT NOT NULL DEFAULT 1 ,
+             last_visit TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 )";
 
         try {
@@ -262,7 +264,10 @@ class DatabaseConnection {
                total_number_of_active_ads BIGINT NOT NULL DEFAULT  0,
                total_amount_paid_out DOUBLE(16 , 3) NOT NULL DEFAULT 0.0,
                total_number_of_merchants BIGINT  NOT NULL  DEFAULT  0,
-               total_number_of_affiliates BIGINT NOT NULL  DEFAULT  0
+               total_number_of_affiliates BIGINT NOT NULL  DEFAULT  0,
+               last_invitation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+               number_of_invites_today bigint NOT NULL DEFAULT 0
+               
                 )";
 
         try {
