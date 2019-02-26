@@ -4,7 +4,7 @@ if($functions->data_saving_mode_is_enabled())
  {
      header('location: /browser');
  }
- $functions->try_insert_or_update_ip_address_in_database();
+ //$functions->try_insert_or_update_ip_address_in_database();
  ?>
 
 <!DOCTYPE html>

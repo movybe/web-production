@@ -36,7 +36,6 @@ class HandleNewInvites extends Functions
             return false;
         }
 
-
         //update the last invite date
         $this->update_record($this->site_statistics_table_name , 'last_invitation_date' , $this->now , 'id' , 1);
 
@@ -48,7 +47,7 @@ class HandleNewInvites extends Functions
         {
             //deduct the money from the site profit
 
-            echo "{$this->referer_username} has been credited with <b>&#8358;</b>{$this->website_details->amountPaidForInvite}";
+            echo "{$this->referer_username} has been credited with <b>&#8358;{$this->website_details->amountPaidForInvite}</b>";
             return $this->decrement_value($this->site_statistics_table_name , 'profit' , $this->website_details->amountPaidForInvite , 'id =1');
 
         }

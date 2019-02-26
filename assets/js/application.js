@@ -25,6 +25,7 @@ class Application extends React.Component {
 
 
 
+
         // here i want to find the E-commerce website object from the props using the "website" parameter
         let selectedEcommerce = this.props.locale.find((local  , pos)=> {
                 index = pos;
