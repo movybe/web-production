@@ -23,6 +23,7 @@ class Application extends React.Component {
 
 
 
+        console.log(website);
 
 
 
@@ -658,7 +659,7 @@ class Application extends React.Component {
  });
             let returnNow = false;
             this.fetchSponsoredAds(response => {
-                if(!this.props.switchWebsite({...this.props , currentWebsite : this.props.locale[0].shortName , noDefaultResultsFound : false , processingAction : true , sponsoredAds : response}))returnNow = true;
+                if(!this.props.switchWebsite({...this.props , currentWebsite : this.props.locale[0].shortName , noDefaultResultsFound : false , processingAction : false , sponsoredAds : response}))returnNow = true;
             });
 
             if(returnNow) return;
@@ -678,22 +679,18 @@ class Application extends React.Component {
                 q,
                 query: this.searchQuery,
                 locale: previousLocale,
-                currentWebsite: defaultEcommerceWebsiteShortName
+                currentWebsite: defaultEcommerceWebsiteShortName,
+                processingAction : false
             };
 
-            if (this.props.newDefaultSearchResult({...savedState , processingAction : false})) {
+            if (this.props.newDefaultSearchResult({...savedState})) {
 
                 //Switch the tab to the default behaviour;
                 this.formSubmitted = true;
                 this.searchQueryField.blur();
                 this.searchTabs.show();
                 $('#tabs.tabs').tabs('select', defaultEcommerceWebsiteShortName);
-
-
             }
-
-
-
 
         });
 
