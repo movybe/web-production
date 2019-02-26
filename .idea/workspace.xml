@@ -226,7 +226,7 @@
         <entry file="file://$PROJECT_DIR$/assets/js/search-tabs.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="357">
-              <caret line="191" column="7" selection-start-line="191" selection-start-column="7" selection-end-line="191" selection-end-column="7" />
+              <caret line="191" selection-start-line="191" selection-end-line="191" />
             </state>
           </provider>
         </entry>
@@ -420,7 +420,7 @@
     <servers />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1456" />
@@ -613,20 +613,19 @@
       <workItem from="1550936957612" duration="622000" />
       <workItem from="1550954718329" duration="7124000" />
       <workItem from="1550997543914" duration="10858000" />
-      <workItem from="1551079387314" duration="27705000" />
+      <workItem from="1551079387314" duration="27949000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1194867000" />
+    <option name="totallyTimeSpent" value="1195111000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <layout>
       <window_info id="Structure" order="0" sideWeight="0.5013405" side_tool="true" weight="0.45922747" />
       <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.49865952" visible="true" weight="0.18266475" />
+      <window_info content_ui="combo" id="Project" order="2" sideWeight="0.49865952" visible="true" weight="0.18266475" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3293011" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -638,7 +637,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="10" weight="0.3283582" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.18413979" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.18413979" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" weight="0.3293011" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -1032,7 +1031,7 @@
     <entry file="file://$PROJECT_DIR$/assets/js/search-tabs.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
-          <caret line="191" column="7" selection-start-line="191" selection-start-column="7" selection-end-line="191" selection-end-column="7" />
+          <caret line="191" selection-start-line="191" selection-end-line="191" />
         </state>
       </provider>
     </entry>
