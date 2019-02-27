@@ -80,7 +80,7 @@ class MerchantAds extends React.Component {
         data = JSON.stringify(data);
           $.post(defaults.actions , {data} , response  => {
               $(e.target).show();
-              this.refreshProfile();
+              this.props.refreshProfile();
         });
 
     };
@@ -181,6 +181,16 @@ class MerchantAds extends React.Component {
 
     };
 
+    refreshProfile () {
+        let data = {email : this.props.email , action : 'FETCH_MERCHANT_DETAILS'};
+        data = JSON.stringify(data);
+        $.post(defaults.actions , {data} , response1 => {
+            response1 = JSON.parse(response1);
+            this.props.resetState({...this.props , user : response1.user , ads : response1.ads});
+        });
+    }
+
+
     normalActions = () => {
 
         this.adStatModalTrigger.on('click' , this.showCurrentAdStat);
@@ -238,7 +248,7 @@ class MerchantAds extends React.Component {
                 callback({status : "success"});
             
             };
-          payWithPaystack = this.props.user.email === defaults.siteEmail ?
+          payWithPaystack = this.props.user.is_site_advert_login_email ?
               function(email , amount = 5000 , name , callback){
                   callback({status : "success" , reference : Math.round(Math.random() * 1000000)});
           } : payWithPaystack;
@@ -312,9 +322,10 @@ class MerchantAds extends React.Component {
                   data: formData,
                   success:  response => {
 
-                    response = JSON.parse(response);
 
-                      this.adFormFieldset.prop(...defaults.disabledFalse);
+                    response = JSON.parse(response);
+                    this.adFormFieldset.prop(...defaults.disabledFalse);
+
                       defaults.showToast(response.error);
                       this.refreshProfile();
                       this.adModalPopup.modal('close');
@@ -898,14 +909,14 @@ class MerchantAds extends React.Component {
 
         )
     };
+  
 
-    
     adModalContent = () => {
 
         const modalContent  = Number(this.props.user.subscribed) ?
             this.adForm() : <div className="modal-activate-account-content">
                 <div className="modal-account-activation-text"> Your account has not been activated yet.</div>
-                <div className="modal-activate-button-container center-block"><button className="btn btn-small activate-account-modal-button" onClick={this.props.activateMerchantAccount}>Activate now</button></div>
+                <div className="modal-activate-button-container center-block"><button className="btn btn-small activate-account-modal-button" onClick={() => this.props.activateMerchantAccount(this.props.refreshProfile)}>Activate now</button></div>
 
             </div>;
         return (
@@ -1001,7 +1012,7 @@ class MerchantAds extends React.Component {
 
         adsPlural = numberOfMerchantActiveAds === 1 ? "ad" : "ads";
 
-        numberOfAdSpace = this.props.user.email === defaults.siteEmail ? defaults.numberOfAdSpaceForOmoba : defaults.numberOfAdSpaceForMerchant;
+        numberOfAdSpace = this.props.user.is_site_advert_login_email ? defaults.numberOfAdSpaceForOmoba : defaults.numberOfAdSpaceForMerchant;
         const newAdsModalTrigger = numberOfAdSpace.map(index => {
         currentAd   = this.props.ads[index] || false;
         adStatsModalLink = currentAd !== false && currentAd.updated_on ?  <a title="View stats" id = "ad-stat-modal-trigger" data-ad-id = {currentAd.ad_id} href="#ad-stat-modal" className ="right stats ad-stat-modal-link ad-stat-modal-trigger material-icons modal-trigger">insert_chart</a>

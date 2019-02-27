@@ -57,6 +57,12 @@
 
                 plugin.bindEvents();
 
+                $('.lightbox__close.lightbox__button').on('click' , function () {
+                    $('.lightbox').fadeOut('fast');
+                    $('body').removeClass('blurred');
+                    $(document).off('keydown'); // Unbind all key events each time the lightbox is closed
+
+                });
             },
 
             loadImage: function () {
@@ -187,12 +193,13 @@
                     return false;
                 });
 
-                // Close click
-                $(plugin.lightbox).on('click', '.lightbox__close', function () {
+                /* Close click
+                $(plugin.lightbox).on('click', 'lightbox__button.lightbox__close', function () {
                     plugin.close();
                     return false;
                 });
 
+*/
                 $(window).resize(function () {
                     if (!plugin.image) {
                         return;

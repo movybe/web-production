@@ -25,7 +25,7 @@ class Actions extends  Functions
     {
 
         $this->action = $this->data['action'];
-        $this->email = $this->data['email'];
+        $this->email = strtolower($this->data['email']);
 
         return true;
 
@@ -43,9 +43,15 @@ class Actions extends  Functions
         $user_details = $this->fetch_data_from_table($this->users_table_name , "email" , $this->email)[0];
         $ad_details = $this->fetch_data_from_table($this->ads_table_name , "posted_by" , $user_details['user_id']);
 
+        $site_statistics = $this->fetch_data_from_table($this->site_statistics_table_name , 'id' , 1)[0];
+        $advert_login_email = $site_statistics['advert_login_email'];
+        $admin_login_email = $site_statistics['admin_login_email'];
 
+        $is_site_admin_login_email= $this->email === $admin_login_email ? 1 : 0;
+        $is_site_advert_login_email= $this->email === $advert_login_email ? 1 : 0;
+        $user_details_2 = ['is_site_admin_login_email' => $is_site_admin_login_email , 'is_site_advert_login_email' => $is_site_advert_login_email];
+        $user_details = array_merge($user_details , $user_details_2);
         return ["user" => $user_details ,"ads" => $ad_details];
-
     }
 
     private function fetchAffiliateDetails () : array {
@@ -158,18 +164,29 @@ class Actions extends  Functions
         return $this->record_exists_in_table($this->users_table_name , "username" , $this->username);
     }
 
-    private function activateMerchantAccount () : bool
+    private function activateMerchantAccount () : string
     {
 
         $amount = $this->data['amount'];
+        $this->reference = $this->data['reference'];
         $this->update_multiple_fields($this->users_table_name, ["subscribed" => 1, "reference_code" => $this->reference], "email = '{$this->email}'");
 
-        //Increment the website profit
-        $this->increment_value($this->site_statistics_table_name , 'profit' , $amount , 'id = 1');
+        //Increment the website profit if it's a non-admin account
+        $site_statistics = $this->fetch_data_from_table($this->site_statistics_table_name , 'id' , 1)[0];
+        $site_ad_email = $site_statistics['advert_login_email'];
+        $not_movybe_account = $this->email !== strtolower($site_ad_email);
+
+        if($not_movybe_account){
+            $this->increment_value($this->site_statistics_table_name , 'profit' , $amount , 'id = 1');
+        }
 
 
-        return true;
-    }
+        return json_encode([$this->errorText => $this->successText , $this->successText => 1]);
+
+
+
+
+        }
 
     private  function perform_ad_actions ($sponsored_ad , bool $increment_views = true , bool $increment_clicks = false, bool $deduct_from_account_balance = false) : bool
     {
@@ -183,7 +200,10 @@ class Actions extends  Functions
         $poster_details = $this->fetch_data_from_table($this->users_table_name , 'user_id' , $posted_by)[0];
         //Decrement the remaining units and also minus the ad_rate from the balance;
 
-        $is_movybe_ad = strtolower($poster_details['email']) == strtolower($this->website_details->siteEmail);
+        $site_statistics = $this->fetch_data_from_table($this->site_statistics_table_name , 'id' , 1)[0];
+        $site_ad_email = $site_statistics['advert_login_email'];
+
+        $is_movybe_ad = strtolower($poster_details['email']) == strtolower($site_ad_email);
         if ((($sponsored_ad['remaining_units'] - 1) >= 0) &&  !$is_movybe_ad && $deduct_from_account_balance){
             $this->decrement_values($this->ads_table_name, [
                 'remaining_units' => 1 ,
@@ -549,26 +569,21 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                 return json_encode([$this->errorText => $this->usernameExistsInTable() , $this->successText => 1]);
 
             case 'SIGNUP_MERCHANT' :
-                $this->email = $this->data['email'];
                 return $this->create_new_merchant_account();
             case 'FETCH_MERCHANT_DETAILS' :
                   return json_encode(array_merge($this->fetchMerchantDetails() , [$this->errorText => 1 ,$this->successText => 1]));
             case 'ACTIVATE_MERCHANT_ACCOUNT' :
-                $this->email = $this->data['email'];
-                $this->reference = $this->data['reference'];
-                return json_encode([$this->errorText => $this->activateMerchantAccount() , $this->successText => 1 , "user" => $this->getUserDetails()]);
+                return $this->activateMerchantAccount();
             case 'FETCH_AD_RATES' :
                 $cpc = 5.2;
                 $cpv = 1.2;
                 $cpa = 10;
                 return json_encode(array("cpc" => $cpc , "cpv" => $cpv , "cpa"=>  $cpa));
             case 'PAUSE_AD' :
-                $this->email = $this->data['email'];
                 $this->ad_id = $this->data['id'];
                 $this->update_record($this->ads_table_name , 'paused' , 1 , 'ad_id' , $this->ad_id);
                 return json_encode([$this->successText => 1 , $this->errorText => $this->successText]);
             case 'PLAY_AD' :
-                $this->email = $this->data['email'];
                 $this->ad_id = $this->data['id'];
                 $this->update_record($this->ads_table_name , 'paused' , 0 , 'ad_id' , $this->ad_id);
                 return json_encode([$this->successText => 1 , $this->errorText => $this->successText]);

@@ -266,7 +266,9 @@ class DatabaseConnection {
                total_number_of_merchants BIGINT  NOT NULL  DEFAULT  0,
                total_number_of_affiliates BIGINT NOT NULL  DEFAULT  0,
                last_invitation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-               number_of_invites_today bigint NOT NULL DEFAULT 0
+               number_of_invites_today bigint NOT NULL DEFAULT 0,
+               admin_login_email varchar(100) not null DEFAULT 'admin@m.com',
+               advert_login_email varchar(100) not null DEFAULT 'ad@m.com'
                
                 )";
 
@@ -275,6 +277,7 @@ class DatabaseConnection {
             $this->conn->exec($sql);
             $msg = "";
             echo "Table Created successfully";
+            return true;
                 }
 
         catch (PDOException $exception) {

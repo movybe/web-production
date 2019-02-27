@@ -1,4 +1,3 @@
-
 class Campaign extends  React.Component
 {
 

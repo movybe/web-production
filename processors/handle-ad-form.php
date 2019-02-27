@@ -36,7 +36,7 @@ class HandleAdForm extends  Functions
     {
         global  $website_details;
         $short_link = $this->generateID($this->website_details->LinkShortUrlLength);
-        if($this->record_exists_in_table($this->ads_table_name , "link_short_url" , $short_link)) $this->generateAdId();
+        if($this->record_exists_in_table($this->ads_table_name , "link_short_url" , $short_link)) $this->generateLinkShortUrl();
         return $short_link;
     }
 
@@ -63,7 +63,9 @@ class HandleAdForm extends  Functions
         $this->link_short_url = $this->generateLinkShortUrl();
         $this->ad_location = $this->escape_string($_POST['ad_location']);
 
-        $this->not_advert_by_movybe = strtolower($this->email) !== strtolower($this->website_details->siteEmail);
+        $site_statistics = $this->fetch_data_from_table($this->site_statistics_table_name , 'id' , 1)[0];
+        $site_ad_email = $site_statistics['advert_login_email'];
+        $this->not_advert_by_movybe = $this->email !== strtolower($site_ad_email);
 
         if($this->action === 'UPDATE_AD') return true;
         $this->ad_type = $_POST['ad_type'];

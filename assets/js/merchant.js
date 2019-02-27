@@ -22,6 +22,7 @@ class Merchant extends React.Component
         data = JSON.stringify(data);
         $.post(defaults.actions , {data} , response1 => {
 
+
             this.registeredTimeago = timeago.format(this.props.user.registered_on);
             response1 = JSON.parse(response1);
 
@@ -44,7 +45,17 @@ class Merchant extends React.Component
 
 
 
-    activateMerchantAccount = (callback = null) =>
+    refreshProfile () {
+        let data = {email : this.props.email , action : 'FETCH_MERCHANT_DETAILS'};
+        data = JSON.stringify(data);
+        $.post(defaults.actions , {data} , response1 => {
+            response1 = JSON.parse(response1);
+            this.props.resetState({...this.props , user : response1.user , ads : response1.ads});
+        });
+    }
+
+
+    activateMerchantAccount = () =>
     {
 
         defaults.payWithPaystack(this.props.email , defaults.convertToPaystack(defaults.merchantActivationFee) , "Account Activation" , (response) => {
@@ -52,15 +63,11 @@ class Merchant extends React.Component
             let data = {email : this.props.email , action : 'ACTIVATE_MERCHANT_ACCOUNT' , reference : response.reference , amount: defaults.merchantActivationFee};
             data = JSON.stringify(data);
             $.post(defaults.actions , {data} , response => {
-                response = JSON.parse(response);
-                if(this.props.resetState({...this.props , user : response.user})){
-                   if(callback)callback();
-                }
+                this.refreshProfile();
             })
         });
 
     };
-
 
 
     render() {
@@ -146,7 +153,7 @@ class Merchant extends React.Component
                         </div>
 
                 </div>
-                <MerchantAds activateMerchantAccount = {this.activateMerchantAccount} />
+                <MerchantAds activateMerchantAccount = {this.activateMerchantAccount} refreshProfile = {this.refreshProfile} />
             </div>
                 <Footer accountType = "Merchant" />
             </div>
