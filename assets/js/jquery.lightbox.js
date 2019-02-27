@@ -10,6 +10,20 @@
  * minSize - int - default 0. Min window width or height to open lightbox. Below threshold will open image in a new tab.
  *
  */
+
+function closeLightBox(e) {
+
+
+
+    const id = $(e).attr('data-id');
+
+    $('.lightbox').fadeOut('fast');
+    $('body').removeClass('blurred');
+
+    $(document).off('keydown');
+    return false;
+}
+
 (function ($) {
 
     'use strict';
@@ -38,7 +52,7 @@
 
                 $('body').append(
                     '<div id="' + id + '" class="lightbox" style="display:none;">' +
-                    '<a href="#" class="lightbox__close lightbox__button"></a>' +
+                    '<a href="#" class="lightbox__close lightbox__button" onclick="return closeLightBox(this)" data-id = "'+id+'"></a>' +
                     '<a href="#" class="lightbox__nav lightbox__nav--prev lightbox__button"></a>' +
                     '<a href="#" class="lightbox__nav lightbox__nav--next lightbox__button"></a>' +
                     '<div href="#" class="lightbox__caption"><p></p></div>' +
@@ -46,6 +60,7 @@
                 );
 
                 plugin.lightbox = $("#" + id);
+
 
                 plugin.caption = $('.lightbox__caption', plugin.lightbox);
 
@@ -57,12 +72,7 @@
 
                 plugin.bindEvents();
 
-                $('.lightbox__close.lightbox__button').on('click' , function () {
-                    $('.lightbox').fadeOut('fast');
-                    $('body').removeClass('blurred');
-                    $(document).off('keydown'); // Unbind all key events each time the lightbox is closed
 
-                });
             },
 
             loadImage: function () {
@@ -193,7 +203,8 @@
                     return false;
                 });
 
-                /* Close click
+                //Close click
+                /*
                 $(plugin.lightbox).on('click', 'lightbox__button.lightbox__close', function () {
                     plugin.close();
                     return false;
