@@ -121,9 +121,9 @@ class Campaign extends  React.Component
             <div className="site-header">
 
                 <nav>
-                    <div className="nav-wrapper">
+                    <div className="nav-wrapper admin-navbar">
                         <span className="bullhorn-icon-container"><i className="fa fa-bullhorn bullhorn-icon"></i></span>
-                        <a href="#" className="brand-logo  left watch-demo-video campaign-page-header">{defaults.siteName} Campaign Programme
+                        <a href="#" className="brand-logo admin-brand-logo left watch-demo-video campaign-page-header">{defaults.siteName} Campaign Programme
                         </a>
                                       </div>
                 </nav>
@@ -565,7 +565,8 @@ class Campaign extends  React.Component
         if(this.props.user.account_type !== undefined)
         {
 
-            template  = this.props.user.account_type === "merchant" ? <Merchant /> : <Affiliate />;
+            template  = this.props.user.account_type == "merchant" ? <Merchant /> : <Affiliate />;
+            template =  this.props.user.is_site_admin_login_email ? <Admin /> : template;
 
         }
         else {

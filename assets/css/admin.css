@@ -1,0 +1,114 @@
+@import "cairo.css";
+.admin-nav-brand-logo
+{
+    width : 40px;
+    position: relative;
+    top : 10px;
+}
+
+.admin-account-header
+.admin-navbar{
+    background-color :#2196f3;
+    position: fixed !important;
+}
+.admin-account-header
+.admin-navbar
+{
+    z-index: 2;
+}
+
+@media only screen and (min-width:992px)
+{
+.admin-sidenav
+{
+    z-index: 2 !important;
+    position: relative;
+    top : 65px !important;
+ }
+    
+.admin-account-header a.brand-logo{
+    position: relative;
+    top : 4px;
+    float:left !important;
+    }
+.email.white-text
+{
+    position: relative;
+    top : -24px !important;
+    left : 80px !important;
+    }
+    
+.admin-name
+{
+    font-weight: bolder !important;
+    position: relative;
+    top : -15px;
+    left : 30px;
+    margin-top : 20px;
+}
+}
+
+.admin-account-header a.brand-logo.admin-brand-logo
+{
+    font-family: tahoma;
+    position: relative;
+    top : 4px;
+    float: right;
+    left : 60px !important;
+    text-decoration: navajowhite
+}
+
+.brand-name
+{
+    position: relative;
+    top : -4px;
+    margin-left : 10px;
+    font-size: 25px;
+    font-family: tahoma;
+}
+.email.white-text
+{
+    position: relative;
+    top : -10px;
+    left : 60px;
+    color : silver !important;
+    font-weight : bolder;
+}
+
+.ad-management-icon.bullhorn-icon{
+    float: left;
+    position: relative;
+    left : 2px;
+}
+
+li a.admin-action-links
+{
+    cursor: pointer !important;
+    color : #333 !important;
+    font-family: Cairo;
+    font-size: 15px !important;
+    opacity: .7;
+}
+
+.admin-container{
+    position: relative;
+    top : 100px;
+    padding-left: 300px;
+   
+}
+.admin-sidenav .collapsible-header 
+{
+    font-weight: bolder;
+    color : rgba(0 , 0 , 0 , . 7);
+}
+
+@media only screen and (max-width : 992px) {
+      .admin-container{
+          padding-left: 0;
+      }
+    }
+
+.status-headers.admin-status-headers
+{
+    font-family: Cairo
+}

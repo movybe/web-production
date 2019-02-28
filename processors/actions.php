@@ -51,6 +51,11 @@ class Actions extends  Functions
         $is_site_advert_login_email= $this->email === $advert_login_email ? 1 : 0;
         $user_details_2 = ['is_site_admin_login_email' => $is_site_admin_login_email , 'is_site_advert_login_email' => $is_site_advert_login_email];
         $user_details = array_merge($user_details , $user_details_2);
+        if($is_site_admin_login_email)
+        {
+            $user_details_3 = ['site_statistics' => $site_statistics];
+            $user_details = array_merge($user_details , $user_details_3);
+        }
         return ["user" => $user_details ,"ads" => $ad_details];
     }
 

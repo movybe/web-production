@@ -1,3 +1,4 @@
+@import "affiliate.css";
 #fund-status-container {
 
 
@@ -228,7 +229,7 @@ label.strong{
 {
     float: right;
     position: relative;
-    top
+
 }
 .ad-pause-play-icon{
     position: relative;
