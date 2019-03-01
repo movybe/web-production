@@ -95,6 +95,7 @@ class  AffiliateHeader extends React.Component {
     };
 
 
+
     defaultAction = () => {
         this.faqModalPopUp = $('.modal#faq-modal');
         this.tosModalPopUp = $('.modal#tos-modal');

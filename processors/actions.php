@@ -546,6 +546,22 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
     }
 
+    private function  fetch_next_payment_details () : string {
+        $index = $this->data['index'];
+        $payment_details = $this->fetch_data_from_table_with_conditions($this->withdrawals_table_name , " paid = 0 AND id > {$index} LIMIT 1");
+        if(!empty($payment_details))
+        {
+            $payment_details = $payment_details[0];
+            $user_details = $this->fetch_data_from_table($this->users_table_name , 'username' , $payment_details['username'])[0];
+            $payment_details = array_merge($user_details , $payment_details);
+
+        }
+        else {
+            $payment_details = [];
+        }
+        return json_encode([$this->successText => 1 , $this->errorText => $this->successText , 'payment_details' => $payment_details]);
+    }
+
     private  function reactivate_affiliate_account () :string
     {
         $referer_username = $this->escape_string($this->data['referer_username']);
@@ -560,6 +576,18 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
         return json_encode([$this->successText => 1 , $this->errorText => $this->successText]);
 
+    }
+
+    private function confirmPayment () : string {
+
+        $now = date('Y-m-d H:i:s');
+        $reference_code = $this->data['reference_code'];
+        $this->update_multiple_fields($this->withdrawals_table_name ,
+            [
+            'paid' => 1 ,
+            'payment_date' => $now
+            ] , "reference_code ='{$reference_code}'");
+        return json_encode([$this->successText => 1 , $this->errorText => $this->successText]);
     }
     public function actionProcessor () : string
     {
@@ -616,6 +644,10 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                 return $this->try_reactivate_affiliate_account();
             case 'RE-ACTIVATE_AFFILIATE_ACCOUNT' :
                 return $this->reactivate_affiliate_account();
+            case 'FETCH_NEXT_PAYMENT_DETAILS' :
+                return $this->fetch_next_payment_details();
+            case 'CONFIRM_PAYMENT':
+                return $this->confirmPayment();
         }
     }
 

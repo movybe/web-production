@@ -20,6 +20,15 @@ class Campaign extends  React.Component
 
     };
 
+    logout = () => {
+
+
+        if(this.props.factoryReset())
+        {
+            window.location.reload();
+        }
+    };
+
 
     loggedInDefaultAction = () => {
         this.loginModalPopup.modal('close');
@@ -564,10 +573,8 @@ class Campaign extends  React.Component
         let template = null;
         if(this.props.user.account_type !== undefined)
         {
-
             template  = this.props.user.account_type == "merchant" ? <Merchant /> : <Affiliate />;
-            template =  this.props.user.is_site_admin_login_email ? <Admin /> : template;
-
+            template =  this.props.user.is_site_admin_login_email ? <Admin logout = {this.logout} /> : template;
         }
         else {
             template = this.defaultPage();

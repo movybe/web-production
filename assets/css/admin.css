@@ -17,6 +17,14 @@
     z-index: 2;
 }
 
+.btn.next-payment-button
+{
+    position: relative;
+    margin-top: 10px;
+    float: right;
+    
+}
+
 @media only screen and (min-width:992px)
 {
 .admin-sidenav
@@ -93,7 +101,7 @@ li a.admin-action-links
 .admin-container{
     position: relative;
     top : 100px;
-    padding-left: 300px;
+    padding-left: 200px;
    
 }
 .admin-sidenav .collapsible-header 
@@ -111,4 +119,22 @@ li a.admin-action-links
 .status-headers.admin-status-headers
 {
     font-family: Cairo
+}
+
+.cairo-font
+{
+    font-family: Tahoma;
+}
+.card-content.admin-actions-content-container{
+    padding-bottom: 80px !important;
+}
+.btn.next-payment-button
+{
+    position: relative;
+    top : 10px;
+}
+
+.payment-yes-click
+{
+    float: left;
 }

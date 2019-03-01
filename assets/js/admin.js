@@ -1,6 +1,21 @@
 class Admin extends React.Component
 {
-    state = {show : 'payment'};
+    texts ={payments : 'payments' , ads : 'ads' , stats : 'stats'};
+    state = {
+        show : this.texts.payments ,
+        payment_details : [
+            {account_name : "Kosi Eric" , account_number : 2093954338 , bank_name : "Access Bank" , amount : 34000}
+        ]
+        ,
+        current_payment_index : -1
+    };
+
+
+    componentWillMount = () => {
+
+            $.getScript('/assets/js/clipboard.js');
+    };
+
 
     refreshProfile () {
         let data = {email : this.props.email , action : 'FETCH_MERCHANT_DETAILS'};
@@ -11,20 +26,140 @@ class Admin extends React.Component
         });
     }
 
+
+    getNextAd = () => {
+        let data = {action : 'FETCH_NEXT_PAYMENT_DETAILS' , email : this.props.email , index : this.state.current_payment_index};
+
+        data = JSON.stringify(data);
+
+        $.post(defaults.actions , {data} , response => {
+
+                response = JSON.parse(response);
+
+
+            let payment_details = response.payment_details.amount ? [response.payment_details] : [];
+
+            this.setState({...this.state , payment_details , current_payment_index : parseInt(response.payment_details.id)});
+
+
+        });
+    };
+
+    confirmPayment = (paid = true) => {
+
+
+        let getNext = true;
+        //if the user was actually paid
+        if(paid) {
+            getNext = false;
+            let data = {
+                action: 'CONFIRM_PAYMENT',
+                email: this.props.email,
+                reference_code: this.state.payment_details[0].reference_code
+            };
+            data = JSON.stringify(data);
+
+            $.post(defaults.actions, {data}, response => {
+
+                response = JSON.parse(response);
+                defaults.showToast(response.error);
+
+                this.getNextAd();
+            });
+
+        }
+        this.confirmPaymentModalPopup.modal('close');
+        if(getNext)this.getNextAd();
+
+    };
+
     componentDidMount = () => {
+
+
         this.sidenav = $('.sidenav');
         this.sidenav.sidenav({preventScrolling:true});
         $('.collapsible').collapsible();
-        this.refreshProfile();
+
+        //Fetch the next payment details
+
+        this.getNextAd();
+
+        try {
+            this.refreshProfile();
+            this.confirmPaymentModalPopup = $('.modal#confirm-payment-modal');
+            this.confirmPaymentModalPopup.modal({dismissible: false});
+        }
+        catch (e) {
+        }
 
     };
 
+    confirmPaymentModal = () => {
+        return (
+            <div id="confirm-payment-modal" className="modal">
+                <div className="modal-content">
+                    <h4>Confirm payment to user</h4>
+                    <p>Have you made payment to this account?</p>
+                </div>
+                <div className="modal-footer">
+                    <a href="#" className="modal-action modal-close waves-effect waves-green btn-flat payment-yes-click" onClick={this.confirmPayment}>YES</a>
+                    <a href="#" className="modal-action modal-close waves-effect waves-red btn-flat" onClick={() => this.confirmPayment(false)}>NO</a>
+                </div>
+            </div>
+        )
+    };
+
+    paymentDetailsTable = () => {
+
+        let display = this.state.payment_details.length ?
+            <div>
+                {this.confirmPaymentModal()}
+            <table className="striped centered responsive-table highlight">
+                <thead>
+                <tr>
+                    <th>Acc name</th>
+                    <th>Acc No.</th>
+                    <th>Bank</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td>{this.state.payment_details[0].account_name.truncate(defaults.accountNameLengthToShow)}</td>
+                    <td>{this.state.payment_details[0].account_number} <a href='#' className='no-underline' onClick={() => clipboard.writeText(this.state.payment_details[0].account_number)}>copy</a> </td>
+                    <td>{this.state.payment_details[0].bank_name}</td>
+                    <td>&#8358;{this.convertDecimalToLocaleString(this.state.payment_details[0].amount)}</td>
+                </tr>
+                </tbody>
+            </table>
+                <a href='#confirm-payment-modal' className="waves-effect waves-light next-payment-button btn right modal-trigger">Next</a>
+            </div>
+            : <h5>No payment Request yet.</h5>;
+
+        return (
+
+
+
+            <div className="col s12">
+                <div className="card">
+                    <div className="card-content admin-actions-content-container">
+                        {display}
+                             </div>
+                </div>
+            </div>
+        )
+    };
     componentDidUpdate = () => {
-        this.sideNav = $('.sidenav');
+        this.sidenav = $('.sidenav');
 
-        this.sideNav.sidenav({preventScrolling:true});
+        this.sidenav.sidenav({preventScrolling:true});
     };
 
+
+    changeAdminContent = (e) => {
+        const content = $(e.target).attr('data-content');
+      };
 
     header = () => {
         return (
@@ -66,7 +201,7 @@ class Admin extends React.Component
                             <div className="collapsible-body">
                                 <ul>
                                     <li>
-                                        <a href="#" className="admin-action-links"><i className="fa fa-share"></i>Withdrawal Requests
+                                        <a href="#" className="admin-action-links" data-content = {this.texts.payments} onClick={this.changeAdminContent}><i className="fa fa-share"></i>Withdrawal Requests
                                         </a>
                                     </li>
                                 </ul>
@@ -81,7 +216,7 @@ class Admin extends React.Component
                             <a className="collapsible-header"><i className="fa fa-bullhorn bullhorn-icon ad-management-icon"></i>Ad Management</a>
                             <div className="collapsible-body">
                                 <ul>
-                                    <li><a href="#" className="admin-action-links">
+                                    <li><a href="#" className="admin-action-links" data-content = {this.texts.ads} onClick={this.changeAdminContent}>
                                         <i className="material-icons">rate_review</i> Review Ads</a>
                                     </li>
                                 </ul>
@@ -103,7 +238,7 @@ class Admin extends React.Component
                             <div className="collapsible-body">
                                 <ul>
                                     <li>
-                                        <a href="#" className="admin-action-links"><i className="material-icons">terrain</i>View stats</a>
+                                        <a href="#" className="admin-action-links" data-content = {this.texts.stats} onClick={this.changeAdminContent}><i className="material-icons">terrain</i>View stats</a>
                                     </li>
                                 </ul>
                             </div>
@@ -119,7 +254,7 @@ class Admin extends React.Component
                             <div className="collapsible-body">
                                 <ul>
                                     <li>
-                                        <a href="#" className="admin-action-links"><i className="material-icons">power_settings_new</i>Sign out</a>
+                                        <a href="#" className="admin-action-links" onClick={this.props.logout}><i className="material-icons">power_settings_new</i>Sign out</a>
                                     </li>
                                 </ul>
                             </div>
@@ -145,6 +280,11 @@ class Admin extends React.Component
     };
     render() {
 
+        let content = null;
+        switch (this.state.show) {
+            case this.texts.payments:
+               content = this.paymentDetailsTable();
+        }
 
         return (
         <main className="admin-dashboard">
@@ -160,7 +300,7 @@ class Admin extends React.Component
                     <h5 className="status-headers admin-status-headers">Account Balance</h5>
                     <div className="card">
                         <div className="card-content">
-                            <h5>
+                            <h5 className = 'cairo-font'>
                                 &#8358;{this.convertDecimalToLocaleString(this.props.user.site_statistics.account_balance)}
 
                             </h5>
@@ -173,7 +313,7 @@ class Admin extends React.Component
                     <h5 className="status-headers admin-status-headers">Profit</h5>
                     <div className="card">
                         <div className="card-content">
-                            <h5>
+                            <h5 className = 'cairo-font'>
                                 &#8358;{this.convertDecimalToLocaleString(this.props.user.site_statistics.profit)}
 
                             </h5>
@@ -183,6 +323,10 @@ class Admin extends React.Component
                 </div>
 
             </div>
+
+                <div className="row">
+                    {content}
+                </div>
 
             </div>
 

@@ -166,6 +166,7 @@ class Affiliate extends React.Component
 
     componentDidUpdate () {
         this.defaultActions();
+
     }
 
 
