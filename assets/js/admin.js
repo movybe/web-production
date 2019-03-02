@@ -2,12 +2,13 @@ class Admin extends React.Component
 {
     texts ={payments : 'payments' , ads : 'ads' , stats : 'stats'};
     state = {
-        show : this.texts.payments ,
+        content : this.texts.payments ,
         payment_details : [
             {account_name : "Kosi Eric" , account_number : 2093954338 , bank_name : "Access Bank" , amount : 34000}
         ]
         ,
-        current_payment_index : -1
+        current_payment_index : -1,
+        site_statistics : {}
     };
 
 
@@ -17,14 +18,16 @@ class Admin extends React.Component
     };
 
 
-    refreshProfile () {
+    refreshProfile = () => {
         let data = {email : this.props.email , action : 'FETCH_MERCHANT_DETAILS'};
         data = JSON.stringify(data);
         $.post(defaults.actions , {data} , response1 => {
             response1 = JSON.parse(response1);
+            console.log(this.state);
             this.props.resetState({...this.props , user : response1.user , ads : response1.ads});
+            this.setState({...this.state , site_statistics : response1.user.site_statistics});
         });
-    }
+    };
 
 
     getNextAd = () => {
@@ -45,6 +48,7 @@ class Admin extends React.Component
         });
     };
 
+
     confirmPayment = (paid = true) => {
 
 
@@ -55,7 +59,8 @@ class Admin extends React.Component
             let data = {
                 action: 'CONFIRM_PAYMENT',
                 email: this.props.email,
-                reference_code: this.state.payment_details[0].reference_code
+                reference_code: this.state.payment_details[0].reference_code,
+                amount : this.state.payment_details[0].amount
             };
             data = JSON.stringify(data);
 
@@ -102,10 +107,45 @@ class Admin extends React.Component
                     <p>Have you made payment to this account?</p>
                 </div>
                 <div className="modal-footer">
-                    <a href="#" className="modal-action modal-close waves-effect waves-green btn-flat payment-yes-click" onClick={this.confirmPayment}>YES</a>
-                    <a href="#" className="modal-action modal-close waves-effect waves-red btn-flat" onClick={() => this.confirmPayment(false)}>NO</a>
+                    <a href="#" className="modal-action modal-close waves-effect waves-green btn green payment-yes-click" onClick={this.confirmPayment}>YES</a>
+                    <a href="#" className="modal-action modal-close waves-effect waves-red btn red" onClick={() => this.confirmPayment(false)}>NO</a>
                 </div>
             </div>
+        )
+    };
+
+
+    siteStatistics = () => {
+        let value = 0;
+        let field = null;
+        const tableBody = Object.keys(this.state.site_statistics).map(key  => {
+
+            field = key.replace(/_/g, ' ');
+            value = this.state.site_statistics[key];
+            value = !isNaN(value) ? this.convertDecimalToLocaleString(value) : value;
+            return (
+                <tr key = {Math.random()}>
+                    <td>
+                        <strong className='strong site-statistics-field-name'>{field}</strong>
+                    </td>
+                    <td>
+                        {value}
+                    </td>
+                </tr>
+            )
+        });
+        return (
+        <table className="striped centered highlight">
+        <thead>
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+            <tbody>
+            {tableBody}
+            </tbody>
+        </table>
         )
     };
 
@@ -141,14 +181,10 @@ class Admin extends React.Component
 
 
 
-            <div className="col s12">
-                <div className="card">
-                    <div className="card-content admin-actions-content-container">
-                        {display}
-                             </div>
+            <div>
+                {display}
                 </div>
-            </div>
-        )
+           )
     };
     componentDidUpdate = () => {
         this.sidenav = $('.sidenav');
@@ -159,6 +195,8 @@ class Admin extends React.Component
 
     changeAdminContent = (e) => {
         const content = $(e.target).attr('data-content');
+        this.setState({...this.state , content});
+
       };
 
     header = () => {
@@ -239,6 +277,7 @@ class Admin extends React.Component
                                 <ul>
                                     <li>
                                         <a href="#" className="admin-action-links" data-content = {this.texts.stats} onClick={this.changeAdminContent}><i className="material-icons">terrain</i>View stats</a>
+                                        <i className='material-icons admin-refresh-icon' title='refresh' onClick={this.refreshProfile}>refresh</i>
                                     </li>
                                 </ul>
                             </div>
@@ -281,9 +320,13 @@ class Admin extends React.Component
     render() {
 
         let content = null;
-        switch (this.state.show) {
+        switch (this.state.content) {
             case this.texts.payments:
                content = this.paymentDetailsTable();
+               break;
+            case this.texts.stats:
+                content = this.siteStatistics();
+                break;
         }
 
         return (
@@ -325,7 +368,13 @@ class Admin extends React.Component
             </div>
 
                 <div className="row">
+                    <div className="col s12">
+                        <div className="card">
+                            <div className="card-content admin-actions-content-container">
                     {content}
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -334,7 +383,6 @@ class Admin extends React.Component
 
         );
     }
-
 }
 
 

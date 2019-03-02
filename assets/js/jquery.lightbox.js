@@ -52,9 +52,9 @@ function closeLightBox(e) {
 
                 $('body').append(
                     '<div id="' + id + '" class="lightbox" style="display:none;">' +
-                    '<a href="#" class="lightbox__close lightbox__button" onclick="return closeLightBox(this)" data-id = "'+id+'"></a>' +
-                    '<a href="#" class="lightbox__nav lightbox__nav--prev lightbox__button"></a>' +
-                    '<a href="#" class="lightbox__nav lightbox__nav--next lightbox__button"></a>' +
+                    '<span class="lightbox__close lightbox__button" onclick="return closeLightBox(this)" data-id = "'+id+'"></span>' +
+                    '<span  class="lightbox__nav lightbox__nav--prev lightbox__button"></span>' +
+                    '<span  class="lightbox__nav lightbox__nav--next lightbox__button"></span>' +
                     '<div href="#" class="lightbox__caption"><p></p></div>' +
                     '</div>'
                 );

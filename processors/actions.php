@@ -587,6 +587,10 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
             'paid' => 1 ,
             'payment_date' => $now
             ] , "reference_code ='{$reference_code}'");
+
+        //Increment the amount paid out
+        $this->increment_value($this->site_statistics_table_name , 'total_amount_paid_out' , $this->data['amount'] , 'id =1');
+
         return json_encode([$this->successText => 1 , $this->errorText => $this->successText]);
     }
     public function actionProcessor () : string

@@ -138,3 +138,17 @@ li a.admin-action-links
 {
     float: left;
 }
+strong.site-statistics-field-name
+{
+    text-transform: capitalize
+}
+.material-icons.admin-refresh-icon
+{
+    float: right !important;
+    display: inline-block !important;
+    position: relative;
+    top : -35px !important;
+    right: 60px;
+    cursor: pointer;
+    color : rgba(0 , 0 , 0 , .54);
+}

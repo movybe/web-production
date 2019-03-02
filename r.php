@@ -42,6 +42,9 @@ class HandleNewInvites extends Functions
         //Increment the number of invites today
         $this->increment_value($this->site_statistics_table_name , 'number_of_invites_today' , 1 , 'id =1');
 
+        //Increment the total number of invites
+        $this->increment_value($this->site_statistics_table_name , 'total_number_of_invites' , 1 , 'id = 1');
+
         //credit the referer
         if($this->increment_value($this->users_table_name , 'account_balance' , $this->website_details->amountPaidForInvite , "username = '{$this->referer_username}'"))
         {
