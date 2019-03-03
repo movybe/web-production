@@ -138,6 +138,12 @@ class Admin extends React.Component
             field = key.replace(/_/g, ' ');
             value = this.state.site_statistics[key];
             value = !isNaN(value) ? this.convertDecimalToLocaleString(value) : value;
+            switch (key) {
+                case 'last_invitation_date':
+                    value = timeago.format(value);
+                    break;
+            }
+
             return (
                 <tr key = {Math.random()}>
                     <td>

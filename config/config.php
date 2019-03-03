@@ -7,7 +7,6 @@ abstract class WebsiteConfigurationSettings {
 	public  $Https = "https://";
 	public  $Www = "www.";
 	public  $SiteNameWithoutHttps = "www.omoba.epizy.com";
-	public  $siteEmail = "omobadotng@gmail.com";
 	public  $SiteNameWithHttps = "";
     public  $FacebookUrl = "";
     public  $TwitterUrl  = "";
@@ -45,10 +44,9 @@ abstract class WebsiteConfigurationSettings {
     public $maxNumberOfSuggestion = 5;
     public $COMPONENTS_FOLDER = null;
     public  $MerchantAccountType = "merchant";
-    public $MemberAccountType = "member";
     public $UserIdLength = 6;
     public $subscriptionDurationInDays = 30;
-    public $minimumEarningExpected = 5000;
+    public $minimumEarningExpected = 6500;
     public $affiliateSignupFee = 2100;
     public $siteAffiliateSignupFee = 700;
     public $amountPaidToAffiliateForReferer = 1400;

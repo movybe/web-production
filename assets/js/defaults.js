@@ -36,7 +36,7 @@ My name is Kosi Eric i am a programmer from Nigeria and i am 20 years old;
 */
 
 
-String.format = String.format ||
+String.prototype.format = String.format ||
     function(format) {
         var args = Array.prototype.slice.call(arguments, 1);
         return format.replace(/{(\d+)}/g, function(match, number) {
@@ -89,8 +89,6 @@ class Defaults {
         this.accountNameLengthToShow = 10;
         this.searchResultPreloaders = 'search-result-preloaders';
         this.searchResultPreloader = 'search-result-preloader';
-        this.websiteLiLinks = 'website-li-links';
-        this.liLink = 'li-link';
         this.noDataError = 'Failed to load data';
         this.networkError = 'No Results found for this query, check your connection';
         this.noMoreResultsFoundError = 'no more results found';
@@ -110,26 +108,24 @@ class Defaults {
         this.merchantAccountType = 'merchant';
         this.withdrawalCharge = 100;
         this.enterNewRefererUsernameMessage = 'This user had previously referred you, enter a new username';
-        this.memberAccountType = 'member';
         this.disabledTrue = ['disabled' , true];
         this.disabledFalse = ['disabled' , false];
         this.actions = this.processorsFolder + 'actions.php';
         this.numberOfAdSpaceForMerchant = [0 , 1];
         this.numberOfAdSpaceForOmoba = [0 , 1 , 2 , 3 , 5];
-        this.minimumAffliateProfit = 5000;
+        this.minimumAffliateProfit = 6500;
         this.minimumAccountUsernameLength = 5;
         this.maximumAccountUsernameLength = 12;
         this.amountPaidForReferer = 1400;
         this.amountPaidForUserInteraction = 20;
-        this.minimumWithdrawalAmount = 2500;
+        this.minimumWithdrawalAmount = 1000;
         this.affiliateIntroductionVideo = 'about:blank';
         this.merchantIntroductionVideo = 'about:blank';
         this.affiliateTourGuide = 'about:blank';
         this.merchantTourGuide = 'about:blank';
         this.amountPaidForUniqueVisitor = 30;
         this.dummyEmail = 'omobang@gmail.com';
-        this.thresholdAmount = 5000;
-        this.siteEmail = 'omobadotng@gmail.com';
+        this.thresholdAmount = 6500;
         this.priceNotSpecifiedText = 'price not specified';
         this.transactionNotSuccessfulMessage = 'Transaction not successful';
         this.ensureAllFieldsAreFieldError = 'fill all fields correctly';
@@ -141,7 +137,6 @@ class Defaults {
         this.showToast = message => {
             M.toast({html: message});
         };
-        this.waitForAdApprovalMessage = 'Your ad, will be approved within 5min.';
        this.emailTruncateSize = 15;
 
        this.accountActivationText = 'Account activation';
@@ -193,7 +188,6 @@ class Defaults {
             amount = Number(amount.toFixed(2));
             return amount;
         };
-
 
 
     }

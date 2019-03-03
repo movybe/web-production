@@ -37,7 +37,7 @@ $browser_warning = <<<BROWSER_WARNING
                     <span class="browser-links"><img  src="{$website_details->IMG_FOLDER}firefox.png" class="img-responsive browsers" /><span class="browser-names">Firefox</span></span>
                     <span class="browser-links" ><img src="{$website_details->IMG_FOLDER}google-chrome.png" class="img-responsive browsers" /><span class="browser-names">Google Chrome</span></span>
                     <span class="browser-links" ><img src="{$website_details->IMG_FOLDER}edge.png" class="img-responsive browsers " /><span class="browser-names" id="edge-browser-name">Microsoft Edge</span></span>
-                    <span class="browser-links" ><img src="{$website_details->IMG_FOLDER}explorer.png" class="img-responsive browsers" /><span class="browser-names">Internet Explorer</span></span>
+                    <span class="browser-links" ><img src="{$website_details->IMG_FOLDER}brave.png" class="img-responsive browsers" /><span class="browser-names">Brave Browser</span></span>
                     <hr>
                     <div class="unsupported-message">
                         <h3>I can't update my browser</h3>
