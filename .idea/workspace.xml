@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="164b0cb5-d77a-4dd8-82e2-9790aebb2644" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/affiliate-header.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/affiliate-header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/affiliate.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/affiliate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/defaults.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/defaults.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/footer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/merchant-ads.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/merchant-ads.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/merchant-header.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/merchant-header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/merchant.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/merchant.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/DatabaseConnection.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/DatabaseConnection.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/processors/actions.php" beforeDir="false" afterPath="$PROJECT_DIR$/processors/actions.php" afterDir="false" />
-    </list>
+    <list default="true" id="164b0cb5-d77a-4dd8-82e2-9790aebb2644" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -421,7 +408,7 @@
     <servers />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1456" />
@@ -621,20 +608,19 @@
       <workItem from="1551315662900" duration="9178000" />
       <workItem from="1551382252031" duration="17054000" />
       <workItem from="1551479255537" duration="7125000" />
-      <workItem from="1551566162776" duration="8204000" />
+      <workItem from="1551566162776" duration="8821000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1286169000" />
+    <option name="totallyTimeSpent" value="1286786000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" sideWeight="0.5013405" side_tool="true" weight="0.45922747" />
       <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.49865952" visible="true" weight="0.20272206" />
+      <window_info content_ui="combo" id="Project" order="2" sideWeight="0.49865952" visible="true" weight="0.20272206" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3293011" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -646,7 +632,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="10" weight="0.3283582" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.18413979" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.18413979" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" weight="0.3293011" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
