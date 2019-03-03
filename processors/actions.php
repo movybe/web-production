@@ -548,13 +548,25 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
     private function  fetch_next_payment_details () : string {
         $index = $this->data['index'];
-        $payment_details = $this->fetch_data_from_table_with_conditions($this->withdrawals_table_name , " paid = 0 AND id > {$index} LIMIT 1");
+        $payment_details = $this->fetch_data_from_table_with_conditions($this->withdrawals_table_name , " paid = 0 AND id > {$index} ORDER BY ID ASC");
+
         if(!empty($payment_details))
         {
-            $payment_details = $payment_details[0];
-            $user_details = $this->fetch_data_from_table($this->users_table_name , 'username' , $payment_details['username'])[0];
-            $payment_details = array_merge($user_details , $payment_details);
 
+            $withdrawal_sum = 0;
+            $total_withdrawals = 0;
+
+
+            foreach($payment_details as $payment_detail){
+
+                $withdrawal_sum += $payment_detail['amount'];
+                $total_withdrawals ++;
+            }
+
+            $user_details = $this->fetch_data_from_table($this->users_table_name , 'username' , $payment_details[0]['username'])[0];
+            $payment_details = $payment_details[0];
+            $extra_fields = ['total_withdrawals_amount' => $withdrawal_sum , 'number_of_withdrawals' => $total_withdrawals];
+            $payment_details = array_merge($user_details , $payment_details , $extra_fields);
         }
         else {
             $payment_details = [];

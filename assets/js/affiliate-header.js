@@ -260,6 +260,7 @@ class  AffiliateHeader extends React.Component {
                     </div>
                 </nav>
 
+
             </div>
         );
     };

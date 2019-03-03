@@ -107,7 +107,7 @@ li a.admin-action-links
 .admin-sidenav .collapsible-header 
 {
     font-weight: bolder;
-    color : rgba(0 , 0 , 0 , . 7);
+    color : rgba(0 , 0 , 0 , .7);
 }
 
 @media only screen and (max-width : 992px) {
@@ -151,4 +151,8 @@ strong.site-statistics-field-name
     right: 60px;
     cursor: pointer;
     color : rgba(0 , 0 , 0 , .54);
+}
+
+.material-icons.admin-refresh-icon.refresh-withdrawal-requests-icon {
+    right: 40px !important;
 }

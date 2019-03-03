@@ -24,6 +24,11 @@ class Affiliate extends React.Component
         });
     };
 
+    componentWillMount = () => {
+
+        document.title = defaults.siteName + ` •  ${this.props.user.username.capitalize()}`;
+
+    };
     handleAccountActivation = e => {
 
         e.preventDefault();
@@ -348,7 +353,7 @@ class Affiliate extends React.Component
                         </div>
                     </div>
                 </div>
-                <Footer accountType = "Affiliate" />
+                <Footer accountType = "Affiliate" refreshProfile = {this.refreshProfile} />
             </div>
         );
     }

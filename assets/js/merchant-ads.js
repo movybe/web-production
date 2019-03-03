@@ -62,7 +62,7 @@ class MerchantAds extends React.Component {
         super();
     }
 
-    refreshProfile () {
+    refreshProfile = ()  => {
         let data = {email : this.props.email , action : 'FETCH_MERCHANT_DETAILS'};
         data = JSON.stringify(data);
         $.post(defaults.actions , {data} , response1 => {
@@ -71,7 +71,7 @@ class MerchantAds extends React.Component {
         });
     }
 
-    changeAdActiveStatus = (e) => {
+    changeAdActiveStatus = e => {
         e.persist();
         const action = $(e.target).attr('data-pause') == "true" ? 'PAUSE_AD' : 'PLAY_AD';
         const id = $(e.target).attr('data-ad-id');

@@ -137,7 +137,7 @@ class DatabaseConnection {
              ip_address VARCHAR (100) UNIQUE NOT NULL DEFAULT 'zyxwvuts', 
              country VARCHAR (100) NOT NULL DEFAULT 'abcdefgh',
              visits BIGINT NOT NULL DEFAULT 1 ,
-             last_visit TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+             last_visit TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )";
 
         try {

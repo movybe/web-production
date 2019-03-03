@@ -239,6 +239,7 @@ class  MerchantHeader extends React.Component {
                     </div>
                 </nav>
 
+
             </div>
         );
     };

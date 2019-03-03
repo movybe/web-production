@@ -15,6 +15,11 @@ class Merchant extends React.Component
     accounInfoTabs.tabs('select' , 'email-tab');
 
     };
+    componentWillMount = () => {
+
+        document.title = defaults.siteName + " • Merchant Account";
+    };
+
     componentDidMount()
     {
         this.defaultActions();
@@ -45,14 +50,14 @@ class Merchant extends React.Component
 
 
 
-    refreshProfile () {
+    refreshProfile = () => {
         let data = {email : this.props.email , action : 'FETCH_MERCHANT_DETAILS'};
         data = JSON.stringify(data);
         $.post(defaults.actions , {data} , response1 => {
             response1 = JSON.parse(response1);
             this.props.resetState({...this.props , user : response1.user , ads : response1.ads});
         });
-    }
+    };
 
 
     activateMerchantAccount = () =>
@@ -155,7 +160,7 @@ class Merchant extends React.Component
                 </div>
                 <MerchantAds activateMerchantAccount = {this.activateMerchantAccount} refreshProfile = {this.refreshProfile} />
             </div>
-                <Footer accountType = "Merchant" />
+                <Footer accountType = "Merchant" refreshProfile = {this.refreshProfile} />
             </div>
         );
     }

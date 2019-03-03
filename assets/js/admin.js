@@ -4,7 +4,8 @@ class Admin extends React.Component
     state = {
         content : this.texts.payments ,
         payment_details : [
-            {account_name : "Kosi Eric" , account_number : 2093954338 , bank_name : "Access Bank" , amount : 34000}
+            {account_name : "Kosi Eric" , account_number : 2093954338 , bank_name : "Access Bank" , amount : 34000,
+                number_of_withdrawals : 0, total_withdrawals_amount : 0}
         ]
         ,
         current_payment_index : -1,
@@ -15,6 +16,7 @@ class Admin extends React.Component
     componentWillMount = () => {
 
             $.getScript('/assets/js/clipboard.js');
+            document.title = defaults.siteName + " • Admin Panel";
     };
 
 
@@ -23,27 +25,42 @@ class Admin extends React.Component
         data = JSON.stringify(data);
         $.post(defaults.actions , {data} , response1 => {
             response1 = JSON.parse(response1);
-            console.log(this.state);
             this.props.resetState({...this.props , user : response1.user , ads : response1.ads});
             this.setState({...this.state , site_statistics : response1.user.site_statistics});
         });
     };
 
 
-    getNextAd = () => {
-        let data = {action : 'FETCH_NEXT_PAYMENT_DETAILS' , email : this.props.email , index : this.state.current_payment_index};
+    getNextAd = (index) => {
+        let data = {action : 'FETCH_NEXT_PAYMENT_DETAILS' , email : this.props.email , index : index | this.state.current_payment_index};
 
         data = JSON.stringify(data);
 
         $.post(defaults.actions , {data} , response => {
 
+
                 response = JSON.parse(response);
 
 
-            let payment_details = response.payment_details.amount ? [response.payment_details] : [];
+                if(response.payment_details.amount) {
+                    let payment_details = response.payment_details.amount ? [response.payment_details] : [];
 
-            this.setState({...this.state , payment_details , current_payment_index : parseInt(response.payment_details.id)});
+                    this.setState({
+                        ...this.state,
+                        payment_details,
+                        current_payment_index: parseInt(response.payment_details.id)
+                    });
 
+                }
+                else
+                {
+                    this.setState({
+                        ...this.state,
+                        payment_details : [],
+
+                    });
+
+                }
 
         });
     };
@@ -89,13 +106,11 @@ class Admin extends React.Component
 
         this.getNextAd();
 
-        try {
+
             this.refreshProfile();
             this.confirmPaymentModalPopup = $('.modal#confirm-payment-modal');
             this.confirmPaymentModalPopup.modal({dismissible: false});
-        }
-        catch (e) {
-        }
+
 
     };
 
@@ -153,7 +168,6 @@ class Admin extends React.Component
 
         let display = this.state.payment_details.length ?
             <div>
-                {this.confirmPaymentModal()}
             <table className="striped centered responsive-table highlight">
                 <thead>
                 <tr>
@@ -235,12 +249,16 @@ class Admin extends React.Component
                     <ul className="collapsible collapsible-accordion">
                         <li>
                             <a className="collapsible-header">Payments<i
-                                className="material-icons">payment</i></a>
+                                className="material-icons">payment</i>
+
+                            </a>
                             <div className="collapsible-body">
                                 <ul>
                                     <li>
-                                        <a href="#" className="admin-action-links" data-content = {this.texts.payments} onClick={this.changeAdminContent}><i className="fa fa-share"></i>Withdrawal Requests
+                                        <a href="#" className="admin-action-links" data-content = {this.texts.payments} onClick={e => {this.changeAdminContent(e);this.getNextAd(-1)}}><i className="fa fa-share"></i>Withdrawal Requests
                                         </a>
+                                        <i className='material-icons admin-refresh-icon refresh-withdrawal-requests-icon' title='refresh' onClick={() => this.getNextAd(-1)}>refresh</i>
+
                                     </li>
                                 </ul>
                             </div>
@@ -319,13 +337,22 @@ class Admin extends React.Component
     };
     render() {
 
-        let content = null;
+        let content = null , firstStatusHeaderText = "Account Balance" , secondStatusHeaderText = "PROFIT";
+        let firstHeaderValue = 0 , secondHeaderValue = 0;
+
         switch (this.state.content) {
             case this.texts.payments:
                content = this.paymentDetailsTable();
+               firstStatusHeaderText = "No. of Withdrawals";
+               secondStatusHeaderText = "Total Withdrawals Amount";
+
+               firstHeaderValue = this.state.payment_details.length ? this.state.payment_details[0].number_of_withdrawals : firstHeaderValue;
+               secondHeaderValue = this.state.payment_details.length ? this.state.payment_details[0].total_withdrawals_amount : secondHeaderValue;
                break;
             case this.texts.stats:
                 content = this.siteStatistics();
+                firstHeaderValue = <span>&#8358;{this.convertDecimalToLocaleString(this.props.user.site_statistics.account_balance)}</span>;
+                secondHeaderValue = this.props.user.site_statistics.profit;
                 break;
         }
 
@@ -334,17 +361,18 @@ class Admin extends React.Component
             {this.header()}
                        <aside>
                 {this.sideNav()}
+                           {this.confirmPaymentModal()}
             </aside>
 
             <div className="container admin-container">
             <div className="row">
 
                 <div className="col s12 m6">
-                    <h5 className="status-headers admin-status-headers">Account Balance</h5>
+                    <h5 className="status-headers admin-status-headers">{firstStatusHeaderText}</h5>
                     <div className="card">
                         <div className="card-content">
                             <h5 className = 'cairo-font'>
-                                &#8358;{this.convertDecimalToLocaleString(this.props.user.site_statistics.account_balance)}
+                                {firstHeaderValue}
 
                             </h5>
                         </div>
@@ -353,11 +381,11 @@ class Admin extends React.Component
                 </div>
 
                 <div className="col s12 m6">
-                    <h5 className="status-headers admin-status-headers">Profit</h5>
+                    <h5 className="status-headers admin-status-headers">{secondStatusHeaderText}</h5>
                     <div className="card">
                         <div className="card-content">
                             <h5 className = 'cairo-font'>
-                                &#8358;{this.convertDecimalToLocaleString(this.props.user.site_statistics.profit)}
+                                &#8358;{this.convertDecimalToLocaleString(secondHeaderValue)}
 
                             </h5>
                         </div>
