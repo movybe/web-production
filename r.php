@@ -36,21 +36,25 @@ class HandleNewInvites extends Functions
             return false;
         }
 
-        //update the last invite date
+        //update the last invite date of the website
         $this->update_record($this->site_statistics_table_name , 'last_invitation_date' , $this->now , 'id' , 1);
 
-        //Increment the number of invites today
-        $this->increment_value($this->site_statistics_table_name , 'number_of_invites_today' , 1 , 'id =1');
 
-        //Increment the total number of invites
+        //Update last invite date of the referer
+        $this->update_record($this->users_table_name , 'last_invitation_date' , $this->now , 'username' , $this->referer_username);
+
+        //Increment the number of invitations today of the referer today
+        $this->increment_value($this->users_table_name , 'number_of_invitations_today' , 1 , "username = '{$this->referer_username}'");
+
+        //Increment the total number of invitations of the website today
         $this->increment_value($this->site_statistics_table_name , 'total_number_of_invites' , 1 , 'id = 1');
 
         //credit the referer
         if($this->increment_value($this->users_table_name , 'account_balance' , $this->website_details->amountPaidForInvite , "username = '{$this->referer_username}'"))
         {
-            //deduct the money from the site profit
 
             echo "{$this->referer_username} has been credited with <b>&#8358;{$this->website_details->amountPaidForInvite}</b>";
+            //deduct the money from the site profit
             return $this->decrement_value($this->site_statistics_table_name , 'profit' , $this->website_details->amountPaidForInvite , 'id =1');
 
         }
@@ -81,22 +85,48 @@ class HandleNewInvites extends Functions
             $referer_details = $referer_details[0];
 
 
+            //Check if the account type is affiliate
+            if($referer_details['account_type'] != 'affiliate')
+            {
+                echo "No account found with the username <b>{$this->referer_username}</b>";
+                return false;
+            }
 
-            //if number of invites today is less than the minimum number of invites for a day
-            if($number_of_invites_today < $this->website_details->maximumNumberOfInvitesForADay) {
+            //Check if the referer has exceeded his invitations for today and the total number of invitations for today has not been exceeded
+            else if ($referer_details['number_of_invitations_today'] >= $this->website_details->maximumNumberOfAffiliateInvitationsForADay && $number_of_invites_today < $this->website_details->maximumNumberOfInvitesForADay)
+            {
+                $last_invitation_date_by_referer = strtotime($referer_details['last_invitation_date']);
+                $current_date = strtotime($this->now);
+                $date_difference = $current_date - $last_invitation_date_by_referer;
+                $days = floor($date_difference / (60 * 60 * 24));
+
+
+                //Check if the last invite date is up to 24hrs
+                if ($days >= 1) {
+                    //set the number of invites of the referer today to 0
+                    $this->update_record($this->users_table_name, 'number_of_invitations_today', 0, 'username', $this->referer_username);
+
+                    //now try to credit the referer
+                    return $this->tryCreditTheReferer();
+                }
+                echo "{$this->referer_username} has been credited with <b>&#8358;{$this->website_details->amountPaidForInvite}</b>";
+                return false;
+
+            }
+
+            //if number of invites today is up to 24hrs
+            else if($number_of_invites_today < $this->website_details->maximumNumberOfInvitesForADay) {
                 $this->tryCreditTheReferer();
             }
 
-
-            else {
-
+            else{
                 $last_invitation_date = strtotime($last_invitation_date);
                 $current_date = strtotime($this->now);
 
                 $date_difference = $current_date - $last_invitation_date;
                 $days = floor($date_difference / (60 * 60 * 24));
 
-                //Check if the last invite date has exceeded maximum invites for a day
+                //Check if the last invite date is up to 24hrs
                 if ($days >= 1) {
                     //set the number of invites today to 0
                     $this->update_record($this->site_statistics_table_name, 'number_of_invites_today', 0, 'id', 1);
@@ -109,7 +139,6 @@ class HandleNewInvites extends Functions
                 echo "Today's invites has exceeded maximum of <b>{$this->website_details->maximumNumberOfInvitesForADay} invites for today</b>, please check back after <b>{$hours_difference} hrs</b>";
                 return false;
             }
-
         }
         else {
 

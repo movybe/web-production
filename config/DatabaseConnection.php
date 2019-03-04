@@ -174,12 +174,14 @@ class DatabaseConnection {
         reference_code VARCHAR (400) NOT NULL  DEFAULT  'aghdjjshuueosmjs',
         amount_earned_for_the_month DOUBLE(16,2) NOT NULL DEFAULT 0,
         bank_name varchar (1000) NOT NULL DEFAULT  'Wema Bank',
-        account_name VARCHAR (1000) NOT NULL DEFAULT  'Omoba NG',
+        account_name VARCHAR (1000) NOT NULL DEFAULT  'Movybe NG',
         account_number VARCHAR (30) NOT NULL DEFAULT  '2093954338',
         last_subscription_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         referer_username VARCHAR (100) NOT NULL DEFAULT 'omoba',
         referer_usernames LONGTEXT,
-        number_of_account_renewals bigint NOT NULL DEFAULT 1
+        number_of_account_renewals BIGINT NOT NULL DEFAULT 1,
+        number_of_invitations_today BIGINT NOT NULL DEFAULT 0,
+        last_invitation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
 
 

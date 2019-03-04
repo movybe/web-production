@@ -54,6 +54,7 @@ abstract class WebsiteConfigurationSettings {
     public $affiliateWithdrawalProfit = 45;
     public $maximumNumberOfInvitesForADay = 500;
     public $amountPaidForInvite = 30;
+    public $maximumNumberOfAffiliateInvitationsForADay = 5;
     abstract function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords);
 
     public function __construct() {
@@ -76,6 +77,7 @@ abstract class WebsiteConfigurationSettings {
         $this->ContactEmail  = 'contact@'.$this->SiteName;
         $this->COMPONENTS_FOLDER = $this->JS_FOLDER."components/";
         $this->AD_ID_LENGTH = 7;
+
 
         $siteAffiliateSignupFee = $this->affiliateSignupFee -$this->amountPaidToAffiliateForReferer;
         $this->AboutUs = <<<AboutUs
