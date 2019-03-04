@@ -101,7 +101,7 @@ class Defaults {
         this.noResultsFoundError = 'no results found';
         this.pleaseWaitText = 'Please wait...';
         this.searchSuggestionsLimit = 7;
-        this.bannerImageLocation = '/banners/';
+        this.bannerImageLocation = '/banner/';
         this.siteAddress = this.siteName.toLowerCase() + '.com';
         this.siteAddressHttp = 'http://' + this.siteAddress;
         this.siteAddressHttps = 'https://' + this.siteAddress;
@@ -119,6 +119,7 @@ class Defaults {
         this.amountPaidForReferer = 1400;
         this.amountPaidForUserInteraction = 20;
         this.minimumWithdrawalAmount = 1000;
+        this.numberOfAdsForAdminReview = 10;
         this.affiliateIntroductionVideo = 'about:blank';
         this.merchantIntroductionVideo = 'about:blank';
         this.affiliateTourGuide = 'about:blank';
@@ -126,6 +127,7 @@ class Defaults {
         this.amountPaidForUniqueVisitor = 30;
         this.dummyEmail = 'omobang@gmail.com';
         this.thresholdAmount = 6500;
+        this.maximumAdminAdMessageLength = 120;
         this.priceNotSpecifiedText = 'price not specified';
         this.transactionNotSuccessfulMessage = 'Transaction not successful';
         this.ensureAllFieldsAreFieldError = 'fill all fields correctly';

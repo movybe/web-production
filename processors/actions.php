@@ -590,6 +590,22 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
     }
 
+    private function disapprove_ad () :string {
+
+        $ad_id = $this->escape_string($this->data['ad_id']);
+        $this->update_multiple_fields($this->ads_table_name , [
+            'approved' =>  0 ,
+            'admin_message' => $this->escape_string($this->data['message'])
+        ] , "ad_id= '{$ad_id}'");
+
+        return json_encode([$this->successText => 1 , $this->errorText => $this->successText]);
+    }
+
+    private function getSponsoredAds () : string  {
+        $index = $this->data['index'];
+        $sponsored_ads = $this->fetch_data_from_table_with_conditions($this->ads_table_name , " approved = 1 AND active = 1 LIMIT $index , 10");
+        return json_encode([$this->successText => 1 , $this->errorText => $this->successText , 'sponsored_ads' => $sponsored_ads]);
+    }
     private function confirmPayment () : string {
 
         $now = date('Y-m-d H:i:s');
@@ -664,6 +680,11 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                 return $this->fetch_next_payment_details();
             case 'CONFIRM_PAYMENT':
                 return $this->confirmPayment();
+            //For admin sponsored ads
+            case 'GET_SPONSORED_ADS' :
+                return $this->getSponsoredAds();
+            case 'DISAPPROVE_AD':
+                return $this->disapprove_ad();
         }
     }
 

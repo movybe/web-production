@@ -63,7 +63,7 @@ abstract class WebsiteConfigurationSettings {
         $this->JS_FOLDER = $this->STATIC_FOLDER."js/";
         $this->CSS_FOLDER = $this->STATIC_FOLDER."css/";
         $this->INCS_FOLDER = $_SERVER['DOCUMENT_ROOT'].$this->STATIC_FOLDER."incs/";
-        $this->BANNER_IMAGES_FOLDER = $this->DOCUMENT_ROOT."/banners/";
+        $this->BANNER_IMAGES_FOLDER = $this->DOCUMENT_ROOT."/banner/";
         $this->IMG_FOLDER = $this->STATIC_FOLDER."img/";
         $this->SiteNameWithHttps = "https://{$this->SiteNameWithoutHttps}";
         $this->FacebookUrl = "{$this->Https}{$this->Www}facebook.com";

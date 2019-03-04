@@ -878,13 +878,9 @@ class MerchantAds extends React.Component {
                                                                                   className="search-result-title-link"
                                                                                   href="https://www.olx.com.ng/item/mac-book-pro-2017-iid-1051056268">mac
                                         book pro 2017</a></h3><a className="search-result-link-address" target="_blank"
-                                                                 href="https://www.olx.com.ng/item/mac-book-pro-2017-iid-1051056268" id="ad-link-preview">https://www.olx.com.ng/item/mac-book-pro-201...</a><span
-                                        className="search-result-link-description" id="ad-description-preview">8gb ram 2.3ghzIntel core i5 13inch display</span><span className="modal-link" data-caption="mac book pro 2017"
-                           href="https://apollo-ireland.akamaized.net:443/v1/files/231xkfnw1l9r-NG/image">
-                                    </span>
-                                        <a
-                                        download="mac book pro 2017" target="_blank"
-                                        href="#"
+                                                                 href="#" id="ad-link-preview">https://www.olx.com.ng/item/mac-book-pro-201...</a><span
+                                        className="search-result-link-description" id="ad-description-preview">8gb ram 2.3ghzIntel core i5 13inch display</span><span className="modal-link" data-caption="mac book pro 2017"></span>
+                                        <a download="mac book pro 2017" target="_blank" href="#"
                                         className="image-download-link search-result-images blue-text"><i
                                         className="tiny material-icons search-image-icons">image</i> Save Image</a>
                                         <span className="search-result-locations blue-grey-text"><i

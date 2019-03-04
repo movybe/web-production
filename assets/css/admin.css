@@ -156,3 +156,12 @@ strong.site-statistics-field-name
 .material-icons.admin-refresh-icon.refresh-withdrawal-requests-icon {
     right: 40px !important;
 }
+.what-is-wrong-with-this-ad{
+    margin-top : 20px;
+}
+
+.next-payment-button.next-ad-button
+{
+    top : 100px;
+    right : -20px;
+}

@@ -9,7 +9,9 @@ class Admin extends React.Component
         ]
         ,
         current_payment_index : -1,
-        site_statistics : {}
+        site_statistics : {} ,
+        sponsored_ads : [],
+        current_sponsored_ads_index  : 0
     };
 
 
@@ -31,9 +33,24 @@ class Admin extends React.Component
     };
 
 
-    getNextAd = (index) => {
-        let data = {action : 'FETCH_NEXT_PAYMENT_DETAILS' , email : this.props.email , index : index | this.state.current_payment_index};
+    getNextSponsoredAds = (index = this.state.current_sponsored_ads_index) =>
+    {
 
+        let data = {email : this.props.email  , action : 'GET_SPONSORED_ADS' , index};
+        data = JSON.stringify(data);
+
+        $.post(defaults.actions , {data} , response => {
+           response = JSON.parse(response);
+           const nextIndex = index + defaults.numberOfAdsForAdminReview;
+           this.setState({...this.state , sponsored_ads : response.sponsored_ads , current_sponsored_ads_index :nextIndex});
+
+        });
+    
+    };
+
+
+    getNextPaymentDetails = (index = this.state.current_payment_index) => {
+        let data = {action : 'FETCH_NEXT_PAYMENT_DETAILS' , email : this.props.email , index};
         data = JSON.stringify(data);
 
         $.post(defaults.actions , {data} , response => {
@@ -65,6 +82,95 @@ class Admin extends React.Component
         });
     };
 
+    handleAdminMessageForm = (e) => {
+        e.preventDefault();
+
+        const adminMessageFieldset = $('.admin-message-fieldset');
+        const adminMessageForm = $(e.target);
+
+        adminMessageForm.validate();
+
+        if(adminMessageForm.valid())
+        {
+            adminMessageFieldset.prop(...defaults.disabledTrue);
+            let adId = adminMessageForm.attr('data-ad-id');
+            let message = $(`#${adId}-textarea`).val();
+            let data = {message , ad_id : adId , action : 'DISAPPROVE_AD' , email : this.props.user.email};
+            data = JSON.stringify(data);
+            $.post(defaults.actions , {data} , response => {
+
+                response = JSON.parse(response);
+
+
+                defaults.showToast(response.error);
+                adminMessageFieldset.prop(...defaults.disabledFalse);
+                this.getNextSponsoredAds(0);
+
+            });
+        }
+    };
+
+    sponsoredAds = () => {
+
+
+        let style = null;
+
+        if(!this.state.sponsored_ads.length) return <h5>No ads yet.</h5>;
+
+        const sponsoredAds = this.state.sponsored_ads.map(ad => {
+
+            style = {backgroundImage: `url(${defaults.bannerImageLocation + ad.banner})`};
+
+
+            return (
+
+                <div className="olx-search-result" key = {ad.ad_id}>
+
+                    <h6 className="green-text search-result-price"><span>AD ({ad.ad_id})</span></h6><h3
+                    className="search-result-title-header"><a target="_blank"
+                                                              className="search-result-title-link"
+                                                              href={ad.link}>{ad.title}
+                                                              </a>
+                </h3><a className="search-result-link-address" target="_blank">{ad.link.truncate(defaults.maxLinkLength)}</a><span
+                    className="search-result-link-description" >{ad.description.truncate(defaults.maxDescriptionLength)}</span>
+                    <span className="modal-link" data-caption={ad.title} href = {`${defaults.bannerImageLocation}${ad.banner}`}>{null}</span>
+                    <a target='_blank'
+                        href='#'
+                        className="image-download-link search-result-images blue-text"><i
+                        className="tiny material-icons search-image-icons">image</i> Save Image</a>
+                    <span className="search-result-locations blue-grey-text"><i
+                        className="tiny material-icons search-location-icons">location_on</i><span id ="ad-location-preview">{ad.location}</span></span>
+
+                    <span className="modal-link">
+                    <div className="image-container ad-image-previews-container" style={style}>
+                        <div className="blurred-bg ad-image-previews" style={style}></div>
+                    <div className="overlay ad-image-previews" style={style}>
+                    </div>
+                    </div>
+    </span>
+                    <fieldset className='admin-message-fieldset'>
+                    <form className='admin-message-form' data-ad-id = {ad.ad_id} onSubmit={this.handleAdminMessageForm}>
+                    <div className="row what-is-wrong-with-this-ad">
+                        <div className="input-field col s12">
+
+                            <textarea id = {ad.ad_id + '-textarea'} className="materialize-textarea admin-ad-message" maxLength={defaults.maximumAdminAdMessageLength} data-length={defaults.maximumAdminAdMessageLength} required='required'></textarea>
+                            <label htmlFor={ad.ad_id + '-textarea'}>What is wrong with this Ad?</label>
+                            <button className='btn' type = 'submit'>Send</button>
+                        </div>
+                    </div>
+                    </form>
+                    </fieldset>
+                </div>
+            )
+        });
+
+        return (
+            <div>
+                {sponsoredAds}
+                <a href='#' className="waves-effect waves-light next-payment-button next-ad-button btn right" onClick={() => {this.getNextSponsoredAds()}}>Next</a>
+            </div>
+        );
+    };
 
     confirmPayment = (paid = true) => {
 
@@ -86,12 +192,12 @@ class Admin extends React.Component
                 response = JSON.parse(response);
                 defaults.showToast(response.error);
 
-                this.getNextAd();
+                this.getNextPaymentDetails();
             });
 
         }
         this.confirmPaymentModalPopup.modal('close');
-        if(getNext)this.getNextAd();
+        if(getNext)this.getNextPaymentDetails();
 
     };
 
@@ -104,7 +210,7 @@ class Admin extends React.Component
 
         //Fetch the next payment details
 
-        this.getNextAd();
+        this.getNextPaymentDetails();
 
 
             this.refreshProfile();
@@ -210,6 +316,7 @@ class Admin extends React.Component
         this.sidenav = $('.sidenav');
 
         this.sidenav.sidenav({preventScrolling:true});
+        $('textarea.admin-ad-message').characterCounter()
     };
 
 
@@ -261,9 +368,9 @@ class Admin extends React.Component
                             <div className="collapsible-body">
                                 <ul>
                                     <li>
-                                        <a href="#" className="admin-action-links" data-content = {this.texts.payments} onClick={e => {this.changeAdminContent(e);this.getNextAd(-1)}}><i className="fa fa-share"></i>Withdrawal Requests
+                                        <a href="#" className="admin-action-links" data-content = {this.texts.payments} onClick={e => {this.changeAdminContent(e);this.getNextPaymentDetails(-1)}}><i className="fa fa-share"></i>Withdrawal Requests
                                         </a>
-                                        <i className='material-icons admin-refresh-icon refresh-withdrawal-requests-icon' title='refresh' onClick={() => this.getNextAd(-1)}>refresh</i>
+                                        <i className='material-icons admin-refresh-icon refresh-withdrawal-requests-icon' title='refresh' onClick={() => this.getNextPaymentDetails(-1)}>refresh</i>
 
                                     </li>
                                 </ul>
@@ -278,8 +385,11 @@ class Admin extends React.Component
                             <a className="collapsible-header"><i className="fa fa-bullhorn bullhorn-icon ad-management-icon"></i>Ad Management</a>
                             <div className="collapsible-body">
                                 <ul>
-                                    <li><a href="#" className="admin-action-links" data-content = {this.texts.ads} onClick={this.changeAdminContent}>
-                                        <i className="material-icons">rate_review</i> Review Ads</a>
+                                    <li>
+                                        <a href="#" className="admin-action-links" data-content = {this.texts.ads} onClick={this.changeAdminContent}>
+                                        <i className="material-icons">rate_review</i> Review Ads
+                                        </a>
+                                        <i className='material-icons admin-refresh-icon refresh-withdrawal-requests-icon' title='refresh' onClick={() => {this.getNextSponsoredAds(0)}}>refresh</i>
                                     </li>
                                 </ul>
                             </div>
@@ -360,6 +470,8 @@ class Admin extends React.Component
                 firstHeaderValue = <span>&#8358;{this.convertDecimalToLocaleString(this.props.user.site_statistics.account_balance)}</span>;
                 secondHeaderValue = this.props.user.site_statistics.profit;
                 break;
+            case this.texts.ads:
+                content = this.sponsoredAds();
         }
 
         return (
