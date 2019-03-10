@@ -71,7 +71,7 @@ class WebsiteConfigurationSettings {
 
     public function __construct() {
 
-        $server_name = $_SERVER['SERVER_NAME'];
+        $server_name = $_SERVER['SERVER_NAME'] ;
         $domain_type = substr($server_name, strpos($server_name, '.'));
 
         //movybe
