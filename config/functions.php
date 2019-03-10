@@ -30,7 +30,7 @@ class Functions extends  DatabaseConnection {
 
     public final function getFileLocation(string $filename) : string
 {
-    return $this->is_production_mode() ? "/{$filename}" : $filename;
+    return $this->is_production_mode() ? "/{$this->site_name}{$filename}" : $filename;
 }
 
     public final function generateID (int  $length , string $table_name = null , string $field_name = null) : string {

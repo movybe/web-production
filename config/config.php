@@ -65,7 +65,7 @@ class WebsiteConfigurationSettings {
 
     public final function getFileLocation(string $filename) : string
     {
-        return $this->is_production_mode() ? "/{$filename}" : $filename;
+        return $this->is_production_mode() ? "/{$this->SiteName}{$filename}" : $filename;
     }
 
     public function __construct() {
