@@ -13,20 +13,20 @@ if($functions->data_saving_mode_is_enabled())
     <meta name="author" content="<?php echo $website_details->SiteName; ?>" />
     <meta name="description" content="<?php echo $website_details->PageDescription; ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <title><?php echo $website_details->SiteName; ?> • Compare price of Products in Nigeria</title>
+    <title><?php echo $website_details->SiteName; ?> • <?php echo $website_details->WebsiteSubject; ?></title>
     <link rel="canonical" href="<?php echo $website_details->SiteNameWithHttps; ?>" />
     <meta name="robot" content="index, follow" />
 
     <?php
 
-    $stylesheets = array("materialize.min.css" , "material-icons.css" , "main.css" , "jquery.lightbox.css" , "footer.css");
+    $stylesheets = array("materialize.min.css" , "material-icons.css" , "main.css"  , "footer.css");
     $scripts = array("babel.min.js" ,"numeral.min.js" ,  "react.production.min.js" , "react-dom.production.min.js" , "redux.min.js" , "react-redux.min.js");
     echo $functions->printAssets($stylesheets , "css" , false)."\n";
 
-    echo $functions->printAssets($scripts);
+    echo $functions->printAssets($scripts , null , true , null);
     ?>
 
-    <link rel="icon" type="image/jpeg" href="<?php echo $website_details->IMG_FOLDER;?>favicon.jpg" />
+    <link rel="icon" type="image/jpeg" href="<?php echo $website_details->IMG_FOLDER;?>favicon.png" />
 </head>
 <body>
 <main class ="container">

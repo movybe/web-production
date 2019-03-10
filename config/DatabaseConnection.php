@@ -18,10 +18,14 @@ class DatabaseConnection {
 
     */
 
+
     public $database_username = "root"; // username for the database
     public $database_password = "";
     public $database_host = "localhost";
     public $database = "movybe"; // database name
+    public $production_database_username = 'movybe_guys';
+    public $production_database_name = 'movybe_users';
+    public $production_database_password = 'Quicknaira.com';
     public  $conn;
     public $words_table_name = "words";
     public $queries_table_name = "queries";
@@ -35,11 +39,14 @@ class DatabaseConnection {
 
     {
 
+        $server_name = $_SERVER['SERVER_NAME'];
+        $is_production_mode = $server_name !== 'localhost';
+
         try {
 
-            $database = $this->database;
-            $username = $this->database_username;
-            $password = $this->database_password;
+            $database = $is_production_mode ? $this->production_database_name : $this->database;
+            $username = $is_production_mode ? $this->production_database_username : $this->database_username;
+            $password = $is_production_mode ?$this->production_database_password : $this->database_password;
             $database_host = $this->database_host;
 
             $this->conn = new PDO("mysql:dbname=$database;host=$database_host", $username, $password);

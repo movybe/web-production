@@ -1,9 +1,5 @@
 @import "affiliate.css";
 #fund-status-container {
-
-
-   
-
 }
 .account-info-headers{
   background-color : #fff;
@@ -261,4 +257,67 @@ span.expired.suspended
 }
 .suspended-text , .suspended-reason{
     font-size: 13px;
+}
+
+/* Affiliate css */
+.testers {
+    color : green;
+}
+
+#withdrawal-response-message
+{
+    font-size: 14px;
+}
+span#bank-name{
+    margin-bottom: 10px;
+}
+
+#withdrawal-response-message
+{
+    display: none;
+}
+
+#withdrawal-submit-button
+{
+    display: block;
+    margin-top : 10px;
+}
+.withdrawal-notice-board{
+    background-color: #e3f2fd !important;
+    border : 1px solid #e3f2fd !important;
+
+
+}
+
+span.affiliate-withdrawal-requests-message
+{
+    display: block !important;
+
+
+    font-size: 18px;
+}
+
+.payments-notice-board
+{
+
+    background-color: #bbdefb !important;
+    border : 1px solid #bbdefb !important;
+
+}
+
+span.affiliate-payment-reference-code{
+    display: block !important;
+    margin-top: 4px;
+    float: right;
+    position: relative;
+    top : 10px;
+}
+.material-icons.hide-payment-history-icon
+{
+    display:block !important;
+    position: relative !important;
+    float: right;
+    top : -15px;
+    left : 10px;
+    cursor: pointer;
 }

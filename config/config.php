@@ -19,7 +19,7 @@ abstract class WebsiteConfigurationSettings {
     public  $MaximumUserProfileImageSize = 50000000;
     public  $MaximumUserProfileImageSizeInWords = "";
     public  $WebsiteCoverage = "Nigeria";
-    public  $WebsiteSubject = "Compare price of Products in Nigeria";
+    public  $WebsiteSubject = "Connecting you with the right product";
     public  $WebsiteClassification = "Search";
     public  $DOCUMENT_ROOT;
     public  $LinkShortUrlLength = 5;

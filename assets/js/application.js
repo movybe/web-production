@@ -508,7 +508,7 @@ class Application extends React.Component {
 
 
         //Filters the search query
-        this.replaceSearchText();
+        //this.replaceSearchText();
 
         //Spilts the words of the query into an array
         let searchQueryToArray = this.searchQuery.split(" ");
@@ -754,7 +754,7 @@ class Application extends React.Component {
         // filter the value of the search input field
 
         this.searchQuery = e.target.value;
-        this.replaceSearchText();
+        //this.replaceSearchText();
 
 
         let data = {query: this.searchQuery};
