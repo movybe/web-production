@@ -91,9 +91,6 @@ DATA_SAVING_WARNING;
 */
 
 echo $functions->data_saving_mode_is_enabled() ? $data_saving_warning : $browser_warning;
-
-$scripts = array("particles.js" , "app.js");
-echo $functions->printAssets($scripts);
 ?>
 
 </body>
