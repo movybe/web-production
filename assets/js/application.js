@@ -571,7 +571,10 @@ class Application extends React.Component {
             this.props.sponsoredAdsClicked.pop();
         }
         this.searchFormFieldSet.prop(...defaults.disabledTrue);
+        console.log(defaults.crawler);
         $.get(defaults.crawler, {url: searchFilterUrl}, response => {
+
+            console.log(response);
 
 
 
