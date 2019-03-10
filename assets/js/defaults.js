@@ -80,10 +80,11 @@ class Defaults {
         this.siteNameLowercase = this.siteName.toLowerCase();
         this.whatsappContactLink = `https://wa.me/${this.whatsappContact.replace(/ /g,'')}?text=Hello%20${this.siteName}`;
         this.imageDirectory = this.getFileLocation('/assets/img/');
-        this.processorsFolder = this.getFileLocation('/processors/');
+        this.processorsFolder = '/processors/';
         this.queryProcessor = this.processorsFolder + 'query.php';
         this.crawler = this.processorsFolder + 'crawler.php';
         this.suggestions = this.processorsFolder + 'suggestions.php';
+        this.actions = this.processorsFolder + 'actions.php';
         this.handleAdForm = this.processorsFolder + 'handle-ad-form.php';
         this.commonWords = ['what','is','the','price','of','how','much','does','cost','costs','what','why','when','who','it','buy','sell','sells'];
         this.maxTitleLength = 60;
@@ -112,7 +113,7 @@ class Defaults {
         this.enterNewRefererUsernameMessage = 'This user had previously referred you, enter a new username';
         this.disabledTrue = ['disabled' , true];
         this.disabledFalse = ['disabled' , false];
-        this.actions = this.processorsFolder + 'actions.php';
+
         this.numberOfAdSpaceForMerchant = [0 , 1];
         this.numberOfAdSpaceForOmoba = [0 , 1 , 2 , 3 , 5];
         this.minimumAffliateProfit = 6500;
