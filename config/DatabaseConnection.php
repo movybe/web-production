@@ -74,11 +74,7 @@ class DatabaseConnection {
 
             global $website_details;
 
-            $server_name = $_SERVER['SERVER_NAME'];
-            $domain_type = substr($server_name, strpos($server_name, '.'));
-
-            //movybe
-            $this->site_name = str_replace($domain_type, '', $server_name);
+            $this->site_name = 'Movybe';
 
             $this->establish_database_connection();
             $this->website_details = $website_details;
