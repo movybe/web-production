@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="164b0cb5-d77a-4dd8-82e2-9790aebb2644" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/assets/incs/head-files.php" beforeDir="false" afterPath="$PROJECT_DIR$/assets/incs/head-files.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/browser.php" beforeDir="false" afterPath="$PROJECT_DIR$/browser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/campaign.php" beforeDir="false" afterPath="$PROJECT_DIR$/campaign.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/r.php" beforeDir="false" afterPath="$PROJECT_DIR$/r.php" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/browser.php" beforeDir="false" afterPath="$PROJECT_DIR$/browser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/functions.php" afterDir="false" />
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
+    <list default="true" id="3b1415d2-c466-4945-a1ab-24a501a45c13" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/main.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,371 +11,38 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" doNotAsk="true">
-    <pharConfigPath>$PROJECT_DIR$/phpmailer/composer.json</pharConfigPath>
-  </component>
-  <component name="DatabaseView">
-    <option name="SHOW_INTERMEDIATE" value="true" />
-    <option name="GROUP_DATA_SOURCES" value="true" />
-    <option name="GROUP_SCHEMA" value="true" />
-    <option name="GROUP_CONTENTS" value="false" />
-    <option name="SORT_POSITIONED" value="false" />
-    <option name="SHOW_EMPTY_GROUPS" value="false" />
-    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
-    <option name="HIDDEN_KINDS">
-      <set />
-    </option>
-    <expand />
-    <select />
-  </component>
   <component name="FUSProjectUsageTrigger">
-    <session id="1244681336">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="2" />
-          <entry key="project.open.time.10" value="1" />
-          <entry key="project.open.time.216" value="1" />
-          <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.69" value="1" />
-          <entry key="project.opened" value="4" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="php" value="1979" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="PHP" value="1979" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="js" value="1" />
-          <entry key="json" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.php.composer.command.options" />
-      <usages-collector id="statistics.vcs.git.usages" />
-      <usages-collector id="statistics.php.new.test" />
-      <usages-collector id="statistics.php.new.class" />
-      <usages-collector id="statistics.php.rename.constructor" />
-      <usages-collector id="statistics.js.language.service.starts" />
-      <usages-collector id="statistics.php.composer.actions" />
-    </session>
     <session id="946072588">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="63" />
-          <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.100" value="1" />
-          <entry key="project.open.time.101" value="1" />
-          <entry key="project.open.time.102" value="1" />
-          <entry key="project.open.time.105" value="2" />
-          <entry key="project.open.time.106" value="3" />
-          <entry key="project.open.time.112" value="1" />
-          <entry key="project.open.time.114" value="1" />
-          <entry key="project.open.time.117" value="2" />
-          <entry key="project.open.time.118" value="2" />
-          <entry key="project.open.time.119" value="1" />
-          <entry key="project.open.time.120" value="1" />
-          <entry key="project.open.time.122" value="1" />
-          <entry key="project.open.time.127" value="1" />
-          <entry key="project.open.time.133" value="1" />
-          <entry key="project.open.time.142" value="2" />
-          <entry key="project.open.time.156" value="1" />
-          <entry key="project.open.time.157" value="1" />
-          <entry key="project.open.time.159" value="1" />
-          <entry key="project.open.time.164" value="1" />
-          <entry key="project.open.time.19" value="1" />
-          <entry key="project.open.time.191" value="1" />
-          <entry key="project.open.time.2" value="3" />
-          <entry key="project.open.time.20" value="1" />
-          <entry key="project.open.time.21" value="1" />
-          <entry key="project.open.time.214" value="1" />
-          <entry key="project.open.time.23" value="1" />
-          <entry key="project.open.time.26" value="2" />
-          <entry key="project.open.time.38" value="1" />
-          <entry key="project.open.time.4" value="3" />
-          <entry key="project.open.time.50" value="1" />
-          <entry key="project.open.time.53" value="1" />
-          <entry key="project.open.time.59" value="1" />
-          <entry key="project.open.time.64" value="1" />
-          <entry key="project.open.time.67" value="1" />
-          <entry key="project.open.time.69" value="1" />
-          <entry key="project.open.time.70" value="1" />
-          <entry key="project.open.time.71" value="2" />
-          <entry key="project.open.time.72" value="2" />
-          <entry key="project.open.time.73" value="1" />
-          <entry key="project.open.time.74" value="1" />
-          <entry key="project.open.time.75" value="2" />
-          <entry key="project.open.time.76" value="2" />
-          <entry key="project.open.time.77" value="4" />
-          <entry key="project.open.time.78" value="2" />
-          <entry key="project.open.time.79" value="2" />
-          <entry key="project.open.time.80" value="6" />
-          <entry key="project.open.time.81" value="2" />
-          <entry key="project.open.time.82" value="1" />
-          <entry key="project.open.time.83" value="2" />
-          <entry key="project.open.time.84" value="3" />
-          <entry key="project.open.time.85" value="2" />
-          <entry key="project.open.time.86" value="1" />
-          <entry key="project.open.time.87" value="4" />
-          <entry key="project.open.time.88" value="3" />
-          <entry key="project.open.time.89" value="2" />
-          <entry key="project.open.time.90" value="2" />
-          <entry key="project.open.time.91" value="2" />
-          <entry key="project.open.time.92" value="2" />
-          <entry key="project.open.time.93" value="2" />
-          <entry key="project.open.time.94" value="3" />
-          <entry key="project.open.time.95" value="4" />
-          <entry key="project.open.time.97" value="1" />
-          <entry key="project.open.time.98" value="1" />
-          <entry key="project.open.time.99" value="1" />
-          <entry key="project.opened" value="110" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="css" value="16" />
-          <entry key="js" value="25" />
-          <entry key="php" value="37" />
-          <entry key="rnc" value="1" />
-          <entry key="txt" value="1" />
+          <entry key="project.open.time.15" value="1" />
+          <entry key="project.opened" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="74" />
-          <entry key="Image" value="2" />
-          <entry key="JavaScript" value="315" />
-<<<<<<< HEAD
-          <entry key="PHP" value="288" />
-=======
-          <entry key="PHP" value="290" />
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
-          <entry key="PLAIN_TEXT" value="5" />
-          <entry key="RNG Compact" value="1" />
-          <entry key="htaccess" value="6" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="css" value="148" />
-          <entry key="js" value="16504" />
-          <entry key="php" value="4878" />
+          <entry key="CSS" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="1591" />
-          <entry key="HTML" value="11" />
-          <entry key="JavaScript" value="146965" />
-<<<<<<< HEAD
-          <entry key="PHP" value="47195" />
-=======
-          <entry key="PHP" value="47292" />
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
-          <entry key="PLAIN_TEXT" value="35" />
-          <entry key="SQL" value="106" />
-          <entry key="htaccess" value="38" />
+          <entry key="CSS" value="73" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/incs/footer.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
+    <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/config/functions.php">
+        <entry file="file://$PROJECT_DIR$/assets/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state relative-caret-position="-1029">
-              <caret line="32" column="86" lean-forward="true" selection-start-line="32" selection-start-column="86" selection-end-line="32" selection-end-column="86" />
-=======
-            <state relative-caret-position="46">
-              <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/r.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="168" column="4" selection-start-line="168" selection-start-column="4" selection-end-line="168" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state relative-caret-position="425">
-              <caret line="25" selection-start-line="25" selection-end-line="25" />
-=======
-            <state relative-caret-position="255">
-              <caret line="15" column="38" lean-forward="true" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-<<<<<<< HEAD
-        <entry file="file://$PROJECT_DIR$/campaign.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
-              <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
-=======
-        <entry file="file://$PROJECT_DIR$/assets/css/bootstrap.min.css">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/r.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="25" column="14" lean-forward="true" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/DatabaseConnection.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="77" column="65" selection-start-line="77" selection-start-column="65" selection-end-line="77" selection-end-column="65" />
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-<<<<<<< HEAD
-        <entry file="file://$PROJECT_DIR$/assets/incs/head-files.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" selection-start-line="12" selection-end-line="12" selection-end-column="113" />
-=======
-        <entry file="file://$PROJECT_DIR$/config/config.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="62" column="66" lean-forward="true" selection-start-line="62" selection-start-column="66" selection-end-line="62" selection-end-column="66" />
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-<<<<<<< HEAD
-        <entry file="file://$PROJECT_DIR$/test.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="2" lean-forward="true" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-=======
-        <entry file="file://$PROJECT_DIR$/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="10" lean-forward="true" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/browser.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="540">
+              <caret line="479" column="87" selection-start-line="479" selection-start-column="87" selection-end-line="479" selection-end-column="87" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>this.props.email</find>
-      <find>pause</find>
-      <find>fetchMer</find>
-      <find>fetch_ne</find>
-      <find>console.l</find>
-      <find>next</find>
-      <find>yes</find>
-      <find>No pa</find>
-      <find>getNe</find>
-      <find>refre</find>
-      <find>siteEmail</find>
-      <find>MemberAccountType</find>
-      <find>confir</find>
-      <find>fetch_sp</find>
-      <find>getNextAd</find>
-      <find>preview</find>
-      <find>No pay</find>
-      <find>No ads</find>
-      <find>No ad</find>
-      <find>@import</find>
-      <find>replaceSea</find>
-      <find>handle</find>
-      <find>replaceS</find>
-      <find>prop</find>
-      <find>defaults.disabledTrue</find>
-      <find>defaults.disabledFalse</find>
-      <find>\n</find>
-      <find>SERVER_NAME</find>
-      <find>SERVER</find>
-      <find>is_p</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>this.props</replace>
-      <replace>selectedEcommerce</replace>
-      <replace>localStorage.setItem</replace>
-      <replace>defaults.showImagesCookieKey</replace>
-      <replace>defaults.localSearchCookieKey</replace>
-      <replace>this.props.switchToWebsite</replace>
-      <replace>settings.</replace>
-      <replace>this.selectedCampaignType</replace>
-      <replace>selectedCampaignType</replace>
-      <replace>this.initState</replace>
-      <replace>{defaults.websiteNameHttp}</replace>
-      <replace>{defaults.siteAddressHttp}</replace>
-      <replace>{defaults.siteAddress}</replace>
-      <replace>this.adFormRules</replace>
-      <replace>ad-form-fields</replace>
-      <replace>this.adModalContent</replace>
-      <replace>maxAdLocationLength</replace>
-      <replace>ad-image-label</replace>
-      <replace>defaults.actions</replace>
-      <replace>&lt;div</replace>
-      <replace>&lt;/div&gt;</replace>
-      <replace>this.editAdFormActions.RENEW</replace>
-      <replace>this.editAdFormActions.UPDATE</replace>
-      <replace>$this-&gt;website_details-&gt;</replace>
-      <replace>movybe</replace>
-      <replace>occurred</replace>
-      <replace>$website_details</replace>
-      <replace>this.props.refreshProfile()</replace>
-      <replace>'</replace>
-      <replace>getNextPaymentDetails</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -394,171 +50,24 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/processors/handle_edit_form.php" />
-        <option value="$PROJECT_DIR$/assets/js/jquery.validate.js" />
-        <option value="$PROJECT_DIR$/config/FileHandler.php" />
-        <option value="$PROJECT_DIR$/assets/js/numeral.min.js" />
-        <option value="$PROJECT_DIR$/assets/js/campaign-settings.js" />
-        <option value="$PROJECT_DIR$/assets/js/config.js" />
-        <option value="$PROJECT_DIR$/assets/css/affiliate.css" />
-        <option value="$PROJECT_DIR$/config/detect.php" />
-        <option value="$PROJECT_DIR$/functions/detect.php" />
-        <option value="$PROJECT_DIR$/.htaccess" />
-        <option value="$PROJECT_DIR$/assets/css/r.css" />
-        <option value="$PROJECT_DIR$/assets/js/search-tabs.js" />
-        <option value="$PROJECT_DIR$/assets/js/test.js" />
-        <option value="$PROJECT_DIR$/assets/js/admin-header.js" />
-        <option value="$PROJECT_DIR$/assets/js/clipboard.js" />
-        <option value="$PROJECT_DIR$/assets/js/campaign.js" />
-        <option value="$PROJECT_DIR$/assets/js/affiliate.js" />
-        <option value="$PROJECT_DIR$/assets/js/affiliate-header.js" />
-        <option value="$PROJECT_DIR$/assets/js/merchant.js" />
-        <option value="$PROJECT_DIR$/assets/js/merchant-header.js" />
-        <option value="$PROJECT_DIR$/assets/js/footer.js" />
-        <option value="$PROJECT_DIR$/assets/js/merchant-ads.js" />
-        <option value="$PROJECT_DIR$/assets/js/admin.js" />
-        <option value="$PROJECT_DIR$/processors/actions.php" />
         <option value="$PROJECT_DIR$/assets/css/main.css" />
-        <option value="$PROJECT_DIR$/assets/css/campaign-header.css" />
-        <option value="$PROJECT_DIR$/assets/css/admin.css" />
-        <option value="$PROJECT_DIR$/assets/css/merchant.css" />
-        <option value="$PROJECT_DIR$/assets/js/react-dom.production.min.js" />
-        <option value="$PROJECT_DIR$/assets/js/react.production.min.js" />
-        <option value="$PROJECT_DIR$/assets/js/application.js" />
-        <option value="$PROJECT_DIR$/assets/css/material-icons.css" />
-        <option value="$PROJECT_DIR$/assets/css/materialize.min.css" />
-        <option value="$PROJECT_DIR$/assets/js/jquery.lightbox.js" />
-        <option value="$PROJECT_DIR$/assets/incs/footer.php" />
-        <option value="$PROJECT_DIR$/assets/js/react-dom.development.js" />
-        <option value="$PROJECT_DIR$/assets/js/react.development.js" />
-        <option value="$PROJECT_DIR$/processors/query.php" />
-        <option value="$PROJECT_DIR$/processors/suggestions.php" />
-<<<<<<< HEAD
-=======
-        <option value="$PROJECT_DIR$/r.php" />
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
-        <option value="$PROJECT_DIR$/assets/js/defaults.js" />
-        <option value="$PROJECT_DIR$/config/DatabaseConnection.php" />
-        <option value="$PROJECT_DIR$/config/functions.class" />
-        <option value="$PROJECT_DIR$/test.php" />
-<<<<<<< HEAD
-        <option value="$PROJECT_DIR$/config/functions.php" />
-=======
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
-        <option value="$PROJECT_DIR$/processors/handle-ad-form.php" />
-        <option value="$PROJECT_DIR$/campaign.php" />
-        <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/assets/incs/head-files.php" />
-<<<<<<< HEAD
-        <option value="$PROJECT_DIR$/config/config.php" />
-        <option value="$PROJECT_DIR$/browser.php" />
-        <option value="$PROJECT_DIR$/r.php" />
-=======
-        <option value="$PROJECT_DIR$/campaign.php" />
-        <option value="$PROJECT_DIR$/browser.php" />
-        <option value="$PROJECT_DIR$/config/config.php" />
-        <option value="$PROJECT_DIR$/config/functions.php" />
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
       </list>
     </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsFlowSettings">
-    <service-enabled>true</service-enabled>
-    <exe-path />
-    <other-services-enabled>true</other-services-enabled>
-    <auto-save>true</auto-save>
-  </component>
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="PhpServers">
-    <servers />
-  </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1456" />
     <option name="height" value="876" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
-              <item name="movybe" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
-              <item name="movybe" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
-              <item name="movybe" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
-              <item name="movybe" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="incs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
-              <item name="movybe" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
-              <item name="movybe" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="movybe" type="b2602c69:ProjectViewProjectNode" />
-              <item name="movybe" type="462c0819:PsiDirectoryNode" />
-              <item name="processors" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
-  </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/xampp/htdocs/movybe/assets/js/defaults.js" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\movybe\config" />
-      <recent name="C:\xampp\htdocs\movybe\assets\css" />
-      <recent name="C:\xampp\htdocs\movybe\assets\css\fonts" />
-      <recent name="C:\xampp\htdocs\movybe\assets\js" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\movybe" />
-      <recent name="C:\xampp\htdocs\movybe\processors" />
-      <recent name="C:\xampp\htdocs\movybe\assets\css" />
-    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -577,159 +86,41 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="164b0cb5-d77a-4dd8-82e2-9790aebb2644" name="Default Changelist" comment="" />
-      <created>1542331528902</created>
+      <changelist id="3b1415d2-c466-4945-a1ab-24a501a45c13" name="Default Changelist" comment="" />
+      <created>1552245342010</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1542331528902</updated>
-      <workItem from="1542331532848" duration="3352000" />
-      <workItem from="1542359910224" duration="1143000" />
-      <workItem from="1542798703594" duration="2856000" />
-      <workItem from="1542836336672" duration="3426000" />
-      <workItem from="1543961587059" duration="88000" />
-      <workItem from="1544045487967" duration="14790000" />
-      <workItem from="1544107519573" duration="9488000" />
-      <workItem from="1544195257736" duration="18784000" />
-      <workItem from="1544251369129" duration="23391000" />
-      <workItem from="1544392180419" duration="38994000" />
-      <workItem from="1544616391349" duration="603000" />
-      <workItem from="1544655619944" duration="12456000" />
-      <workItem from="1544697285588" duration="7596000" />
-      <workItem from="1544733775632" duration="21191000" />
-      <workItem from="1544901590107" duration="31882000" />
-      <workItem from="1544987435586" duration="15588000" />
-      <workItem from="1545067355377" duration="25186000" />
-      <workItem from="1545139876901" duration="780000" />
-      <workItem from="1545166555577" duration="10834000" />
-      <workItem from="1545204276598" duration="5270000" />
-      <workItem from="1545253936690" duration="23909000" />
-      <workItem from="1545332045117" duration="34241000" />
-      <workItem from="1545420655750" duration="26172000" />
-      <workItem from="1545474767202" duration="8359000" />
-      <workItem from="1545485572633" duration="61000" />
-      <workItem from="1545520205786" duration="9090000" />
-      <workItem from="1545558015272" duration="11379000" />
-      <workItem from="1545596135294" duration="875000" />
-      <workItem from="1545611973899" duration="523000" />
-      <workItem from="1545612558269" duration="126000" />
-      <workItem from="1545612768365" duration="47000" />
-      <workItem from="1545612874127" duration="29000" />
-      <workItem from="1545612987895" duration="96000" />
-      <workItem from="1545613161174" duration="7136000" />
-      <workItem from="1545676328090" duration="8993000" />
-      <workItem from="1545698017419" duration="4721000" />
-      <workItem from="1545737365173" duration="948000" />
-      <workItem from="1545739407247" duration="3688000" />
-      <workItem from="1545776296949" duration="6516000" />
-      <workItem from="1545784621477" duration="8971000" />
-      <workItem from="1545869313899" duration="10390000" />
-      <workItem from="1545908279462" duration="5663000" />
-      <workItem from="1545956070859" duration="7095000" />
-      <workItem from="1545994055890" duration="26617000" />
-      <workItem from="1546038302212" duration="4264000" />
-      <workItem from="1546129242358" duration="9055000" />
-      <workItem from="1546379559074" duration="16736000" />
-      <workItem from="1546475660786" duration="1329000" />
-      <workItem from="1546603309515" duration="1001000" />
-      <workItem from="1546617775334" duration="1174000" />
-      <workItem from="1546726113130" duration="20901000" />
-      <workItem from="1546768238484" duration="1629000" />
-      <workItem from="1546770711752" duration="33491000" />
-      <workItem from="1546834508996" duration="4365000" />
-      <workItem from="1546983157091" duration="13376000" />
-      <workItem from="1547002539983" duration="189000" />
-      <workItem from="1547163296701" duration="11728000" />
-      <workItem from="1547178664285" duration="20455000" />
-      <workItem from="1547230445703" duration="9472000" />
-      <workItem from="1547323939543" duration="12115000" />
-      <workItem from="1547474331501" duration="22605000" />
-      <workItem from="1547580130814" duration="12263000" />
-      <workItem from="1547650948899" duration="14491000" />
-      <workItem from="1547687100109" duration="2690000" />
-      <workItem from="1547746973229" duration="18690000" />
-      <workItem from="1547904936480" duration="15305000" />
-      <workItem from="1547943395729" duration="599000" />
-      <workItem from="1548053071681" duration="29960000" />
-      <workItem from="1548280658793" duration="15058000" />
-      <workItem from="1548330479062" duration="27793000" />
-      <workItem from="1548580648281" duration="23687000" />
-      <workItem from="1548714223104" duration="14757000" />
-      <workItem from="1548771381267" duration="22246000" />
-      <workItem from="1548957196677" duration="11954000" />
-      <workItem from="1549059672309" duration="24650000" />
-      <workItem from="1549109663077" duration="5244000" />
-      <workItem from="1549265329320" duration="19640000" />
-      <workItem from="1549399384361" duration="1244000" />
-      <workItem from="1549492549590" duration="1991000" />
-      <workItem from="1549524380890" duration="7298000" />
-      <workItem from="1549577917173" duration="19369000" />
-      <workItem from="1549670892736" duration="25099000" />
-      <workItem from="1549837836020" duration="9289000" />
-      <workItem from="1549853517432" duration="2742000" />
-      <workItem from="1549878207616" duration="9156000" />
-      <workItem from="1550067796791" duration="8098000" />
-      <workItem from="1199142319052" duration="597000" />
-      <workItem from="1550090385509" duration="14096000" />
-      <workItem from="1550131242805" duration="9984000" />
-      <workItem from="1550212216175" duration="14083000" />
-      <workItem from="1550300579392" duration="21482000" />
-      <workItem from="1550502313951" duration="21549000" />
-      <workItem from="1550602144165" duration="15706000" />
-      <workItem from="1550655159361" duration="14149000" />
-      <workItem from="1550696591769" duration="12018000" />
-      <workItem from="1550775990423" duration="14557000" />
-      <workItem from="1550827917537" duration="11924000" />
-      <workItem from="1550872820725" duration="11819000" />
-      <workItem from="1550936957612" duration="622000" />
-      <workItem from="1550954718329" duration="7124000" />
-      <workItem from="1550997543914" duration="10858000" />
-      <workItem from="1551079387314" duration="27949000" />
-      <workItem from="1551173390962" duration="14390000" />
-      <workItem from="1551229060581" duration="28272000" />
-      <workItem from="1551315662900" duration="9178000" />
-      <workItem from="1551382252031" duration="17054000" />
-      <workItem from="1551479255537" duration="7125000" />
-      <workItem from="1551566162776" duration="10185000" />
-      <workItem from="1551606866464" duration="2597000" />
-      <workItem from="1551631047711" duration="1551000" />
-      <workItem from="1551678982192" duration="20057000" />
-      <workItem from="1552174869317" duration="10788000" />
-      <workItem from="1552202705610" duration="10926000" />
-      <workItem from="1552216961432" duration="4834000" />
+      <updated>1552245342010</updated>
+      <workItem from="1552245350526" duration="239000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-<<<<<<< HEAD
-    <option name="totallyTimeSpent" value="1338188000" />
-=======
-    <option name="totallyTimeSpent" value="1338903000" />
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
+    <option name="totallyTimeSpent" value="239000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Structure" order="0" sideWeight="0.5013405" side_tool="true" weight="0.45922747" />
-      <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.49865952" visible="true" weight="0.21991403" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" weight="0.3293011" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3293011" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Command Line Tools Console" order="10" weight="0.3283582" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.18413979" />
-      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" weight="0.3293011" />
+      <window_info anchor="right" id="Database" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" weight="0.32904148" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -738,471 +129,11 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/js/campaign.js</url>
-          <line>535</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/js/merchant-ads.js</url>
-          <line>272</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/js/merchant-ads.js</url>
-          <line>570</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/js/merchant-ads.js</url>
-          <line>215</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/js/merchant-ads.js</url>
-          <line>350</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/js/application.js</url>
-          <line>1007</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/js/campaign.js</url>
-          <line>32</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/js/affiliate-header.js</url>
-          <line>223</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/js/affiliate.js</url>
-          <line>71</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/assets/js/test.js" />
-    <entry file="file://$PROJECT_DIR$/assets/js/admin-header.js" />
-    <entry file="file://$PROJECT_DIR$/assets/js/clipboard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="46" selection-start-line="1" selection-start-column="46" selection-end-line="1" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/footer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/merchant-header.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="240" selection-start-line="240" selection-end-line="240" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/app.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/affiliate.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/merchant.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="59" column="6" selection-start-line="59" selection-start-column="6" selection-end-line="59" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/affiliate-header.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="251" column="21" selection-start-line="251" selection-start-column="21" selection-end-line="251" selection-end-column="21" />
-          <folding>
-            <element signature="e#181#2386#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/campaign.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9656">
-          <caret line="568" selection-start-line="568" selection-end-line="568" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/merchant-ads.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="878" column="89" selection-start-line="878" selection-start-column="89" selection-end-line="878" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7672">
-          <caret line="8" column="15" lean-forward="true" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/campaign.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/admin.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="170" selection-start-line="170" selection-end-line="170" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/font-awesome.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="67" selection-start-line="3" selection-start-column="67" selection-end-line="3" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/cairo.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="13" lean-forward="true" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/affiliate.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="15" lean-forward="true" selection-end-line="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/browser.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="19" lean-forward="true" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/jquery.lightbox.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="35" lean-forward="true" selection-end-line="103" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/react-dom.production.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="220" selection-start-line="220" selection-end-line="220" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2601">
-          <caret line="153" column="10" selection-start-line="153" selection-start-column="10" selection-end-line="153" selection-end-column="10" />
-          <folding>
-            <element signature="n#!!block;n#componentDidUpdate#0;n#Application#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/admin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1666">
-          <caret line="98" column="17" selection-start-line="98" selection-start-column="17" selection-end-line="98" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/merchant.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5168">
-          <caret line="304" selection-start-line="304" selection-end-line="304" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/incs/htaccess-rules.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="2" lean-forward="true" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/jquery.lightbox.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="55" selection-start-line="2" selection-start-column="55" selection-end-line="2" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/lazy-bg.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="41" selection-start-line="1" selection-start-column="41" selection-end-line="1" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/materialize.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="34" column="28" lean-forward="true" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/react.development.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53380">
-          <caret line="3140" lean-forward="true" selection-start-line="3140" selection-end-line="3140" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/react.production.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="2" lean-forward="true" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/react-dom.development.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362865">
-          <caret line="21345" column="56" lean-forward="true" selection-start-line="21345" selection-start-column="56" selection-end-line="21345" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/material-icons.css" />
-    <entry file="file://$PROJECT_DIR$/assets/js/request.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="26" lean-forward="true" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/processors/suggestions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="16" lean-forward="true" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/processors/query.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/processors/actions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="39" lean-forward="true" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/processors/crawler.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/assets/js/defaults.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="81" column="37" selection-start-line="81" selection-start-column="37" selection-end-line="81" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/FileHandler.php">
-=======
-    <entry file="file://$PROJECT_DIR$/test.php">
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/processors/handle-ad-form.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="41" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/functions.php">
-=======
-    <entry file="file://$PROJECT_DIR$/assets/js/defaults.js">
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1029">
-          <caret line="32" column="86" lean-forward="true" selection-start-line="32" selection-start-column="86" selection-end-line="32" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/incs/footer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/assets/js/paystack.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="88" column="59" selection-start-line="88" selection-start-column="59" selection-end-line="88" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/DatabaseConnection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="43" column="5" lean-forward="true" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/browser.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="2" lean-forward="true" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-=======
-    <entry file="file://$PROJECT_DIR$/assets/incs/footer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/incs/head-files.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/paystack.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/campaign.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/r.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="14" lean-forward="true" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/bootstrap.min.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/browser.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="23" column="86" selection-start-line="23" selection-start-column="86" selection-end-line="23" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/processors/handle-ad-form.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="38" lean-forward="true" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/DatabaseConnection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="77" column="65" selection-start-line="77" selection-start-column="65" selection-end-line="77" selection-end-column="65" />
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state relative-caret-position="204">
-          <caret line="12" selection-start-line="12" selection-end-line="12" selection-end-column="113" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/campaign.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/r.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="168" column="4" selection-start-line="168" selection-start-column="4" selection-end-line="168" selection-end-column="4" />
-=======
-        <state relative-caret-position="391">
-          <caret line="23" column="10" lean-forward="true" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="62" column="66" lean-forward="true" selection-start-line="62" selection-start-column="66" selection-end-line="62" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
->>>>>>> a01601af24486a0a038912fae2c160cf44fc3a40
+        <state relative-caret-position="540">
+          <caret line="479" column="87" selection-start-line="479" selection-start-column="87" selection-end-line="479" selection-end-column="87" />
         </state>
       </provider>
     </entry>

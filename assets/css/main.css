@@ -409,7 +409,7 @@ body.blurred > * {
 }
 
 .lightbox__loading {
-    background: url(/assets/img/loading.gif) center center no-repeat;
+    background: url(/assets/img/loading.gif), url('/movybe/assets/img/loading.gif') center center no-repeat;
     width: 32px;
     height: 32px;
     margin: -16px 0 0 -16px;
@@ -467,7 +467,7 @@ body.blurred > * {
 .lightbox__close {
     right: 10px;
     top: 10px;
-    background-image: url("/assets/img/close.png");
+    background-image: url("/assets/img/close.png") , url('/movybe/assets/img/close.png');
 }
 
 .lightbox__nav {
@@ -477,10 +477,10 @@ body.blurred > * {
 
 .lightbox__nav--next {
     right: 10px;
-    background-image: url("/assets/img/next.png");
+    background-image: url("/assets/img/next.png") , url('/movybe/assets/img/next.png');
 }
 
 .lightbox__nav--prev {
     left: 10px;
-    background-image: url("/assets/img/previous.png");
+    background-image: url("/assets/img/previous.png") , url('/movybe/assets/img/previous.png');
 }
