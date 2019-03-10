@@ -2,8 +2,6 @@
 
 require_once '../config/functions.php';
 require_once '../config/FileHandler.php';
-
-
 class HandleAdForm extends  Functions
 {
 

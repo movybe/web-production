@@ -1,9 +1,11 @@
 <?php
 
-require_once 'DatabaseConnection.php';
-require_once 'config.php';
-require_once 'detect.php';
+$dir = dirname(__FILE__);
+require_once $dir.'/DatabaseConnection.php';
+require_once $dir.'/config.php';
+require_once $dir.'/detect.php';
 //echo $ip_address = Detect::ip();
+
 class Functions extends  DatabaseConnection {
 
 
@@ -24,6 +26,12 @@ class Functions extends  DatabaseConnection {
 
 
     }
+
+
+    public final function getFileLocation(string $filename) : string
+{
+    return $this->is_production_mode() ? "/{$this->site_name}{$filename}" : $filename;
+}
 
     public final function generateID (int  $length , string $table_name = null , string $field_name = null) : string {
 

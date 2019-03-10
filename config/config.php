@@ -1,13 +1,12 @@
 <?php
 
-abstract class WebsiteConfigurationSettings {
-
-    
-	public  $SiteName = "Movybe";
+class WebsiteConfigurationSettings {
+    public  $SiteName;
 	public  $Https = "https://";
 	public  $Www = "www.";
 	public  $SiteNameWithoutHttps = "www.omoba.epizy.com";
 	public  $SiteNameWithHttps = "";
+	public $siteNameLowercase;
     public  $FacebookUrl = "";
     public  $TwitterUrl  = "";
     public  $InstagramUrl = "";
@@ -39,7 +38,7 @@ abstract class WebsiteConfigurationSettings {
     public  $BANNER_IMAGES_FOLDER;
     public  $ErrorPage = "/404.php";
     public  $PageDescription = "Compare price of products in Nigeria";
-    public  $ParentCompanyName = "Movybe Inc.";
+    public  $ParentCompanyName;
     public  $ParentCompanyAddress = "/";
     public $maxNumberOfSuggestion = 5;
     public $COMPONENTS_FOLDER = null;
@@ -55,15 +54,36 @@ abstract class WebsiteConfigurationSettings {
     public $maximumNumberOfInvitesForADay = 500;
     public $amountPaidForInvite = 30;
     public $maximumNumberOfAffiliateInvitationsForADay = 5;
-    abstract function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords);
+
+    function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords){}
+
+    final public function is_production_mode () : bool
+    {
+        $server_name = $_SERVER['SERVER_NAME'];
+        return $is_production_mode = $server_name !== 'localhost';
+    }
+
+    public final function getFileLocation(string $filename) : string
+    {
+        return $this->is_production_mode() ? "/{$this->SiteName}{$filename}" : $filename;
+    }
 
     public function __construct() {
+
+        $server_name = $_SERVER['SERVER_NAME'];
+        $domain_type = substr($server_name, strpos($server_name, '.'));
+
+        //movybe
+        $this->SiteName = str_replace($domain_type, '', $server_name) ?: 'Omoba';
+
+        $this->ParentCompanyName = $this->SiteName.' Inc';
         $this->DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
-        $this->STATIC_FOLDER = "/assets/";
+        $this->STATIC_FOLDER = $this->getFileLocation("/assets/");
+        $this->siteNameLowercase = strtolower($this->SiteName);
         $this->JS_FOLDER = $this->STATIC_FOLDER."js/";
         $this->CSS_FOLDER = $this->STATIC_FOLDER."css/";
-        $this->INCS_FOLDER = $_SERVER['DOCUMENT_ROOT'].$this->STATIC_FOLDER."incs/";
-        $this->BANNER_IMAGES_FOLDER = $this->DOCUMENT_ROOT."/banner/";
+        $this->INCS_FOLDER = $_SERVER['DOCUMENT_ROOT'].$this->getFileLocation($this->STATIC_FOLDER."incs/");
+        $this->BANNER_IMAGES_FOLDER = $this->DOCUMENT_ROOT.$this->getFileLocation("/banner/");
         $this->IMG_FOLDER = $this->STATIC_FOLDER."img/";
         $this->SiteNameWithHttps = "https://{$this->SiteNameWithoutHttps}";
         $this->FacebookUrl = "{$this->Https}{$this->Www}facebook.com";
@@ -78,8 +98,6 @@ abstract class WebsiteConfigurationSettings {
         $this->COMPONENTS_FOLDER = $this->JS_FOLDER."components/";
         $this->AD_ID_LENGTH = 7;
 
-
-        $siteAffiliateSignupFee = $this->affiliateSignupFee -$this->amountPaidToAffiliateForReferer;
         $this->AboutUs = <<<AboutUs
 <p>
                                        Search the price of anything.  
@@ -100,6 +118,10 @@ class WebsiteDetails extends WebsiteConfigurationSettings {
         // TODO: Implement setPageTitleDescriptionKeywords() method.
     }
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
 }
 

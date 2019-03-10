@@ -35,6 +35,7 @@ class DatabaseConnection {
     public $site_statistics_table_name = "site_statistics";
     public $withdrawals_table_name = "withdrawals";
     public $website_details;
+    public $site_name;
 
     final public function is_production_mode () : bool
     {
@@ -45,8 +46,8 @@ class DatabaseConnection {
 
     {
 
-        $server_name = $_SERVER['SERVER_NAME'];
-        $is_production_mode = $server_name !== 'localhost';
+
+
 
         try {
 
@@ -55,6 +56,7 @@ class DatabaseConnection {
             $password = $this->is_production_mode() ?$this->production_database_password : $this->database_password;
             $database_host = $this->database_host;
 
+            // Establish  connection with the Database
             $this->conn = new PDO("mysql:dbname=$database;host=$database_host", $username, $password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return true;
@@ -67,17 +69,20 @@ class DatabaseConnection {
         }
     }
 
-        function __construct () {
+        function __construct ()
+        {
 
-        global $website_details;
-            // Establish  connection with the Database
+            global $website_details;
 
+            $server_name = $_SERVER['SERVER_NAME'];
+            $domain_type = substr($server_name, strpos($server_name, '.'));
+
+            //movybe
+            $this->site_name = str_replace($domain_type, '', $server_name);
 
             $this->establish_database_connection();
             $this->website_details = $website_details;
             return true;
-
-
 
         }
 
