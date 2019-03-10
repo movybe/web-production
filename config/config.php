@@ -70,11 +70,9 @@ class WebsiteConfigurationSettings {
 
     public function __construct() {
 
-        $server_name = $_SERVER['SERVER_NAME'] ;
-        $domain_type = substr($server_name, strpos($server_name, '.'));
 
         //movybe
-        $this->SiteName = ucfirst(str_replace($domain_type, '', $server_name)) ?: 'Movybe';
+        $this->SiteName = 'Movybe';
         $this->siteNameLowercase = strtolower($this->SiteName);
         $this->ParentCompanyName = $this->SiteName.' Inc';
         $this->DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
