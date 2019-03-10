@@ -65,7 +65,7 @@ class WebsiteConfigurationSettings {
 
     public final function getFileLocation(string $filename) : string
     {
-        return $this->is_production_mode() ? "/{$this->SiteName}{$filename}" : $filename;
+        return $this->is_production_mode() ? "/{$filename}" : $filename;
     }
 
     public function __construct() {
@@ -74,7 +74,7 @@ class WebsiteConfigurationSettings {
         $domain_type = substr($server_name, strpos($server_name, '.'));
 
         //movybe
-        $this->SiteName = str_replace($domain_type, '', $server_name) ?: 'Omoba';
+        $this->SiteName = str_replace($domain_type, '', $server_name) ?: 'Movybe';
 
         $this->ParentCompanyName = $this->SiteName.' Inc';
         $this->DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
