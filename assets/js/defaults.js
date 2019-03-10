@@ -76,7 +76,7 @@ class Defaults {
         this.whatsappContact = '+234 708 441 9530';
         this.isProductionMode = window.location.hostname !== 'localhost';
         this.hostName = window.location.hostname;
-        this.siteName = this.isProductionMode ? this.hostName.substring(0 , this.hostName.indexOf('.')).capitalize() : 'Movybe';
+        this.siteName = 'Movybe';
         this.siteNameLowercase = this.siteName.toLowerCase();
         this.whatsappContactLink = `https://wa.me/${this.whatsappContact.replace(/ /g,'')}?text=Hello%20${this.siteName}`;
         this.imageDirectory = this.getFileLocation('/assets/img/');
