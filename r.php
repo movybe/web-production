@@ -1,8 +1,8 @@
 <?php
 
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/config/detect.php';
+require_once 'config/functions.php';
+require_once 'config/detect.php';
 class HandleNewInvites extends Functions
 {
     private $now;

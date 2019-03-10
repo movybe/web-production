@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
+require_once 'config/functions.php';
 if($functions->data_saving_mode_is_enabled())
  {
      header('location: /browser');

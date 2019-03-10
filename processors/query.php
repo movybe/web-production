@@ -1,7 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
-
+require_once '../config/functions.php';
 
 class Query extends Functions {
 

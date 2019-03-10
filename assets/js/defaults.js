@@ -68,14 +68,21 @@ $(document).ready (function () {
 
 class Defaults {
 
-    constructor () {
+    getFileLocation(filename)  {
+        return this.isProductionMode ? '/' + this.siteNameLowercase  + filename : filename;
+    };
 
+    constructor () {
         this.whatsappContact = '+234 708 441 9530';
-        this.siteName = 'Movybe';
-        this.siteOwner = 'Movybe Inc.';
+        this.isProductionMode = window.location.hostname !== 'localhost';
+        this.hostName = window.location.hostname;
+        this.siteName = this.isProductionMode ? this.hostName.substring(0 , this.hostName.indexOf('.')).capitalize() : 'Movybe';
+        this.siteNameLowercase = this.siteName.toLowerCase();
+        console.log(this.siteName);
+        this.siteOwner = this.siteName + ' Inc.';
         this.whatsappContactLink = `https://wa.me/${this.whatsappContact.replace(/ /g,'')}?text=Hello%20${this.siteName}`;
-        this.imageDirectory = '/assets/img/';
-        this.processorsFolder = '/processors/';
+        this.imageDirectory = this.getFileLocation('/assets/img/');
+        this.processorsFolder = this.getFileLocation('/processors/');
         this.queryProcessor = this.processorsFolder + 'query.php';
         this.crawler = this.processorsFolder + 'crawler.php';
         this.suggestions = this.processorsFolder + 'suggestions.php';
@@ -95,13 +102,10 @@ class Defaults {
         this.savedState = 'savedState';
         this.checkNetworkConnectionError = 'check your network connection';
         this.savedCampaignState = 'savedCampaignState';
-        this.localSearchCookieKey = 'localSearch';
-        this.showImagesCookieKey = 'showImages';
-        this.lazyBG = '/assets/js/lazy-bg.js';
         this.noResultsFoundError = 'no results found';
         this.pleaseWaitText = 'Please wait...';
         this.searchSuggestionsLimit = 7;
-        this.bannerImageLocation = '/banner/';
+        this.bannerImageLocation = this.getFileLocation('/banner/');
         this.siteAddress = this.siteName.toLowerCase() + '.com';
         this.siteAddressHttp = 'http://' + this.siteAddress;
         this.siteAddressHttps = 'https://' + this.siteAddress;

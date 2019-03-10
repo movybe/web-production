@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
+require_once 'config/functions.php';
 ?>
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">

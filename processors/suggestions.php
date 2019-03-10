@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/config/functions.php';
+require_once '../config/functions.php';
 class Suggestions extends  Functions{
 
     private $query , $data ,$success = "success" , $suggestions , $error_occured = "error occured" , $error = "error";
