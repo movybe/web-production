@@ -11,12 +11,11 @@
 <!--  Scripts-->
 <?php
 
+$includes = array("cookie.min.js" , "bgset.min.js" , "lazy-bg.min.js" , "defaults.js" , "jquery.lightbox.min.js"  ,"numeral.min.js");
 
-$scripts = array("cookie.min.js" , "request.js" , "jquery.min.js" , "bgset.min.js" ,"lazy-bg.js" , "materialize.min.js" , "defaults.js" , "jquery.lightbox.js");
-
-
-echo $functions->printAssets($scripts);
-
+$cdn_includes = <<<CDN_INCLUDES
+CDN_INCLUDES;
+echo $functions->printAssets($includes);
 ?>
 <script async>
     $(function()

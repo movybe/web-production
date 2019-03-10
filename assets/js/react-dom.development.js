@@ -10245,7 +10245,7 @@
 
         if (enableProfilerTimer && isDevToolsPresent) {
             // Always collect profile timings when DevTools are present.
-            // This enables DevTools to start capturing timing at any pointâ€“
+            // This enables DevTools to start capturing timing at any point–
             // Without some nodes in the tree having empty base times.
             mode |= ProfileMode;
         }
@@ -12267,7 +12267,7 @@
                             knownKeys.add(key);
                             break;
                         }
-                        warning$1(false, 'Encountered two children with the same key, `%s`. ' + 'Keys should be unique so that components maintain their identity ' + 'across updates. Non-unique keys may cause children to be ' + 'duplicated and/or omitted â€” the behavior is unsupported and ' + 'could change in a future version.', key);
+                        warning$1(false, 'Encountered two children with the same key, `%s`. ' + 'Keys should be unique so that components maintain their identity ' + 'across updates. Non-unique keys may cause children to be ' + 'duplicated and/or omitted — the behavior is unsupported and ' + 'could change in a future version.', key);
                         break;
                     default:
                         break;
@@ -15229,7 +15229,7 @@
         // uncontrolled form inputs). Instead we keep them mounted and hide them.
         // Both the fallback children AND the primary children are rendered at the
         // same time. Once the primary children are un-suspended, we can delete
-        // the fallback children â€” don't need to preserve their state.
+        // the fallback children — don't need to preserve their state.
         //
         // The two sets of children are siblings in the host environment, but
         // semantically, for purposes of reconciliation, they are two separate sets.
@@ -16074,7 +16074,7 @@
 //
 // Like fibers, update queues come in pairs: a current queue, which represents
 // the visible state of the screen, and a work-in-progress queue, which can be
-// mutated and processed asynchronously before it is committed â€” a form of
+// mutated and processed asynchronously before it is committed — a form of
 // double buffering. If a work-in-progress render is discarded before finishing,
 // we create a new work-in-progress by cloning the current queue.
 //
@@ -16266,7 +16266,7 @@
             appendUpdateToQueue(queue1, update);
         } else {
             // There are two queues. We need to append the update to both queues,
-            // while accounting for the persistent structure of the list â€” we don't
+            // while accounting for the persistent structure of the list — we don't
             // want the same update to be added multiple times.
             if (queue1.lastUpdate === null || queue2.lastUpdate === null) {
                 // One of the queues is not empty. We must add the update to both queues.
@@ -19107,7 +19107,7 @@
             } finally {
                 // Clear completed interactions from the pending Map.
                 // Unless the render was suspended or cascading work was scheduled,
-                // In which caseâ€“ leave pending interactions until the subsequent render.
+                // In which case– leave pending interactions until the subsequent render.
                 var pendingInteractionMap = root.pendingInteractionMap;
                 pendingInteractionMap.forEach(function (scheduledInteractions, scheduledExpirationTime) {
                     // Only decrement the pending interaction count if we're done.

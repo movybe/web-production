@@ -23,8 +23,6 @@ class Application extends React.Component {
 
 
 
-        console.log(website);
-
 
 
         // here i want to find the E-commerce website object from the props using the "website" parameter
@@ -147,6 +145,7 @@ class Application extends React.Component {
 
         let savedState = {};
         const  defaultAction = () => {
+            this.searchFormFieldSet.prop(...defaults.disabledFalse);
             if(this.props.switchWebsite({...savedState , processingAction: false})) return
 
 
@@ -532,9 +531,6 @@ class Application extends React.Component {
         //blurs the search field
         $(':focus').blur();
 
-        //disables the search form
-        this.searchFormFieldSet.prop(...this.disabledFormFieldSet);
-
 
 
 
@@ -571,13 +567,15 @@ class Application extends React.Component {
         //set the loadMore key of this website object to false
         this.props.locale[0].loadMore = true;
         this.props.sponsoredAdsClicked = [];
+
+        this.searchFormFieldSet.prop(...defaults.disabledTrue);
         $.get(defaults.crawler, {url: searchFilterUrl}, response => {
 
 
 
             //Check if a response was received from the server
             if (!response.contents || !response.contents.data) {
-                return this.searchFormFieldSet.prop(...this.enabledFormFieldSet) && M.toast({html: this.networkError});
+                return  M.toast({html: this.networkError});
             }
 
             //Check if there is not data returned, meaning empty result
@@ -586,8 +584,6 @@ class Application extends React.Component {
 
 
                 //M.toast({html: this.enterValidKeywordsWarning});
-
-                this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
 
                 this.searchTabs.show();
                 $('#tabs.tabs').tabs('select', this.props.defaultBackup);
@@ -692,6 +688,7 @@ class Application extends React.Component {
                 $('#tabs.tabs').tabs('select', defaultEcommerceWebsiteShortName);
             }
 
+            this.searchFormFieldSet.prop(...defaults.disabledFalse);
         });
 
 
@@ -850,7 +847,6 @@ class Application extends React.Component {
         this.searchQuery = searchQueryToArray.join(" ");
 
         if (!this.searchQuery.length) {
-            this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
             M.toast({html: this.enterValidKeywordsWarning});
             this.formSubmitted = false;
 
@@ -868,7 +864,6 @@ class Application extends React.Component {
         $.post(defaults.queryProcessor, {data}, t => {
 
 
-            this.searchFormFieldSet.prop(...this.enabledFormFieldSet);
 
 
             this.localSearchTabContainer.show();

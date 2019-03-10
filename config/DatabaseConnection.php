@@ -23,8 +23,8 @@ class DatabaseConnection {
     public $database_password = "";
     public $database_host = "localhost";
     public $database = "movybe"; // database name
-    public $production_database_username = 'movybe_guys';
-    public $production_database_name = 'movybe_users';
+    public $production_database_username = 'movybeco_guys';
+    public $production_database_name = 'movybeco_users';
     public $production_database_password = 'Quicknaira.com';
     public  $conn;
     public $words_table_name = "words";
@@ -35,6 +35,12 @@ class DatabaseConnection {
     public $site_statistics_table_name = "site_statistics";
     public $withdrawals_table_name = "withdrawals";
     public $website_details;
+
+    final public function is_production_mode () : bool
+    {
+        $server_name = $_SERVER['SERVER_NAME'];
+        return $is_production_mode = $server_name !== 'localhost';
+    }
     final protected  function  establish_database_connection () : bool
 
     {
@@ -44,9 +50,9 @@ class DatabaseConnection {
 
         try {
 
-            $database = $is_production_mode ? $this->production_database_name : $this->database;
-            $username = $is_production_mode ? $this->production_database_username : $this->database_username;
-            $password = $is_production_mode ?$this->production_database_password : $this->database_password;
+            $database = $this->is_production_mode() ? $this->production_database_name : $this->database;
+            $username = $this->is_production_mode() ? $this->production_database_username : $this->database_username;
+            $password = $this->is_production_mode() ?$this->production_database_password : $this->database_password;
             $database_host = $this->database_host;
 
             $this->conn = new PDO("mysql:dbname=$database;host=$database_host", $username, $password);
