@@ -178,7 +178,7 @@ class Defaults {
                   call(response);
                 },
                 onClose: function(){
-                    window.console.log('window closed');
+                    //window.console.log('window closed');
                 }
             });
             handler.openIframe();
