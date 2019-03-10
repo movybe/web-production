@@ -65,8 +65,7 @@ class WebsiteConfigurationSettings {
 
     public final function getFileLocation(string $filename) : string
     {
-
-        return $this->is_production_mode() ? "{$this->siteNameLowercase}{$filename}" : $filename;
+        return $this->is_production_mode() ? "/{$this->siteNameLowercase}{$filename}" : $filename;
     }
 
     public function __construct() {
@@ -76,11 +75,10 @@ class WebsiteConfigurationSettings {
 
         //movybe
         $this->SiteName = ucfirst(str_replace($domain_type, '', $server_name)) ?: 'Movybe';
-
+        $this->siteNameLowercase = strtolower($this->SiteName);
         $this->ParentCompanyName = $this->SiteName.' Inc';
         $this->DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
         $this->STATIC_FOLDER = $this->getFileLocation("/assets/");
-        $this->siteNameLowercase = strtolower($this->SiteName);
         $this->JS_FOLDER = $this->STATIC_FOLDER."js/";
         $this->CSS_FOLDER = $this->STATIC_FOLDER."css/";
         $this->INCS_FOLDER = $this->DOCUMENT_ROOT.$this->getFileLocation("/assets/incs/");
