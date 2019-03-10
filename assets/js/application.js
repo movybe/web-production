@@ -566,8 +566,10 @@ class Application extends React.Component {
 
         //set the loadMore key of this website object to false
         this.props.locale[0].loadMore = true;
-        this.props.sponsoredAdsClicked = [];
-
+        while(this.props.sponsoredAdsClicked.length)
+        {
+            this.props.sponsoredAdsClicked.pop();
+        }
         this.searchFormFieldSet.prop(...defaults.disabledTrue);
         $.get(defaults.crawler, {url: searchFilterUrl}, response => {
 

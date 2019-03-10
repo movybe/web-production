@@ -32,10 +32,11 @@ class Config {
             {shortName :  "ebay"  , name : "ebay"         ,        textColor :  '#86b817' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
             {shortName :  "bestbuy"  , name : "Best buy"         , textColor :  '#f6eb16' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
         ],
+        sponsoredAdsClicked : [] ,
         lastUpdated : "02-04-2019",
         updateOnlyAds : true,
         sponsoredAds : [],
-        sponsoredAdsClicked : []
+
     };
 
 
