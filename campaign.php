@@ -16,6 +16,7 @@ if($functions->data_saving_mode_is_enabled())
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <title><?php echo $website_details->SiteName; ?> • Join Our Campaign and Become a Merchant/Affiliate</title>
     <link rel="canonical" href="<?php echo $website_details->SiteNameWithHttps; ?>" />
+    <link rel="icon" type="image/jpeg" href="<?php echo $website_details->IMG_FOLDER;?>favicon.png" />
     <meta name="robot" content="index, follow" />
 
         <?php

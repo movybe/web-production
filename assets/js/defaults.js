@@ -78,8 +78,6 @@ class Defaults {
         this.hostName = window.location.hostname;
         this.siteName = this.isProductionMode ? this.hostName.substring(0 , this.hostName.indexOf('.')).capitalize() : 'Movybe';
         this.siteNameLowercase = this.siteName.toLowerCase();
-        console.log(this.siteName);
-        this.siteOwner = this.siteName + ' Inc.';
         this.whatsappContactLink = `https://wa.me/${this.whatsappContact.replace(/ /g,'')}?text=Hello%20${this.siteName}`;
         this.imageDirectory = this.getFileLocation('/assets/img/');
         this.processorsFolder = this.getFileLocation('/processors/');
@@ -121,7 +119,6 @@ class Defaults {
         this.minimumAccountUsernameLength = 5;
         this.maximumAccountUsernameLength = 12;
         this.amountPaidForReferer = 1400;
-        this.amountPaidForUserInteraction = 20;
         this.minimumWithdrawalAmount = 1000;
         this.numberOfAdsForAdminReview = 10;
         this.affiliateIntroductionVideo = 'about:blank';
