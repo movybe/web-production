@@ -24,7 +24,6 @@ if($functions->data_saving_mode_is_enabled())
         ?>
 
 
-    <link rel="icon" type="image/jpeg" href="<?php echo $website_details->IMG_FOLDER;?>favicon.png" />
 </head>
 <body>
 <main class ="container">

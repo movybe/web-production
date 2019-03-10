@@ -14,11 +14,12 @@ require_once 'config/functions.php';
     <link rel="canonical" href="<?php echo $website_details->SiteNameWithHttps; ?>" />
     <meta name="robot" content="index, follow" />
     <?php
+    $css = array('browser.css' , 'cairo.css');
+    echo $bootsrap = $functions->is_production_mode() ? "<link rel='stylesheet' href= 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css' />" : $functions->printAssets(['bootstrap.min.css'] , 'css'  , false);
+    echo $functions->printAssets($css , 'css' , false);
 
-    $bootstrap_css = array('bootstrap.min.css' , 'browser.css' , 'cairo.css');
-    echo $functions->printAssets($bootstrap_css , 'css' , false);
     ?>
-    <link rel="icon" type="image/jpeg" href="<?php echo $website_details->IMG_FOLDER;?>favicon.jpg" />
+    <link rel="icon" type="image/jpeg" href="<?php echo $website_details->IMG_FOLDER;?>favicon.png" />
 </head>
 <body id = "particles-js" class="lazyloads"  data-bgset="<?php echo $website_details->IMG_FOLDER.'campaign-background.jpg'?>">
 <?php

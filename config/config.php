@@ -74,7 +74,7 @@ class WebsiteConfigurationSettings {
         $domain_type = substr($server_name, strpos($server_name, '.'));
 
         //movybe
-        $this->SiteName = str_replace($domain_type, '', $server_name) ?: 'Omoba';
+        $this->SiteName = str_replace($domain_type, '', $server_name) ?: 'Movybe';
 
         $this->ParentCompanyName = $this->SiteName.' Inc';
         $this->DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
@@ -82,7 +82,7 @@ class WebsiteConfigurationSettings {
         $this->siteNameLowercase = strtolower($this->SiteName);
         $this->JS_FOLDER = $this->STATIC_FOLDER."js/";
         $this->CSS_FOLDER = $this->STATIC_FOLDER."css/";
-        $this->INCS_FOLDER = $_SERVER['DOCUMENT_ROOT'].$this->getFileLocation($this->STATIC_FOLDER."incs/");
+        $this->INCS_FOLDER = $this->getFileLocation($this->DOCUMENT_ROOT."/assets/incs/");
         $this->BANNER_IMAGES_FOLDER = $this->DOCUMENT_ROOT.$this->getFileLocation("/banner/");
         $this->IMG_FOLDER = $this->STATIC_FOLDER."img/";
         $this->SiteNameWithHttps = "https://{$this->SiteNameWithoutHttps}";

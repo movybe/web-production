@@ -25,7 +25,6 @@ if($functions->data_saving_mode_is_enabled())
         echo $paystack = $website_details->is_production_mode() ? "<script crossorigin = 'https://js.paystack.co/v1/inline.js'></script>" : $functions->printAssets(['paystack.js']);
 
         ?>
-    <link rel='icon' type='image/jpeg' href='<?php echo $website_details->IMG_FOLDER;?>favicon.png' />
 </head>
 <body id = 'particles-js' class='lazyloads'  data-bgset="<?php echo $website_details->IMG_FOLDER.'campaign-background.jpg'; ?>">
 <div>

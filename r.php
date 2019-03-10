@@ -162,10 +162,11 @@ class HandleNewInvites extends Functions
 
     <?php
 
-    $stylesheets = array('materialize.min.css' , 'affiliate.css' , 'r.css');
+    $stylesheets = array('affiliate.css' , 'r.css');
+    echo $materialize = $functions->is_production_mode() ? "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css' />" : $functions->printAssets(['materialize.min.css'] , 'css'  , false);
     echo $functions->printAssets($stylesheets , "css" , false)."\n";
     ?>
-    <link rel="icon" type="image/jpeg" href="<?php echo $website_details->IMG_FOLDER;?>favicon.jpg" />
+    <link rel="icon" type="image/jpeg" href="<?php echo $website_details->IMG_FOLDER;?>favicon.png" />
 </head>
 <body>
 <main class ="container">
