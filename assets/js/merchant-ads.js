@@ -198,6 +198,9 @@ class MerchantAds extends React.Component {
 
     };
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props !== nextProps;
+    }
 
     componentDidMount() {
 

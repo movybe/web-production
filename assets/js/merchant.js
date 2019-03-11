@@ -20,6 +20,10 @@ class Merchant extends React.Component
         document.title = defaults.siteName + " • Merchant Account";
     };
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props !== nextProps;
+    }
+
     componentDidMount()
     {
         this.defaultActions();

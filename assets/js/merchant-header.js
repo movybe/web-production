@@ -152,6 +152,9 @@ class  MerchantHeader extends React.Component {
 
     };
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props !== nextProps;
+    }
 
     handleNavClick = e => {
 

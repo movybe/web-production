@@ -1,23 +1,22 @@
 class Campaign extends  React.Component
 {
-
     //Default actions for non-logged useres
     nonLoggedDefaultActions = () =>
     {
+        if(!this.main) {
+            this.main = $('main#app');
+            this.refererUsername = $('#referer-username');
 
-        this.main = $('main#app');
-        this.refererUsername = $('#referer-username');
+            this.emailField = $('#email');
+            this.referer = this.main.attr('data-referer');
+            this.refererUsername.val(this.referer ? this.referer : this.refererUsername.val());
+            this.campaignFormFieldset = $('#campaign-form-fieldset');
 
-        this.emailField = $('#email');
-        this.referer = this.main.attr('data-referer');
-        this.refererUsername.val(this.referer ? this.referer : this.refererUsername.val());
-        this.campaignFormFieldset = $('#campaign-form-fieldset');
-
-        this.selectBankName = $('#select-bank-name');
+            this.selectBankName = $('#select-bank-name');
 
 
-        $('input#account-number').characterCounter();
-
+            $('input#account-number').characterCounter();
+        }
     };
 
     logout = () => {
@@ -29,6 +28,9 @@ class Campaign extends  React.Component
         }
     };
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props !== nextProps;
+    }
 
     loggedInDefaultAction = () => {
         this.loginModalPopup.modal('close');
@@ -245,20 +247,7 @@ class Campaign extends  React.Component
 
             }) : null;
 
-
             const formSelectAction = this.selectBankName ? this.selectBankName.formSelect() : null;
-
-            if(this.props.reloadPage){
-
-                this.loginModalPopup.modal('open');
-                this.emailField.prop(...defaults.disabledTrue);
-                this.emailField.addClass('disabled');
-
-                this.props.resetState({...this.props , reloadPage : false});
-                return;
-            }
-
-
         }
 
         catch (e) {}
@@ -310,14 +299,14 @@ class Campaign extends  React.Component
         this.emailField.addClass('disabled');
 
         let data , email = this.emailField.val().toLowerCase();
+
         if(!this.props.emailVerified) {
 
             data = {email, action: 'EMAIL_EXISTS'};
             data = JSON.stringify(data);
-
-
+            console.log(data);
             $.post(defaults.actions, {data}, response => {
-
+                console.log(response);
                 this.emailField.removeClass('invalid');
                 response = JSON.parse(response);
 
