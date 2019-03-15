@@ -31,8 +31,13 @@ class Functions extends  DatabaseConnection {
     public final function getFileLocation(string $filename) : string
 {
     $site_name = strtolower($this->site_name);
-    return $this->is_production_mode() ? "/{$site_name}{$filename}" : $filename;
+    return /*$this->is_production_mode() ? "/{$site_name}{$filename}" : */ $filename;
 }
+
+
+
+
+
 
     public final function generateID (int  $length , string $table_name = null , string $field_name = null) : string {
 
@@ -92,9 +97,20 @@ class Functions extends  DatabaseConnection {
     }
 
 
-
-
-
+    public final function tryRedirectToHttps () {
+        //Check if it's in production mode
+        if(!$this->is_production_mode()) return ;
+        if (!(isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' ||
+                $_SERVER['HTTPS'] == 1) ||
+            isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+            $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
+        {
+            $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+            header('HTTP/1.1 301 Moved Permanently');
+            header('Location: ' . $redirect);
+            exit();
+        }
+    }
 
 
 
@@ -207,4 +223,5 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
 }
 
 $functions = new Functions();
+$functions->tryRedirectToHttps();
 ?>

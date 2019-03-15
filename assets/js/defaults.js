@@ -69,7 +69,7 @@ $(document).ready (function () {
 class Defaults {
 
     getFileLocation(filename)  {
-        return this.isProductionMode ? '/' + this.siteNameLowercase  + filename : filename;
+        return /*this.isProductionMode ? '/' + this.siteNameLowercase  + filename : */filename;
     };
 
     constructor () {

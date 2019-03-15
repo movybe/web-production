@@ -18,7 +18,7 @@ RewriteRule ^r/([^/]+)$ campaign.php?r=$1 [L,QSA]
 Options All -Indexes
 DirectoryIndex index.php
 <IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin http://www.omoba.epizy.com
+    Header set Access-Control-Allow-Origin http://www.movybe.com
     Header set Access-Control-Allow-Credentials true
     Header set Connection keep-alive
     </IfModule>
