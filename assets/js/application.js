@@ -820,7 +820,7 @@ class Application extends React.Component {
     filterTitles = titlesArr => {
 
 
-        //an array conntaining all the titles of the first search
+        //an array containing all the titles of the first search
         let validTitles = [];
 
         const titles = titlesArr.forEach(title => {
@@ -864,10 +864,12 @@ class Application extends React.Component {
         data = JSON.stringify(data);
 
 
+        console.log(data);
         $.post(defaults.queryProcessor, {data}, t => {
 
 
 
+            console.log(data);
 
             this.localSearchTabContainer.show();
 

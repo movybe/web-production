@@ -1,9 +1,10 @@
 <?php
 require_once 'config/functions.php';
-if($functions->data_saving_mode_is_enabled())
+/*if($functions->data_saving_mode_is_enabled())
  {
      header('location: /browser');
  }
+*/
  //$functions->try_insert_or_update_ip_address_in_database();
  ?>
 
@@ -37,7 +38,7 @@ if($functions->data_saving_mode_is_enabled())
 
 
  <?php
- $scripts = array('cookie.min.js'   , 'timeago.min.js' , 'bgset.min.js' ,'lazy-bg.min.js' ,  'defaults.js' , 'particles.js' , 'app.js');
+ $scripts = array('cookie.min.js'   , 'timeago.min.js' , 'bgset.min.js' ,'lazy-bg.min.js' , "notify.min.js" ,  'defaults.js' , 'particles.js' , 'app.js');
  $components = array('footer.js' , 'campaign.js' ,'merchant-header.js' ,  'merchant-ads.js' , 'merchant.js' ,'affiliate-header.js', 'affiliate.js' , 'admin.js' , 'campaign-settings.js' , 'jquery.validate.js');
  echo $functions->printAssets($scripts  , null , true , null ).$functions->printAssets($components , 'babel' , true , null);
 

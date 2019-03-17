@@ -1,13 +1,44 @@
 
+const browserName = (function () {
+    var ua = navigator.userAgent, tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
 
+    if (/trident/i.test(M[1])) {
+        tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+        //return 'IE ' + (tem[1] || '');
+        return { name: 'IE ', version: (tem[1] || '') };
+    }
+
+    if (M[1] === 'Chrome') {
+        tem = ua.match(/\bOPR\/(\d+)/);
+        //if (tem != null) return 'Opera ' + tem[1];
+        if (tem != null) { return { name: 'Opera', version: tem[1] }; }
+    }
+
+    M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+
+    if ((tem = ua.match(/version\/(\d+)/i)) != null) {
+        M.splice(1, 1, tem[1]);
+    }
+    return M[0]; //M.join(' ');
+});
+
+const isMobile = function() {
+    return /Mobi/i.test(navigator.userAgent) || /Android/i.test(navigator.userAgent);
+};
+
+$.notify.defaults({position:'left top' , autoHideDelay: 7000});
 
 //Check for old browsers
-if(!(window.localStorage && window.Blob && window.FileReader))
-{
-
-    window.location.href = '/browser';
-
-}
+window.onload = function() {
+    if(!(window.localStorage && window.Blob && window.FileReader))
+    {
+        $.notify(`Your version of  ${browserName()} might not be compatible with this website, try upgrade to the latest version of ${browserName()}.` , "info");
+    }
+    else if(isMobile() && window.operamini)
+    {
+        $.notify(`Your Opera browser might not be compatible with this website` , "info");
+    }
+};
 
 String.prototype.truncate = String.prototype.trunc ||
     function(n){
