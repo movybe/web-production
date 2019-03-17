@@ -863,13 +863,9 @@ class Application extends React.Component {
         let data = {query: this.searchQuery};
         data = JSON.stringify(data);
 
-
-        console.log(data);
         $.post(defaults.queryProcessor, {data}, t => {
 
 
-
-            console.log(data);
 
             this.localSearchTabContainer.show();
 

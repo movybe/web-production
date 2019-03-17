@@ -9,8 +9,17 @@ require_once $dir.'/detect.php';
 class Functions extends  DatabaseConnection {
 
 
+
+
     public final function escape_string (string $string){
-        $conn=mysqli_connect("{$this->database_host}","{$this->database_username}","{$this->database_password}","{$this->database}");
+
+        $database = $this->is_production_mode() ? $this->production_database_name : $this->database;
+        $username = $this->is_production_mode() ? $this->production_database_username : $this->database_username;
+        $password = $this->is_production_mode() ?$this->production_database_password : $this->database_password;
+        $database_host = $this->database_host;
+
+
+        $conn=mysqli_connect("{$database_host}","{$username}","{$password}","{$database}");
 
         return  mysqli_real_escape_string($conn , $string);
 
