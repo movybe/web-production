@@ -1,59 +1,64 @@
-
-const browserName = (function () {
-    var ua = navigator.userAgent, tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-
+const browserName = function () {
+    let userAgent = navigator.userAgent, tem, M = userAgent.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
     if (/trident/i.test(M[1])) {
-        tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+        tem = /\brv[ :]+(\d+)/g.exec(userAgent) || [];
         //return 'IE ' + (tem[1] || '');
         return { name: 'IE ', version: (tem[1] || '') };
     }
 
     if (M[1] === 'Chrome') {
-        tem = ua.match(/\bOPR\/(\d+)/);
+        tem = userAgent.match(/\bOPR\/(\d+)/);
         //if (tem != null) return 'Opera ' + tem[1];
         if (tem != null) { return { name: 'Opera', version: tem[1] }; }
     }
 
     M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
 
-    if ((tem = ua.match(/version\/(\d+)/i)) != null) {
+    if ((tem = userAgent.match(/version\/(\d+)/i)) != null) {
         M.splice(1, 1, tem[1]);
     }
     return M[0]; //M.join(' ');
-});
+};
 
+//Check for mobile devices
 const isMobile = function() {
     return /Mobi/i.test(navigator.userAgent) || /Android/i.test(navigator.userAgent);
 };
 
-$.notify.defaults({position:'left top' , autoHideDelay: 7000});
+$.notify.defaults({position:'left top' , autoHideDelay: 10000});
 
 //Check for old browsers
 window.onload = function() {
     if(!(window.localStorage && window.Blob && window.FileReader))
     {
-        $.notify(`Your version of  ${browserName()} might not be compatible with this website, try upgrade to the latest version of ${browserName()}.` , "info");
+        $.notify(`Your version of  ${browserName()} might not be compatible with this website, try upgrade to the latest version of ${browserName()}.` , 'info');
     }
+    //Operamini browsers fail to render the components, there prompting opera mini users to consider using another browser
     else if(isMobile() && window.operamini)
     {
-        $.notify(`Your Opera browser might not be compatible with this website` , "info");
+        $.notify('Your Opera browser might not be compatible with this website' , 'info');
     }
 };
 
+//Add truncate() method to strings
 String.prototype.truncate = String.prototype.trunc ||
     function(n){
         return this.length>n ? this.substr(0,n-1)+'...' : this.toString();
     };
-function useStrict() {
-    'use strict';
-}
+
+
 if (typeof Array.isArray === 'undefined') {
     Array.isArray = function(obj) {
         return Object.prototype.toString.call(obj) === '[object Array]';
     }
 }
 let searchResults = '-search-results';
-useStrict();
+
+
+//Introduce strict-typing to the application
+(function useStrict() {
+    'use strict';
+})();
 
 /*
 The function below i.e String.format works like this:
@@ -66,17 +71,19 @@ My name is Kosi Eric i am a programmer from Nigeria and i am 20 years old;
 
 */
 
-
+//Add format() method to strings
 String.prototype.format = String.format ||
     function(format) {
-        var args = Array.prototype.slice.call(arguments, 1);
+        let args = Array.prototype.slice.call(arguments, 1);
         return format.replace(/{(\d+)}/g, function(match, number) {
-            return typeof args[number] != 'undefined'
+            return typeof args[number] !== 'undefined'
                 ? args[number]
                 : match
                 ;
         });
     };
+
+//Add capitalize() method to strings
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
@@ -175,7 +182,7 @@ class Defaults {
        this.emailTruncateSize = 15;
 
        this.accountActivationText = 'Account activation';
-       this.merchantYoutubeVideo = this.demoVideo2;
+       this.merchantYoutubeVideo = 'about:blank';
        this.sponsoredAdText = 'AD';
 
        this.successText='success';
