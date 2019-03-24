@@ -65,7 +65,7 @@ class WebsiteConfigurationSettings {
 
     public final function getFileLocation(string $filename) : string
     {
-        return /*$this->is_production_mode() ? "/{$this->siteNameLowercase}{$filename}" : */ $filename;
+        return $this->is_production_mode() ? "/{$this->siteNameLowercase}{$filename}" :  $filename;
     }
 
     public function __construct() {
@@ -79,7 +79,7 @@ class WebsiteConfigurationSettings {
         $this->STATIC_FOLDER = $this->getFileLocation("/assets/");
         $this->JS_FOLDER = $this->STATIC_FOLDER."js/";
         $this->CSS_FOLDER = $this->STATIC_FOLDER."css/";
-        $this->INCS_FOLDER = $this->DOCUMENT_ROOT.$this->getFileLocation("/assets/incs/");
+        $this->INCS_FOLDER = $this->is_production_mode() ? $this->DOCUMENT_ROOT."/".$this->siteNameLowercase."/assets/incs/" : $this->DOCUMENT_ROOT."/assets/incs/";
         $this->BANNER_IMAGES_FOLDER = $this->DOCUMENT_ROOT.$this->getFileLocation("/banner/");
         $this->IMG_FOLDER = $this->STATIC_FOLDER."img/";
         $this->SiteNameWithHttps = "https://{$this->SiteNameWithoutHttps}";

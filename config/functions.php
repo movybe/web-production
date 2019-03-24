@@ -40,7 +40,7 @@ class Functions extends  DatabaseConnection {
     public final function getFileLocation(string $filename) : string
 {
     $site_name = strtolower($this->site_name);
-    return /*$this->is_production_mode() ? "/{$site_name}{$filename}" : */ $filename;
+    return $this->is_production_mode() ? "/{$site_name}{$filename}" :  $filename;
 }
 
 
