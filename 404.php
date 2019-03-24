@@ -1,7 +1,13 @@
+<?php
+require_once 'config/functions.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
-     <link rel = "stylesheet" type = "text/css" href = '/assets/css/404.css' />
+     <?php
+     $css = ['404.css'];
+     echo $functions->printAssets($css , 'css' , false);
+     ?>
     <title>Page Not Found</title>
 </head>
 <body>
