@@ -1,6 +1,3 @@
-
-
-
 class Application extends React.Component {
 
     lastSearchQuery = null;
@@ -571,6 +568,7 @@ class Application extends React.Component {
             this.props.sponsoredAdsClicked.pop();
         }
         this.searchFormFieldSet.prop(...defaults.disabledTrue);
+        console.log(searchFilterUrl);
         $.get(defaults.crawler, {url: searchFilterUrl}, response => {
 
 
@@ -1025,6 +1023,10 @@ class Application extends React.Component {
             return <span key={Math.random()} className="gallery-images-link" href={image.src} data-caption = {image.alt}></span>
         });
 
+        const downloadApkLink = navigator.userAgent === defaults.siteWebPackageName ? null :
+            <li><a href="#" id="download-apk-link"><span className="small material-icons app-download-icon">vertical_align_bottom</span> Download APK</a></li>
+        const downloadApkDivider = downloadApkLink === null ? null :  <li className="divider" tabIndex="-1"></li>;
+
         const linkToSavedGallery = gallery.length ?
 
             <li><span className="gallery-2"><span className="gallery-images-link your-gallery" href={gallery[gallery.length -1].src} data-caption ={`<a href = '${gallery[gallery.length -1].link}'>${gallery[gallery.length -1].alt}</a>`}><i className="tiny material-icons search-image-icons">image</i> Your gallery</span></span><Gallery /></li> : null;
@@ -1060,9 +1062,8 @@ class Application extends React.Component {
                         <a className='dropdown-trigger btn-floating btn-large blue' href='#' data-target='settings-dropdown' id="settings-drop-down-link">More<span className="material-icons small" id="settings-more-icon">arrow_drop_down</span></a>
 
                         <ul id='settings-dropdown' className='dropdown-content'>
-                            <li><a href="#" id="download-apk-link"><span className="small material-icons app-download-icon">vertical_align_bottom</span> Download APK</a></li>
-                            <li className="divider" tabIndex="-1"></li>
-
+                            {downloadApkLink}
+                            {downloadApkDivider}
                             <li id="local-search-setting">
                                 <div className="switch">
 

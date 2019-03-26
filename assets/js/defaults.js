@@ -185,6 +185,7 @@ class Defaults {
        this.merchantYoutubeVideo = 'about:blank';
        this.sponsoredAdText = 'AD';
 
+       this.siteWebPackageName = "com.movybe";
        this.successText='success';
         this.payWithPaystack = (email , amount , name , call) =>
         {
