@@ -36,7 +36,7 @@
         <counts>
           <entry key="CSS" value="130" />
           <entry key="JavaScript" value="1589" />
-          <entry key="PHP" value="470" />
+          <entry key="PHP" value="481" />
           <entry key="htaccess" value="6" />
         </counts>
       </usages-collector>
@@ -44,7 +44,7 @@
         <counts>
           <entry key="css" value="39" />
           <entry key="js" value="818" />
-          <entry key="php" value="184" />
+          <entry key="php" value="195" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -88,8 +88,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/incs/head-files.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="102">
+              <caret line="6" column="119" selection-start-line="6" selection-start-column="119" selection-end-line="6" selection-end-column="119" />
             </state>
           </provider>
         </entry>
@@ -266,7 +266,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37159000" />
+    <option name="totallyTimeSpent" value="37902000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -285,7 +285,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3293011" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.28921568" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.28921568" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -478,8 +478,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/incs/head-files.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="102">
+          <caret line="6" column="119" selection-start-line="6" selection-start-column="119" selection-end-line="6" selection-end-column="119" />
         </state>
       </provider>
     </entry>
