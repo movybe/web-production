@@ -907,7 +907,8 @@ class Application extends React.Component {
         this.searchTabs = $('.search-tabs');
         this.toggleImagesSwitch = $('#toggle-search-images');
         this.searchQueryField = $('.search-query-field');
-
+        this.moreDropDownContents = $('.more-dropdown-contents');
+        this.moreDropDownContents.show();
         this.switchContainer = $('#switch-container');
         this.searchResults = $(".search-results");
         this.searchFormFieldSet = $('#search-form-fieldset');
@@ -1059,9 +1060,9 @@ class Application extends React.Component {
 
                         <button type="submit" className="input-group-addon btn waves-effect waves-light left" id="search-button">Search</button>
 
-                        <a className='dropdown-trigger btn-floating btn-large blue' href='#' data-target='settings-dropdown' id="settings-drop-down-link">More<span className="material-icons small" id="settings-more-icon">arrow_drop_down</span></a>
+                        <a className='dropdown-trigger more-dropdown-contents btn-floating btn-large blue' href='#' data-target='settings-dropdown' id="settings-drop-down-link">More<span className="material-icons small" id="settings-more-icon">arrow_drop_down</span></a>
 
-                        <ul id='settings-dropdown' className='dropdown-content'>
+                        <ul id='settings-dropdown' className='dropdown-content more-dropdown-contents'>
                             {downloadApkLink}
                             {downloadApkDivider}
                             <li id="local-search-setting">

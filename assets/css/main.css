@@ -455,6 +455,11 @@ body.blurred > * {
     transition: all 0.3s;
 }
 
+.more-dropdown-contents
+{
+    display: none;
+}
+
 .lightbox__button:hover,
 .lightbox__button:focus {
     opacity: 1;
