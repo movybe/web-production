@@ -975,6 +975,7 @@ class Application extends React.Component {
 
 
             if (this.props.switchWebsite(storageObj)) {
+                //hello
                 this.formSubmitted = true;
                 this.toggleImagesSwitch.prop('checked', storageObj.settings.showImages);
                 //searchTypeSwitchButton.prop('checked' , storageObj.settings.localSearch);
