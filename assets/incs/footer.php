@@ -12,9 +12,6 @@
 <?php
 
 $includes = array("cookie.min.js" , "bgset.min.js" , "lazy-bg.min.js" ,  "notify.min.js" , "defaults.js" , "jquery.lightbox.min.js"  ,"numeral.min.js");
-
-$cdn_includes = <<<CDN_INCLUDES
-CDN_INCLUDES;
 echo $functions->printAssets($includes);
 ?>
 <script async>

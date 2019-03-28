@@ -101,12 +101,9 @@ class Config {
         const {createStore} = Redux;
         const  store = createStore(this.rootReducer);
 
-        Application = connect(this.mapStateToProps , this.mapDispatchToState)(Application);
+        const App = connect(this.mapStateToProps , this.mapDispatchToState)(Application);
 
-        ReactDOM.render(<Provider store = {store} ><Application /></Provider> , document.getElementById('form-container') , () => {
-
-
-        });
+        ReactDOM.render(<Provider store = {store} ><App /></Provider> , document.getElementById('form-container'));
 
     }
 

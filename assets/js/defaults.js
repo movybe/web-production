@@ -20,6 +20,16 @@ const browserName = function () {
     return M[0]; //M.join(' ');
 };
 
+//Handle errors
+
+let errorMessage = "";
+window.onerror= function(msg, url, linenumber) {
+    errorMessage =  `Error message: ${msg}<br />URL: ${url}<br />Line Number: ${linenumber}`;
+    document.getElementById('error-message').innerHTML += errorMessage;
+    return true;
+};
+
+
 //Check for mobile devices
 const isMobile = function() {
     return /Mobi/i.test(navigator.userAgent) || /Android/i.test(navigator.userAgent);
