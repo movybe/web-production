@@ -15,7 +15,7 @@ $cdn_required = <<<CDN_INCLUDES
 CDN_INCLUDES;
 $materialize_css = array("materialize.min.css");
 $stylesheets = array("main.css"  , "footer.css");
-$required = array("jquery.min.js" ,  "materialize.min.js" , "babel.min.js"  , "react.development.js" , "react-dom.development.js" , "redux.min.js" , "react-redux.min.js");
+$required =  array("jquery.min.js" ,  "materialize.min.js" , "babel.min.js"  , "react.development.js" , "react-dom.development.js" , "redux.min.js" , "react-redux.min.js");
 
 echo $functions->is_production_mode() ? $cdn_required : $functions->printAssets($materialize_css , "css" , false).$functions->printAssets($required);
 echo $functions->printAssets($stylesheets , "css" , false)."\n";
