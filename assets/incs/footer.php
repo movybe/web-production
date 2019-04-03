@@ -29,5 +29,5 @@ echo $functions->printAssets($includes);
 <?php
 
 $scripts = array( "gallery.js" , "search-tabs.js" ,  "application.js" , "config.js");
-echo $functions->printAssets($scripts , 'babel');
+echo $functions->printAssets($scripts);
 ?>
