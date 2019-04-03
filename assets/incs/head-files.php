@@ -13,6 +13,6 @@ $required =  array("jquery.min.js");
 $required2 = array("babel.min.js"  ,  "materialize.min.js" , "react.development.js" , "react-dom.development.js" , "redux.min.js" , "react-redux.min.js");
 echo  $functions->printAssets($materialize_css , "css" , false).$functions->printAssets($required);
 echo $functions->printAssets($stylesheets , "css" , false)."\n";
-echo $functions->printAssets($required2 , "JavaScript");
+echo $functions->printAssets($required2);
 
 ?>
