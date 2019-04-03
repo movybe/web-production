@@ -1,206 +1,319 @@
-class Merchant extends React.Component
-{
+"use strict";
 
+function _instanceof(left, right) { if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) { return right[Symbol.hasInstance](left); } else { return left instanceof right; } }
 
-    adRates = {};
-    defaultActions = () =>
-    {
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-        let fundStatusTabs  = $('.tabs.fund-status-tabs');
-        let accounInfoTabs = $('.tabs.account-info-tabs');
+function _classCallCheck(instance, Constructor) { if (!_instanceof(instance, Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-        $('.tabs').tabs();
-      //  $('.tabs').tabs('updateTabIndicator');
-    fundStatusTabs.tabs('select' , 'account-balance-tab');
-    accounInfoTabs.tabs('select' , 'email-tab');
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-    };
-    componentWillMount = () => {
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-        document.title = defaults.siteName + " • Merchant Account";
-    };
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return this.props !== nextProps;
-    }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-    componentDidMount()
-    {
-        this.defaultActions();
-        let data = {email : this.props.email , action : 'FETCH_MERCHANT_DETAILS'};
-        data = JSON.stringify(data);
-        $.post(defaults.actions , {data} , response1 => {
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-            this.registeredTimeago = timeago.format(this.props.user.registered_on);
-            response1 = JSON.parse(response1);
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-            data = {email : this.props.email , action : 'FETCH_AD_RATES'};
-            data = JSON.stringify(data);
-            $.post(defaults.actions , {data : data} , response2 =>  {
+var Merchant =
+    /*#__PURE__*/
+    function (_React$Component) {
+        _inherits(Merchant, _React$Component);
 
-                response2 = JSON.parse(response2);
-                this.props.resetState({...this.props , user : response1.user , ads : response1.ads , adRates : {...response2}});
+        function Merchant() {
+            var _getPrototypeOf2;
+
+            var _this;
+
+            _classCallCheck(this, Merchant);
+
+            for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
+            }
+
+            _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Merchant)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+            _defineProperty(_assertThisInitialized(_this), "adRates", {});
+
+            _defineProperty(_assertThisInitialized(_this), "defaultActions", function () {
+                var fundStatusTabs = $('.tabs.fund-status-tabs');
+                var accounInfoTabs = $('.tabs.account-info-tabs');
+                $('.tabs').tabs(); //  $('.tabs').tabs('updateTabIndicator');
+
+                fundStatusTabs.tabs('select', 'account-balance-tab');
+                accounInfoTabs.tabs('select', 'email-tab');
             });
 
-        });
+            _defineProperty(_assertThisInitialized(_this), "componentWillMount", function () {
+                document.title = defaults.siteName + " • Merchant Account";
+            });
 
-    }
+            _defineProperty(_assertThisInitialized(_this), "refreshProfile", function () {
+                var data = {
+                    email: _this.props.email,
+                    action: 'FETCH_MERCHANT_DETAILS'
+                };
+                data = JSON.stringify(data);
+                $.post(defaults.actions, {
+                    data: data
+                }, function (response1) {
+                    response1 = JSON.parse(response1);
 
-    componentDidUpdate () {
-      this.defaultActions();
-    }
+                    _this.props.resetState({ ..._this.props,
+                        user: response1.user,
+                        ads: response1.ads
+                    });
+                });
+            });
 
+            _defineProperty(_assertThisInitialized(_this), "activateMerchantAccount", function () {
+                defaults.payWithPaystack(_this.props.email, defaults.convertToPaystack(defaults.merchantActivationFee), "Account Activation", function (response) {
+                    if (response.status !== defaults.successText) return defaults.showToast(defaults.transactionNotSuccessfulMessage);
+                    var data = {
+                        email: _this.props.email,
+                        action: 'ACTIVATE_MERCHANT_ACCOUNT',
+                        reference: response.reference,
+                        amount: defaults.merchantActivationFee
+                    };
+                    data = JSON.stringify(data);
+                    $.post(defaults.actions, {
+                        data: data
+                    }, function (response) {
+                        _this.refreshProfile();
+                    });
+                });
+            });
 
-
-    refreshProfile = () => {
-        let data = {email : this.props.email , action : 'FETCH_MERCHANT_DETAILS'};
-        data = JSON.stringify(data);
-        $.post(defaults.actions , {data} , response1 => {
-            response1 = JSON.parse(response1);
-            this.props.resetState({...this.props , user : response1.user , ads : response1.ads});
-        });
-    };
-
-
-    activateMerchantAccount = () =>
-    {
-
-        defaults.payWithPaystack(this.props.email , defaults.convertToPaystack(defaults.merchantActivationFee) , "Account Activation" , (response) => {
-            if(response.status !== defaults.successText) return defaults.showToast(defaults.transactionNotSuccessfulMessage);
-            let data = {email : this.props.email , action : 'ACTIVATE_MERCHANT_ACCOUNT' , reference : response.reference , amount: defaults.merchantActivationFee};
-            data = JSON.stringify(data);
-            $.post(defaults.actions , {data} , response => {
-                this.refreshProfile();
-            })
-        });
-
-    };
-
-
-    render() {
-
-
-
-        let userSubscriptionStatus = Number(this.props.user.subscribed);
-        let defaultEmailToShow = (this.props.user.email || "user@domain.com").truncate(defaults.emailTruncateSize);
-        const subscriptionButtonType =  userSubscriptionStatus ?
-            <div className="green-text"><span className="subscription-active-text">active</span><a className="waves-effect waves-light disabled btn-small right">Paid &#8358;{defaults.merchantActivationFee}</a></div>     : <div><span className="materialize-red-text activate-account-text">NOT ACTIVATED</span> <a href = "#" className="waves-effect waves-light btn-small right activate-account-button" onClick={this.activateMerchantAccount}>Activate  &#8358; {defaults.merchantActivationFee}</a></div>;
-        return (
-            <div>
-                <MerchantHeader />
-            <div className="container">
-                <div className="row notice-board z-depth-3">
-                    <div className="col s12 valign-wrapper">
-                        <p className="notice-header flow-text">Public message to advertisers</p>
-                    </div>
-                    <div className="col s12 valign-wrapper">
-
-                    <p className="notice-message">
-                        New Merchants are adviced to read our FAQ and our Terms of Service before proceeding with further actions on this page.
-                        <br />our Demo Video is also a good tour guide.
-                       </p>
-                    </div>
-                </div>
-
-
-                <div className="row">
-
-
-                    <div className="col s12 m6">
-                        <h5 className="status-headers">Transaction History</h5>
-                        <div className="card">
-                            <div className="card-content">
-                                <p>
-                                    The data below represents the record of all your transactions with us.
-
-
-                                </p>
-                            </div>
-                            <div className="card-tabs">
-                                <ul className="tabs fund-status-tabs tabs-fixed-width">
-                                    <li className="tab" id="account-balance-tab"><a className="active" href="#account-balance">Ad Bal.</a></li>
-                                    <li className="tab"><a  href="#total-amount-funded">Trans.</a></li>
-                                    <li className="tab"><a href="#total-number-of-ads">ADS</a></li>
-                                     </ul>
-                            </div>
-                            <div className="card-content grey lighten-4">
-                                <div id="account-balance" style={{display : 'none'}}>Ad balance :
-                                <span className="right amount-value">&#8358;{Number(this.props.user.account_balance).toLocaleString()}</span>
-                                </div>
-                                <div id="total-amount-funded">Total transactions :
-                                    <span className="right amount-value">&#8358;{Number(this.props.user.total_amount_funded).toLocaleString()}</span>
-                                </div>
-                                <div id="total-number-of-ads" style={{ display : 'none'}}>Total ads :
-                                    <span className="right amount-value">{this.props.ads.length}</span>
-                                </div>
-                                </div>
-                        </div>
-                    </div>
-                    <div className="col s12 m6">
-
-                        <h5 className="status-headers">Account Info</h5>
-                        <div className="card">
-                            <div className="card-content">
-                                <p>The data below contains your merchant account details and other important info. </p>
-                            </div>
-                            <div className="card-tabs">
-                                <ul className="tabs tabs-fixed-width account-info-tabs">
-                                    <li className="tab" id="email-tab"><a href="#email-address">E-mail</a></li>
-                                    <li className="tab"><a href="#test5" className="flow-text">Status</a></li>
-                                    <li className="tab"><a href="#test6" className="flow-text">Account</a></li>
-                                   </ul>
-                            </div>
-                            <div className="card-content grey lighten-4">
-                                <div  id="email-address" style={{display : 'none'}}>E-mail<span className="right amount-value email-address" id="merchant-email-address">{defaultEmailToShow}</span></div>
-                                <div id="test5" className="active">{subscriptionButtonType}</div>
-                                <div id="test6" style={{ display : 'none'}}>Registered <span className="right">{this.registeredTimeago}</span>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-
-                </div>
-                <MerchantAds activateMerchantAccount = {this.activateMerchantAccount} refreshProfile = {this.refreshProfile} />
-            </div>
-                <Footer accountType = "Merchant" refreshProfile = {this.refreshProfile} />
-            </div>
-        );
-    }
-
-}
-
-const mapStateToProps = (state , ownProps) => {
-    return {
-        ...state , ...ownProps
-    }
-};
-
-
-const  mapDispatchToProps = dispatch =>
-{
-
-    return {
-        resetState : (state , callback  = () => {}) => {
-            dispatch({state , type : 'RESET_STATE'});
-            callback();
-        } ,
-        restoreState : () => {
-            dispatch({type : 'RESTORE_STATE'});
-        } ,
-        modifyState : state => {
-            dispatch({type : 'MODIFY_STATE' , state});
-        },
-        factoryReset : (callback = () => {}) => {
-            dispatch({type:'FACTORY_RESET'});
-            return true;
+            return _this;
         }
 
-    }
+        _createClass(Merchant, [{
+            key: "shouldComponentUpdate",
+            value: function shouldComponentUpdate(nextProps, nextState) {
+                return this.props !== nextProps;
+            }
+        }, {
+            key: "componentDidMount",
+            value: function componentDidMount() {
+                var _this2 = this;
+
+                this.defaultActions();
+                var data = {
+                    email: this.props.email,
+                    action: 'FETCH_MERCHANT_DETAILS'
+                };
+                data = JSON.stringify(data);
+                $.post(defaults.actions, {
+                    data: data
+                }, function (response1) {
+                    _this2.registeredTimeago = timeago.format(_this2.props.user.registered_on);
+                    response1 = JSON.parse(response1);
+                    data = {
+                        email: _this2.props.email,
+                        action: 'FETCH_AD_RATES'
+                    };
+                    data = JSON.stringify(data);
+                    $.post(defaults.actions, {
+                        data: data
+                    }, function (response2) {
+                        response2 = JSON.parse(response2);
+
+                        _this2.props.resetState({ ..._this2.props,
+                            user: response1.user,
+                            ads: response1.ads,
+                            adRates: { ...response2
+                            }
+                        });
+                    });
+                });
+            }
+        }, {
+            key: "componentDidUpdate",
+            value: function componentDidUpdate() {
+                this.defaultActions();
+            }
+        }, {
+            key: "render",
+            value: function render() {
+                var userSubscriptionStatus = Number(this.props.user.subscribed);
+                var defaultEmailToShow = (this.props.user.email || "user@domain.com").truncate(defaults.emailTruncateSize);
+                var subscriptionButtonType = userSubscriptionStatus ? React.createElement("div", {
+                    className: "green-text"
+                }, React.createElement("span", {
+                    className: "subscription-active-text"
+                }, "active"), React.createElement("a", {
+                    className: "waves-effect waves-light disabled btn-small right"
+                }, "Paid \u20A6", defaults.merchantActivationFee)) : React.createElement("div", null, React.createElement("span", {
+                    className: "materialize-red-text activate-account-text"
+                }, "NOT ACTIVATED"), " ", React.createElement("a", {
+                    href: "#",
+                    className: "waves-effect waves-light btn-small right activate-account-button",
+                    onClick: this.activateMerchantAccount
+                }, "Activate  \u20A6 ", defaults.merchantActivationFee));
+                return React.createElement("div", null, React.createElement(MerchantHeader, null), React.createElement("div", {
+                    className: "container"
+                }, React.createElement("div", {
+                    className: "row notice-board z-depth-3"
+                }, React.createElement("div", {
+                    className: "col s12 valign-wrapper"
+                }, React.createElement("p", {
+                    className: "notice-header flow-text"
+                }, "Public message to advertisers")), React.createElement("div", {
+                    className: "col s12 valign-wrapper"
+                }, React.createElement("p", {
+                    className: "notice-message"
+                }, "New Merchants are adviced to read our FAQ and our Terms of Service before proceeding with further actions on this page.", React.createElement("br", null), "our Demo Video is also a good tour guide."))), React.createElement("div", {
+                    className: "row"
+                }, React.createElement("div", {
+                    className: "col s12 m6"
+                }, React.createElement("h5", {
+                    className: "status-headers"
+                }, "Transaction History"), React.createElement("div", {
+                    className: "card"
+                }, React.createElement("div", {
+                    className: "card-content"
+                }, React.createElement("p", null, "The data below represents the record of all your transactions with us.")), React.createElement("div", {
+                    className: "card-tabs"
+                }, React.createElement("ul", {
+                    className: "tabs fund-status-tabs tabs-fixed-width"
+                }, React.createElement("li", {
+                    className: "tab",
+                    id: "account-balance-tab"
+                }, React.createElement("a", {
+                    className: "active",
+                    href: "#account-balance"
+                }, "Ad Bal.")), React.createElement("li", {
+                    className: "tab"
+                }, React.createElement("a", {
+                    href: "#total-amount-funded"
+                }, "Trans.")), React.createElement("li", {
+                    className: "tab"
+                }, React.createElement("a", {
+                    href: "#total-number-of-ads"
+                }, "ADS")))), React.createElement("div", {
+                    className: "card-content grey lighten-4"
+                }, React.createElement("div", {
+                    id: "account-balance",
+                    style: {
+                        display: 'none'
+                    }
+                }, "Ad balance :", React.createElement("span", {
+                    className: "right amount-value"
+                }, "\u20A6", Number(this.props.user.account_balance).toLocaleString())), React.createElement("div", {
+                    id: "total-amount-funded"
+                }, "Total transactions :", React.createElement("span", {
+                    className: "right amount-value"
+                }, "\u20A6", Number(this.props.user.total_amount_funded).toLocaleString())), React.createElement("div", {
+                    id: "total-number-of-ads",
+                    style: {
+                        display: 'none'
+                    }
+                }, "Total ads :", React.createElement("span", {
+                    className: "right amount-value"
+                }, this.props.ads.length))))), React.createElement("div", {
+                    className: "col s12 m6"
+                }, React.createElement("h5", {
+                    className: "status-headers"
+                }, "Account Info"), React.createElement("div", {
+                    className: "card"
+                }, React.createElement("div", {
+                    className: "card-content"
+                }, React.createElement("p", null, "The data below contains your merchant account details and other important info. ")), React.createElement("div", {
+                    className: "card-tabs"
+                }, React.createElement("ul", {
+                    className: "tabs tabs-fixed-width account-info-tabs"
+                }, React.createElement("li", {
+                    className: "tab",
+                    id: "email-tab"
+                }, React.createElement("a", {
+                    href: "#email-address"
+                }, "E-mail")), React.createElement("li", {
+                    className: "tab"
+                }, React.createElement("a", {
+                    href: "#test5",
+                    className: "flow-text"
+                }, "Status")), React.createElement("li", {
+                    className: "tab"
+                }, React.createElement("a", {
+                    href: "#test6",
+                    className: "flow-text"
+                }, "Account")))), React.createElement("div", {
+                    className: "card-content grey lighten-4"
+                }, React.createElement("div", {
+                    id: "email-address",
+                    style: {
+                        display: 'none'
+                    }
+                }, "E-mail", React.createElement("span", {
+                    className: "right amount-value email-address",
+                    id: "merchant-email-address"
+                }, defaultEmailToShow)), React.createElement("div", {
+                    id: "test5",
+                    className: "active"
+                }, subscriptionButtonType), React.createElement("div", {
+                    id: "test6",
+                    style: {
+                        display: 'none'
+                    }
+                }, "Registered ", React.createElement("span", {
+                    className: "right"
+                }, this.registeredTimeago)))))), React.createElement(MerchantAds, {
+                    activateMerchantAccount: this.activateMerchantAccount,
+                    refreshProfile: this.refreshProfile
+                })), React.createElement(Footer, {
+                    accountType: "Merchant",
+                    refreshProfile: this.refreshProfile
+                }));
+            }
+        }]);
+
+        return Merchant;
+    }(React.Component);
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+    return { ...state,
+        ...ownProps
+    };
 };
 
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        resetState: function resetState(state) {
+            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+            dispatch({
+                state: state,
+                type: 'RESET_STATE'
+            });
+            callback();
+        },
+        restoreState: function restoreState() {
+            dispatch({
+                type: 'RESTORE_STATE'
+            });
+        },
+        modifyState: function modifyState(state) {
+            dispatch({
+                type: 'MODIFY_STATE',
+                state: state
+            });
+        },
+        factoryReset: function factoryReset() {
+            var callback = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
+            dispatch({
+                type: 'FACTORY_RESET'
+            });
+            return true;
+        }
+    };
+};
 
-const {connect} = ReactRedux;
-Merchant = connect(mapStateToProps , mapDispatchToProps)(Merchant);
-
+var _ReactRedux = ReactRedux,
+    connect = _ReactRedux.connect;
+Merchant = connect(mapStateToProps, mapDispatchToProps)(Merchant);

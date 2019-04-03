@@ -1,0 +1,14 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "admin.js",
+  "scripts": {
+    "build": "babel src -d js"
+  },
+  "scripts": {
+    "build": "babel --presets es2015 src -d js"
+  },
+  "author": "Kosi Eric",
+  "license": "ISC"
+}
