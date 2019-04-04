@@ -61,7 +61,7 @@ class Config {
 
                 for(let key in storageObject){
                     if(key in this.initState)
-                      newState[key] = storageObject[key];
+                        newState[key] = storageObject[key];
                 }
 
                 if(this.initState.updateOnlyAds) newState = {...newState , locale : this.initState.locale};

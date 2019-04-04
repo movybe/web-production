@@ -1,395 +1,540 @@
-class Affiliate extends React.Component
-{
+"use strict";
 
+function _instanceof(left, right) { if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) { return right[Symbol.hasInstance](left); } else { return left instanceof right; } }
 
-    adRates = {};
-    defaultActions = () =>
-    {
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-        let fundStatusTabs  = $('.tabs.fund-status-tabs');
-        let accounInfoTabs = $('.tabs.account-info-tabs');
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-        $('.tabs').tabs();
-        //  $('.tabs').tabs('updateTabIndicator');
-        fundStatusTabs.tabs('select' , 'account-balance-tab');
-        accounInfoTabs.tabs('select' , 'email-tab');
-    };
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
-    refreshProfile =  () => {
-        let data = {email : this.props.email , action : 'FETCH_AFFILIATE_DETAILS'};
-        data = JSON.stringify(data);
-        $.post(defaults.actions , {data} , response1 => {
-            response1 = JSON.parse(response1);
-            this.props.resetState({...this.props , user : response1.user});
-        });
-    };
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
-    componentWillMount = () => {
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-        document.title = defaults.siteName + ` •  ${this.props.user.username.capitalize()}`;
+function _classCallCheck(instance, Constructor) { if (!_instanceof(instance, Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    };
-    handleAccountActivation = e => {
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-        e.preventDefault();
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-        this.accountActivationResponseMessage.text(null);
-        if(!this.accountActivationForm.valid()) return 0;
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-        const refererUsername = this.refererUsername.val().toLowerCase();
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-        const refererUsernames = this.props.user.referer_usernames.split(',');
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-        if(refererUsernames.indexOf(refererUsername) >= 0)
-        {
-            defaults.showToast(defaults.enterNewRefererUsernameMessage);
-            return 0;
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Affiliate =
+    /*#__PURE__*/
+    function (_React$Component) {
+        _inherits(Affiliate, _React$Component);
+
+        function Affiliate() {
+            var _getPrototypeOf2;
+
+            var _this;
+
+            _classCallCheck(this, Affiliate);
+
+            for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
+            }
+
+            _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Affiliate)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+            _defineProperty(_assertThisInitialized(_this), "adRates", {});
+
+            _defineProperty(_assertThisInitialized(_this), "defaultActions", function () {
+                var fundStatusTabs = $('.tabs.fund-status-tabs');
+                var accounInfoTabs = $('.tabs.account-info-tabs');
+                $('.tabs').tabs(); //  $('.tabs').tabs('updateTabIndicator');
+
+                fundStatusTabs.tabs('select', 'account-balance-tab');
+                accounInfoTabs.tabs('select', 'email-tab');
+            });
+
+            _defineProperty(_assertThisInitialized(_this), "refreshProfile", function () {
+                var data = {
+                    email: _this.props.email,
+                    action: 'FETCH_AFFILIATE_DETAILS'
+                };
+                data = JSON.stringify(data);
+                $.post(defaults.actions, {
+                    data: data
+                }, function (response1) {
+                    response1 = JSON.parse(response1);
+
+                    _this.props.resetState({ ..._this.props,
+                        user: response1.user
+                    });
+                });
+            });
+
+            _defineProperty(_assertThisInitialized(_this), "componentWillMount", function () {
+                document.title = defaults.siteName + " \u2022  ".concat(_this.props.user.username.capitalize());
+            });
+
+            _defineProperty(_assertThisInitialized(_this), "handleAccountActivation", function (e) {
+                var _this$accountActivati;
+
+                e.preventDefault();
+
+                _this.accountActivationResponseMessage.text(null);
+
+                if (!_this.accountActivationForm.valid()) return 0;
+
+                var refererUsername = _this.refererUsername.val().toLowerCase();
+
+                var refererUsernames = _this.props.user.referer_usernames.split(',');
+
+                if (refererUsernames.indexOf(refererUsername) >= 0) {
+                    defaults.showToast(defaults.enterNewRefererUsernameMessage);
+                    return 0;
+                }
+
+                (_this$accountActivati = _this.accountActivationFieldset).prop.apply(_this$accountActivati, _toConsumableArray(defaults.disabledTrue));
+
+                var data = {
+                    email: _this.props.email,
+                    action: 'TRY_RE-ACTIVATE_AFFILIATE_ACCOUNT',
+                    referer_username: refererUsername
+                };
+                data = JSON.stringify(data);
+                $.post(defaults.actions, {
+                    data: data
+                }, function (response) {
+                    response = JSON.parse(response);
+
+                    if (response.success) {
+                        _this.accountActivationModalPopUp.modal('close');
+
+                        return _this.refreshProfile();
+                    } else if (response.continue_with_paystack) {
+                        defaults.payWithPaystack(_this.props.email, defaults.convertToPaystack(response.amount), _this.props.user.username, function (response) {
+                            if (response.status !== defaults.successText) {
+                                var _this$accountActivati2;
+
+                                (_this$accountActivati2 = _this.accountActivationFieldset).prop.apply(_this$accountActivati2, _toConsumableArray(defaults.disabledFalse));
+
+                                defaults.showToast(defaults.transactionNotSuccessfulMessage);
+                                return 0;
+                            }
+
+                            data = {
+                                reference_code: response.reference,
+                                email: _this.props.email,
+                                action: 'RE-ACTIVATE_AFFILIATE_ACCOUNT',
+                                referer_username: refererUsername
+                            };
+                            data = JSON.stringify(data);
+                            $.post(defaults.actions, {
+                                data: data
+                            }, function (response) {
+                                response = JSON.parse(response);
+
+                                if (response.success) {
+                                    _this.accountActivationModalPopUp.modal('close');
+
+                                    return _this.refreshProfile();
+                                }
+                            });
+                        });
+                    } else {
+                        var _this$accountActivati3;
+
+                        (_this$accountActivati3 = _this.accountActivationFieldset).prop.apply(_this$accountActivati3, _toConsumableArray(defaults.disabledFalse));
+
+                        _this.accountActivationResponseMessage.text(response.error);
+
+                        defaults.showToast(response.error);
+                    }
+                });
+            });
+
+            _defineProperty(_assertThisInitialized(_this), "accountActivationModal", function () {
+                return React.createElement("div", {
+                    id: "account-activation-modal",
+                    className: "modal modal-fixed-footer"
+                }, React.createElement("div", {
+                    className: "modal-content"
+                }, React.createElement("fieldset", {
+                    id: "account-activation-fieldset"
+                }, React.createElement("form", {
+                    id: "account-activation-form",
+                    method: "POST",
+                    action: "#",
+                    onSubmit: _this.handleAccountActivation
+                }, React.createElement("div", {
+                    className: "row"
+                }, React.createElement("div", {
+                    className: "input-field col s12"
+                }, React.createElement("input", {
+                    id: "account-activation-referer-username",
+                    minLength: defaults.minimumAccountUsernameLength,
+                    maxLength: defaults.maximumAccountUsernameLength,
+                    pattern: "[a-zA-Z0-9]{".concat(defaults.minimumAccountUsernameLength, ",").concat(defaults.maximumAccountUsernameLength, "}"),
+                    required: "required",
+                    name: "withdrawal-amount",
+                    type: "text",
+                    className: "validate"
+                }), React.createElement("label", {
+                    htmlFor: "referer-username",
+                    className: "active"
+                }, "Referer"), React.createElement("span", {
+                    className: "helper-text",
+                    id: "account-activation-response-message"
+                }), React.createElement("button", {
+                    type: "submit",
+                    id: "withdrawal-submit-button",
+                    className: "waves-effect waves-light btn-small"
+                }, "Proceed"), React.createElement("span", {
+                    className: "helper-text right",
+                    id: "withdrawal-charge-message"
+                }, "You can no longer use ", React.createElement("span", {
+                    className: "strong"
+                }, _this.props.user.referer_username), " as your referer")))))), React.createElement("div", {
+                    className: "modal-footer"
+                }, React.createElement("a", {
+                    href: "#",
+                    onClick: function onClick() {
+                        _this.accountActivationModalPopUp.modal('close');
+                    },
+                    className: "modal-close waves-effect waves-green btn-flat no-underline strong light"
+                }, "CLOSE")));
+            });
+
+            _defineProperty(_assertThisInitialized(_this), "deletePaymentHistory", function (reference_code) {
+                var data = {
+                    action: 'DELETE_PAYMENT_HISTORY',
+                    reference_code: reference_code,
+                    email: _this.props.email
+                };
+                data = JSON.stringify(data);
+                $.post(defaults.actions, {
+                    data: data
+                }, function (response) {
+                    response = JSON.parse(response);
+                    if (response.success) _this.refreshProfile();
+                });
+            });
+
+            return _this;
         }
 
+        _createClass(Affiliate, [{
+            key: "componentDidMount",
+            value: function componentDidMount() {
+                var _this2 = this;
 
+                this.defaultActions();
+                var data = {
+                    email: this.props.email,
+                    action: 'FETCH_AFFILIATE_DETAILS'
+                };
+                data = JSON.stringify(data);
+                $.post(defaults.actions, {
+                    data: data
+                }, function (response1) {
+                    _this2.registeredTimeago = timeago.format(_this2.props.user.registered_on);
+                    response1 = JSON.parse(response1);
 
+                    _this2.props.resetState({ ..._this2.props,
+                        user: response1.user,
+                        ads: response1.ads
+                    }, function () {
+                        if (!Number(_this2.props.user.subscribed)) {
+                            _this2.accountActivationModalPopUp = $('.modal#account-activation-modal');
 
+                            _this2.accountActivationModalPopUp.modal({
+                                dismissible: false
+                            });
 
-
-
-        this.accountActivationFieldset.prop(...defaults.disabledTrue);
-
-
-        let data = {email : this.props.email , action : 'TRY_RE-ACTIVATE_AFFILIATE_ACCOUNT' , referer_username : refererUsername};
-
-        data = JSON.stringify(data);
-
-        $.post(defaults.actions , {data} , response => {
-
-            response = JSON.parse(response);
-            if(response.success) {
-                this.accountActivationModalPopUp.modal('close');
-                return this.refreshProfile();
-            }
-            else if(response.continue_with_paystack){
-
-                defaults.payWithPaystack(this.props.email , defaults.convertToPaystack(response.amount) , this.props.user.username , response => {
-
-                    if(response.status !== defaults.successText){
-                        this.accountActivationFieldset.prop(...defaults.disabledFalse);
-                        defaults.showToast(defaults.transactionNotSuccessfulMessage);
-                        return 0;
-                    }
-
-
-                    data = {reference_code : response.reference , email : this.props.email , action : 'RE-ACTIVATE_AFFILIATE_ACCOUNT' , referer_username : refererUsername};
-
-                    data = JSON.stringify(data);
-                    $.post(defaults.actions , {data} , response => {
-                        response = JSON.parse(response);
-
-                        if(response.success) {
-                            this.accountActivationModalPopUp.modal('close');
-                            return this.refreshProfile();
+                            _this2.accountActivationFieldset = $('#account-activation-fieldset');
+                            _this2.accountActivationForm = $('#account-activation-form');
+                            _this2.refererUsername = $('#account-activation-referer-username');
+                            _this2.accountActivationResponseMessage = $('#account-activation-response-message');
                         }
                     });
                 });
             }
-            else {
-                this.accountActivationFieldset.prop(...defaults.disabledFalse);
-                this.accountActivationResponseMessage.text(response.error);
-                defaults.showToast(response.error);
+        }, {
+            key: "componentDidUpdate",
+            value: function componentDidUpdate() {
+                this.defaultActions();
             }
+        }, {
+            key: "render",
+            value: function render() {
+                var _this3 = this;
 
+                var isActivateAccount = this.props.user.subscribed == 1;
+                var accountActivationModal = isActivateAccount ? null : this.accountActivationModal();
+                var userSubscriptionStatus = Number(this.props.user.subscribed);
+                var withdrawalPaymentsSingularOrPlural = this.props.user.withdrawal_requests != 1 ? "payments" : "payment";
+                var paymentsHistory = this.props.user.payments.length ? React.createElement("h5", null, "Payments History(", this.props.user.payments.length, ")") : null;
+                var withdrawalRequests = this.props.user.withdrawal_requests ? React.createElement("h5", null, "Withdrawal Requests(", this.props.user.withdrawal_requests, ")") : null;
+                var accountDeactivationMessage = !isActivateAccount ? React.createElement("div", {
+                    className: "row notice-board z-depth-3 account-deactivation-notice-board card-panel"
+                }, React.createElement("div", {
+                    className: "col s12 valign-wrapper"
+                }, React.createElement("span", {
+                    className: "affiliate-withdrawal-requests-message"
+                }, "Your account is no longer active, click ", React.createElement("strong", {
+                    className: "strong"
+                }, React.createElement("a", {
+                    className: "modal-trigger account-activation-modal-link",
+                    href: "#account-activation-modal"
+                }, "here")), " to re-activate."))) : null;
+                var paymentsMade = this.props.user.payments.map(function (payment) {
+                    return React.createElement("div", {
+                        className: "row notice-board z-depth-3 payments-notice-board card-panel",
+                        key: payment.reference_code
+                    }, React.createElement("i", {
+                        className: "material-icons hide-payment-history-icon",
+                        onClick: function onClick() {
+                            return _this3.deletePaymentHistory(payment.reference_code);
+                        }
+                    }, "cancel"), React.createElement("div", {
+                        className: "col s12 valign-wrapper"
+                    }, React.createElement("span", {
+                        className: "affiliate-withdrawal-requests-message"
+                    }, React.createElement("strong", {
+                        className: "strong"
+                    }, "\u20A6", payment.amount.toLocaleString()), " was paid to your account ", timeago.format(payment.payment_date))), React.createElement("span", {
+                        className: "affiliate-payment-reference-code"
+                    }, "ID : ", React.createElement("strong", {
+                        className: "strong"
+                    }, payment.reference_code)));
+                });
+                var withdrawalRequestsMessage = this.props.user.withdrawal_requests ? React.createElement("span", {
+                    className: "affiliate-withdrawal-requests-message"
+                }, "You have ", React.createElement("strong", {
+                    className: "strong"
+                }, this.props.user.withdrawal_requests), " pending ", withdrawalPaymentsSingularOrPlural, " of  ", React.createElement("strong", {
+                    className: "strong"
+                }, "\u20A6", this.props.user.total_withdrawal_amount.toLocaleString()), " ") : null;
+                var withdrawalRequestMessageExtraClass = withdrawalRequestsMessage != null ? null : 'hide';
+                var defaultEmailToShow = (this.props.user.email || "user@domain.com").truncate(defaults.emailTruncateSize);
+                var subscriptionButtonType = userSubscriptionStatus ? React.createElement("div", {
+                    className: "green-text"
+                }, React.createElement("span", {
+                    className: "subscription-active-text"
+                }, "active"), React.createElement("a", {
+                    className: "waves-effect waves-light disabled btn-small right"
+                }, "Paid ")) : React.createElement("div", null, React.createElement("span", {
+                    className: "materialize-red-text activate-account-text"
+                }, "INACTIVE"), " ", React.createElement("a", {
+                    className: "waves-effect modal-trigger waves-light btn-small right activate-account-button",
+                    href: "#account-activation-modal"
+                }, "Activate"));
+                return React.createElement("div", null, React.createElement(AffiliateHeader, {
+                    refreshProfile: this.refreshProfile
+                }), accountDeactivationMessage, accountActivationModal, React.createElement("div", {
+                    className: "container"
+                }, withdrawalRequests, React.createElement("div", {
+                    className: "row notice-board z-depth-3  withdrawal-notice-board card-panel ".concat(withdrawalRequestMessageExtraClass)
+                }, React.createElement("div", {
+                    className: "col s12 valign-wrapper"
+                }, withdrawalRequestsMessage)), paymentsHistory, paymentsMade, React.createElement("div", {
+                    className: "row notice-board z-depth-3"
+                }, React.createElement("div", {
+                    className: "col s12 valign-wrapper"
+                }, React.createElement("p", {
+                    className: "notice-header flow-text"
+                }, "Public message to Affiliates")), React.createElement("div", {
+                    className: "col s12 valign-wrapper"
+                }, React.createElement("p", {
+                    className: "notice-message"
+                }, "Your affiliate account will require renewal once every 30 days, provided you've reached our threshold of \u20A6", defaults.thresholdAmount, " for the month.", React.createElement("br", null), "our Demo Video is also a good tour guide for beginners."))), React.createElement("div", {
+                    className: "row"
+                }, React.createElement("div", {
+                    className: "col s12 m6"
+                }, React.createElement("h5", {
+                    className: "status-headers"
+                }, "Transaction History"), React.createElement("div", {
+                    className: "card"
+                }, React.createElement("div", {
+                    className: "card-content"
+                }, React.createElement("p", null, "The data below represents the record of all your transactions with us.")), React.createElement("div", {
+                    className: "card-tabs"
+                }, React.createElement("ul", {
+                    className: "tabs fund-status-tabs tabs-fixed-width"
+                }, React.createElement("li", {
+                    className: "tab",
+                    id: "account-balance-tab"
+                }, React.createElement("a", {
+                    className: "active",
+                    href: "#account-balance"
+                }, "Acc Bal.")), React.createElement("li", {
+                    className: "tab"
+                }, React.createElement("a", {
+                    href: "#total-amount-funded"
+                }, "Income")), React.createElement("li", {
+                    className: "tab"
+                }, React.createElement("a", {
+                    href: "#total-number-of-ads"
+                }, "Tot Ref.")))), React.createElement("div", {
+                    className: "card-content grey lighten-4"
+                }, React.createElement("div", {
+                    id: "account-balance",
+                    style: {
+                        display: 'none'
+                    }
+                }, "Acc balance :", React.createElement("span", {
+                    className: "right amount-value"
+                }, "\u20A6", Number(this.props.user.account_balance).toLocaleString())), React.createElement("div", {
+                    id: "total-amount-funded"
+                }, "Total income :", React.createElement("span", {
+                    className: "right amount-value"
+                }, "\u20A6", Number(this.props.user.total_income_earned).toLocaleString())), React.createElement("div", {
+                    id: "total-number-of-ads",
+                    style: {
+                        display: 'none'
+                    }
+                }, "Total ref :", React.createElement("span", {
+                    className: "right amount-value"
+                }, this.props.user.number_of_users_referred))))), React.createElement("div", {
+                    className: "col s12 m6"
+                }, React.createElement("h5", {
+                    className: "status-headers"
+                }, "Account Info"), React.createElement("div", {
+                    className: "card"
+                }, React.createElement("div", {
+                    className: "card-content"
+                }, React.createElement("p", null, "The data below contains other important info with regards to your account. ")), React.createElement("div", {
+                    className: "card-tabs"
+                }, React.createElement("ul", {
+                    className: "tabs tabs-fixed-width account-info-tabs"
+                }, React.createElement("li", {
+                    className: "tab",
+                    id: "email-tab"
+                }, React.createElement("a", {
+                    href: "#email-address"
+                }, "E-mail")), React.createElement("li", {
+                    className: "tab"
+                }, React.createElement("a", {
+                    href: "#test5",
+                    className: "flow-text"
+                }, "Status")), React.createElement("li", {
+                    className: "tab"
+                }, React.createElement("a", {
+                    href: "#test6",
+                    className: "flow-text"
+                }, "Monthly")))), React.createElement("div", {
+                    className: "card-content grey lighten-4"
+                }, React.createElement("div", {
+                    id: "email-address",
+                    style: {
+                        display: 'none'
+                    }
+                }, "E-mail", React.createElement("span", {
+                    className: "right amount-value email-address",
+                    id: "merchant-email-address"
+                }, defaultEmailToShow)), React.createElement("div", {
+                    id: "test5",
+                    className: "active"
+                }, subscriptionButtonType), React.createElement("div", {
+                    id: "test6",
+                    style: {
+                        display: 'none'
+                    }
+                }, "Amount earned ", React.createElement("span", {
+                    className: "right"
+                }, this.props.user.amount_earned_for_the_month))))), React.createElement("div", {
+                    id: "break"
+                }), React.createElement("div", {
+                    className: "col s12 m6"
+                }, React.createElement("h5", {
+                    className: "status-headers"
+                }, "Important Links"), React.createElement("div", {
+                    className: "card"
+                }, React.createElement("div", {
+                    className: "card-content"
+                }, React.createElement("p", null, "list of all the links you need, for you to start earning")), React.createElement("div", {
+                    className: "card-tabs"
+                }, React.createElement("ul", {
+                    className: "tabs fund-status-tabs tabs-fixed-width"
+                }, React.createElement("li", {
+                    className: "tab",
+                    id: "account-balance-tab"
+                }, React.createElement("a", {
+                    className: "active",
+                    href: "#referer-link"
+                }, "Link")), React.createElement("li", {
+                    className: "tab"
+                }, React.createElement("a", {
+                    href: "#referer-username"
+                }, "Username")), React.createElement("li", {
+                    className: "tab"
+                }, React.createElement("a", {
+                    href: "#invite-link"
+                }, "Invite")))), React.createElement("div", {
+                    className: "card-content grey lighten-4"
+                }, React.createElement("div", {
+                    id: "referer-link",
+                    style: {
+                        display: 'none'
+                    }
+                }, React.createElement("span", null, defaults.siteAddressHttps + "/campaign/".concat(this.props.user.username))), React.createElement("div", {
+                    id: "referer-username"
+                }, React.createElement("span", null, this.props.user.username)), React.createElement("div", {
+                    id: "invite-link",
+                    style: {
+                        display: 'none'
+                    }
+                }, React.createElement("span", null, defaults.siteAddressHttps + "/r/".concat(this.props.user.username)))))))), React.createElement(Footer, {
+                    accountType: "Affiliate",
+                    refreshProfile: this.refreshProfile
+                }));
+            }
+        }]);
 
+        return Affiliate;
+    }(React.Component);
 
-
-
-        });
-
-
-
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+    return { ...state,
+        ...ownProps
     };
-
-    accountActivationModal = ()  => {
-
-        return (
-
-            <div id="account-activation-modal" className="modal modal-fixed-footer">
-                <div className="modal-content">
-                    <fieldset id="account-activation-fieldset">
-                        <form id = "account-activation-form" method="POST" action="#" onSubmit={this.handleAccountActivation}>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="account-activation-referer-username" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} required="required" name = "withdrawal-amount" type="text"  className="validate" />
-                                    <label htmlFor="referer-username" className="active">Referer</label>
-                                    <span className="helper-text" id = "account-activation-response-message"></span>
-                                    <button type="submit" id="withdrawal-submit-button" className="waves-effect waves-light btn-small">Proceed</button>
-                                    <span className="helper-text right" id ="withdrawal-charge-message">You can no longer use <span className="strong">{this.props.user.referer_username}</span> as your referer</span>
-                                </div>
-                            </div>
-                        </form>
-                    </fieldset>
-                </div>
-                <div className="modal-footer">
-                    <a href="#" onClick={() => {this.accountActivationModalPopUp.modal('close')}} className="modal-close waves-effect waves-green btn-flat no-underline strong light">CLOSE</a>
-                </div>
-            </div>
-        )
-    };
-
-    componentDidMount()
-    {
-
-        this.defaultActions();
-
-
-
-
-        let data = {email : this.props.email , action : 'FETCH_AFFILIATE_DETAILS'};
-        data = JSON.stringify(data);
-        $.post(defaults.actions , {data} , response1 => {
-
-
-            this.registeredTimeago = timeago.format(this.props.user.registered_on);
-            response1 = JSON.parse(response1);
-
-            this.props.resetState({...this.props , user : response1.user , ads : response1.ads} , () => {
-                if(!Number(this.props.user.subscribed)){
-                    this.accountActivationModalPopUp = $('.modal#account-activation-modal');
-                    this.accountActivationModalPopUp.modal({dismissible: false});
-                    this.accountActivationFieldset = $('#account-activation-fieldset');
-                    this.accountActivationForm = $('#account-activation-form');
-                    this.refererUsername = $('#account-activation-referer-username');
-                    this.accountActivationResponseMessage = $('#account-activation-response-message');
-                }
-
-            });
-
-        });
-
-
-
-
-    }
-
-    componentDidUpdate () {
-        this.defaultActions();
-
-    }
-
-
-
-
-
-    deletePaymentHistory = (reference_code) => {
-
-
-        let data = {action : 'DELETE_PAYMENT_HISTORY' , reference_code , email : this.props.email};
-        data = JSON.stringify(data);
-
-        $.post(defaults.actions , {data} , response => {
-            response = JSON.parse(response);
-            if(response.success)this.refreshProfile();
-
-        });
-    };
-
-    render() {
-
-
-
-        let isActivateAccount = this.props.user.subscribed == 1;
-        let accountActivationModal = isActivateAccount ? null:  this.accountActivationModal();
-        let userSubscriptionStatus = Number(this.props.user.subscribed);
-        let withdrawalPaymentsSingularOrPlural = this.props.user.withdrawal_requests != 1 ? "payments" : "payment";
-
-        let paymentsHistory = this.props.user.payments.length ? <h5>Payments History({this.props.user.payments.length})</h5> : null;
-        let withdrawalRequests = this.props.user.withdrawal_requests ? <h5>Withdrawal Requests({this.props.user.withdrawal_requests})</h5> : null;
-
-        let accountDeactivationMessage = !isActivateAccount ?
-
-            <div className="row notice-board z-depth-3 account-deactivation-notice-board card-panel">
-                <div className="col s12 valign-wrapper">
-                        <span className="affiliate-withdrawal-requests-message">
-                            Your account is no longer active, click <strong className="strong"><a className="modal-trigger account-activation-modal-link" href = "#account-activation-modal">here</a></strong> to re-activate.
-                        </span>
-                </div>
-
-            </div>
- : null;
-
-         let paymentsMade = this.props.user.payments.map(payment => {
-            return (
-
-                <div className="row notice-board z-depth-3 payments-notice-board card-panel" key = {payment.reference_code}>
-                    <i className="material-icons hide-payment-history-icon" onClick={() => this.deletePaymentHistory(payment.reference_code)}>cancel</i>
-                    <div className="col s12 valign-wrapper">
-                        <span className="affiliate-withdrawal-requests-message"><strong className="strong">&#8358;{payment.amount.toLocaleString()}</strong> was paid to your account {timeago.format(payment.payment_date)}
-                        </span>
-                    </div>
-                    <span className="affiliate-payment-reference-code">ID : <strong className="strong">{payment.reference_code}</strong></span>
-
-                </div>
-
-            )
-        });
-        let withdrawalRequestsMessage =this.props.user.withdrawal_requests ?
-                <span className="affiliate-withdrawal-requests-message">You have <strong className="strong">{this.props.user.withdrawal_requests}</strong> pending {withdrawalPaymentsSingularOrPlural} of  <strong className="strong">&#8358;{this.props.user.total_withdrawal_amount.toLocaleString()}</strong> </span>: null;
-               let withdrawalRequestMessageExtraClass = withdrawalRequestsMessage != null ? null : 'hide';
-        let defaultEmailToShow = (this.props.user.email || "user@domain.com").truncate(defaults.emailTruncateSize);
-        const subscriptionButtonType =  userSubscriptionStatus ?
-            <div className="green-text"><span className="subscription-active-text">active</span><a className="waves-effect waves-light disabled btn-small right">Paid </a></div>     : <div><span className="materialize-red-text activate-account-text">INACTIVE</span> <a className="waves-effect modal-trigger waves-light btn-small right activate-account-button" href = "#account-activation-modal">Activate</a></div>;
-        return (
-            <div>
-                <AffiliateHeader refreshProfile = {this.refreshProfile} />
-                {accountDeactivationMessage}
-                {accountActivationModal}
-
-                <div className="container">
-                    {withdrawalRequests}
-                    <div className={`row notice-board z-depth-3  withdrawal-notice-board card-panel ${withdrawalRequestMessageExtraClass}`}>
-                        <div className="col s12 valign-wrapper">
-
-                        {withdrawalRequestsMessage}
-
-                        </div>
-                    </div>
-                    {paymentsHistory}
-                    {paymentsMade}
-                    <div className="row notice-board z-depth-3">
-                        <div className="col s12 valign-wrapper">
-                            <p className="notice-header flow-text">Public message to Affiliates</p>
-                        </div>
-                        <div className="col s12 valign-wrapper">
-
-                            <p className="notice-message">
-                                Your affiliate account will require renewal once every 30 days, provided you've reached our threshold of &#8358;{defaults.thresholdAmount} for the month.
-                                <br />our Demo Video is also a good tour guide for beginners.
-                            </p>
-                        </div>
-                    </div>
-
-
-                    <div className="row">
-
-
-                        <div className="col s12 m6">
-                            <h5 className="status-headers">Transaction History</h5>
-                            <div className="card">
-                                <div className="card-content">
-                                    <p>
-                                        The data below represents the record of all your transactions with us.
-
-
-                                    </p>
-                                </div>
-                                <div className="card-tabs">
-                                    <ul className="tabs fund-status-tabs tabs-fixed-width">
-                                        <li className="tab" id="account-balance-tab"><a className="active" href="#account-balance">Acc Bal.</a></li>
-                                        <li className="tab"><a  href="#total-amount-funded">Income</a></li>
-                                        <li className="tab"><a href="#total-number-of-ads">Tot Ref.</a></li>
-                                    </ul>
-                                </div>
-                                <div className="card-content grey lighten-4">
-                                    <div id="account-balance" style={{display : 'none'}}>Acc balance :
-                                        <span className="right amount-value">&#8358;{Number(this.props.user.account_balance).toLocaleString()}</span>
-                                    </div>
-                                    <div id="total-amount-funded">Total income :
-                                        <span className="right amount-value">&#8358;{Number(this.props.user.total_income_earned).toLocaleString()}</span>
-                                    </div>
-                                    <div id="total-number-of-ads" style={{ display : 'none'}}>Total ref :
-                                        <span className="right amount-value">{this.props.user.number_of_users_referred}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col s12 m6">
-
-                            <h5 className="status-headers">Account Info</h5>
-                            <div className="card">
-                                <div className="card-content">
-                                    <p>The data below contains other important info with regards to your account. </p>
-                                </div>
-                                <div className="card-tabs">
-                                    <ul className="tabs tabs-fixed-width account-info-tabs">
-                                        <li className="tab" id="email-tab"><a href="#email-address">E-mail</a></li>
-                                        <li className="tab"><a href="#test5" className="flow-text">Status</a></li>
-                                        <li className="tab"><a href="#test6" className="flow-text">Monthly</a></li>
-                                    </ul>
-                                </div>
-                                <div className="card-content grey lighten-4">
-                                    <div  id="email-address" style={{display : 'none'}}>E-mail<span className="right amount-value email-address" id="merchant-email-address">{defaultEmailToShow}</span></div>
-                                    <div id="test5" className="active">{subscriptionButtonType}</div>
-                                    <div id="test6" style={{ display : 'none'}}>Amount earned <span className="right">{this.props.user.amount_earned_for_the_month}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id = "break"></div>
-                        <div className="col s12 m6">
-                            <h5 className="status-headers">Important Links</h5>
-                            <div className="card">
-                                <div className="card-content">
-                                    <p>
-                                        list of all the links you need, for you to start earning
-                                    </p>
-                                </div>
-                                <div className="card-tabs">
-                                    <ul className="tabs fund-status-tabs tabs-fixed-width">
-                                        <li className="tab" id="account-balance-tab"><a className="active" href="#referer-link">Link</a></li>
-                                        <li className="tab"><a  href="#referer-username">Username</a></li>
-                                        <li className="tab"><a href="#invite-link">Invite</a></li>
-                                    </ul>
-                                </div>
-                                <div className="card-content grey lighten-4">
-                                    <div id="referer-link" style={{display : 'none'}}>
-                                        <span>{defaults.siteAddressHttps + `/campaign/${this.props.user.username}`}</span>
-                                    </div>
-                                    <div id="referer-username">
-                                        <span>{this.props.user.username}</span>
-                                    </div>
-                                    <div id="invite-link" style={{ display : 'none'}}>
-                                        <span>{defaults.siteAddressHttps + `/r/${this.props.user.username}`}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <Footer accountType = "Affiliate" refreshProfile = {this.refreshProfile} />
-            </div>
-        );
-    }
-
-}
-
-const mapStateToProps = (state , ownProps) => {
-    return {
-        ...state , ...ownProps
-    }
 };
 
-
-const  mapDispatchToProps = dispatch =>
-{
-
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
-        resetState : (state , callback  = () => {}) => {
-            dispatch({state , type : 'RESET_STATE'});
+        resetState: function resetState(state) {
+            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+            dispatch({
+                state: state,
+                type: 'RESET_STATE'
+            });
             callback();
-        } ,
-        restoreState : () => {
-            dispatch({type : 'RESTORE_STATE'});
-        } ,
-        modifyState : state => {
-            dispatch({type : 'MODIFY_STATE' , state});
         },
-        factoryReset : (callback = () => {}) => {
-            dispatch({type:'FACTORY_RESET'});
+        restoreState: function restoreState() {
+            dispatch({
+                type: 'RESTORE_STATE'
+            });
+        },
+        modifyState: function modifyState(state) {
+            dispatch({
+                type: 'MODIFY_STATE',
+                state: state
+            });
+        },
+        factoryReset: function factoryReset() {
+            var callback = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
+            dispatch({
+                type: 'FACTORY_RESET'
+            });
             return true;
         }
-
-    }
+    };
 };
 
-
-const {connect} = ReactRedux;
-Affiliate = connect(mapStateToProps , mapDispatchToProps)(Affiliate);
-
+var _ReactRedux = ReactRedux,
+    connect = _ReactRedux.connect;
+Affiliate = connect(mapStateToProps, mapDispatchToProps)(Affiliate);
