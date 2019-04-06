@@ -47,6 +47,7 @@ class WebsiteConfigurationSettings {
     public $subscriptionDurationInDays = 30;
     public $minimumEarningExpected = 6500;
     public $affiliateSignupFee = 2100;
+
     public $siteAffiliateSignupFee = 700;
     public $amountPaidToAffiliateForReferer = 1400;
     public $withdrawalReferenceCodeLength = 8;
@@ -92,7 +93,7 @@ class WebsiteConfigurationSettings {
         $this->HeadOffice = "Block 2A , Quarters 3 PH Int'l Airport Omagwa.";
         $this->MaximumUserProfileImageSizeInWords = strval($this->MaximumUserProfileImageSize / 10). "mb";
         $this->ContactEmail  = 'contact@'.$this->SiteName;
-        $this->COMPONENTS_FOLDER = $this->JS_FOLDER."components/";
+        $this->COMPONENTS_FOLDER = $this->STATIC_FOLDER."components/";
         $this->AD_ID_LENGTH = 7;
 
         $this->AboutUs = <<<AboutUs

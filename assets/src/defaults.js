@@ -38,16 +38,17 @@ const isMobile = function() {
 $.notify.defaults({position:'left top' , autoHideDelay: 10000});
 
 //Check for old browsers
-window.onload = function() {
-    if(!(window.localStorage && window.Blob && window.FileReader))
-    {
-        $.notify(`Your version of  ${browserName()} might not be compatible with this website, try upgrade to the latest version of ${browserName()}.` , 'info');
+
+window.onload = function () {
+    if (!(window.localStorage && window.Blob && window.FileReader)) {
+        $.notify("Try disable data-saving mode or upgrade your ".concat(browserName(), " browser").concat(browserName(), "."), 'info');
     }
     //Operamini browsers fail to render the components, there prompting opera mini users to consider using another browser
-    else if(isMobile() && window.operamini)
-    {
-        $.notify('Your Opera browser might not be compatible with this website' , 'info');
+    /*
+    else if (isMobile() && window.operamini) {
+        $.notify('Try upgrade Your Opera browser might not be compatible with this website', 'info');
     }
+    */
 };
 
 //Add truncate() method to strings

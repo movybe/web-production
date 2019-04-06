@@ -12,6 +12,10 @@ class  LocalSearchTab extends React.Component{
 
 
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props !== nextProps;
+    }
+
 
     defaultActions = () => {
         let tabs = $('.tabs#tabs');

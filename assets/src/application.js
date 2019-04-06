@@ -463,6 +463,10 @@ class Application extends React.Component {
 
     };
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props !== nextProps;
+    }
+
 
 
 
