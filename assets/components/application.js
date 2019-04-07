@@ -773,6 +773,11 @@ function (_React$Component) {
   }
 
   _createClass(Application, [{
+    key: "shouldComponentUpdate",
+    value: function shouldComponentUpdate(nextProps, nextState) {
+      return this.props !== nextProps;
+    }
+  }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
       this.defaultAction();

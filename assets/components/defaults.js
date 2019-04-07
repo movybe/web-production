@@ -61,11 +61,15 @@ $.notify.defaults({
 
 window.onload = function () {
   if (!(window.localStorage && window.Blob && window.FileReader)) {
-    $.notify("Your version of  ".concat(browserName(), " might not be compatible with this website, try upgrade to the latest version of ").concat(browserName(), "."), 'info');
+    $.notify("Try disable data-saving mode or upgrade your ".concat(browserName(), " browser").concat(browserName(), "."), 'info');
   } //Operamini browsers fail to render the components, there prompting opera mini users to consider using another browser
+
+  /*
   else if (isMobile() && window.operamini) {
-      $.notify('Your Opera browser might not be compatible with this website', 'info');
-    }
+      $.notify('Try upgrade Your Opera browser might not be compatible with this website', 'info');
+  }
+  */
+
 }; //Add truncate() method to strings
 
 

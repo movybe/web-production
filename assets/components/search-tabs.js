@@ -93,6 +93,11 @@ function (_React$Component) {
   }
 
   _createClass(LocalSearchTab, [{
+    key: "shouldComponentUpdate",
+    value: function shouldComponentUpdate(nextProps, nextState) {
+      return this.props !== nextProps;
+    }
+  }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
       var _this2 = this;
