@@ -18,7 +18,7 @@ class WebsiteConfigurationSettings {
     public  $MaximumUserProfileImageSize = 50000000;
     public  $MaximumUserProfileImageSizeInWords = "";
     public  $WebsiteCoverage = "Nigeria";
-    public  $WebsiteSubject = "Connecting you with the right product";
+    public  $WebsiteSubject = "Search the Price of Products in Nigeria";
     public  $WebsiteClassification = "Search";
     public  $DOCUMENT_ROOT;
     public  $LinkShortUrlLength = 5;
@@ -37,7 +37,7 @@ class WebsiteConfigurationSettings {
     public  $ContactEmail;
     public  $BANNER_IMAGES_FOLDER;
     public  $ErrorPage = "/404.php";
-    public  $PageDescription = "Compare price of products in Nigeria";
+    public  $PageDescription = "Search the Price of Products in Nigeria";
     public  $ParentCompanyName;
     public  $ParentCompanyAddress = "/";
     public $maxNumberOfSuggestion = 5;
@@ -98,7 +98,7 @@ class WebsiteConfigurationSettings {
 
         $this->AboutUs = <<<AboutUs
 <p>
-                                       Search the price of anything.  
+                                       Search the Price of Products in Nigeria.  
 
                                     </p>
                                    
