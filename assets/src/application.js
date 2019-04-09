@@ -146,9 +146,6 @@ class Application extends React.Component {
             this.searchFormFieldSet.prop(...defaults.disabledFalse);
             if(this.props.switchWebsite({...savedState , processingAction: false})) return
 
-
-
-
         };
 
         switch (website) {
