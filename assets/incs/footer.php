@@ -11,8 +11,9 @@
 <!--  Scripts-->
 <?php
 
-$includes = array("cookie.min.js" , "bgset.min.js" , "lazy-bg.min.js" ,  "notify.min.js" , "defaults.js" , "jquery.lightbox.min.js"  ,"numeral.min.js");
-echo $functions->printAssets($includes);
+$includes = array("cookie.min.js" , "bgset.min.js" , "lazy-bg.min.js" ,  "notify.min.js" , "jquery.lightbox.min.js"  ,"numeral.min.js");
+$defaults_js = array("defaults.js");
+echo $functions->printAssets($includes).$functions->printAssets($defaults_js , 'babel' , true , $website_details->COMPONENTS_FOLDER);
 ?>
 <script async>
     $(function()
