@@ -204,9 +204,9 @@ function (_React$Component) {
       }, React.createElement("i", {
         className: "material-icons"
       }, "menu")), React.createElement("a", {
-        href: "#demo-modal",
+        href: "#demo-mod",
         className: "brand-logo  right watch-demo-video modal-trigger"
-      }, "Watch Demo Video"), React.createElement("ul", {
+      }, "Welcome, ", _this.props.user.username), React.createElement("ul", {
         className: "left hide-on-med-and-down"
       }, _this.navContents()))));
     });

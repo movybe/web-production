@@ -140,6 +140,7 @@ function () {
     this.isProductionMode = window.location.hostname !== 'localhost';
     this.hostName = window.location.hostname;
     this.siteName = 'Movybe';
+    this.parentCompany = this.siteName + ' Studios';
     this.siteNameLowercase = this.siteName.toLowerCase();
     this.whatsappContactLink = "https://wa.me/".concat(this.whatsappContact.replace(/ /g, ''), "?text=Hello%20").concat(this.siteName);
     this.imageDirectory = this.getFileLocation('/assets/img/');

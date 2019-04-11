@@ -73,7 +73,7 @@ function (_React$Component) {
         className: "footer-copyright"
       }, React.createElement("div", {
         className: "container"
-      }, "\xA9 Copyright ", new Date().getFullYear(), " Product of ", defaults.siteName, React.createElement("a", {
+      }, "\xA9 Copyright ", new Date().getFullYear(), ", Product of ", defaults.parentCompany, React.createElement("a", {
         className: "grey-text text-lighten-4 right no-underline",
         href: "#"
       }, this.props.accountType, " account"))));

@@ -235,7 +235,7 @@ class  MerchantHeader extends React.Component {
                     <div className="nav-wrapper">
                         <a href="#" data-target="mobile-nav" className="sidenav-trigger"><i
                             className="material-icons">menu</i></a>
-                        <a href="#demo-modal" className="brand-logo  right watch-demo-video modal-trigger">Watch Demo Video</a>
+                        <a href="#demo-mod" className="brand-logo  right watch-demo-video modal-trigger">Welcome, {this.props.user.username}</a>
                         <ul className="left hide-on-med-and-down">
                             {this.navContents()}
                         </ul>

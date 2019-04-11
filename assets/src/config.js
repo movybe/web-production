@@ -96,6 +96,7 @@ class Config {
     };
 
     constructor (){
+
         const {Provider , connect} = ReactRedux;
 
         const {createStore} = Redux;
@@ -113,6 +114,7 @@ class Config {
 }
 
 let config = new Config();
+
 
 
 
