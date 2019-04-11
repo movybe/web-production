@@ -67,7 +67,13 @@ class Merchant extends React.Component
     activateMerchantAccount = () =>
     {
 
-        defaults.payWithPaystack(this.props.email , defaults.convertToPaystack(defaults.merchantActivationFee) , "Account Activation" , (response) => {
+
+        //The payment function will change if the logged in account belongs to the website
+        const paymentFunction = !parseInt(this.props.user.is_site_advert_login_email) ? defaults.payWithPaystack : function(email , amount , paymentSubject , callback) {
+
+            callback({status : defaults.successText});
+        };
+       paymentFunction(this.props.email , defaults.convertToPaystack(defaults.merchantActivationFee) , "Account Activation" , (response) => {
             if(response.status !== defaults.successText) return defaults.showToast(defaults.transactionNotSuccessfulMessage);
             let data = {email : this.props.email , action : 'ACTIVATE_MERCHANT_ACCOUNT' , reference : response.reference , amount: defaults.merchantActivationFee};
             data = JSON.stringify(data);

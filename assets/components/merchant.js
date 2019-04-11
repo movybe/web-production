@@ -74,7 +74,13 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "activateMerchantAccount", function () {
-      defaults.payWithPaystack(_this.props.email, defaults.convertToPaystack(defaults.merchantActivationFee), "Account Activation", function (response) {
+      //The payment function will change if the logged in account belongs to the website
+      var paymentFunction = !parseInt(_this.props.user.is_site_advert_login_email) ? defaults.payWithPaystack : function (email, amount, paymentSubject, callback) {
+        callback({
+          status: defaults.successText
+        });
+      };
+      paymentFunction(_this.props.email, defaults.convertToPaystack(defaults.merchantActivationFee), "Account Activation", function (response) {
         if (response.status !== defaults.successText) return defaults.showToast(defaults.transactionNotSuccessfulMessage);
         var data = {
           email: _this.props.email,
