@@ -109,18 +109,36 @@ class Functions extends  DatabaseConnection {
     public final function tryRedirectToHttps () {
         //Check if it's in production mode
         if(!$this->is_production_mode()) return ;
-        if (!(isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' ||
+
+        //Remove www from the request url
+        if($this->containsWord($_SERVER['HTTP_HOST'] , 'www.'))
+        {
+
+
+            $redirect = 'https://' . str_replace('www.' , '' , $_SERVER['HTTP_HOST']) . $_SERVER['REQUEST_URI'];
+            header('HTTP/1.1 301 Moved Permanently');
+            header('Location: ' . $redirect);
+            exit();
+
+        }
+
+        elseif (!(isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' ||
                 $_SERVER['HTTPS'] == 1) ||
             isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
             $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
         {
-            $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+            $redirect = 'https://' . str_replace('www.' , '' , $_SERVER['HTTP_HOST']) . $_SERVER['REQUEST_URI'];
             header('HTTP/1.1 301 Moved Permanently');
             header('Location: ' . $redirect);
             exit();
         }
+
     }
 
+    public final function containsWord($str, $word)
+{
+    return !!preg_match('#\\b' . preg_quote($word, '#') . '\\b#i', $str);
+}
 
 
 

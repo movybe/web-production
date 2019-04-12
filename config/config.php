@@ -75,7 +75,7 @@ class WebsiteConfigurationSettings {
         //movybe
         $this->SiteName = 'Movybe';
         $this->siteNameLowercase = strtolower($this->SiteName);
-        $this->ParentCompanyName = $this->SiteName.' Inc';
+        $this->ParentCompanyName = $this->SiteName.' Studios';
         $this->DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
         $this->STATIC_FOLDER = $this->getFileLocation("/assets/");
         $this->JS_FOLDER = $this->STATIC_FOLDER."js/";
