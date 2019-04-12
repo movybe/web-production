@@ -30,5 +30,5 @@ echo $functions->printAssets($includes).$functions->printAssets($defaults_js , '
 <?php
 
 $scripts = array( "gallery.js" , "search-tabs.js" ,  "application.js" , "config.js");
-echo $functions->printAssets($scripts , 'babel' , true , $website_details->COMPONENTS_FOLDER , "async='async'");
+echo $functions->printAssets($scripts , 'babel' , true , $website_details->COMPONENTS_FOLDER);
 ?>
