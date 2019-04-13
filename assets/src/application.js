@@ -1048,7 +1048,7 @@ class Application extends React.Component {
 
 
                                    // if(!this.searchQueryField.val().length) return;
-                                    if(this.props.locale[0].ads.length){
+                                    if(this.props.locale[0].ads.length  || this.props.locale[3].ads.length){
 
                                         this.searchTabs.show();
 

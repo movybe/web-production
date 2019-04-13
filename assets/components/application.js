@@ -934,7 +934,7 @@ function (_React$Component) {
       }), React.createElement("input", {
         onBlur: function onBlur() {
           // if(!this.searchQueryField.val().length) return;
-          if (_this3.props.locale[0].ads.length) {
+          if (_this3.props.locale[0].ads.length || _this3.props.locale[3].ads.length) {
             _this3.searchTabs.show();
           }
         },
