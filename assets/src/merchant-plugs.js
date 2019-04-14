@@ -1,4 +1,4 @@
-class MerchantAds extends React.Component {
+class MerchantPlugs extends React.Component {
 
 
 
@@ -1090,4 +1090,4 @@ let mapStateToProps = (state , ownProps) =>
     }
 };
 
-MerchantAds = connect(mapStateToProps)(MerchantAds);
+MerchantPlugs = connect(mapStateToProps)(MerchantPlugs);

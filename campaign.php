@@ -39,7 +39,7 @@ require_once 'config/functions.php';
 
  <?php
  $scripts = array('cookie.min.js'   , 'timeago.min.js' , 'bgset.min.js' ,'lazy-bg.min.js' , "notify.min.js" , 'particles.js' , 'app.js');
- $components = array('defaults.js'  , 'footer.js' , 'campaign.js' ,'merchant-header.js' ,  'merchant-ads.js' , 'merchant.js' ,'affiliate-header.js', 'affiliate.js' , 'admin.js' , 'campaign-settings.js');
+ $components = array('defaults.js'  , 'footer.js' , 'campaign.js' ,'merchant-header.js' ,  'merchant-plugs.js' , 'merchant.js' ,'affiliate-header.js', 'affiliate.js' , 'admin.js' , 'campaign-settings.js');
  $jquery_validate = array('jquery.validate.js');
  echo $functions->printAssets($scripts  , null , true).$functions->printAssets($components , 'babel' , true , $website_details->COMPONENTS_FOLDER).$functions->printAssets($jquery_validate , 'javascript' , true);
 

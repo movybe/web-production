@@ -30,17 +30,17 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var MerchantAds =
+var MerchantPlugs =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(MerchantAds, _React$Component);
+  _inherits(MerchantPlugs, _React$Component);
 
-  function MerchantAds() {
+  function MerchantPlugs() {
     var _this;
 
-    _classCallCheck(this, MerchantAds);
+    _classCallCheck(this, MerchantPlugs);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(MerchantAds).call(this));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MerchantPlugs).call(this));
 
     _defineProperty(_assertThisInitialized(_this), "editAdFormActions", {
       UPDATE: "UPDATE",
@@ -1080,7 +1080,7 @@ function (_React$Component) {
     return _this;
   }
 
-  _createClass(MerchantAds, [{
+  _createClass(MerchantPlugs, [{
     key: "refreshProfile",
     value: function refreshProfile() {
       var _this2 = this;
@@ -1233,7 +1233,7 @@ function (_React$Component) {
     }
   }]);
 
-  return MerchantAds;
+  return MerchantPlugs;
 }(React.Component);
 
 var _ReactRedux = ReactRedux,
@@ -1243,4 +1243,4 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return _objectSpread({}, state, ownProps);
 };
 
-MerchantAds = connect(mapStateToProps)(MerchantAds);
+MerchantPlugs = connect(mapStateToProps)(MerchantPlugs);
