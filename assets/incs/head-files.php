@@ -9,6 +9,7 @@ $cdn_required = <<<CDN_INCLUDES
 <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 <script crossorigin src = 'https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.1/redux.min.js'></script>
 <script crossorigin src='https://cdnjs.cloudflare.com/ajax/libs/react-redux/6.0.1/react-redux.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js'></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
 CDN_INCLUDES;
 $materialize_css = array("materialize.min.css");
