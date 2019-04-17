@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/components/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/application.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/components/defaults.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/defaults.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/application.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/defaults.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/defaults.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,11 +74,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/src/application.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="1036" lean-forward="true" selection-start-line="1036" selection-end-line="1036" />
+            <state relative-caret-position="207">
+              <caret line="1034" lean-forward="true" selection-start-line="1034" selection-end-line="1034" />
             </state>
           </provider>
         </entry>
@@ -90,8 +86,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/campaign.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="37" selection-start-line="37" selection-end-line="37" />
+            <state relative-caret-position="151">
+              <caret line="15" column="90" lean-forward="true" selection-start-line="15" selection-start-column="90" selection-end-line="15" selection-end-column="90" />
             </state>
           </provider>
         </entry>
@@ -123,7 +119,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/.babelrc">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
@@ -259,12 +255,6 @@
             <path>
               <item name="web-production" type="b2602c69:ProjectViewProjectNode" />
               <item name="web-production" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="web-production" type="b2602c69:ProjectViewProjectNode" />
-              <item name="web-production" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -338,18 +328,18 @@
       <workItem from="1555237634155" duration="4725000" />
       <workItem from="1555292883579" duration="593000" />
       <workItem from="1555455654346" duration="195000" />
-      <workItem from="1555457275611" duration="9015000" />
+      <workItem from="1555457275611" duration="10607000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52662000" />
+    <option name="totallyTimeSpent" value="54254000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1386" height="788" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.34313726" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.34313726" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -362,7 +352,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3293011" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.28658536" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.28658536" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="12" weight="0.3292683" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -625,13 +615,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/campaign.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/react.development.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -641,13 +624,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/materialize.min.js">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/.babelrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="3" lean-forward="true" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/incs/footer.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -672,8 +648,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/application.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="1036" lean-forward="true" selection-start-line="1036" selection-end-line="1036" />
+        <state relative-caret-position="207">
+          <caret line="1034" lean-forward="true" selection-start-line="1034" selection-end-line="1034" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/campaign.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="15" column="90" lean-forward="true" selection-start-line="15" selection-start-column="90" selection-end-line="15" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/.babelrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="3" lean-forward="true" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
         </state>
       </provider>
     </entry>
