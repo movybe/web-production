@@ -150,6 +150,7 @@ class Defaults {
         this.networkError = 'No Results found for this query, check your connection';
         this.noMoreResultsFoundError = 'no more results found';
         this.savedState = 'savedState';
+        this.apkDownloadLink = 'https://play.google.com/store/apps/details?id=movybe.com.movybe';
         this.checkNetworkConnectionError = 'check your network connection';
         this.savedCampaignState = 'savedCampaignState';
         this.noResultsFoundError = 'no results found';

@@ -1028,7 +1028,7 @@ class Application extends React.Component {
         });
 
         const downloadApkLink = navigator.userAgent === defaults.siteWebPackageName ? null :
-            <li><a href="#" id="download-apk-link"><span className="small material-icons app-download-icon">vertical_align_bottom</span> Download APK</a></li>
+            <li><a href={defaults.apkDownloadLink} id="download-apk-link"><span className="small material-icons app-download-icon">vertical_align_bottom</span> Download APK</a></li>
         const downloadApkDivider = downloadApkLink === null ? null :  <li className="divider" tabIndex="-1"></li>;
 
         const linkToSavedGallery = gallery.length ?

@@ -899,7 +899,7 @@ function (_React$Component) {
         });
       });
       var downloadApkLink = navigator.userAgent === defaults.siteWebPackageName ? null : React.createElement("li", null, React.createElement("a", {
-        href: "#",
+        href: defaults.apkDownloadLink,
         id: "download-apk-link"
       }, React.createElement("span", {
         className: "small material-icons app-download-icon"
