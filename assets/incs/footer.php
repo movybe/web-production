@@ -11,7 +11,7 @@
 <!--  Scripts-->
 <?php
 
-$includes = array("polyfill.js","cookie.min.js" , "bgset.min.js" , "lazy-bg.min.js" ,  "notify.min.js" , "jquery.lightbox.min.js"  ,"numeral.min.js");
+$includes = array("cookie.min.js" , "bgset.min.js" , "lazy-bg.min.js" ,  "notify.min.js" , "jquery.lightbox.min.js"  ,"numeral.min.js");
 $defaults_js = array("defaults.js");
 echo $functions->printAssets($includes).$functions->printAssets($defaults_js , 'babel' , true , $website_details->COMPONENTS_FOLDER);
 ?>
