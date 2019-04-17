@@ -1,6 +1,6 @@
 <?php
 $babel_polyfill = array("polyfill.js");
-//echo $functions->printAssets($babel_polyfill);
+echo $functions->printAssets($babel_polyfill);
 $cdn_required = <<<CDN_INCLUDES
      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src='https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js'></script>
