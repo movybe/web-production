@@ -1,4 +1,5 @@
 <?php
+
 $cdn_required = <<<CDN_INCLUDES
      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
