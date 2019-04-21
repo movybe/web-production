@@ -283,7 +283,6 @@ class  LocalSearchTab extends React.Component{
                 return (
 
                     <div className="search-result" key = {Math.random()}>
-
                         {showPrice}
 
                         <h3 className="search-result-title-header"><a target="_blank" data-ad-id = {isValidSponsoredAd ? ad.ad_id : null}  onClick={isValidSponsoredAd ? this.handleSponsoredAdClicked : null} className="search-result-title-link"
