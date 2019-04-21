@@ -31,7 +31,7 @@ require_once 'config/functions.php';
 <body id = 'particles-js' class='lazyloads'  data-bgset="<?php echo $website_details->IMG_FOLDER.'campaign-background.jpg'; ?>">
 <div>
 
-<main id='app' data-referer = '<?php echo isset($_GET['r']) ?  $_GET['r'] : null; ?>'>
+<main id='app' class = 'main-container invisible-class' data-referer = '<?php echo isset($_GET['r']) ?  $_GET['r'] : null; ?>'>
 
             </main>
        </div>

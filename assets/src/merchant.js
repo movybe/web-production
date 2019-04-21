@@ -168,7 +168,7 @@ class Merchant extends React.Component
                         </div>
 
                 </div>
-                <MerchantAds activateMerchantAccount = {this.activateMerchantAccount} refreshProfile = {this.refreshProfile} />
+                <MerchantPlugs activateMerchantAccount = {this.activateMerchantAccount} refreshProfile = {this.refreshProfile} />
             </div>
                 <Footer accountType = "Merchant" refreshProfile = {this.refreshProfile} />
             </div>

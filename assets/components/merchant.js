@@ -269,7 +269,7 @@ function (_React$Component) {
         }
       }, "Registered ", React.createElement("span", {
         className: "right"
-      }, this.registeredTimeago)))))), React.createElement(MerchantAds, {
+      }, this.registeredTimeago)))))), React.createElement(MerchantPlugs, {
         activateMerchantAccount: this.activateMerchantAccount,
         refreshProfile: this.refreshProfile
       })), React.createElement(Footer, {
