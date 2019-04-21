@@ -1,5 +1,6 @@
 <?php
 require_once 'config/functions.php';
+
 /*
 if($functions->data_saving_mode_is_enabled())
 {
@@ -31,7 +32,10 @@ if($functions->data_saving_mode_is_enabled())
 
 </head>
 <body>
-<main class ="container">
+
+
+<div class="pace"></div>
+<main class ="container invisible-class main-container">
     <div class ="section no-pad-bot" id="index-banner">
         <div class="container">
             <br><br>

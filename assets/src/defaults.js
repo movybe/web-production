@@ -114,7 +114,17 @@ $(document).ready (function () {
     });
 });
 
+Pace.on('done' , function (e) {
+    $('main.main-container').removeClass('invisible-class');
 
+    $('link[title="pace-css"]').prop('disabled' ,  true);
+    $('#pace-js').remove();
+    $('link[title="pace-css"]').remove();
+    try {
+        document.getElementById('pace-css').disabled = true;
+    }
+    catch (e) {}
+});
 
 class Defaults {
 
@@ -123,6 +133,11 @@ class Defaults {
     };
 
     constructor () {
+        //Show the contents of the page on page loading animation done
+
+
+
+
         this.whatsappContact = '+234 708 441 9530';
         this.isProductionMode = window.location.hostname !== 'localhost';
         this.hostName = window.location.hostname;
@@ -150,7 +165,6 @@ class Defaults {
         this.networkError = 'No Results found for this query, check your connection';
         this.noMoreResultsFoundError = 'no more results found';
         this.savedState = 'savedState';
-        this.apkDownloadLink = 'https://play.google.com/store/apps/details?id=movybe.com.movybe';
         this.checkNetworkConnectionError = 'check your network connection';
         this.savedCampaignState = 'savedCampaignState';
         this.noResultsFoundError = 'no results found';
