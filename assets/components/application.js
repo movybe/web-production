@@ -857,7 +857,7 @@ function (_React$Component) {
              */
           //console.log(storageObjectKeysCount , propsKeysCount);
 
-          if (storageObjectKeysCount !== propsKeysCount || this.props.lastUpdated !== _storageObj.lastUpdated) return this.props.restoreState();
+          if (storageObjectKeysCount !== propsKeysCount || this.props.lastUpdated !== _storageObj.lastUpdated) return this.props.restoreState(true);
         }
 
         if (this.props.switchWebsite(_storageObj)) {

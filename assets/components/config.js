@@ -162,7 +162,9 @@ function Config() {
       loadMore: false
     }],
     sponsoredAdsClicked: [],
-    lastUpdated: "02-04-2019",
+    lastUpdated:
+    /*dd-mm-yyyy*/
+    "22-04-2022",
     updateOnlyAds: true,
     sponsoredAds: []
   });
@@ -188,8 +190,10 @@ function Config() {
 
         var newState = _objectSpread({}, _this.initState);
 
-        for (var key in storageObject) {
-          if (key in _this.initState) newState[key] = storageObject[key];
+        if (!action.restoreAll) {
+          for (var key in storageObject) {
+            if (key in _this.initState) newState[key] = storageObject[key];
+          }
         }
 
         if (_this.initState.updateOnlyAds) newState = _objectSpread({}, newState, {
@@ -211,8 +215,10 @@ function Config() {
         });
       },
       restoreState: function restoreState() {
+        var restoreAll = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
         return dispatch({
-          type: 'RESTORE_STATE'
+          type: 'RESTORE_STATE',
+          restoreAll: restoreAll
         });
       },
       switchWebsite: function switchWebsite(state) {

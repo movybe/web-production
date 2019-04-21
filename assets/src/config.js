@@ -33,7 +33,7 @@ class Config {
             {shortName :  "bestbuy"  , name : "Best buy"         , textColor :  '#f6eb16' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
         ],
         sponsoredAdsClicked : [] ,
-        lastUpdated : "02-04-2019",
+        lastUpdated : /*dd-mm-yyyy*/ "22-04-2019",
         updateOnlyAds : true,
         sponsoredAds : [],
 
@@ -59,10 +59,13 @@ class Config {
                 let newState = {...this.initState};
 
 
-                for(let key in storageObject){
-                    if(key in this.initState)
-                      newState[key] = storageObject[key];
+                if(!action.restoreAll) {
+                    for (let key in storageObject) {
+                        if (key in this.initState)
+                            newState[key] = storageObject[key];
+                    }
                 }
+
 
                 if(this.initState.updateOnlyAds) newState = {...newState , locale : this.initState.locale};
 
@@ -83,7 +86,7 @@ class Config {
 
         return {
             newDefaultSearchResult : state => dispatch({type : 'NEW_DEFAULT_SEARCH_RESULT' , state}) ,
-            restoreState : () => dispatch({type : 'RESTORE_STATE'}) ,
+            restoreState : (restoreAll = false) => dispatch({type : 'RESTORE_STATE' , restoreAll}) ,
             switchWebsite : state => dispatch({type : 'SWITCH_WEBSITE' , state})
         };
 
