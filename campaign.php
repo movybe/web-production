@@ -22,7 +22,7 @@ require_once 'config/functions.php';
 
         <?php
         require_once $website_details->INCS_FOLDER.'head-files.php';
-        $stylesheets = array('admin.css' , 'campaign.css'  ,  'main.css'  , 'merchant.css'  , 'footer.css');
+        $stylesheets = array('admin.css' , 'campaign.css'  ,  'main.css'  , 'merchant.css'  , 'footer.css' , 'tour.css');
         echo $functions->printAssets($stylesheets , 'css' , false);
         echo $paystack = $website_details->is_production_mode() ? "<script crossorigin = 'https://js.paystack.co/v1/inline.js'></script>" : $functions->printAssets(['paystack.js']);
 
@@ -38,10 +38,10 @@ require_once 'config/functions.php';
 
 
  <?php
- $scripts = array('cookie.min.js'   , 'timeago.min.js' , 'bgset.min.js' ,'lazy-bg.min.js' , "notify.min.js" , 'particles.js' , 'app.js');
+ $scripts = array('cookie.min.js'   , 'timeago.min.js' , 'bgset.min.js' ,'lazy-bg.min.js' , 'tour.js' , 'notify.min.js' , 'particles.js' , 'app.js');
  $components = array('defaults.js'  , 'footer.js' , 'campaign.js' ,'merchant-header.js' ,  'merchant-plugs.js' , 'merchant.js' ,'affiliate-header.js', 'affiliate.js' , 'admin.js' , 'campaign-settings.js');
  $jquery_validate = array('jquery.validate.js');
- echo $functions->printAssets($scripts  , null , true).$functions->printAssets($components , 'babel' , true , $website_details->COMPONENTS_FOLDER).$functions->printAssets($jquery_validate , 'javascript' , true);
+ echo $functions->printAssets($scripts  , null , true).$functions->printAssets($components , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER : $website_details->SRC_FOLDER).$functions->printAssets($jquery_validate , 'javascript' , true);
 
 ?>
 

@@ -174,8 +174,11 @@ class Campaign extends  React.Component
                                     </p>
                                     <div className="video-container demo-video-container">
 
+                                        {/*
                                         <iframe width="853" height="480" src={defaults.affiliateIntroductionVideo}
                                                 frameBorder="0" allowFullScreen></iframe>
+                                                */}
+
 
                                     </div>
                                 </div>
@@ -188,11 +191,13 @@ class Campaign extends  React.Component
                                 <div className="card-content">
                                     <p>Watch as our CEO explains how Businesses can advertise their products/services with millions of potential online customers in Nigeria.</p>
                                     <div className="video-container demo-video-container">
+                                        {/*
                                         <iframe width="853" height="480" src={defaults.merchantIntroductionVideo} frameBorder="0" allowFullScreen></iframe>
 
                                         <video className="responsive-video" controls>
                                             <source src={defaults.demoVideo2} type="video/mp4"></source>
                                         </video>
+                                        */}
                                     </div>
                                 </div>
 
@@ -407,6 +412,7 @@ class Campaign extends  React.Component
                        this.enableStuffs();
 
                        const action = !response.success  ? this.props.resetState({...this.props  ,  emailVerified:  true , stateReset : false}) : this.loginModalPopup.modal('close') && this.props.resetState({...this.props , emailVerified:  true , stateReset : false , email , user : response.user ,  accountType : response.user.account_type , alreadyExistingAccount: true});
+
 
                    });
 

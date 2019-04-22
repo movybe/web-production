@@ -44,8 +44,8 @@ var browserName = function browserName() {
 var errorMessage = "";
 
 window.onerror = function (msg, url, linenumber) {
-  //errorMessage =  `Error message: ${msg}<br />URL: ${url}<br />Line Number: ${linenumber}`;
-  //document.getElementById('error-message').innerHTML += errorMessage;
+  errorMessage = "Error message: ".concat(msg, "<br />URL: ").concat(url, "<br />Line Number: ").concat(linenumber);
+  document.getElementById('error-message').innerHTML += errorMessage;
   return true;
 }; //Check for mobile devices
 

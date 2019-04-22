@@ -114,13 +114,7 @@ function (_React$Component) {
         className: "card-content"
       }, React.createElement("p", null, "Watch as our CEO explains how ", defaults.siteName, " Affiliate works, and how you too can start making money right now with ", defaults.siteName, " Affiliate."), React.createElement("div", {
         className: "video-container demo-video-container"
-      }, React.createElement("iframe", {
-        width: "853",
-        height: "480",
-        src: defaults.affiliateIntroductionVideo,
-        frameBorder: "0",
-        allowFullScreen: true
-      }))))), React.createElement("div", {
+      })))), React.createElement("div", {
         className: "col s12 m6"
       }, React.createElement("h5", {
         className: "status-headers"
@@ -130,19 +124,7 @@ function (_React$Component) {
         className: "card-content"
       }, React.createElement("p", null, "Watch as our CEO explains how Businesses can advertise their products/services with millions of potential online customers in Nigeria."), React.createElement("div", {
         className: "video-container demo-video-container"
-      }, React.createElement("iframe", {
-        width: "853",
-        height: "480",
-        src: defaults.merchantIntroductionVideo,
-        frameBorder: "0",
-        allowFullScreen: true
-      }), React.createElement("video", {
-        className: "responsive-video",
-        controls: true
-      }, React.createElement("source", {
-        src: defaults.demoVideo2,
-        type: "video/mp4"
-      })))))), React.createElement("div", {
+      })))), React.createElement("div", {
         className: "row z-depth-3 merchant-ad-number-message"
       }, React.createElement("div", {
         className: "col s12 valign-wrapper"

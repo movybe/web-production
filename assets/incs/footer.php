@@ -13,7 +13,7 @@
 
 $includes = array("polyfill.js" , "cookie.min.js" , "bgset.min.js" , "lazy-bg.min.js" ,  "notify.min.js" , "jquery.lightbox.min.js"  ,"numeral.min.js");
 $defaults_js = array("defaults.js");
-echo $functions->printAssets($includes).$functions->printAssets($defaults_js , 'babel' , true , $website_details->COMPONENTS_FOLDER);
+echo $functions->printAssets($includes).$functions->printAssets($defaults_js , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER : $website_details->SRC_FOLDER);
 ?>
 <script async>
     $(function()
@@ -30,5 +30,5 @@ echo $functions->printAssets($includes).$functions->printAssets($defaults_js , '
 <?php
 
 $scripts = array("gallery.js" , "search-tabs.js" ,  "application.js" , "config.js");
-echo $functions->printAssets($scripts , 'babel' , true , $website_details->COMPONENTS_FOLDER);
+echo  $functions->printAssets($scripts , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER  : $website_details->SRC_FOLDER);
 ?>

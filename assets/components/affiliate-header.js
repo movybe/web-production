@@ -248,7 +248,9 @@ function (_React$Component) {
       }, React.createElement("i", {
         className: "material-icons small left"
       }, "message"), defaults.whatsappContact), " "), React.createElement("li", {
-        className: "header-nav"
+        className: "header-nav",
+        "data-step": "1",
+        "data-intro": "Always click here to withdraw your money, anytime"
       }, React.createElement("a", {
         className: "modal-trigger",
         href: "#withdrawal-modal"
@@ -342,9 +344,13 @@ function (_React$Component) {
       }, React.createElement("i", {
         className: "material-icons"
       }, "menu")), React.createElement("a", {
-        href: "#demo-mod",
-        className: "brand-logo  right watch-demo-video modal-trigger"
-      }, "Welcome,", _this.props.user.username), React.createElement("ul", {
+        href: "#",
+        onClick: function onClick(e) {
+          e.preventDefault();
+          introJs().setOption('showProgress', true).start();
+        },
+        className: "brand-logo  right watch-demo-video"
+      }, "Welcome, ", _this.props.user.username), React.createElement("ul", {
         className: "left hide-on-med-and-down"
       }, _this.navContents()))));
     });
@@ -382,7 +388,7 @@ function (_React$Component) {
         className: "modal modal-fixed-footer"
       }, React.createElement("div", {
         className: "modal-content"
-      }, React.createElement("h5", null, "Watch our Demo Video"), React.createElement("div", {
+      }, React.createElement("h5", null, "Tour Guide"), React.createElement("div", {
         className: "video-container"
       }, React.createElement("iframe", {
         width: "1102",

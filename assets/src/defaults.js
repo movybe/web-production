@@ -24,8 +24,8 @@ const browserName = function () {
 
 let errorMessage = "";
 window.onerror= function(msg, url, linenumber) {
-    //errorMessage =  `Error message: ${msg}<br />URL: ${url}<br />Line Number: ${linenumber}`;
-    //document.getElementById('error-message').innerHTML += errorMessage;
+    errorMessage =  `Error message: ${msg}<br />URL: ${url}<br />Line Number: ${linenumber}`;
+    document.getElementById('error-message').innerHTML += errorMessage;
     return true;
 };
 

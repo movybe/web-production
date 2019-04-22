@@ -164,7 +164,7 @@ function Config() {
     sponsoredAdsClicked: [],
     lastUpdated:
     /*dd-mm-yyyy*/
-    "22-04-2022",
+    "22-04-2019",
     updateOnlyAds: true,
     sponsoredAds: []
   });

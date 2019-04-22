@@ -195,9 +195,8 @@ class  AffiliateHeader extends React.Component {
                     <span className="new badge blue notification-badge" data-badge-caption="Must read"></span></a></li>
                 <li className="header-nav"><a className="modal-trigger" onClick={this.handleNavClick} href="#tos-modal"><i className="material-icons small left">assignment</i>Terms<span className="new badge play-badge" data-badge-caption = "updated"></span></a></li>
                 <li ><a onClick={this.handleNavClick} href= {defaults.whatsappContactLink}><i className = "material-icons small left">message</i>{defaults.whatsappContact}</a> </li>
-                <li className="header-nav"><a className="modal-trigger" href="#withdrawal-modal"><i className="material-icons small left">payment</i>Withdraw</a></li>
+                <li className="header-nav" data-step ="1" data-intro = "Always click here to withdraw your money, anytime"><a className="modal-trigger" href="#withdrawal-modal"><i className="material-icons small left">payment</i>Withdraw</a></li>
                 <li ><a onClick= {this.logout} href= "#"><i className = "material-icons small left">power_settings_new</i>Logout</a> </li>
-
             </div>
         )
     };
@@ -253,7 +252,7 @@ class  AffiliateHeader extends React.Component {
                     <div className="nav-wrapper">
                         <a href="#" data-target="mobile-nav" className="sidenav-trigger"><i
                             className="material-icons">menu</i></a>
-                        <a href="#demo-mod" className="brand-logo  right watch-demo-video modal-trigger">Welcome,{this.props.user.username}</a>
+                        <a href="#" onClick={e => {e.preventDefault(); introJs().setOption('showProgress', true).start();}} className="brand-logo  right watch-demo-video">Welcome, {this.props.user.username}</a>
                         <ul className="left hide-on-med-and-down">
                             {this.navContents()}
                         </ul>
@@ -299,7 +298,7 @@ class  AffiliateHeader extends React.Component {
             <div id="demo-modal" className="modal modal-fixed-footer">
                 <div className="modal-content">
                     <h5>
-                        Watch our Demo Video
+                        Tour Guide
                     </h5>
                     <div className="video-container">
                         <iframe width="1102" height="620"

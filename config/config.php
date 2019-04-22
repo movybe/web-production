@@ -41,7 +41,7 @@ class WebsiteConfigurationSettings {
     public  $ParentCompanyName;
     public  $ParentCompanyAddress = "/";
     public $maxNumberOfSuggestion = 5;
-    public $COMPONENTS_FOLDER = null;
+    public $COMPONENTS_FOLDER , $SRC_FOLDER = null;
     public  $MerchantAccountType = "merchant";
     public $UserIdLength = 6;
     public $subscriptionDurationInDays = 30;
@@ -94,6 +94,7 @@ class WebsiteConfigurationSettings {
         $this->MaximumUserProfileImageSizeInWords = strval($this->MaximumUserProfileImageSize / 10). "mb";
         $this->ContactEmail  = 'contact@'.$this->SiteName;
         $this->COMPONENTS_FOLDER = $this->STATIC_FOLDER."components/";
+        $this->SRC_FOLDER = $this->STATIC_FOLDER."src/";
         $this->AD_ID_LENGTH = 7;
 
         $this->AboutUs = <<<AboutUs
