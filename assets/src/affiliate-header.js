@@ -195,8 +195,8 @@ class  AffiliateHeader extends React.Component {
                     <span className="new badge blue notification-badge" data-badge-caption="Must read"></span></a></li>
                 <li className="header-nav"><a className="modal-trigger" onClick={this.handleNavClick} href="#tos-modal"><i className="material-icons small left">assignment</i>Terms<span className="new badge play-badge" data-badge-caption = "updated"></span></a></li>
                 <li ><a onClick={this.handleNavClick} href= {defaults.whatsappContactLink}><i className = "material-icons small left">message</i>{defaults.whatsappContact}</a> </li>
-                <li className="header-nav" data-step ="1" data-intro = "Always click here to withdraw your money, anytime"><a className="modal-trigger" href="#withdrawal-modal"><i className="material-icons small left">payment</i>Withdraw</a></li>
-                <li ><a onClick= {this.logout} href= "#"><i className = "material-icons small left">power_settings_new</i>Logout</a> </li>
+                <li className="header-nav tourJS affiliate-account-tour tour-1" data-step ="1"  data-caption = "Always click here to withdraw your money, anytime."><a className="modal-trigger" href="#withdrawal-modal"><i className="material-icons small left">payment</i>Withdraw</a></li>
+                <li className="tourJS affiliate-account-tour tour-2" data-step = "2" data-caption = "Want to log out? click here"><a onClick= {this.logout} href= "#"><i className = "material-icons small left">power_settings_new</i>Logout</a> </li>
             </div>
         )
     };
@@ -252,7 +252,7 @@ class  AffiliateHeader extends React.Component {
                     <div className="nav-wrapper">
                         <a href="#" data-target="mobile-nav" className="sidenav-trigger"><i
                             className="material-icons">menu</i></a>
-                        <a href="#" onClick={e => {e.preventDefault(); introJs().setOption('showProgress', true).start();}} className="brand-logo  right watch-demo-video">Welcome, {this.props.user.username}</a>
+                        <a href="#" onClick={e => {e.preventDefault(); tourJS.start('affiliate-account-tour')}} className="brand-logo  right watch-demo-video">Hi, {this.props.user.username.capitalize()}</a>
                         <ul className="left hide-on-med-and-down">
                             {this.navContents()}
                         </ul>

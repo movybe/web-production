@@ -248,15 +248,19 @@ function (_React$Component) {
       }, React.createElement("i", {
         className: "material-icons small left"
       }, "message"), defaults.whatsappContact), " "), React.createElement("li", {
-        className: "header-nav",
+        className: "header-nav tourJS affiliate-account-tour tour-1",
         "data-step": "1",
-        "data-intro": "Always click here to withdraw your money, anytime"
+        "data-caption": "Always click here to withdraw your money, anytime."
       }, React.createElement("a", {
         className: "modal-trigger",
         href: "#withdrawal-modal"
       }, React.createElement("i", {
         className: "material-icons small left"
-      }, "payment"), "Withdraw")), React.createElement("li", null, React.createElement("a", {
+      }, "payment"), "Withdraw")), React.createElement("li", {
+        className: "tourJS affiliate-account-tour tour-2",
+        "data-step": "2",
+        "data-caption": "Want to log out? click here"
+      }, React.createElement("a", {
         onClick: _this.logout,
         href: "#"
       }, React.createElement("i", {
@@ -347,10 +351,10 @@ function (_React$Component) {
         href: "#",
         onClick: function onClick(e) {
           e.preventDefault();
-          introJs().setOption('showProgress', true).start();
+          tourJS.start('affiliate-account-tour');
         },
         className: "brand-logo  right watch-demo-video"
-      }, "Welcome, ", _this.props.user.username), React.createElement("ul", {
+      }, "Hi, ", _this.props.user.username.capitalize()), React.createElement("ul", {
         className: "left hide-on-med-and-down"
       }, _this.navContents()))));
     });

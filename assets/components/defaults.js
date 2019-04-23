@@ -42,13 +42,14 @@ var browserName = function browserName() {
 
 
 var errorMessage = "";
-
-window.onerror = function (msg, url, linenumber) {
-  errorMessage = "Error message: ".concat(msg, "<br />URL: ").concat(url, "<br />Line Number: ").concat(linenumber);
-  document.getElementById('error-message').innerHTML += errorMessage;
-  return true;
-}; //Check for mobile devices
-
+/*
+window.onerror= function(msg, url, linenumber) {
+    errorMessage =  `Error message: ${msg} <br />URL: ${url}<br />Line Number: ${linenumber}`;
+    document.getElementById('error-message').innerHTML += errorMessage;
+    return true;
+};
+*/
+//Check for mobile devices
 
 var isMobile = function isMobile() {
   return /Mobi/i.test(navigator.userAgent) || /Android/i.test(navigator.userAgent);
@@ -147,6 +148,10 @@ function () {
     _classCallCheck(this, Defaults);
 
     //Show the contents of the page on page loading animation done
+    this.inArray = function (value, arr) {
+      return arr.indexOf(value) !== -1;
+    };
+
     this.whatsappContact = '+234 708 441 9530';
     this.isProductionMode = window.location.hostname !== 'localhost';
     this.hostName = window.location.hostname;

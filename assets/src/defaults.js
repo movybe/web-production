@@ -23,12 +23,13 @@ const browserName = function () {
 //Handle errors
 
 let errorMessage = "";
+/*
 window.onerror= function(msg, url, linenumber) {
-    errorMessage =  `Error message: ${msg}<br />URL: ${url}<br />Line Number: ${linenumber}`;
+    errorMessage =  `Error message: ${msg} <br />URL: ${url}<br />Line Number: ${linenumber}`;
     document.getElementById('error-message').innerHTML += errorMessage;
     return true;
 };
-
+*/
 
 //Check for mobile devices
 const isMobile = function() {
@@ -132,11 +133,16 @@ class Defaults {
         return this.isProductionMode ? '/' + this.siteNameLowercase  + filename : filename;
     };
 
+
+
     constructor () {
         //Show the contents of the page on page loading animation done
 
 
 
+        this.inArray = function (value , arr) {
+            return arr.indexOf(value) !== -1;
+        };
 
         this.whatsappContact = '+234 708 441 9530';
         this.isProductionMode = window.location.hostname !== 'localhost';
@@ -250,6 +256,7 @@ class Defaults {
             });
             handler.openIframe();
         };
+
 
         this.convertToPaystack = (naira) =>
         {

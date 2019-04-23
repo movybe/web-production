@@ -24,7 +24,7 @@ require_once 'config/functions.php';
         require_once $website_details->INCS_FOLDER.'head-files.php';
         $stylesheets = array('admin.css' , 'campaign.css'  ,  'main.css'  , 'merchant.css'  , 'footer.css' , 'tour.css');
         echo $functions->printAssets($stylesheets , 'css' , false);
-        echo $paystack = $website_details->is_production_mode() ? "<script crossorigin = 'https://js.paystack.co/v1/inline.js'></script>" : $functions->printAssets(['paystack.js']);
+  //      echo $paystack = $website_details->is_production_mode() ? "<script crossorigin = 'https://js.paystack.co/v1/inline.js'></script>" : $functions->printAssets(['paystack.js']);
 
         ?>
 </head>
@@ -36,6 +36,11 @@ require_once 'config/functions.php';
             </main>
        </div>
 
+<div class="tourJS overlay-effect"></div>
+<div id="tourJS-tooltip">
+    <span id="tourJS-caption-text"></span>
+    <a id="tourJS-next-tooltip">Next</a>
+</div>
 
  <?php
  $scripts = array('cookie.min.js'   , 'timeago.min.js' , 'bgset.min.js' ,'lazy-bg.min.js' , 'tour.js' , 'notify.min.js' , 'particles.js' , 'app.js');

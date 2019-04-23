@@ -1,12 +1,9 @@
 <?php
 $pace_js = array('pace.min.js');
 $pace_css = array('pace.css');
-
 echo $functions->printAssets($pace_js , 'javascript' , true , null , "id = 'pace-js'");
-
-
 $cdn_required = <<<CDN_INCLUDES
-     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src='https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -24,4 +21,5 @@ $required = array("jquery.min.js" ,  "materialize.min.js" , "babel.min.js"  , "r
 echo $functions->is_production_mode() ? $cdn_required : $functions->printAssets($materialize_css , "css" , false , null).$functions->printAssets($required);
 echo $functions->printAssets($stylesheets , "css" , false)."\n";
 echo $functions->printAssets($pace_css , 'css' , false , null , "title = 'pace-css' id ='pace-css'");
+
 ?>

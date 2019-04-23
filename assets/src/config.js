@@ -69,7 +69,7 @@ class Config {
 
                 if(this.initState.updateOnlyAds) newState = {...newState , locale : this.initState.locale};
 
-
+                localStorage.clear();
                 localStorage.setItem(defaults.savedState , JSON.stringify({...newState}));
                 return {...newState};
 

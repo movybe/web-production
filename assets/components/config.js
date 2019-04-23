@@ -199,6 +199,7 @@ function Config() {
         if (_this.initState.updateOnlyAds) newState = _objectSpread({}, newState, {
           locale: _this.initState.locale
         });
+        localStorage.clear();
         localStorage.setItem(defaults.savedState, JSON.stringify(_objectSpread({}, newState)));
         return _objectSpread({}, newState);
     }
