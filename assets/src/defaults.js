@@ -117,13 +117,12 @@ $(document).ready (function () {
 
 Pace.on('done' , function (e) {
     $('main.main-container').removeClass('invisible-class');
-
+    //Disable paceCSS since, it interferes with the materialize css
     $('link[title="pace-css"]').prop('disabled' ,  true);
+    //Remove paceJS as well
     $('#pace-js').remove();
     $('link[title="pace-css"]').remove();
-    try {
-        document.getElementById('pace-css').disabled = true;
-    }
+    try{document.getElementById('pace-css').disabled = true;}
     catch (e) {}
 });
 

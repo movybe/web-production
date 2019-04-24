@@ -196,7 +196,7 @@ class  AffiliateHeader extends React.Component {
                 <li className="header-nav"><a className="modal-trigger" onClick={this.handleNavClick} href="#tos-modal"><i className="material-icons small left">assignment</i>Terms<span className="new badge play-badge" data-badge-caption = "updated"></span></a></li>
                 <li ><a onClick={this.handleNavClick} href= {defaults.whatsappContactLink}><i className = "material-icons small left">message</i>{defaults.whatsappContact}</a> </li>
                 <li className="header-nav tourJS affiliate-account-tour tour-1" data-step ="1"  data-caption = "Always click here to withdraw your money, anytime."><a className="modal-trigger" href="#withdrawal-modal"><i className="material-icons small left">payment</i>Withdraw</a></li>
-                <li className="tourJS affiliate-account-tour tour-2" data-step = "2" data-caption = "Want to log out? click here"><a onClick= {this.logout} href= "#"><i className = "material-icons small left">power_settings_new</i>Logout</a> </li>
+                <li className="tourJS affiliate-account-tour tour-2" data-step = "2" data-caption = "You can always logout anytime by clicking here."><a onClick= {this.logout} href= "#"><i className = "material-icons small left">power_settings_new</i>Logout</a> </li>
             </div>
         )
     };

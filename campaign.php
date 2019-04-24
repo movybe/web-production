@@ -36,10 +36,13 @@ require_once 'config/functions.php';
             </main>
        </div>
 
-<div class="tourJS overlay-effect"></div>
-<div id="tourJS-tooltip">
-    <span id="tourJS-caption-text"></span>
-    <a id="tourJS-next-tooltip">Next</a>
+<div class="tourJS">
+<div class="overlay-effect"></div>
+<div class="tourJS-tooltip">
+    <span class="tourJS-caption-text"></span>
+    <a class="tourJS-next-tooltip">Next</a>
+    <a class="tourJS-progress"><span class="tourJS-current-progress">1</span>&nbsp;/&nbsp;<span class="tourJS-total-progress">4</span></a>
+</div>
 </div>
 
  <?php

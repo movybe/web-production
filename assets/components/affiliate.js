@@ -351,7 +351,9 @@ function (_React$Component) {
         className: "col s12 valign-wrapper"
       }, React.createElement("p", {
         className: "notice-message"
-      }, "Your affiliate account will require renewal once every 30 days, provided you've reached our threshold of \u20A6", defaults.thresholdAmount, " for the month.", React.createElement("br", null), "our Demo Video is also a good tour guide for beginners."))), React.createElement("div", {
+      }, "Your affiliate account will require renewal once every 30 days, provided you've reached our threshold of ", React.createElement("strong", {
+        className: "strong"
+      }, "\u20A6", defaults.thresholdAmount.toLocaleString()), " for the month.", React.createElement("br", null), "our Demo Video is also a good tour guide for beginners."))), React.createElement("div", {
         className: "row"
       }, React.createElement("div", {
         className: "col s12 m6"
@@ -369,16 +371,25 @@ function (_React$Component) {
         className: "tab",
         id: "account-balance-tab"
       }, React.createElement("a", {
-        className: "active",
+        className: "active tourJS affiliate-account-tour tour-3",
+        "data-step": "3",
+        "data-caption": "Your account balance is shown here.",
         href: "#account-balance"
       }, "Acc Bal.")), React.createElement("li", {
         className: "tab"
       }, React.createElement("a", {
-        href: "#total-amount-funded"
+        href: "#total-amount-funded",
+        className: "tourJS affiliate-account-tour tour-4",
+        "data-step": "4",
+        "data-caption": "This is the total amount you've earned."
       }, "Income")), React.createElement("li", {
-        className: "tab"
+        className: "tab me"
       }, React.createElement("a", {
-        href: "#total-number-of-ads"
+        href: "#total-number-of-ads",
+        className: "tourJS affiliate-account-tour tour-5",
+        "data-step": "5",
+        "data-caption": "This is the total users you've referred.",
+        "data-tourjs-action": "click"
       }, "Tot Ref.")))), React.createElement("div", {
         className: "card-content grey lighten-4"
       }, React.createElement("div", {
@@ -420,13 +431,17 @@ function (_React$Component) {
         className: "tab"
       }, React.createElement("a", {
         href: "#test5",
-        className: "flow-text"
+        className: "flow-text tourJS affiliate-account-tour tour-6",
+        "data-step": "6",
+        "data-caption": "Your account status is shown here."
       }, "Status")), React.createElement("li", {
         className: "tab"
       }, React.createElement("a", {
         href: "#test6",
-        className: "flow-text"
-      }, "Monthly")))), React.createElement("div", {
+        className: "flow-text tourJS affiliate-account-tour tour-7",
+        "data-step": "7",
+        "data-caption": "Your earnings for the last 30 days."
+      }, "This Month")))), React.createElement("div", {
         className: "card-content grey lighten-4"
       }, React.createElement("div", {
         id: "email-address",
@@ -464,7 +479,9 @@ function (_React$Component) {
         className: "tab",
         id: "account-balance-tab"
       }, React.createElement("a", {
-        className: "active",
+        className: "active tourJS affiliate-account-tour tour-9",
+        "data-step": "9",
+        "data-caption": "use this link to refer your friends to ".concat(defaults.siteName, "."),
         href: "#referer-link"
       }, "Link")), React.createElement("li", {
         className: "tab"
@@ -473,7 +490,10 @@ function (_React$Component) {
       }, "Username")), React.createElement("li", {
         className: "tab"
       }, React.createElement("a", {
-        href: "#invite-link"
+        href: "#invite-link",
+        className: "tourJS affiliate-account-tour tour-8",
+        "data-step": "8",
+        "data-caption": "use this link to invite your friends to ".concat(defaults.siteName, ".")
       }, "Invite")))), React.createElement("div", {
         className: "card-content grey lighten-4"
       }, React.createElement("div", {

@@ -259,7 +259,7 @@ function (_React$Component) {
       }, "payment"), "Withdraw")), React.createElement("li", {
         className: "tourJS affiliate-account-tour tour-2",
         "data-step": "2",
-        "data-caption": "Want to log out? click here"
+        "data-caption": "You can always logout anytime by clicking here."
       }, React.createElement("a", {
         onClick: _this.logout,
         href: "#"

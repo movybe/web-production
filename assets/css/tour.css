@@ -1,4 +1,4 @@
-.tourJS.overlay-effect.overlay
+.tourJS .overlay-effect.overlay
 {
     position: fixed;
     top : 0;
@@ -10,14 +10,19 @@
     background-color: rgba(0 , 0 , 0 , .5);
     z-index: 100;
 }
-
-.tourJS.current-step
+.tourJS .tourJS-caption-text
+{
+    position: relative;
+    font-size: 10px;
+    
+}
+.current-step
 {
     z-index: 2000;
     position: relative;
 }
 
-#tourJS-tooltip {
+.tourJS .tourJS-tooltip {
     top: 40px;
     position: relative;
     background: #ffffff;
@@ -31,12 +36,11 @@
     display: none;
     z-index: 2000;
     font-size: 14px;
-    text-align: ;
     padding: 10px;
 }
 
-#tourJS-tooltip:after,
-#tourJS-tooltip:before {
+.tourJS .tourJS-tooltip:after,
+.tourJS .tourJS-tooltip:before {
     bottom: 100%;
     border: solid transparent;
     content: " ";
@@ -46,7 +50,7 @@
     pointer-events: none;
 }
 
-#tourJS-tooltip:after {
+.tourJS .tourJS-tooltip:after {
     border-color: rgba(255, 255, 255, 0);
     border-bottom-color: #ffffff;
     border-width: 19px;
@@ -54,19 +58,19 @@
     margin-left: -19px;
 }
 
-#tourJS-tooltip:before {
+.tourJS .tourJS-tooltip:before {
     border-color: rgba(113, 158, 206, 0);
     border-bottom-color: #719ECE;
     border-width: 20px;
     left: 50%;
     margin-left: -20px;
 }
-#tourJS-next-tooltip
+.tourJS .tourJS-next-tooltip
 {
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
-    width: 80%;
+    //width: 80%;
     height: 32.4px;
     line-height: 32.4px;
     font-size: 13px;
@@ -87,4 +91,16 @@
     -webkit-tap-highlight-color: transparent;
 }
     
+.tourJS .tourJS-progress
+{
+    color: #000;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    padding-top: 5px;
+    
+}
+.tourJS .tourJS-current-progress
+{
+    font-weight: bold;
 }
