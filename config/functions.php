@@ -258,7 +258,13 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
                     'ip_address' => $ip_address ,
                     'country' => $country]);
            }
-
+    public final function get_current_git_commit( $branch='master' ) {
+        if ( $hash = file_get_contents( sprintf( '.git/refs/heads/%s', $branch ) ) ) {
+            return trim($hash);
+        } else {
+            return false;
+        }
+    }
 }
 
 $functions = new Functions();
