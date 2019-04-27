@@ -69,7 +69,7 @@ if($functions->data_saving_mode_is_enabled())
 
 
 </main>
-<p id = "error-message"><?php echo $website_details->cdn_components; ?></p>
+<p id = "error-message"></p>
 <?php require_once $website_details->INCS_FOLDER.'footer.php'; ?>
 </body>
 </html>
