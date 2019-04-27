@@ -148,10 +148,10 @@ class Defaults {
         this.isProductionMode = window.location.hostname !== 'localhost';
         this.hostName = window.location.hostname;
         this.siteName = 'Movybe';
-        this.parentCompany = this.siteName + ' Studios';
+        this.parentCompany = this.siteName + ' Studio';
         this.siteNameLowercase = this.siteName.toLowerCase();
         this.whatsappContactLink = `https://wa.me/${this.whatsappContact.replace(/ /g,'')}?text=Hello%20${this.siteName}`;
-        this.imageDirectory = this.getFileLocation('assets/img/');
+        this.imageDirectory = this.getFileLocation('/assets/img/');
         this.processorsFolder = '/processors/';
         this.queryProcessor = this.processorsFolder + 'query.php';
         this.crawler = this.processorsFolder + 'crawler.php';
