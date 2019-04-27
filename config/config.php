@@ -59,6 +59,14 @@ class WebsiteConfigurationSettings {
 
     function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords){}
 
+    public final function get_current_git_commit( $branch='master' ) {
+        if ( $hash = file_get_contents( sprintf( '.git/refs/heads/%s', $branch ) ) ) {
+            return trim($hash);
+        } else {
+            return "bb47b663596153dc6b95aa2e4d3641d151a093a4";
+        }
+    }
+
     final public function is_production_mode () : bool
     {
         $server_name = $_SERVER['SERVER_NAME'];
@@ -72,12 +80,12 @@ class WebsiteConfigurationSettings {
 
 
 
-    public function __construct($latest_commit) {
+    public function __construct() {
 
 
         //movybe
         $this->SiteName = 'Movybe';
-        $this->cdn = "https://rawcdn.githack.com/movybe/web-production/{$latest_commit}/";
+        $this->cdn = "https://rawcdn.githack.com/movybe/web-production/{$this->get_current_git_commit()}/";
         $this->cdn_assets = $this->cdn."assets/";
         $this->cdn_img = $this->cdn_assets."img/";
         $this->cdn_js = $this->cdn_assets."js/";
@@ -125,17 +133,17 @@ class WebsiteDetails extends WebsiteConfigurationSettings {
         // TODO: Implement setPageTitleDescriptionKeywords() method.
     }
 
-    public function __construct($latest_commit)
+    public function __construct()
     {
 
-        parent::__construct($latest_commit);
+        parent::__construct();
     }
 
 }
 
 
-$website_details = new WebsiteDetails("450d2fa385e6b18cbfd4cb65a89c0b5b8e2a3309");
-
+$website_details = new WebsiteDetails();
+echo $website_details->get_current_git_commit();
 
 
 ?>
