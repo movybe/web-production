@@ -1,6 +1,7 @@
 <?php
 
 $dir = dirname(__FILE__);
+
 require_once $dir.'/DatabaseConnection.php';
 require_once $dir.'/config.php';
 require_once $dir.'/detect.php';
@@ -183,7 +184,7 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
         $files_resources = "";
         $document_root = $_SERVER['DOCUMENT_ROOT'];
         $website_details->change_cdn_link_from_commit($this->get_current_git_commit());
-        //echo $website_details->cdn_js;
+       // echo $website_details->cdn_js;
         if($is_javascript_file){
             foreach($statics as $static)
             {
@@ -261,13 +262,10 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
                     'ip_address' => $ip_address ,
                     'country' => $country]);
            }
-    public final function get_current_git_commit( $branch='master' ) {
-        if ( $hash = file_get_contents( sprintf( '.git/refs/heads/%s', $branch ) ) ) {
-            return trim($hash);
-        } else {
-            return false;
-        }
-    }
+    public final function get_current_git_commit() {
+
+        return shell_exec("git rev-parse HEAD");
+            }
 }
 
 $functions = new Functions();

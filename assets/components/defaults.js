@@ -141,7 +141,7 @@ function () {
     key: "getFileLocation",
     value: function getFileLocation(filename) {
       //return this.isProductionMode ? '/' + this.siteNameLowercase  + filename : filename;
-      return this.isProductionMode ? "https://rawcdn.githack.com/movybe/web-production/450d2fa385e6b18cbfd4cb65a89c0b5b8e2a3309/assets/" : filename;
+      return this.isProductionMode ? "https://rawcdn.githack.com/movybe/web-production/212324f03701737a9a30b76c3c0754577b72a4dc\n/" : filename;
     }
   }]);
 
@@ -162,7 +162,7 @@ function () {
     this.parentCompany = this.siteName + ' Studios';
     this.siteNameLowercase = this.siteName.toLowerCase();
     this.whatsappContactLink = "https://wa.me/".concat(this.whatsappContact.replace(/ /g, ''), "?text=Hello%20").concat(this.siteName);
-    this.imageDirectory = this.getFileLocation('/assets/img/');
+    this.imageDirectory = this.getFileLocation('assets/img/');
     this.processorsFolder = '/processors/';
     this.queryProcessor = this.processorsFolder + 'query.php';
     this.crawler = this.processorsFolder + 'crawler.php';

@@ -89,7 +89,7 @@ class WebsiteConfigurationSettings {
 
         //movybe
         $this->SiteName = 'Movybe';
-        $this->cdn = $this->cdn_link."61627cdcd137a6f5e52e747b14bdca2ad407e07c/";
+        $this->cdn = $this->cdn_link."212324f03701737a9a30b76c3c0754577b72a4dc/";
         $this->cdn_assets = $this->cdn."assets/";
         $this->cdn_img = $this->cdn_assets."img/";
         $this->cdn_js = $this->cdn_assets."js/";
