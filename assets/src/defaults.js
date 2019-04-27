@@ -129,7 +129,9 @@ Pace.on('done' , function (e) {
 class Defaults {
 
     getFileLocation(filename)  {
-        return this.isProductionMode ? '/' + this.siteNameLowercase  + filename : filename;
+        //return this.isProductionMode ? '/' + this.siteNameLowercase  + filename : filename;
+
+    return this.isProductionMode ? "https://rawcdn.githack.com/movybe/web-production/d13ffb42f5ee2b0ecbfa5d5b96a2184ae1b15147/assets/" : filename;
     };
 
 
