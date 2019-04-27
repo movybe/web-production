@@ -84,17 +84,22 @@ class WebsiteConfigurationSettings {
        return $this->cdn = $this->cdn_link.$latest_commit."/";
     }
 
-    public function __construct() {
 
-
-        //movybe
-        $this->SiteName = 'Movybe';
-        $this->cdn = $this->cdn_link."212324f03701737a9a30b76c3c0754577b72a4dc/";
+    public final function set_cdn($latest_commit) {
+        $this->cdn = $this->cdn_link."$latest_commit/";
         $this->cdn_assets = $this->cdn."assets/";
         $this->cdn_img = $this->cdn_assets."img/";
         $this->cdn_js = $this->cdn_assets."js/";
         $this->cdn_css = $this->cdn_assets."css/";
         $this->cdn_components = $this->cdn_assets."components/";
+    }
+
+    public function __construct() {
+
+
+        //movybe
+        $this->SiteName = 'Movybe';
+        $this->set_cdn("212324f03701737a9a30b76c3c0754577b72a4dc");
         $this->siteNameLowercase = strtolower($this->SiteName);
         $this->ParentCompanyName = $this->SiteName.' Studios';
         $this->DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];

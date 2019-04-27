@@ -5,13 +5,15 @@ $dir = dirname(__FILE__);
 require_once $dir.'/DatabaseConnection.php';
 require_once $dir.'/config.php';
 require_once $dir.'/detect.php';
+require_once $dir.'/Git.php';
 //echo $ip_address = Detect::ip();
-
+$cwd = getcwd();
 class Functions extends  DatabaseConnection {
 
 
 
     public $website_details;
+    public $git_repo = null;
 
     public final function escape_string (string $string){
 
@@ -34,7 +36,6 @@ class Functions extends  DatabaseConnection {
 
         parent::__construct();
         $this->website_details = new WebsiteDetails();
-
 
 
     }
@@ -183,8 +184,8 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
         global $website_details;
         $files_resources = "";
         $document_root = $_SERVER['DOCUMENT_ROOT'];
-        $website_details->change_cdn_link_from_commit($this->get_current_git_commit());
-       // echo $website_details->cdn_js;
+        $website_details->set_cdn($this->get_current_git_commit());
+        echo $website_details->cdn_js;
         if($is_javascript_file){
             foreach($statics as $static)
             {
@@ -262,10 +263,15 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
                     'ip_address' => $ip_address ,
                     'country' => $country]);
            }
-    public final function get_current_git_commit() {
-
-        return shell_exec("git rev-parse HEAD");
-            }
+    public function get_current_git_commit( $branch='master' ) {
+        //if(!is_null($this->git_repo))return $this->git_repo;
+        global $cwd;
+        if ( $hash = file_get_contents( sprintf( $cwd.'/.git/refs/heads/%s', $branch ) ) ) {
+            return trim($hash);
+        } else {
+            return false;
+        }
+    }
 }
 
 $functions = new Functions();
