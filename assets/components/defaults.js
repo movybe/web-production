@@ -140,8 +140,7 @@ function () {
   _createClass(Defaults, [{
     key: "getFileLocation",
     value: function getFileLocation(filename) {
-      //return this.isProductionMode ? '/' + this.siteNameLowercase  + filename : filename;
-      return this.isProductionMode ? "https://rawcdn.githack.com/movybe/web-production/212324f03701737a9a30b76c3c0754577b72a4dc\n/" : filename;
+      return this.isProductionMode ? '/' + this.siteNameLowercase + filename : filename; //return this.isProductionMode ? "https://rawcdn.githack.com/movybe/web-production/212324f03701737a9a30b76c3c0754577b72a4dc\n/" : filename;
     }
   }]);
 
