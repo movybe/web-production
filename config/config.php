@@ -103,7 +103,7 @@ class WebsiteConfigurationSettings {
         $this->siteNameLowercase = strtolower($this->SiteName);
         $this->ParentCompanyName = $this->SiteName.' Studios';
         $this->DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
-        $this->STATIC_FOLDER = $this->getFileLocation("assets/");
+        $this->STATIC_FOLDER = $this->getFileLocation("/assets");
         $this->JS_FOLDER = $this->STATIC_FOLDER."js/";
         $this->CSS_FOLDER = $this->STATIC_FOLDER."css/";
         $this->INCS_FOLDER = $this->is_production_mode() ? $this->DOCUMENT_ROOT."/".$this->siteNameLowercase."/assets/incs/" : $this->DOCUMENT_ROOT."/assets/incs/";
