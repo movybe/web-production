@@ -13,7 +13,7 @@
 
 $includes = array("polyfill.js" , "cookie.min.js" , "bgset.min.js" , "lazy-bg.min.js" ,  "notify.min.js" , "jquery.lightbox.min.js"  ,"numeral.min.js");
 $defaults_js = array("defaults.js");
-echo $functions->printAssets($includes).$functions->printAssets($defaults_js , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER : $website_details->SRC_FOLDER , $website_details->cdn_components);
+echo $functions->printAssets($includes).$functions->printAssets($defaults_js , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER : $website_details->SRC_FOLDER , null , $website_details->cdn_components);
 ?>
 <script async>
     $(function()
