@@ -99,7 +99,7 @@ class WebsiteConfigurationSettings {
 
         //movybe
         $this->SiteName = 'Movybe';
-        $this->set_cdn("212324f03701737a9a30b76c3c0754577b72a4dc");
+       // $this->set_cdn("212324f03701737a9a30b76c3c0754577b72a4dc");
         $this->siteNameLowercase = strtolower($this->SiteName);
         $this->ParentCompanyName = $this->SiteName.' Studios';
         $this->DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
@@ -108,7 +108,7 @@ class WebsiteConfigurationSettings {
         $this->CSS_FOLDER = $this->STATIC_FOLDER."css/";
         $this->INCS_FOLDER = $this->is_production_mode() ? $this->DOCUMENT_ROOT."/".$this->siteNameLowercase."/assets/incs/" : $this->DOCUMENT_ROOT."/assets/incs/";
         $this->BANNER_IMAGES_FOLDER = $this->is_production_mode() ? "{$this->cdn}banner/" :$this->DOCUMENT_ROOT.$this->getFileLocation("/banner/");
-        $this->IMG_FOLDER = $this->is_production_mode() ? $this->cdn_img  :$this->STATIC_FOLDER."img/";
+        $this->IMG_FOLDER =   $this->STATIC_FOLDER."img/";
         $this->SiteNameWithHttps = "https://{$this->SiteNameWithoutHttps}";
         $this->FacebookUrl = "{$this->Https}{$this->Www}facebook.com";
         $this->TwitterUrl = "{$this->Https}{$this->Www}twitter.com";

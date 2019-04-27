@@ -30,5 +30,5 @@ echo $functions->printAssets($includes).$functions->printAssets($defaults_js , '
 <?php
 
 $scripts = array("gallery.js" , "search-tabs.js" ,  "application.js" , "config.js");
-echo  $functions->printAssets($scripts , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER  : $website_details->SRC_FOLDER , null , $website_details->cdn_components);
+echo  $functions->printAssets($scripts , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER  : $website_details->SRC_FOLDER , null);
 ?>
