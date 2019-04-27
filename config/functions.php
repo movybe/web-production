@@ -10,6 +10,7 @@ class Functions extends  DatabaseConnection {
 
 
 
+    public $website_details , $cdn;
 
     public final function escape_string (string $string){
 
@@ -32,6 +33,7 @@ class Functions extends  DatabaseConnection {
 
         parent::__construct();
 
+        $this->cdn = "https://min.gitcdn.link/repo/movybe/web-production/master/";
 
 
     }
@@ -40,8 +42,12 @@ class Functions extends  DatabaseConnection {
     public final function getFileLocation(string $filename) : string
 {
     $site_name = strtolower($this->site_name);
-    return $this->is_production_mode() ? "/{$site_name}{$filename}" :  $filename;
+   // return $this->is_production_mode() ? "/{$site_name}{$filename}" :  $filename;
+    //return $this->is_production_mode() ? "{$this->cdn}assets{$filename}"/*"/{$this->siteNameLowercase}{$filename}"*/ :  $filename;
+
+    return $this->is_production_mode() ? "{$this->cdn}assets{$filename}"/*"/{$this->siteNameLowercase}{$filename}"*/ :  $filename;
 }
+
 
 
 
