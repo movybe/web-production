@@ -192,7 +192,7 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
                 $last_modified = date("F d Y H:i:s A", filemtime($file));
                 $remote_dir = $remote_dir ? $remote_dir : $website_details->cdn_js;
                 //$src = $folder ? $folder.$static : $website_details->JS_FOLDER.$static;
-                $src = $this->is_production_mode() ? $remote_dir.$static : $folder ? $folder.$static : $website_details->JS_FOLDER.$static;
+                $src = $this->is_production_mode() ? $remote_dir.$static : $website_details->JS_FOLDER.$static;
                 $files_resources.="<script type='text/{$type}' src='{$src}?last_modified={$last_modified}' $attr></script>\n";
             }
 
