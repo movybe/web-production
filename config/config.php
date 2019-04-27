@@ -1,7 +1,7 @@
 <?php
 
 class WebsiteConfigurationSettings {
-    public $cdn;
+    public $cdn , $cdn_assets , $cdn_css , $cdn_img , $cdn_js , $cdn_components;
     public  $SiteName;
 	public  $Https = "https://";
 	public  $Www = "www.";
@@ -67,8 +67,10 @@ class WebsiteConfigurationSettings {
 
     public final function getFileLocation(string $filename) : string
     {
-        return $this->is_production_mode() ? "{$this->cdn}assets{$filename}"/*"/{$this->siteNameLowercase}{$filename}"*/ :  $filename;
+        return $this->is_production_mode() ? "/{$this->siteNameLowercase}{$filename}" :  $filename;
     }
+
+
 
     public function __construct() {
 
@@ -76,6 +78,11 @@ class WebsiteConfigurationSettings {
         //movybe
         $this->SiteName = 'Movybe';
         $this->cdn = "https://min.gitcdn.link/repo/movybe/web-production/master/";
+        $this->cdn_assets = $this->cdn."assets/";
+        $this->cdn_img = $this->cdn_assets."img/";
+        $this->cdn_js = $this->cdn_assets."js/";
+        $this->cdn_css = $this->cdn_assets."css/";
+        $this->cdn_components = $this->cdn_assets."components/";
         $this->siteNameLowercase = strtolower($this->SiteName);
         $this->ParentCompanyName = $this->SiteName.' Studios';
         $this->DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
@@ -84,7 +91,7 @@ class WebsiteConfigurationSettings {
         $this->CSS_FOLDER = $this->STATIC_FOLDER."css/";
         $this->INCS_FOLDER = $this->is_production_mode() ? $this->DOCUMENT_ROOT."/".$this->siteNameLowercase."/assets/incs/" : $this->DOCUMENT_ROOT."/assets/incs/";
         $this->BANNER_IMAGES_FOLDER = $this->is_production_mode() ? "{$this->cdn}banner/" :$this->DOCUMENT_ROOT.$this->getFileLocation("/banner/");
-        $this->IMG_FOLDER = $this->STATIC_FOLDER."img/";
+        $this->IMG_FOLDER = $this->is_production_mode() ? $this->cdn_img  :$this->STATIC_FOLDER."img/";
         $this->SiteNameWithHttps = "https://{$this->SiteNameWithoutHttps}";
         $this->FacebookUrl = "{$this->Https}{$this->Www}facebook.com";
         $this->TwitterUrl = "{$this->Https}{$this->Www}twitter.com";
