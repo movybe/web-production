@@ -327,7 +327,9 @@ function (_React$Component) {
                 user: response.user,
                 accountType: response.user.account_type,
                 alreadyExistingAccount: true
-              }));
+              })); //Start the affiliate tour
+
+              tourJS.start('affiliate-account-tour');
             });
           });
         });

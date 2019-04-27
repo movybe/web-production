@@ -1,12 +1,11 @@
-php_value display_errors On
+php_value display_errors Off
 php_flag magic_quotes 1
 php_flag magic_quotes_gpc 1
 php_value mbstring.http_input auto
-php_value date.timezone America/New_York
+php_value date.timezone Africa/Lagos
 RewriteEngine On
 RewriteCond %{HTTPS} Off
 RewriteRule ^(.*)$ http://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-Options -Indexes
 RewriteEngine on
 RewriteRule ^([^/.]+)/?$ $1.php
 RewriteRule ^([^/.]+)/?$ $1.html
@@ -15,10 +14,10 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule .* - [L]
 RewriteRule ^r/([^/]+)$ r.php?referer=$1 [L,QSA]
 RewriteRule ^r/([^/]+)$ campaign.php?r=$1 [L,QSA]
-Options All -Indexes
+Options -Indexes
 DirectoryIndex index.php
 <IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin http://www.movybe.com
+    Header set Access-Control-Allow-Origin https://movybe.com
     Header set Access-Control-Allow-Credentials true
     Header set Connection keep-alive
     </IfModule>

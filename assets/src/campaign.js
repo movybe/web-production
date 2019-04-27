@@ -413,6 +413,8 @@ class Campaign extends  React.Component
 
                        const action = !response.success  ? this.props.resetState({...this.props  ,  emailVerified:  true , stateReset : false}) : this.loginModalPopup.modal('close') && this.props.resetState({...this.props , emailVerified:  true , stateReset : false , email , user : response.user ,  accountType : response.user.account_type , alreadyExistingAccount: true});
 
+                       //Start the affiliate tour
+                       tourJS.start('affiliate-account-tour')
 
                    });
 

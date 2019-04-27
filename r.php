@@ -7,6 +7,7 @@ class HandleNewInvites extends Functions
 {
     private $now;
     private $referer_username;
+    public $referrer_link = "/campaign";
 
     function tryCreditTheReferer() : bool
     {
@@ -24,17 +25,16 @@ class HandleNewInvites extends Functions
 
 
         //get the ip address
-        $ip_address = Detect::ip();
-
+        echo $ip_address = Detect::ip();
 
         //check if the ip address exists in database
-
         if($this->record_exists_in_table($this->visitors_table_name , 'ip_address' , $ip_address))
         {
-
             echo "You've already visited this website before now.";
             return false;
         }
+
+        echo $this->fetch_data_from_table($this->visitors_table_name , 'ip_address' , $ip_address);
 
         //update the last invite date of the website
         $this->update_record($this->site_statistics_table_name , 'last_invitation_date' , $this->now , 'id' , 1);
@@ -64,7 +64,11 @@ class HandleNewInvites extends Functions
 
     function __construct()
     {
+
         parent::__construct();
+        $this->try_insert_or_update_ip_address_in_database();
+
+
         if(isset($_GET['referer']) && !empty($_GET['referer']))
         {
 
@@ -84,6 +88,7 @@ class HandleNewInvites extends Functions
 
             $referer_details = $referer_details[0];
 
+            $this->referrer_link = "/campaign/".$this->referer_username;
 
             //Check if the account type is affiliate
             if($referer_details['account_type'] != 'affiliate')
@@ -177,7 +182,7 @@ class HandleNewInvites extends Functions
                         <span class="invitation-message">
                   <?php
                   $handle_new_invites = new HandleNewInvites();
-                  ?> <a href="/" class="continue-link">Continue</a>
+                  ?> <a href="<?php echo $handle_new_invites->referrer_link?>" class="continue-link">Continue</a>
 
                         </span>
                 </div>

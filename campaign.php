@@ -24,7 +24,7 @@ require_once 'config/functions.php';
         require_once $website_details->INCS_FOLDER.'head-files.php';
         $stylesheets = array('admin.css' , 'campaign.css'  ,  'main.css'  , 'merchant.css'  , 'footer.css' , 'tour.css');
         echo $functions->printAssets($stylesheets , 'css' , false);
-  //      echo $paystack = $website_details->is_production_mode() ? "<script crossorigin = 'https://js.paystack.co/v1/inline.js'></script>" : $functions->printAssets(['paystack.js']);
+        echo $paystack = $website_details->is_production_mode() ? "<script crossorigin = 'https://js.paystack.co/v1/inline.js'></script>" : $functions->printAssets(['paystack.js']);
 
         ?>
 </head>
