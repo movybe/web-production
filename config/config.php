@@ -1,7 +1,7 @@
 <?php
 
 class WebsiteConfigurationSettings {
-    public $cdn , $cdn_assets , $cdn_css , $cdn_img , $cdn_js , $cdn_components;
+    public  $cdn_link = "https://rawcdn.githack.com/movybe/web-production/" , $cdn, $cdn_assets , $cdn_css , $cdn_img , $cdn_js , $cdn_components;
     public  $SiteName;
 	public  $Https = "https://";
 	public  $Www = "www.";
@@ -75,17 +75,21 @@ class WebsiteConfigurationSettings {
 
     public final function getFileLocation(string $filename) : string
     {
-        return $this->is_production_mode() ? "/{$this->siteNameLowercase}{$filename}" :  $filename;
+        return $this->is_production_mode() ? "/{$this->siteNameLowercase}{$filename}/" : "/".$filename;
     }
 
 
+    public final function change_cdn_link_from_commit(string  $latest_commit) : string
+    {
+       return $this->cdn = $this->cdn_link.$latest_commit."/";
+    }
 
     public function __construct() {
 
 
         //movybe
         $this->SiteName = 'Movybe';
-        $this->cdn = "https://rawcdn.githack.com/movybe/web-production/{$this->get_current_git_commit()}/";
+        $this->cdn = $this->cdn_link."61627cdcd137a6f5e52e747b14bdca2ad407e07c/";
         $this->cdn_assets = $this->cdn."assets/";
         $this->cdn_img = $this->cdn_assets."img/";
         $this->cdn_js = $this->cdn_assets."js/";
@@ -94,7 +98,7 @@ class WebsiteConfigurationSettings {
         $this->siteNameLowercase = strtolower($this->SiteName);
         $this->ParentCompanyName = $this->SiteName.' Studios';
         $this->DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
-        $this->STATIC_FOLDER = $this->getFileLocation("/assets/");
+        $this->STATIC_FOLDER = $this->getFileLocation("assets/");
         $this->JS_FOLDER = $this->STATIC_FOLDER."js/";
         $this->CSS_FOLDER = $this->STATIC_FOLDER."css/";
         $this->INCS_FOLDER = $this->is_production_mode() ? $this->DOCUMENT_ROOT."/".$this->siteNameLowercase."/assets/incs/" : $this->DOCUMENT_ROOT."/assets/incs/";
@@ -143,7 +147,7 @@ class WebsiteDetails extends WebsiteConfigurationSettings {
 
 
 $website_details = new WebsiteDetails();
-echo $website_details->get_current_git_commit();
+
 
 
 ?>

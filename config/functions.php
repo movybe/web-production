@@ -182,9 +182,12 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
         global $website_details;
         $files_resources = "";
         $document_root = $_SERVER['DOCUMENT_ROOT'];
+        $website_details->change_cdn_link_from_commit($this->get_current_git_commit());
+        echo $website_details->cdn_js;
         if($is_javascript_file){
             foreach($statics as $static)
             {
+
 
 
 
