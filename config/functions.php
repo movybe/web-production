@@ -205,7 +205,7 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
                 $file = $folder ? $document_root.$folder.$static :  $document_root.$website_details->CSS_FOLDER.$static;
                 $last_modified = date("F d Y H:i:s A", filemtime($file));
                 $remote_dir = $remote_dir ? $remote_dir : $website_details->cdn_css;
-                $src = $this->is_production_mode() ? $remote_dir.$static : $folder ? $folder.$static : $website_details->CSS_FOLDER.$static;
+                $src = $this->is_production_mode() ? $remote_dir.$static : $website_details->CSS_FOLDER.$static;
                 $files_resources.= "<link rel = 'stylesheet' type='text/{$type}'  href='{$src}?last_modified={$last_modified}' $attr />\n";
             }
 
