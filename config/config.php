@@ -64,7 +64,13 @@ class WebsiteConfigurationSettings {
         $server_name = $_SERVER['SERVER_NAME'];
         return $is_production_mode = $server_name !== 'localhost';
     }
-
+    public final function get_current_git_commit( $branch='master' ) {
+        if ( $hash = file_get_contents( sprintf( '.git/refs/heads/%s', $branch ) ) ) {
+            return trim($hash);
+        } else {
+            return false;
+        }
+    }
     public final function getFileLocation(string $filename) : string
     {
         return $this->is_production_mode() ? "/{$this->siteNameLowercase}{$filename}" :  $filename;
@@ -77,7 +83,7 @@ class WebsiteConfigurationSettings {
 
         //movybe
         $this->SiteName = 'Movybe';
-        $this->cdn = "https://rawcdn.githack.com/movybe/web-production/d13ffb42f5ee2b0ecbfa5d5b96a2184ae1b15147/";
+        $this->cdn = "https://rawcdn.githack.com/movybe/web-production/{$this->get_current_git_commit()}/";
         $this->cdn_assets = $this->cdn."assets/";
         $this->cdn_img = $this->cdn_assets."img/";
         $this->cdn_js = $this->cdn_assets."js/";

@@ -131,7 +131,7 @@ class Defaults {
     getFileLocation(filename)  {
         //return this.isProductionMode ? '/' + this.siteNameLowercase  + filename : filename;
 
-    return this.isProductionMode ? "https://rawcdn.githack.com/movybe/web-production/d13ffb42f5ee2b0ecbfa5d5b96a2184ae1b15147/assets/" : filename;
+    return this.isProductionMode ? "https://rawcdn.githack.com/movybe/web-production/450d2fa385e6b18cbfd4cb65a89c0b5b8e2a3309/assets/" : filename;
     };
 
 

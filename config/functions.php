@@ -193,6 +193,9 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
                 $remote_dir = $remote_dir ? $remote_dir : $website_details->cdn_js;
                 //$src = $folder ? $folder.$static : $website_details->JS_FOLDER.$static;
                 $src = $this->is_production_mode() ? $remote_dir.$static : $website_details->JS_FOLDER.$static;
+                if(!$this->is_production_mode()){
+                    $src = $folder ? $folder.$static : $website_details->JS_FOLDER.$static;
+                }
                 $files_resources.="<script type='text/{$type}' src='{$src}?last_modified={$last_modified}' $attr></script>\n";
             }
 
@@ -206,6 +209,9 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
                 $last_modified = date("F d Y H:i:s A", filemtime($file));
                 $remote_dir = $remote_dir ? $remote_dir : $website_details->cdn_css;
                 $src = $this->is_production_mode() ? $remote_dir.$static : $website_details->CSS_FOLDER.$static;
+                if(!$this->is_production_mode()){
+                    $src = $folder ? $folder.$static : $website_details->CSS_FOLDER.$static;
+                }
                 $files_resources.= "<link rel = 'stylesheet' type='text/{$type}'  href='{$src}?last_modified={$last_modified}' $attr />\n";
             }
 
@@ -213,6 +219,8 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
         }
         return $files_resources;
     }
+
+
 
     public final function  increment_value(string $table_name  , string $field_name , float $increment_by , string  $where_clause)
     {
