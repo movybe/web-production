@@ -77,7 +77,7 @@ class WebsiteConfigurationSettings {
 
         //movybe
         $this->SiteName = 'Movybe';
-        $this->cdn = "https://min.gitcdn.link/repo/movybe/web-production/master/";
+        $this->cdn = "https://rawcdn.githack.com/movybe/web-production/d13ffb42f5ee2b0ecbfa5d5b96a2184ae1b15147/";
         $this->cdn_assets = $this->cdn."assets/";
         $this->cdn_img = $this->cdn_assets."img/";
         $this->cdn_js = $this->cdn_assets."js/";
