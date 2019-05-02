@@ -138,11 +138,11 @@ class Actions extends  Functions
     }
 
     private function generateUserId () : string {
-        
         $user_id = $this->generateID($this->website_details->UserIdLength);
         if($this->record_exists_in_table($this->users_table_name , "user_id" , $user_id)) $this->generateUserId();
         return $user_id;
     }
+
     private function create_new_merchant_account () : string
     {
         if(!$this->insert_into_table($this->users_table_name , [
@@ -481,6 +481,9 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         $this->update_record($this->users_table_name , 'subscribed' , 1 , 'email' , "{$this->email}");
 
 
+        //Change the username of the user
+        //$this->update_record($this->users_table_name , "username" , strtolower($this->generateID($this->website_details->UserIdLength , $this->users_table_name , 'username')) , 'user_id' , $user_details['user_id']);
+
         return json_encode([$this->errorText => $this->successText , $this->successText => 1]);
 
     }
@@ -627,8 +630,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         switch ($this->action)
         {
             case 'EMAIL_EXISTS' :
-
-                return json_encode([$this->errorText => $this->emailExistsInTable() ,"user" => $this->getUserDetails() , $this->successText => 1]);
+                return json_encode([$this->errorText => $this->emailExistsInTable() ,"user" => $this->getUserDetails() , $this->successText => 1 ,"username" => strtolower($this->generateID($this->website_details->UserIdLength , $this->users_table_name,"username"))]);
             case 'USERNAME_EXISTS' :
                 $this->email = $this->data['username'];
                 return json_encode([$this->errorText => $this->usernameExistsInTable() , $this->successText => 1]);

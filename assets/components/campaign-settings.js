@@ -27,6 +27,7 @@ var CampaignSettings = function CampaignSettings() {
       cpv: 2,
       cpa: 3
     },
+    defaultUsername: "5t6h8j",
     units: 10,
     reloadPage: false
   });

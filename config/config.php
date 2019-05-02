@@ -1,7 +1,6 @@
 <?php
-
 class WebsiteConfigurationSettings {
-    public  $cdn_link = "https://rawcdn.githack.com/movybe/web-production/" , $cdn, $cdn_assets , $cdn_css , $cdn_img , $cdn_js , $cdn_components;
+    //public  $cdn_link = "https://rawcdn.githack.com/movybe/web-production/" , $cdn, $cdn_assets , $cdn_css , $cdn_img , $cdn_js , $cdn_components;
     public  $SiteName;
 	public  $Https = "https://";
 	public  $Www = "www.";
@@ -48,7 +47,6 @@ class WebsiteConfigurationSettings {
     public $subscriptionDurationInDays = 30;
     public $minimumEarningExpected = 6500;
     public $affiliateSignupFee = 2100;
-
     public $siteAffiliateSignupFee = 700;
     public $amountPaidToAffiliateForReferer = 1400;
     public $withdrawalReferenceCodeLength = 8;
@@ -56,17 +54,7 @@ class WebsiteConfigurationSettings {
     public $maximumNumberOfInvitesForADay = 500;
     public $amountPaidForInvite = 30;
     public $maximumNumberOfAffiliateInvitationsForADay = 5;
-
     function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords){}
-
-    public final function get_current_git_commit( $branch='master' ) {
-        if ( $hash = file_get_contents( sprintf( '.git/refs/heads/%s', $branch ) ) ) {
-            return trim($hash);
-        } else {
-            return "bb47b663596153dc6b95aa2e4d3641d151a093a4";
-        }
-    }
-
     final public function is_production_mode () : bool
     {
         $server_name = $_SERVER['SERVER_NAME'];
@@ -75,35 +63,24 @@ class WebsiteConfigurationSettings {
 
     public final function getFileLocation(string $filename) : string
     {
-        return $this->is_production_mode() ? "/{$this->siteNameLowercase}{$filename}/" : "/".$filename;
+        return $this->is_production_mode() ? "/{$this->siteNameLowercase}/{$filename}" : "/".$filename;
     }
-
-
-    public final function change_cdn_link_from_commit(string  $latest_commit) : string
-    {
-       return $this->cdn = $this->cdn_link.$latest_commit."/";
-    }
-
-
-    public final function set_cdn($latest_commit) {
+    /*public final function set_cdn($latest_commit) {
         $this->cdn = $this->cdn_link."$latest_commit/";
         $this->cdn_assets = $this->cdn."assets/";
         $this->cdn_img = $this->cdn_assets."img/";
         $this->cdn_js = $this->cdn_assets."js/";
         $this->cdn_css = $this->cdn_assets."css/";
         $this->cdn_components = $this->cdn_assets."components/";
-    }
-
+    }*/
     public function __construct() {
-
-
         //movybe
         $this->SiteName = 'Movybe';
        // $this->set_cdn("212324f03701737a9a30b76c3c0754577b72a4dc");
         $this->siteNameLowercase = strtolower($this->SiteName);
         $this->ParentCompanyName = $this->SiteName.' Studios';
         $this->DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
-        $this->STATIC_FOLDER = $this->getFileLocation("/assets");
+        $this->STATIC_FOLDER = $this->getFileLocation("assets/");
         $this->JS_FOLDER = $this->STATIC_FOLDER."js/";
         $this->CSS_FOLDER = $this->STATIC_FOLDER."css/";
         $this->INCS_FOLDER = $this->is_production_mode() ? $this->DOCUMENT_ROOT."/".$this->siteNameLowercase."/assets/incs/" : $this->DOCUMENT_ROOT."/assets/incs/";
@@ -122,37 +99,20 @@ class WebsiteConfigurationSettings {
         $this->COMPONENTS_FOLDER = $this->STATIC_FOLDER."components/";
         $this->SRC_FOLDER = $this->STATIC_FOLDER."src/";
         $this->AD_ID_LENGTH = 7;
-
         $this->AboutUs = <<<AboutUs
-<p>
-                                       Search the Price of Products in Nigeria.  
-                                    </p>
-                                   
+<p>Search the Price of Products in Nigeria.</p>
 AboutUs;
-
-
+    }
 }
-
-}
-
 class WebsiteDetails extends WebsiteConfigurationSettings {
-
     function setPageTitleDescriptionKeywords(string $title, string $description, string $keywords)
     {
         // TODO: Implement setPageTitleDescriptionKeywords() method.
     }
-
     public function __construct()
     {
-
         parent::__construct();
     }
-
 }
-
-
 $website_details = new WebsiteDetails();
-
-
-
 ?>

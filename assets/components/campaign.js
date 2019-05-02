@@ -213,7 +213,8 @@ function (_React$Component) {
           if (!response.error) {
             _this.props.resetState(_objectSpread({}, _this.props, {
               emailVerified: true,
-              stateReset: false
+              stateReset: false,
+              defaultUsername: response.username
             }));
           } else if (response.user.account_type == 'merchant') {
             _this.loginModalPopup.modal('close');
@@ -291,7 +292,12 @@ function (_React$Component) {
           response = JSON.parse(response);
           if (!response.success) return defaults.showToast(response.error); //Disable the form field set
 
-          (_this$campaignFormFie2 = _this.campaignFormFieldset).prop.apply(_this$campaignFormFie2, _toConsumableArray(defaults.disabledTrue));
+          (_this$campaignFormFie2 = _this.campaignFormFieldset).prop.apply(_this$campaignFormFie2, _toConsumableArray(defaults.disabledTrue)); //Change the username generated
+
+
+          _this.props.resetState(_objectSpread({}, _this.props, {
+            defaultUsername: response.username
+          }));
 
           var amount = response.amount;
           var accountName = $('#account-name').val();
@@ -445,7 +451,9 @@ function (_React$Component) {
       }, React.createElement("div", {
         className: "input-field col s12"
       }, React.createElement("input", {
+        defaultValue: _this.props.defaultUsername,
         id: "username",
+        disabled: true,
         name: "username",
         type: "text",
         minLength: defaults.minimumAccountUsernameLength,
@@ -458,9 +466,9 @@ function (_React$Component) {
         className: "active"
       }, "Your username"), React.createElement("span", {
         className: "helper-text username",
-        "data-error": "username must be alpha numeric between 5-12 characters long",
+        "data-error": "username must be alphabet not more than 6 characters long",
         "data-success": ""
-      }, "e.g (emax101 , anabel)")))) : null;
+      })))) : null;
       var headerToShow = _this.props.showRefererEmailField ? React.createElement("span", null, "How Affiliate Works") : React.createElement("span", null, "How Merchant works");
       headerToShow = _this.props.emailVerified ? headerToShow : React.createElement("span", null, "Welcome to ", defaults.siteName, " Campaign");
       var summaryToShow = _this.props.showRefererEmailField ? React.createElement("div", null, React.createElement("p", null, "Now, earning money has become easier with our affiliate account, we pay you ", React.createElement("strong", {

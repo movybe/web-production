@@ -235,14 +235,11 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
 
         $ip_address= Detect::ip();
         $country = Detect::ipCountry();
-
         if($this->record_exists_in_table($this->visitors_table_name , 'ip_address' , $ip_address))
         {
             $now = date('Y-m-d H:i:s');
             $this->update_record($this->visitors_table_name , 'last_visit' , $now , 'ip_address' , $ip_address);
             return $this->increment_value($this->visitors_table_name , 'visits' , 1 , "ip_address = '{$ip_address}'");
-
-
         }
 
            // $country = Detect::ipCountry();
