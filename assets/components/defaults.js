@@ -207,7 +207,7 @@ function () {
     this.merchantIntroductionVideo = 'about:blank';
     this.affiliateTourGuide = 'about:blank';
     this.merchantTourGuide = 'about:blank';
-    this.amountPaidForUniqueVisitor = 30;
+    this.amountPaidForUniqueVisitor = 0.5;
     this.dummyEmail = 'omobang@gmail.com';
     this.thresholdAmount = 6500;
     this.maximumAdminAdMessageLength = 120;
@@ -231,11 +231,6 @@ function () {
     this.successText = 'success';
 
     this.payWithPaystack = function (email, amount, name, call) {
-      // const materializeCss = $('#materialize-css');
-      // const bootstrapCss = $('#bootstrap-css');
-      // const media = 'screen and (min-width:3000px)';
-      //materializeCss.attr('media' , media);
-      // bootstrapCss.removeAttr('media');
       var handler = PaystackPop.setup({
         key: _this.paystackKey,
         email: email,

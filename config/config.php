@@ -52,7 +52,7 @@ class WebsiteConfigurationSettings {
     public $withdrawalReferenceCodeLength = 8;
     public $affiliateWithdrawalProfit = 45;
     public $maximumNumberOfInvitesForADay = 500;
-    public $amountPaidForInvite = 30;
+    public $amountPaidForInvite = 0.5;
     public $maximumNumberOfAffiliateInvitationsForADay = 5;
     function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords){}
     final public function is_production_mode () : bool

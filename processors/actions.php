@@ -28,8 +28,6 @@ class Actions extends  Functions
         $this->email = strtolower($this->data['email']);
 
         return true;
-
-
     }
 
     private function getUserDetails () : array  {

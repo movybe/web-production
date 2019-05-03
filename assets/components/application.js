@@ -511,9 +511,9 @@ function (_React$Component) {
         _this.props.sponsoredAdsClicked.pop();
       }
 
-      (_this$searchFormField2 = _this.searchFormFieldSet).prop.apply(_this$searchFormField2, _toConsumableArray(defaults.disabledTrue));
+      (_this$searchFormField2 = _this.searchFormFieldSet).prop.apply(_this$searchFormField2, _toConsumableArray(defaults.disabledTrue)); //console.log(searchFilterUrl);
 
-      console.log(searchFilterUrl);
+
       $.get(defaults.crawler, {
         url: searchFilterUrl
       }, function (response) {

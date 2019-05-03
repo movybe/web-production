@@ -127,23 +127,16 @@ Pace.on('done' , function (e) {
 });
 
 class Defaults {
-
     getFileLocation(filename)  {
         return this.isProductionMode ? '/' + this.siteNameLowercase  + filename : filename;
     //return this.isProductionMode ? "https://rawcdn.githack.com/movybe/web-production/212324f03701737a9a30b76c3c0754577b72a4dc\n/" : filename;
     };
-
-
-
     constructor () {
         //Show the contents of the page on page loading animation done
-
-
 
         this.inArray = function (value , arr) {
             return arr.indexOf(value) !== -1;
         };
-
         this.whatsappContact = '+234 708 441 9530';
         this.isProductionMode = window.location.hostname !== 'localhost';
         this.hostName = window.location.hostname;
@@ -185,7 +178,6 @@ class Defaults {
         this.enterNewRefererUsernameMessage = 'This user had previously referred you, enter a new username';
         this.disabledTrue = ['disabled' , true];
         this.disabledFalse = ['disabled' , false];
-
         this.numberOfAdSpaceForMerchant = [0 , 1];
         this.numberOfAdSpaceForOmoba = [0 , 1 , 2 , 3 , 5];
         this.minimumAffliateProfit = 6500;
@@ -198,7 +190,7 @@ class Defaults {
         this.merchantIntroductionVideo = 'about:blank';
         this.affiliateTourGuide = 'about:blank';
         this.merchantTourGuide = 'about:blank';
-        this.amountPaidForUniqueVisitor = 30;
+        this.amountPaidForUniqueVisitor = 0.5;
         this.dummyEmail = 'omobang@gmail.com';
         this.thresholdAmount = 6500;
         this.maximumAdminAdMessageLength = 120;
@@ -218,19 +210,10 @@ class Defaults {
        this.accountActivationText = 'Account activation';
        this.merchantYoutubeVideo = 'about:blank';
        this.sponsoredAdText = 'AD';
-
        this.siteWebPackageName = "com.movybe";
        this.successText='success';
         this.payWithPaystack = (email , amount , name , call) =>
         {
-
-           // const materializeCss = $('#materialize-css');
-           // const bootstrapCss = $('#bootstrap-css');
-           // const media = 'screen and (min-width:3000px)';
-            //materializeCss.attr('media' , media);
-           // bootstrapCss.removeAttr('media');
-
-
             const handler = PaystackPop.setup({
                 key: this.paystackKey,
                 email: email,
@@ -256,7 +239,6 @@ class Defaults {
             });
             handler.openIframe();
         };
-
 
         this.convertToPaystack = (naira) =>
         {
