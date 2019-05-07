@@ -93,7 +93,7 @@ var searchResults = '-search-results'; //Introduce strict-typing to the applicat
 
 The function below i.e String.format works like this:
 var sentence = String.format('My name is {0} i am a {1} from {2} and i am {} years old' , 'Kosi Eric' , 'Programmer' , 'Nigeria' , 19);
-console.log(sentence)
+//console.log(sentence)
 
 
 //prints

@@ -197,15 +197,14 @@ function (_React$Component) {
           email: email,
           action: 'EMAIL_EXISTS'
         };
-        data = JSON.stringify(data);
-        console.log(data);
+        data = JSON.stringify(data); //console.log(data);
+
         $.post(defaults.actions, {
           data: data
         }, function (response) {
           var _this$campaignFormFie;
 
-          console.log(response);
-
+          //console.log(response);
           _this.emailField.removeClass('invalid');
 
           response = JSON.parse(response); //return;

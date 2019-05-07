@@ -2,11 +2,7 @@
 
 date_default_timezone_set("Africa/Lagos");
 class DatabaseConnection {
-
-
-
     /*
-
 
     Renaming a column in sql
 
@@ -17,25 +13,14 @@ class DatabaseConnection {
 
 
     */
-
-
-    public $database_username = "root"; // username for the database
-    public $database_password = "";
-    public $database_host = "localhost";
-    public $database = "movybe"; // database name
-    public $production_database_username = 'movybeco_guys';
-    public $production_database_name = 'movybeco_users';
-    public $production_database_password = 'Quicknaira.com';
-    public  $conn;
-    public $words_table_name = "words";
-    public $queries_table_name = "queries";
-    public $users_table_name = "users";
-    public $ads_table_name = "ads";
-    public $visitors_table_name = "visitors";
-    public $site_statistics_table_name = "site_statistics";
-    public $withdrawals_table_name = "withdrawals";
-    public $website_details;
-    public $site_name;
+    public $database_username = "root", // username for the database
+        $database_password = "", $database_host = "localhost", $database = "movybe", // database name
+        $production_database_username = 'movybeco_guys', $production_database_name = 'movybeco_users',
+        $production_database_password = 'Quicknaira.com', $conn, $words_table_name = "words",
+        $queries_table_name = "queries", $users_table_name = "users", $ads_table_name = "ads",
+        $visitors_table_name = "visitors", $site_statistics_table_name = "site_statistics",
+        $withdrawals_table_name = "withdrawals", $website_details,
+        $site_name,$transactions_history_table_name = "transactions_history";
 
     final public function is_production_mode () : bool
     {
@@ -93,7 +78,7 @@ class DatabaseConnection {
     public final function create_withdrawals_table () : bool
     {
         $sql = "CREATE TABLE IF NOT EXISTS {$this->withdrawals_table_name}(
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT  NULL  ,
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT  NULL  ,
     username VARCHAR (100) NOT NULL DEFAULT  'movybe',
     amount DOUBLE(16,2) NOT NULL DEFAULT 0,
     withdrawal_date TIMESTAMP NOT NULL  DEFAULT  CURRENT_TIMESTAMP ,
@@ -102,18 +87,7 @@ class DatabaseConnection {
     reference_code VARCHAR(100) NOT NULL UNIQUE,
     seen int not null DEFAULT 0 comment '0 false, 1 true'
     )";
-        try {
-
-            $this->conn->exec($sql);
-            echo "Table Created successfully";
-            return true;
-        }
-
-        catch (PDOException $exception) {
-            echo "Error occurred {$exception->getMessage()}";
-            return false;
-        }
-
+        return $this->try_create_table($sql);
 
 
     }
@@ -121,24 +95,12 @@ class DatabaseConnection {
     public final  function  create_words_table() : bool  {
 
         $sql = "CREATE TABLE IF NOT EXISTS {$this->words_table_name}(
-        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL ,
+        id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL ,
         word VARCHAR (100) NOT NULL  UNIQUE ,
         occurrence BIGINT NOT NULL  
     )";
 
-        try {
-
-            $this->conn->exec($sql);
-            echo "Table Created successfully";
-            return true;
-        }
-
-        catch (PDOException $exception) {
-            echo "Error occurred {$exception->getMessage()}";
-            return false;
-        }
-
-
+        return $this->try_create_table($sql);
 
     }
 
@@ -154,23 +116,13 @@ class DatabaseConnection {
              last_visit TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )";
 
-        try {
-
-            $this->conn->exec($sql);
-            echo "Table Created successfully";
-            return true;
-        }
-
-        catch (PDOException $exception) {
-            echo "Error occurred {$exception->getMessage()}";
-            return false;
-        }
+        return $this->try_create_table($sql);
     }
 
     public final  function  create_users_table() : bool
     {
         $sql = "CREATE TABLE IF NOT EXISTS {$this->users_table_name}(
-        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         email VARCHAR (100) NOT NULL  UNIQUE ,
         account_balance DOUBLE(16,2) NOT NULL DEFAULT 0, 
         account_type VARCHAR (100) NOT NULL , 
@@ -199,19 +151,7 @@ class DatabaseConnection {
         last_invitation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
 
-
-
-        try {
-
-            $this->conn->exec($sql);
-            echo "Table Created successfully";
-            return true;
-        }
-
-        catch (PDOException $exception) {
-            echo "Error occurred {$exception->getMessage()}";
-            return false;
-        }
+        return $this->try_create_table($sql);
 
     }
 
@@ -254,18 +194,7 @@ class DatabaseConnection {
           last_viewed TIMESTAMP NOT NULL  DEFAULT CURRENT_TIMESTAMP,
           last_clicked  TIMESTAMP NOT NULL  DEFAULT CURRENT_TIMESTAMP
       )";
-        try {
-
-            $this->conn->exec($sql);
-            echo "Table Created successfully";
-            return true;
-        }
-
-        catch (PDOException $exception) {
-            echo "Error occurred {$exception->getMessage()}";
-            return false;
-        }
-
+        return $this->try_create_table($sql);
     }
 
     public final function create_site_statistics_table () : bool
@@ -289,45 +218,47 @@ class DatabaseConnection {
                total_number_of_invites BIGINT NOT NULL DEFAULT 0
                 )";
 
+        return $this->try_create_table($sql);
+    }
+    
+    public final function create_transactions_history_table() : bool 
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS {$this->transactions_history_table_name}(
+                id BIGINT UNSIGNED NOT NULL  AUTO_INCREMENT PRIMARY KEY,
+                transaction_type VARCHAR (100) NOT NULL DEFAULT 'transfer',
+                transaction_text VARCHAR (100) NOT NULL DEFAULT  'transferred',
+                transaction_date TIMESTAMP NOT NULL  DEFAULT CURRENT_TIMESTAMP ,
+                from_user VARCHAR (100) NOT NULL DEFAULT 'you',
+                to_user VARCHAR (100) NOT NULL DEFAULT 'someone',
+                transaction_amount DOUBLE(16 , 3) NOT NULL DEFAULT  0.0
+              )";
+        return $this->try_create_table($sql);
+    }
+
+    public final function  try_create_table(string $sql) : bool
+    {
         try {
 
             $this->conn->exec($sql);
-            $msg = "";
             echo "Table Created successfully";
             return true;
-                }
+        }
 
         catch (PDOException $exception) {
             echo "Error occurred {$exception->getMessage()}";
             return false;
         }
-
-
-
     }
 
     public final  function  create_queries_table() : bool  {
 
         $sql = "CREATE TABLE IF NOT EXISTS {$this->queries_table_name}(
-        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         query VARCHAR (100) NOT NULL  UNIQUE ,
         occurrence BIGINT NOT NULL  
     )";
 
-        try {
-
-            $this->conn->exec($sql);
-            echo "Table Created successfully";
-            return true;
-        }
-
-        catch (PDOException $exception) {
-            echo "Error occurred {$exception->getMessage()}";
-            return false;
-        }
-
-
-
+        return $this->try_create_table($sql);
     }
 
 
@@ -545,6 +476,7 @@ ALTER TABLE users ADD last_free_mode_time VARCHAR( 255 ) NOT NULL DEFAULT '0';
             $this->create_visitors_table();
             $this->create_site_statistics_table();
             $this->create_withdrawals_table();
+            $this->create_transactions_history_table();
             return true;
 
     }

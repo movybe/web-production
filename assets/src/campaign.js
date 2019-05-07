@@ -309,9 +309,9 @@ class Campaign extends  React.Component
 
             data = {email, action: 'EMAIL_EXISTS'};
             data = JSON.stringify(data);
-            console.log(data);
+            //console.log(data);
             $.post(defaults.actions, {data}, response => {
-                console.log(response);
+                //console.log(response);
                 this.emailField.removeClass('invalid');
                 response = JSON.parse(response);
 

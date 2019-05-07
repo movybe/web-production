@@ -269,7 +269,8 @@ function (_React$Component) {
           action: 'CONFIRM_PAYMENT',
           email: _this.props.email,
           reference_code: _this.state.payment_details[0].reference_code,
-          amount: _this.state.payment_details[0].amount
+          amount: _this.state.payment_details[0].amount,
+          username: _this.state.payment_details[0].username
         };
         data = JSON.stringify(data);
         $.post(defaults.actions, {

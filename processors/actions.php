@@ -6,15 +6,14 @@ require_once '../config/functions.php';
 
 class Actions extends  Functions
 {
-    private $data , $error , $success , $action , $email , $username , $user_details , $reference , $ad_id , $sponsored_ad;
-    private $errorText = "error" , $successText = "success";
-    private $networkErrorOccured = "unknown network error";
-    private $emailAddressAlreadyExistsErrorMessage = "Sorry, email already exists";
-    private $usernameAlreadyExistsErrorMessage = "Sorry, username already taken";
-    private $refererUsernameNotFoundMessage = "Sorry, referer username not found";
-    private $refererAccountExpiredMessage = "Your referer is no longer active";
-    private $userIsNotAnAffiliateMemberMessage = "the referer is not an affiliate member";
-    private $successfulWithdrawalMessage = "Withdrawal Successful, your account will be credited within the next 15min";
+    private $data , $error , $success , $action , $email , $username , $user_details , $reference , $ad_id , $sponsored_ad,
+    $errorText = "error" , $successText = "success", $networkErrorOccured = "unknown network error",
+    $emailAddressAlreadyExistsErrorMessage = "Sorry, email already exists",
+    $usernameAlreadyExistsErrorMessage = "Sorry, username already taken",
+    $refererUsernameNotFoundMessage = "Sorry, referer username not found",
+    $refererAccountExpiredMessage = "Your referer is no longer active",
+    $userIsNotAnAffiliateMemberMessage = "the referer is not an affiliate member",
+    $successfulWithdrawalMessage = "Withdrawal Successful, your account will be credited within the next 15min";
     private final  function  isReady () : bool
     {
         return isset($_POST['data']) && !empty($this->data = json_decode($_POST['data'] , true));
@@ -619,8 +618,18 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         //Increment the amount paid out
         $this->increment_value($this->site_statistics_table_name , 'total_amount_paid_out' , $this->data['amount'] , 'id =1');
 
+        //Add this transaction to transaction history table
+        $this->insert_into_table($this->transactions_history_table_name ,
+            [
+                'transaction_type' => $this->website_details->transactionTypes['payment']['type'],
+                'transaction_text' => $this->website_details->transactionTypes['payment']['action'],
+                'from_user' => $this->website_details->siteNameLowercase,
+                'to_user' => $this->data['username'],
+                'transaction_amount' => $this->data['amount']
+                ]);
         return json_encode([$this->successText => 1 , $this->errorText => $this->successText]);
     }
+
     public function actionProcessor () : string
     {
         if(!$this->isReady() or !$this->setDetails()) return json_encode([$this->errorText => $this->networkErrorOccured , $this->successText => 0]);
@@ -687,12 +696,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         }
     }
 
-
-
-
-
 }
-
 $actions = new Actions();
 echo $actions->actionProcessor();
 ?>

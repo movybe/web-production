@@ -183,7 +183,8 @@ class Admin extends React.Component
                 action: 'CONFIRM_PAYMENT',
                 email: this.props.email,
                 reference_code: this.state.payment_details[0].reference_code,
-                amount : this.state.payment_details[0].amount
+                amount : this.state.payment_details[0].amount,
+                username : this.state.payment_details[0].username
             };
             data = JSON.stringify(data);
 

@@ -13,7 +13,12 @@ class WebsiteConfigurationSettings {
     $ParentCompanyAddress = "/", $maxNumberOfSuggestion = 5, $COMPONENTS_FOLDER , $SRC_FOLDER = null,
     $MerchantAccountType = "merchant", $UserIdLength = 6, $subscriptionDurationInDays = 30, $minimumEarningExpected = 6500,
     $affiliateSignupFee = 2100, $invitation_amount_to_pay_per_account_renewal = 300, $siteAffiliateSignupFee = 700, $amountPaidToAffiliateForReferer = 1400, $withdrawalReferenceCodeLength = 8, $affiliateWithdrawalProfit = 45,
-    $maximumNumberOfInvitesForADay = 500, $amountPaidForInvite = 0.5, $maximumNumberOfAffiliateInvitationsForADay = 5;
+    $maximumNumberOfInvitesForADay = 500, $amountPaidForInvite = 0.5, $maximumNumberOfAffiliateInvitationsForADay = 5,
+    $transactionTypes = [
+        'payment' => ['type' => 'paid' , 'action' => 'paid'] ,
+        'transfer' => ['type' => 'transfer' , 'action' => 'transferred'],
+        'receive' => ['type' => 'receive' , 'action' => 'received']
+    ];
     
     function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords){}
     final public function is_production_mode () : bool
