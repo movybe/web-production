@@ -154,7 +154,7 @@ function () {
       return arr.indexOf(value) !== -1;
     };
 
-    this.whatsappContact = '+234 708 441 9530';
+    this.whatsappContact = '+234 905 897 7259';
     this.isProductionMode = window.location.hostname !== 'localhost';
     this.hostName = window.location.hostname;
     this.siteName = 'Movybe';

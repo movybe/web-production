@@ -972,9 +972,6 @@ class Application extends React.Component {
                 //console.log(storageObjectKeysCount , propsKeysCount);
                 if(storageObjectKeysCount !== propsKeysCount || this.props.lastUpdated !== storageObj.lastUpdated) return this.props.restoreState(true);
             }
-
-
-
             if (this.props.switchWebsite(storageObj)) {
                 //hello
                 this.formSubmitted = true;
@@ -984,7 +981,6 @@ class Application extends React.Component {
                     $('.tabs').tabs('select', this.props.currentWebsite);
                     this.formSubmitted = true;
                     this.searchTabs.show();
-
                 }
             }
 

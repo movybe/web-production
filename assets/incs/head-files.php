@@ -1,5 +1,5 @@
 <?php
-
+$functions->tryRedirectToHttps();
 $pace_js = array('pace.min.js');
 $pace_css = array('pace.css');
 echo $functions->printAssets($pace_js , 'javascript' , true , null , "id = 'pace-js'");

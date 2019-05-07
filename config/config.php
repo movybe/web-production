@@ -1,59 +1,20 @@
 <?php
 class WebsiteConfigurationSettings {
-    //public  $cdn_link = "https://rawcdn.githack.com/movybe/web-production/" , $cdn, $cdn_assets , $cdn_css , $cdn_img , $cdn_js , $cdn_components;
-    public  $SiteName;
-	public  $Https = "https://";
-	public  $Www = "www.";
-	public  $SiteNameWithoutHttps = "www.movybe.com";
-	public  $SiteNameWithHttps = "";
-	public $siteNameLowercase;
-    public  $FacebookUrl = "";
-    public  $TwitterUrl  = "";
-    public  $InstagramUrl = "";
-    public  $SiteAuthor = "Kosi Eric";
-    public  $WebsiteCategory = "Price Search Engine";
-    public  $TwitterHandle = "";
-    public  $FacebookHandle = "";
-    public  $InstagramHandle = "";
-    public  $MaximumUserProfileImageSize = 50000000;
-    public  $MaximumUserProfileImageSizeInWords = "";
-    public  $WebsiteCoverage = "Nigeria";
-    public  $WebsiteSubject = "Search the Price of Products in Nigeria";
-    public  $WebsiteClassification = "Search";
-    public  $DOCUMENT_ROOT;
-    public  $LinkShortUrlLength = 5;
-    public  $NumberOfSponsoredAdsToShow = 1;
-    public  $STATIC_FOLDER;
-    public  $JS_FOLDER;
-    public  $CSS_FOLDER;
-    public  $INCS_FOLDER;
-    public  $IMG_FOLDER;
-    public  $AboutUs;
-    public  $PrimaryEmailServer = "smtp.gmail.com";
-    public  $PrimaryEmail = "mytwisttr@gmail.com";
-    public  $MessageEmail = "mytwisttr@gmail.com";
-    public  $MessageEmailPassword = '4mdcfohb';
-    public  $PrimaryEmailPassword = '4mdcfohb';
-    public  $ContactEmail;
-    public  $BANNER_IMAGES_FOLDER;
-    public  $ErrorPage = "/404.php";
-    public  $PageDescription = "Search the Price of Products in Nigeria";
-    public  $ParentCompanyName;
-    public  $ParentCompanyAddress = "/";
-    public $maxNumberOfSuggestion = 5;
-    public $COMPONENTS_FOLDER , $SRC_FOLDER = null;
-    public  $MerchantAccountType = "merchant";
-    public $UserIdLength = 6;
-    public $subscriptionDurationInDays = 30;
-    public $minimumEarningExpected = 6500;
-    public $affiliateSignupFee = 2100;
-    public $siteAffiliateSignupFee = 700;
-    public $amountPaidToAffiliateForReferer = 1400;
-    public $withdrawalReferenceCodeLength = 8;
-    public $affiliateWithdrawalProfit = 45;
-    public $maximumNumberOfInvitesForADay = 500;
-    public $amountPaidForInvite = 0.5;
-    public $maximumNumberOfAffiliateInvitationsForADay = 5;
+    public
+    $cdn_link = "https://rawcdn.githack.com/movybe/web-production/",$cdn, $cdn_assets , $cdn_css , $cdn_img , $cdn_js , $cdn_components, $SiteName,
+    $Https = "https://",$Www = "www.",$SiteNameWithoutHttps = "www.movybe.com", $SiteNameWithHttps = "", $siteNameLowercase, $FacebookUrl = "",
+    $TwitterUrl  = "",$InstagramUrl = "", $SiteAuthor = "Kosi Eric", $WebsiteCategory = "Price Search Engine", $TwitterHandle = "", $FacebookHandle = "",
+    $InstagramHandle = "",$MaximumUserProfileImageSize = 50000000, $MaximumUserProfileImageSizeInWords = "", $WebsiteCoverage = "Nigeria",
+    $WebsiteSubject = "Search the Price of Products in Nigeria", $WebsiteClassification = "Search", $DOCUMENT_ROOT, $LinkShortUrlLength = 5,
+    $NumberOfSponsoredAdsToShow = 1, $STATIC_FOLDER, $JS_FOLDER, $CSS_FOLDER, $INCS_FOLDER, $IMG_FOLDER, $AboutUs, 
+    $PrimaryEmailServer = "smtp.gmail.com", $PrimaryEmail = "mytwisttr@gmail.com", $MessageEmail = "mytwisttr@gmail.com", 
+    $MessageEmailPassword = '4mdcfohb', $PrimaryEmailPassword = '4mdcfohb', $ContactEmail, $BANNER_IMAGES_FOLDER,
+    $ErrorPage = "/404.php", $PageDescription = "Search the Price of Products in Nigeria", $ParentCompanyName,
+    $ParentCompanyAddress = "/", $maxNumberOfSuggestion = 5, $COMPONENTS_FOLDER , $SRC_FOLDER = null,
+    $MerchantAccountType = "merchant", $UserIdLength = 6, $subscriptionDurationInDays = 30, $minimumEarningExpected = 6500,
+    $affiliateSignupFee = 2100, $invitation_amount_to_pay_per_account_renewal = 300, $siteAffiliateSignupFee = 700, $amountPaidToAffiliateForReferer = 1400, $withdrawalReferenceCodeLength = 8, $affiliateWithdrawalProfit = 45,
+    $maximumNumberOfInvitesForADay = 500, $amountPaidForInvite = 0.5, $maximumNumberOfAffiliateInvitationsForADay = 5;
+    
     function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords){}
     final public function is_production_mode () : bool
     {

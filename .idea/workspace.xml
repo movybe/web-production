@@ -2,13 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="598e7940-3c59-4d86-9dda-2ed1c27dc0d7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/img/Untitled design.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/campaign.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/campaign.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/components/defaults.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/defaults.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/Untitled design (7).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/omoba-fb.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/incs/head-files.php" beforeDir="false" afterPath="$PROJECT_DIR$/assets/incs/head-files.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/src/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/application.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/src/campaign.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/campaign.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/src/defaults.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/defaults.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/DatabaseConnection.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/DatabaseConnection.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/functions.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/processors/actions.php" beforeDir="false" afterPath="$PROJECT_DIR$/processors/actions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/processors/crawler.php" beforeDir="false" afterPath="$PROJECT_DIR$/processors/crawler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/processors/suggestions.php" beforeDir="false" afterPath="$PROJECT_DIR$/processors/suggestions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/r.php" beforeDir="false" afterPath="$PROJECT_DIR$/r.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.php" beforeDir="false" afterPath="$PROJECT_DIR$/test.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,12 +49,13 @@
           <entry key="project.closed" value="1" />
           <entry key="project.open.time.53" value="1" />
           <entry key="project.open.time.63" value="1" />
+          <entry key="project.open.time.68" value="1" />
           <entry key="project.open.time.71" value="1" />
           <entry key="project.open.time.73" value="1" />
           <entry key="project.open.time.77" value="1" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.90" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -50,9 +63,10 @@
           <entry key="css" value="3" />
           <entry key="gitignore" value="2" />
           <entry key="htaccess" value="4" />
-          <entry key="js" value="26" />
+          <entry key="js" value="28" />
           <entry key="json" value="1" />
-          <entry key="php" value="31" />
+          <entry key="php" value="40" />
+          <entry key="sql" value="1" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
@@ -60,9 +74,10 @@
         <counts>
           <entry key="CSS" value="3" />
           <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="26" />
-          <entry key="PHP" value="31" />
+          <entry key="JavaScript" value="28" />
+          <entry key="PHP" value="40" />
           <entry key="PLAIN_TEXT" value="3" />
+          <entry key="SQL" value="1" />
           <entry key="htaccess" value="4" />
         </counts>
       </usages-collector>
@@ -71,16 +86,17 @@
           <entry key="css" value="296" />
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="18" />
-          <entry key="js" value="8181" />
-          <entry key="php" value="3101" />
+          <entry key="js" value="8200" />
+          <entry key="php" value="4407" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="296" />
-          <entry key="JavaScript" value="8181" />
-          <entry key="PHP" value="3101" />
+          <entry key="JavaScript" value="8200" />
+          <entry key="PHP" value="4406" />
           <entry key="PLAIN_TEXT" value="8" />
+          <entry key="SQL" value="1" />
           <entry key="htaccess" value="18" />
         </counts>
       </usages-collector>
@@ -91,8 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1258">
-              <caret line="74" column="5" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
+            <state relative-caret-position="336">
+              <caret line="286" selection-start-line="286" selection-end-line="286" />
             </state>
           </provider>
         </entry>
@@ -100,17 +116,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/processors/actions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="36" lean-forward="true" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+            <state relative-caret-position="232">
+              <caret line="345" lean-forward="true" selection-start-line="345" selection-end-line="345" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/r.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="24">
+              <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/config.php">
+        <entry file="file://$PROJECT_DIR$/test.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="74" column="7" lean-forward="true" selection-start-line="74" selection-start-column="7" selection-end-line="74" selection-end-column="7" />
+            <state relative-caret-position="234">
+              <caret line="16" column="42" lean-forward="true" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -118,8 +143,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/campaign.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="799">
-              <caret line="47" column="8" selection-start-line="47" selection-start-column="8" selection-end-line="47" selection-end-column="8" />
+            <state relative-caret-position="289">
+              <caret line="37" column="24" lean-forward="true" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -127,26 +152,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/src/campaign.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5542">
-              <caret line="326" selection-start-line="326" selection-end-line="326" />
+            <state relative-caret-position="194">
+              <caret line="444" column="53" selection-start-line="444" selection-start-column="53" selection-end-line="444" selection-end-column="53" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/src/config.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="123" lean-forward="true" selection-start-line="123" selection-end-line="123" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/assets/incs/movybe.sql">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.htaccess">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-705">
-              <caret line="14" column="50" lean-forward="true" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="50" />
+            <state relative-caret-position="102">
+              <caret line="6" column="39" lean-forward="true" selection-end-line="35" />
             </state>
           </provider>
         </entry>
@@ -174,10 +195,20 @@
       <find>validate</find>
       <find>reactivate</find>
       <find>activate_</find>
+      <find>console</find>
+      <find>$DatabaseConnection</find>
+      <find>public</find>
+      <find>;</find>
+      <find>public</find>
+      <find>omoba</find>
+      <find>0.5</find>
+      <find>invitee_link</find>
     </findStrings>
     <replaceStrings>
       <replace>tour</replace>
       <replace>tourJS-tooltip</replace>
+      <replace>$this</replace>
+      <replace>,</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -186,30 +217,32 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/test.php" />
-        <option value="$PROJECT_DIR$/assets/src/application.js" />
         <option value="$PROJECT_DIR$/assets/src/config.js" />
         <option value="$PROJECT_DIR$/assets/css/tour.css" />
         <option value="$PROJECT_DIR$/assets/js/tour.js" />
         <option value="$PROJECT_DIR$/assets/src/affiliate-header.js" />
         <option value="$PROJECT_DIR$/assets/src/affiliate.js" />
-        <option value="$PROJECT_DIR$/r.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/config/IGit.php" />
         <option value="$PROJECT_DIR$/config/GitRepository.php" />
-        <option value="$PROJECT_DIR$/assets/incs/head-files.php" />
         <option value="$PROJECT_DIR$/htacess.txt" />
         <option value="$PROJECT_DIR$/assets/incs/footer.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/campaign.php" />
-        <option value="$PROJECT_DIR$/config/functions.php" />
         <option value="$PROJECT_DIR$/assets/src/campaign-settings.js" />
-        <option value="$PROJECT_DIR$/assets/src/campaign.js" />
-        <option value="$PROJECT_DIR$/processors/actions.php" />
         <option value="$PROJECT_DIR$/processors/crawler.php" />
-        <option value="$PROJECT_DIR$/config/config.php" />
+        <option value="$PROJECT_DIR$/assets/src/application.js" />
         <option value="$PROJECT_DIR$/assets/src/defaults.js" />
+        <option value="$PROJECT_DIR$/processors/actions.php" />
+        <option value="$PROJECT_DIR$/config/config.php" />
+        <option value="$PROJECT_DIR$/config/DatabaseConnection.php" />
+        <option value="$PROJECT_DIR$/processors/suggestions.php" />
+        <option value="$PROJECT_DIR$/assets/src/campaign.js" />
         <option value="$PROJECT_DIR$/.htaccess" />
+        <option value="$PROJECT_DIR$/test.php" />
+        <option value="$PROJECT_DIR$/config/functions.php" />
+        <option value="$PROJECT_DIR$/assets/incs/head-files.php" />
+        <option value="$PROJECT_DIR$/r.php" />
       </list>
     </option>
   </component>
@@ -224,7 +257,6 @@
   </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths>
-      <path value="$PROJECT_DIR$/assets/img/package.json" />
       <path value="$PROJECT_DIR$/assets/package.json" />
     </packageJsonPaths>
   </component>
@@ -253,6 +285,12 @@
               <item name="web-production" type="b2602c69:ProjectViewProjectNode" />
               <item name="web-production" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="web-production" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web-production" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="incs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="web-production" type="b2602c69:ProjectViewProjectNode" />
@@ -316,20 +354,22 @@
       <workItem from="1556308115931" duration="28899000" />
       <workItem from="1556395233132" duration="986000" />
       <workItem from="1556723162531" duration="8693000" />
-      <workItem from="1556836113686" duration="5079000" />
+      <workItem from="1556836113686" duration="8759000" />
+      <workItem from="1557169905046" duration="13668000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120693000" />
+    <option name="totallyTimeSpent" value="138041000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.21028744" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.21331316" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="0" visible="true" weight="0.28431374" />
+      <window_info anchor="bottom" id="Terminal" order="0" visible="true" weight="0.28431374" />
       <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.32843137" />
@@ -357,20 +397,6 @@
     <entry file="file://$PROJECT_DIR$/assets/js/intro.min.js" />
     <entry file="file://$PROJECT_DIR$/assets/css/introjs.min.css">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="2" lean-forward="true" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="894">
-          <caret line="973" column="13" lean-forward="true" selection-start-line="973" selection-start-column="13" selection-end-line="973" selection-end-column="13" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/search-tabs.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -410,20 +436,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/r.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="28" lean-forward="true" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/classes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="30" lean-forward="true" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/IGit.php" />
     <entry file="file://$PROJECT_DIR$/config/GitRepository.php" />
     <entry file="file://$PROJECT_DIR$/config/Git.php" />
@@ -437,52 +449,10 @@
     <entry file="file://$PROJECT_DIR$/assets/.gitignore">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/incs/head-files.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="80" lean-forward="true" selection-start-line="10" selection-start-column="80" selection-end-line="10" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="251">
           <caret line="71" selection-start-line="71" selection-end-line="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/incs/footer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1258">
-          <caret line="74" column="5" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/DatabaseConnection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9180">
-          <caret line="540" selection-start-line="540" selection-end-line="540" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/campaign.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="47" column="8" selection-start-line="47" selection-start-column="8" selection-end-line="47" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/campaign.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5542">
-          <caret line="326" selection-start-line="326" selection-end-line="326" />
         </state>
       </provider>
     </entry>
@@ -500,38 +470,118 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/processors/actions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="36" lean-forward="true" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/config.php">
+    <entry file="file://$PROJECT_DIR$/assets/src/application.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="353">
-          <caret line="74" column="7" lean-forward="true" selection-start-line="74" selection-start-column="7" selection-end-line="74" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/defaults.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="260" lean-forward="true" selection-start-line="260" selection-end-line="260" />
+          <caret line="1050" column="37" lean-forward="true" selection-start-line="1050" selection-start-column="37" selection-end-line="1050" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="123" lean-forward="true" selection-start-line="123" selection-end-line="123" />
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/incs/movybe.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/src/defaults.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="218" column="29" lean-forward="true" selection-start-line="218" selection-start-column="29" selection-end-line="218" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/classes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-279">
+          <caret line="2" column="30" lean-forward="true" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/incs/footer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="16" column="2" lean-forward="true" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/DatabaseConnection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="265" column="2" lean-forward="true" selection-start-line="265" selection-start-column="2" selection-end-line="265" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/processors/suggestions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="41" column="2" lean-forward="true" selection-start-line="41" selection-start-column="2" selection-end-line="41" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/processors/actions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="345" lean-forward="true" selection-start-line="345" selection-end-line="345" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/src/campaign.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="444" column="53" selection-start-line="444" selection-start-column="53" selection-end-line="444" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/campaign.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="37" column="24" lean-forward="true" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.htaccess">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-705">
-          <caret line="14" column="50" lean-forward="true" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="50" />
+        <state relative-caret-position="102">
+          <caret line="6" column="39" lean-forward="true" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="16" column="42" lean-forward="true" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/incs/head-files.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="33" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="286" selection-start-line="286" selection-end-line="286" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="15" column="68" selection-start-line="15" selection-start-column="65" selection-end-line="15" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/r.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
         </state>
       </provider>
     </entry>

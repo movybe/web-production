@@ -502,7 +502,7 @@ class Campaign extends  React.Component
 
     <div className="row">
         <div className="input-field col s12">
-            <input defaultValue={this.props.defaultUsername} id="username" disabled={true} name = "username"  type="text" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} required="required" className="validate" />
+            <input defaultValue={this.props.defaultUsername} id="username" name = "username"  type="text" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} required="required" className="validate" />
             <label htmlFor="username" className="active">Your username</label>
             <span className="helper-text username"  data-error="username must be alphabet not more than 6 characters long" data-success=""></span>
         </div>

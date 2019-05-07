@@ -94,7 +94,7 @@ class DatabaseConnection {
     {
         $sql = "CREATE TABLE IF NOT EXISTS {$this->withdrawals_table_name}(
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT  NULL  ,
-    username VARCHAR (100) NOT NULL DEFAULT  'omoba',
+    username VARCHAR (100) NOT NULL DEFAULT  'movybe',
     amount DOUBLE(16,2) NOT NULL DEFAULT 0,
     withdrawal_date TIMESTAMP NOT NULL  DEFAULT  CURRENT_TIMESTAMP ,
     payment_date TIMESTAMP NOT NULL  DEFAULT  CURRENT_TIMESTAMP,
@@ -174,7 +174,7 @@ class DatabaseConnection {
         email VARCHAR (100) NOT NULL  UNIQUE ,
         account_balance DOUBLE(16,2) NOT NULL DEFAULT 0, 
         account_type VARCHAR (100) NOT NULL , 
-        username VARCHAR (100) NOT NULL DEFAULT 'username', 
+        username VARCHAR (100) NOT NULL DEFAULT 'movybe', 
         number_of_users_referred BIGINT NOT NULL DEFAULT 0,
         registered_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
         subscribed INT  NOT NULL  DEFAULT 0 COMMENT 'true 1 false 0' , 
@@ -182,16 +182,17 @@ class DatabaseConnection {
         total_income_earned DOUBLE(16,2) NOT NULL DEFAULT 0,
         total_referer_amount_earned DOUBLE(16,2) NOT NULL DEFAULT 0,
         total_amount_funded DOUBLE(16,2) NOT NULL DEFAULT 0,
-        user_id VARCHAR (1000) NOT NULL DEFAULT 'abcdefgh',
+        user_id VARCHAR (1000) NOT NULL DEFAULT 'vodka123',
         ip_address VARCHAR(100) NOT NULL DEFAULT '010.199.212.002',
         last_paid VARCHAR (100) NOT NULL  DEFAULT 'today',
         reference_code VARCHAR (400) NOT NULL  DEFAULT  'aghdjjshuueosmjs',
         amount_earned_for_the_month DOUBLE(16,2) NOT NULL DEFAULT 0,
-        bank_name varchar (1000) NOT NULL DEFAULT  'Wema Bank',
-        account_name VARCHAR (1000) NOT NULL DEFAULT  'Movybe NG',
+        bank_name varchar (1000) NOT NULL DEFAULT  'FCMB',
+        account_name VARCHAR (1000) NOT NULL DEFAULT  'Movybe Studio',
         account_number VARCHAR (30) NOT NULL DEFAULT  '2093954338',
         last_subscription_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        referer_username VARCHAR (100) NOT NULL DEFAULT 'omoba',
+        number_of_users_invited BIGINT NOT NULL DEFAULT  0,
+        referer_username VARCHAR (100) NOT NULL DEFAULT 'Movybe',
         referer_usernames LONGTEXT,
         number_of_account_renewals BIGINT NOT NULL DEFAULT 1,
         number_of_invitations_today BIGINT NOT NULL DEFAULT 0,
@@ -283,10 +284,9 @@ class DatabaseConnection {
                total_number_of_affiliates BIGINT NOT NULL  DEFAULT  0,
                last_invitation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                number_of_invites_today bigint NOT NULL DEFAULT 0,
-               admin_login_email varchar(100) NOT NULL DEFAULT 'you@mail.com',
-               advert_login_email varchar(100) NOT NULL  DEFAULT 'me@mail.com',
+               admin_login_email varchar(100) NOT NULL DEFAULT 'movybeadmin@mail.com',
+               advert_login_email varchar(100) NOT NULL  DEFAULT 'movybemerchant@mail.com',
                total_number_of_invites BIGINT NOT NULL DEFAULT 0
-               
                 )";
 
         try {
@@ -533,6 +533,21 @@ ALTER TABLE users ADD last_free_mode_time VARCHAR( 255 ) NOT NULL DEFAULT '0';
         $sql.= "WHERE {$where_clause};";
         return $this->executeSQL($sql);
     }
+    
+    public  final function initiate_database_tables () : bool
+    {
+            $this->create_words_table();
+            $this->create_queries_table();
+            $this->create_ads_table();
+            $this->create_users_table();
+            $this->create_users_table();
+            $this->create_ads_table();
+            $this->create_visitors_table();
+            $this->create_site_statistics_table();
+            $this->create_withdrawals_table();
+            return true;
+
+    }
 
 
 
@@ -555,4 +570,5 @@ $DatabaseConnection = new DatabaseConnection();
 //$DatabaseConnection->create_visitors_table();
 //$DatabaseConnection->create_site_statistics_table();
 //$DatabaseConnection->create_withdrawals_table();
+//$DatabaseConnection->initiate_database_tables();
 ?>

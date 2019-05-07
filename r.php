@@ -1,13 +1,12 @@
 <?php
-
-
 require_once 'config/functions.php';
 require_once 'config/detect.php';
 class HandleNewInvites extends Functions
 {
     private $now;
-    private $referer_username;
-    public $referrer_link = "/campaign";
+    private $invitee_username = "";
+    public  $invitee_link = "/campaign";
+
 
     function tryCreditTheReferer() : bool
     {
@@ -25,7 +24,7 @@ class HandleNewInvites extends Functions
 
 
         //get the ip address
-        echo $ip_address = Detect::ip();
+        $ip_address = $this->get_client_ip();
 
         //check if the ip address exists in database
         if($this->record_exists_in_table($this->visitors_table_name , 'ip_address' , $ip_address))
@@ -34,26 +33,30 @@ class HandleNewInvites extends Functions
             return false;
         }
 
-        echo $this->fetch_data_from_table($this->visitors_table_name , 'ip_address' , $ip_address);
+        //echo $this->fetch_data_from_table($this->visitors_table_name , 'ip_address' , $ip_address);
 
         //update the last invite date of the website
         $this->update_record($this->site_statistics_table_name , 'last_invitation_date' , $this->now , 'id' , 1);
 
 
         //Update last invite date of the referer
-        $this->update_record($this->users_table_name , 'last_invitation_date' , $this->now , 'username' , $this->referer_username);
+        $this->update_record($this->users_table_name , 'last_invitation_date' , $this->now , 'username' , $this->invitee_username);
 
         //Increment the number of invitations today of the referer today
-        $this->increment_value($this->users_table_name , 'number_of_invitations_today' , 1 , "username = '{$this->referer_username}'");
+        $this->increment_value($this->users_table_name , 'number_of_invitations_today' , 1 , "username = '{$this->invitee_username}'");
 
         //Increment the total number of invitations of the website today
         $this->increment_value($this->site_statistics_table_name , 'total_number_of_invites' , 1 , 'id = 1');
 
+        //Increment the number of users referred by the invitee
+        $this->increment_value($this->users_table_name , 'number_of_users_referred' , 1 , "username = '{$this->invitee_username}'");
+
+
         //credit the referer
-        if($this->increment_value($this->users_table_name , 'account_balance' , $this->website_details->amountPaidForInvite , "username = '{$this->referer_username}'"))
+        if($this->increment_value($this->users_table_name , 'account_balance' , $this->website_details->amountPaidForInvite , "username = '{$this->invitee_username}'"))
         {
 
-            echo "{$this->referer_username} has been credited with <b>&#8358;{$this->website_details->amountPaidForInvite}</b>";
+            echo "{$this->invitee_username} has been credited with <b>&#8358;{$this->website_details->amountPaidForInvite}</b>";
             //deduct the money from the site profit
             return $this->decrement_value($this->site_statistics_table_name , 'profit' , $this->website_details->amountPaidForInvite , 'id =1');
 
@@ -64,39 +67,55 @@ class HandleNewInvites extends Functions
 
     function __construct()
     {
-
         parent::__construct();
-        $this->try_insert_or_update_ip_address_in_database();
-
 
         if(isset($_GET['referer']) && !empty($_GET['referer']))
         {
 
-            $this->referer_username = $this->escape_string($_GET['referer']);
+            $this->invitee_username = $this->escape_string($_GET['referer']);
             $website_statistics = $this->fetch_data_from_table($this->site_statistics_table_name , 'id' , 1)[0];
-            $last_invitation_date = $website_statistics['last_invitation_date'];
-            $number_of_invites_today = $website_statistics['number_of_invites_today'];
+            //$last_invitation_date = $website_statistics['last_invitation_date'];
+            //$number_of_invites_today = $website_statistics['number_of_invites_today'];
             $this->now = date('Y-m-d H:i:s');
 
-            $referer_details = $this->fetch_data_from_table($this->users_table_name , 'username' , $this->referer_username);
-            if(empty($referer_details))
+            $invitee_details = $this->fetch_data_from_table($this->users_table_name , 'username' , $this->invitee_username);
+            if(empty($invitee_details))
             {
 
-                echo "No account found with the username <b>{$this->referer_username}</b>";
+                echo "No account found with the username <b>{$this->invitee_username}</b>";
                 return false;
             }
 
-            $referer_details = $referer_details[0];
+            $invitee_details = $invitee_details[0];
 
-            $this->referrer_link = "/campaign/".$this->referer_username;
+            $this->invitee_link = "/campaign/".$this->invitee_username;
 
             //Check if the account type is affiliate
-            if($referer_details['account_type'] != 'affiliate')
+            if($invitee_details['account_type'] != 'affiliate')
             {
-                echo "No account found with the username <b>{$this->referer_username}</b>";
+                echo "No account found with the username <b>{$this->invitee_username}</b>";
                 return false;
             }
 
+            $number_of_invites_by_invitee = (int)$invitee_details['number_of_users_invited'];
+
+            $amount_earned_by_invitee_using_invitation_link = $number_of_invites_by_invitee * $this->website_details->amountPaidForInvite;
+
+            $maximum_amount_expected_to_be_earned_by_invitee_using_invitation_link = $this->website_details->invitation_amount_to_pay_per_account_renewal * $invitee_details['number_of_account_renewals'];
+
+            if($amount_earned_by_invitee_using_invitation_link < $maximum_amount_expected_to_be_earned_by_invitee_using_invitation_link)
+            {
+                return $this->tryCreditTheReferer();
+            }
+
+            echo "{$this->invitee_username} has been credited with <b>&#8358;{$this->website_details->amountPaidForInvite}</b>";
+            return false;
+
+
+
+
+
+            /*
             //Check if the referer has exceeded his invitations for today and the total number of invitations for today has not been exceeded
             else if ($referer_details['number_of_invitations_today'] >= $this->website_details->maximumNumberOfAffiliateInvitationsForADay && $number_of_invites_today < $this->website_details->maximumNumberOfInvitesForADay)
             {
@@ -140,15 +159,20 @@ class HandleNewInvites extends Functions
                     return $this->tryCreditTheReferer();
                 }
 
+
                 $hours_difference = 24 - floor($date_difference / (60 * 60));
                 echo "Today's invites has exceeded maximum of <b>{$this->website_details->maximumNumberOfInvitesForADay} invites for today</b>, please check back after <b>{$hours_difference} hrs</b>";
                 return false;
+
             }
+            */
         }
         else {
 
             header('location:/');
         }
+
+
 
     }
 }
@@ -182,7 +206,8 @@ class HandleNewInvites extends Functions
                         <span class="invitation-message">
                   <?php
                   $handle_new_invites = new HandleNewInvites();
-                  ?> <a href="<?php echo $handle_new_invites->referrer_link?>" class="continue-link">Continue</a>
+                  $handle_new_invites->try_insert_or_update_ip_address_in_database();
+                  ?> <a href="<?php echo $handle_new_invites->invitee_link;?>" class="continue-link">Continue</a>
 
                         </span>
                 </div>

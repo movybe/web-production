@@ -39,6 +39,26 @@ class Functions extends  DatabaseConnection {
 
     }
 
+    function get_client_ip() : string {
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP']))
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        else if(isset($_SERVER['REMOTE_ADDR']))
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else
+            $ipaddress = 'UNKNOWN';
+        return $ipaddress;
+    }
+
+
 
     public final function getFileLocation(string $filename) : string
 {
@@ -46,6 +66,7 @@ class Functions extends  DatabaseConnection {
 
 
 }
+
 
 
 
@@ -233,7 +254,7 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
 
         $detect = new Detect();
 
-        $ip_address= Detect::ip();
+        $ip_address= $this->get_client_ip();
         $country = Detect::ipCountry();
         if($this->record_exists_in_table($this->visitors_table_name , 'ip_address' , $ip_address))
         {
@@ -263,5 +284,5 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
 }
 
 $functions = new Functions();
-$functions->tryRedirectToHttps();
+
 ?>

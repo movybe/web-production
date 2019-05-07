@@ -453,7 +453,6 @@ function (_React$Component) {
       }, React.createElement("input", {
         defaultValue: _this.props.defaultUsername,
         id: "username",
-        disabled: true,
         name: "username",
         type: "text",
         minLength: defaults.minimumAccountUsernameLength,
