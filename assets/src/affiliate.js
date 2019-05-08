@@ -333,9 +333,9 @@ class Affiliate extends React.Component
                                 </div>
                                 <div className="card-tabs">
                                     <ul className="tabs fund-status-tabs tabs-fixed-width">
-                                        <li className="tab" id="account-balance-tab"><a className="active tourJS affiliate-account-tour tour-9" data-step ="9"  data-caption = {`use this link to refer your friends to ${defaults.siteName}.`} href="#referer-link">Link</a></li>
+                                        <li className="tab" id="account-balance-tab"><a className="active tourJS affiliate-account-tour tour-9" data-step ="9"  data-caption = {`use this link to refer your friends to ${defaults.siteName}.`} href="#referer-link">Moref</a></li>
                                         <li className="tab"><a href="#referer-username">Username</a></li>
-                                        <li className="tab"><a href="#invite-link" className="tourJS affiliate-account-tour tour-8" data-step ="8"  data-caption = {`use this link to invite your friends to ${defaults.siteName}.`}>Invite</a></li>
+                                        <li className="tab"><a href="#invite-link" className="tourJS affiliate-account-tour tour-8" data-step ="8"  data-caption = {`use this link to invite your friends to ${defaults.siteName}.`}>Molin</a></li>
                                     </ul>
                                 </div>
                                 <div className="card-content grey lighten-4">

@@ -483,7 +483,7 @@ function (_React$Component) {
         "data-step": "9",
         "data-caption": "use this link to refer your friends to ".concat(defaults.siteName, "."),
         href: "#referer-link"
-      }, "Link")), React.createElement("li", {
+      }, "Moref")), React.createElement("li", {
         className: "tab"
       }, React.createElement("a", {
         href: "#referer-username"
@@ -494,7 +494,7 @@ function (_React$Component) {
         className: "tourJS affiliate-account-tour tour-8",
         "data-step": "8",
         "data-caption": "use this link to invite your friends to ".concat(defaults.siteName, ".")
-      }, "Invite")))), React.createElement("div", {
+      }, "Molin")))), React.createElement("div", {
         className: "card-content grey lighten-4"
       }, React.createElement("div", {
         id: "referer-link",

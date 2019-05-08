@@ -471,12 +471,13 @@ ALTER TABLE users ADD last_free_mode_time VARCHAR( 255 ) NOT NULL DEFAULT '0';
             $this->create_queries_table();
             $this->create_ads_table();
             $this->create_users_table();
-            $this->create_users_table();
             $this->create_ads_table();
             $this->create_visitors_table();
             $this->create_site_statistics_table();
+            $this->insert_into_table($this->site_statistics_table_name , []);
             $this->create_withdrawals_table();
             $this->create_transactions_history_table();
+
             return true;
 
     }
