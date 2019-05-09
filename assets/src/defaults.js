@@ -201,7 +201,7 @@ class Defaults {
             'First Bank of Nigeria' , 'First City Monument Bank' , 'FSDH Merchant Bank' , 'Guarantee Trust Bank' , 'Heritage Bank Plc' ,'Jaiz Bank Limited' ,
             'Keystone Bank Limited' , 'Polaris Bank' , 'Providus Bank Plc' ,  'Rand Merchant Bank' , 'Stanbic IBTC Bank Nigeria Limited' , 'Standard Chartered Bank' ,
             'Sterling Bank' , 'Suntrust Bank Nigeria Limited' ,  'Union Bank of Nigeria' , 'United Bank for Africa Plc' , 'Unity Bank Plc' , 'Wema Bank' , 'Zenith Bank'];
-        this.paystackKey = 'pk_test_671c2b9a8312b7c29aaed707662496895826855c';
+        this.paystackKey = this.isProductionMode ? 'pk_live_f85b50238627ade7b89e7d74b36bdc5433616810' : 'pk_test_671c2b9a8312b7c29aaed707662496895826855c';
         this.showToast = message => {
             M.toast({html: message});
         };
