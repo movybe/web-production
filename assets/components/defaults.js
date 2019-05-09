@@ -186,7 +186,7 @@ function () {
     this.noResultsFoundError = 'no results found';
     this.pleaseWaitText = 'Please wait...';
     this.searchSuggestionsLimit = 7;
-    this.bannerImageLocation = this.getFileLocation('/banner/');
+    this.bannerImageLocation = '/banner/';
     this.siteAddress = this.siteName.toLowerCase() + '.com';
     this.siteAddressHttp = 'http://' + this.siteAddress;
     this.siteAddressHttps = 'https://' + this.siteAddress;
