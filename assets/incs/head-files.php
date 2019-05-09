@@ -23,7 +23,7 @@ DEFAULT_META_TAGS;
 $functions->tryRedirectToHttps();
 $pace_js = array('pace.min.js');
 $pace_css = array('pace.css');
-echo $functions->printAssets($pace_js , 'javascript' , true , null , "id = 'pace-js' defer");
+echo $functions->printAssets($pace_js , 'javascript' , true , null , "id = 'pace-js'");
 $cdn_required = <<<CDN_INCLUDES
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
@@ -42,6 +42,6 @@ $stylesheets = array("main.css"  , "footer.css");
 $required = array("jquery.min.js" ,  "materialize.min.js" , "babel.min.js"  , "react.development.js" , "react-dom.development.js" , "redux.min.js" , "react-redux.min.js");
 echo $functions->printAssets($pace_css , 'css' , false , null , "title = 'pace-css' id ='pace-css'");
 echo $functions->printAssets($stylesheets , "css" , false)."\n";
-echo $functions->is_production_mode() ? $cdn_required : $functions->printAssets($materialize_css , "css" , false , null).$functions->printAssets($required,'javascript' , true , null , 'defer')."\n";
+echo $functions->is_production_mode() ? $cdn_required : $functions->printAssets($materialize_css , "css" , false , null).$functions->printAssets($required,'javascript')."\n";
 
 ?>

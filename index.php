@@ -22,12 +22,12 @@ if($functions->data_saving_mode_is_enabled())
     <?php
     $includes = array("polyfill.js" , "cookie.min.js" , "bgset.min.js" , "lazy-bg.min.js" ,  "notify.min.js" , "jquery.lightbox.min.js"  ,"numeral.min.js");
     $defaults_js = array("defaults.js");
-    echo $functions->printAssets($includes ,'javascript' , true , null , ' defer' ).$functions->printAssets($defaults_js , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER : $website_details->SRC_FOLDER , 'defer');
+    echo $functions->printAssets($includes ,'javascript' , true , null).$functions->printAssets($defaults_js , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER : $website_details->SRC_FOLDER);
     ?>
 
     <?php
     $scripts = array("gallery.js" , "search-tabs.js" ,  "application.js" , "config.js");
-    echo  $functions->printAssets($scripts , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER  : $website_details->SRC_FOLDER , 'defer');
+    echo  $functions->printAssets($scripts , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER  : $website_details->SRC_FOLDER);
     ?>
 </head>
 <body>
