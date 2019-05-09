@@ -19,6 +19,27 @@ if($functions->data_saving_mode_is_enabled())
     <meta name="description" content="<?php echo $website_details->PageDescription; ?>" />
     <title><?php echo $website_details->SiteName; ?> • <?php echo $website_details->WebsiteSubject; ?></title>
     <?php require_once $website_details->INCS_FOLDER.'head-files.php'; ?>
+    <?php
+    $includes = array("polyfill.js" , "cookie.min.js" , "bgset.min.js" , "lazy-bg.min.js" ,  "notify.min.js" , "jquery.lightbox.min.js"  ,"numeral.min.js");
+    $defaults_js = array("defaults.js");
+    echo $functions->printAssets($includes).$functions->printAssets($defaults_js , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER : $website_details->SRC_FOLDER , null , $website_details->cdn_components);
+    ?>
+    <script async>
+        $(function()
+        {
+            $('.gallery span.modal-link').lightbox();
+            $('.gallery-2 span.gallery-images-link').lightbox();
+            // If you want seperate galleries on the same page
+            // just specify different class names.
+            //$('.gallery-2 a').lightbox();
+
+        });
+
+    </script>
+    <?php
+    $scripts = array("gallery.js" , "search-tabs.js" ,  "application.js" , "config.js");
+    echo  $functions->printAssets($scripts , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER  : $website_details->SRC_FOLDER , null);
+    ?>
 </head>
 <body>
 <main class ="container invisible-class main-container">
