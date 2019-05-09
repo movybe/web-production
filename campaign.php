@@ -19,6 +19,7 @@ require_once 'config/functions.php';
     <link rel="canonical" href="<?php echo $website_details->SiteNameWithHttps; ?>" />
     <link rel="icon" type="image/jpeg" href="<?php echo $website_details->IMG_FOLDER;?>favicon.png" />
     <meta name="robot" content="index, follow" />
+
         <?php
         require_once $website_details->INCS_FOLDER.'head-files.php';
         $stylesheets = array('admin.css' , 'campaign.css'  ,  'main.css'  , 'merchant.css'  , 'footer.css' , 'tour.css');
