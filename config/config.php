@@ -50,7 +50,7 @@ class WebsiteConfigurationSettings {
         $this->JS_FOLDER = $this->STATIC_FOLDER."js/";
         $this->CSS_FOLDER = $this->STATIC_FOLDER."css/";
         $this->INCS_FOLDER = $this->is_production_mode() ? $this->DOCUMENT_ROOT."/".$this->siteNameLowercase."/assets/incs/" : $this->DOCUMENT_ROOT."/assets/incs/";
-        $this->BANNER_IMAGES_FOLDER = $this->is_production_mode() ? "{$this->cdn}banner/" :$this->DOCUMENT_ROOT.$this->getFileLocation("/banner/");
+        $this->BANNER_IMAGES_FOLDER = $this->DOCUMENT_ROOT."/banner/";
         $this->IMG_FOLDER =   $this->STATIC_FOLDER."img/";
         $this->SiteNameWithHttps = "https://{$this->SiteNameWithoutHttps}";
         $this->FacebookUrl = "{$this->Https}{$this->Www}facebook.com";
