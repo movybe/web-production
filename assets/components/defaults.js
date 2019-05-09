@@ -226,7 +226,7 @@ function () {
     this.emailTruncateSize = 15;
     this.accountActivationText = 'Account activation';
     this.merchantYoutubeVideo = 'about:blank';
-    this.sponsoredAdText = 'AD';
+    this.sponsoredAdText = 'SPONSORED';
     this.siteWebPackageName = "com.movybe";
     this.successText = 'success';
 

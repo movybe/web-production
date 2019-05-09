@@ -209,7 +209,7 @@ class Defaults {
 
        this.accountActivationText = 'Account activation';
        this.merchantYoutubeVideo = 'about:blank';
-       this.sponsoredAdText = 'AD';
+       this.sponsoredAdText = 'SPONSORED';
        this.siteWebPackageName = "com.movybe";
        this.successText='success';
         this.payWithPaystack = (email , amount , name , call) =>
