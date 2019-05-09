@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="598e7940-3c59-4d86-9dda-2ed1c27dc0d7" name="Default Changelist" comment="" />
+    <list default="true" id="598e7940-3c59-4d86-9dda-2ed1c27dc0d7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/assets/incs/head-files.php" beforeDir="false" afterPath="$PROJECT_DIR$/assets/incs/head-files.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/react-dom.development.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/react-dom.development.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/react.development.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/react.development.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +50,7 @@
           <entry key="css" value="3" />
           <entry key="gitignore" value="2" />
           <entry key="htaccess" value="4" />
-          <entry key="js" value="32" />
+          <entry key="js" value="35" />
           <entry key="json" value="1" />
           <entry key="php" value="54" />
           <entry key="sql" value="1" />
@@ -56,7 +61,7 @@
         <counts>
           <entry key="CSS" value="3" />
           <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="32" />
+          <entry key="JavaScript" value="35" />
           <entry key="PHP" value="54" />
           <entry key="PLAIN_TEXT" value="3" />
           <entry key="SQL" value="1" />
@@ -69,15 +74,15 @@
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="18" />
           <entry key="js" value="8281" />
-          <entry key="php" value="6528" />
+          <entry key="php" value="6538" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="296" />
-          <entry key="HTML" value="8" />
+          <entry key="HTML" value="10" />
           <entry key="JavaScript" value="8281" />
-          <entry key="PHP" value="6500" />
+          <entry key="PHP" value="6508" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="20" />
           <entry key="htaccess" value="18" />
@@ -108,8 +113,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/incs/head-files.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-224">
-              <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
+            <state relative-caret-position="364">
+              <caret line="48" column="2" lean-forward="true" selection-start-line="48" selection-start-column="2" selection-end-line="48" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -126,8 +131,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="800">
-              <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+            <state relative-caret-position="313">
+              <caret line="30" column="18" lean-forward="true" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -235,6 +240,8 @@
         <option value="$PROJECT_DIR$/config/DatabaseConnection.php" />
         <option value="$PROJECT_DIR$/config/config.php" />
         <option value="$PROJECT_DIR$/campaign.php" />
+        <option value="$PROJECT_DIR$/assets/js/react.development.js" />
+        <option value="$PROJECT_DIR$/assets/js/react-dom.development.js" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/assets/incs/head-files.php" />
       </list>
@@ -285,6 +292,12 @@
               <item name="web-production" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
               <item name="incs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="web-production" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web-production" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="web-production" type="b2602c69:ProjectViewProjectNode" />
@@ -352,16 +365,15 @@
       <workItem from="1556836113686" duration="8759000" />
       <workItem from="1557169905046" duration="28104000" />
       <workItem from="1557299043502" duration="1080000" />
-      <workItem from="1557355640002" duration="14172000" />
+      <workItem from="1557355640002" duration="16691000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="167729000" />
+    <option name="totallyTimeSpent" value="170248000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.2193646" />
@@ -576,13 +588,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="800">
-          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/classes.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1201">
@@ -590,10 +595,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/react-dom.development.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="21398" column="4" selection-start-line="21398" selection-start-column="4" selection-end-line="21398" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/react.development.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53550">
+          <caret line="3150" column="25" selection-start-line="3150" selection-start-column="25" selection-end-line="3150" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="30" column="18" lean-forward="true" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/incs/head-files.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-224">
-          <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
+        <state relative-caret-position="364">
+          <caret line="48" column="2" lean-forward="true" selection-start-line="48" selection-start-column="2" selection-end-line="48" selection-end-column="2" />
         </state>
       </provider>
     </entry>
