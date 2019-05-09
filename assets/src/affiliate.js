@@ -99,8 +99,6 @@ class Affiliate extends React.Component
 
 
 
-
-
         });
 
 

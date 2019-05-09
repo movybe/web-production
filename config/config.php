@@ -3,7 +3,7 @@ class WebsiteConfigurationSettings {
     public
     $cdn_link = "https://rawcdn.githack.com/movybe/web-production/",$cdn, $cdn_assets , $cdn_css , $cdn_img , $cdn_js , $cdn_components, $SiteName,
     $Https = "https://",$Www = "www.",$SiteNameWithoutHttps = "www.movybe.com", $SiteNameWithHttps = "", $siteNameLowercase, $FacebookUrl = "",
-    $TwitterUrl  = "",$InstagramUrl = "", $SiteAuthor = "Kosi Eric", $WebsiteCategory = "Price Search Engine", $TwitterHandle = "", $FacebookHandle = "",
+    $TwitterUrl  = "",$InstagramUrl = "", $YouTubeUrl = "" , $YouTubeHandle = "" , $SiteAuthor = "Kosi Eric", $WebsiteCategory = "Price Search Engine", $TwitterHandle = "", $FacebookHandle = "",
     $InstagramHandle = "",$MaximumUserProfileImageSize = 50000000, $MaximumUserProfileImageSizeInWords = "", $WebsiteCoverage = "Nigeria",
     $WebsiteSubject = "Search the Price of Products in Nigeria", $WebsiteClassification = "Search", $DOCUMENT_ROOT, $LinkShortUrlLength = 5,
     $NumberOfSponsoredAdsToShow = 1, $STATIC_FOLDER, $JS_FOLDER, $CSS_FOLDER, $INCS_FOLDER, $IMG_FOLDER, $AboutUs, 
@@ -56,9 +56,11 @@ class WebsiteConfigurationSettings {
         $this->FacebookUrl = "{$this->Https}{$this->Www}facebook.com";
         $this->TwitterUrl = "{$this->Https}{$this->Www}twitter.com";
         $this->InstagramUrl = "{$this->Https}{$this->Www}instagram.com";
-        $this->FacebookHandle = "{$this->FacebookUrl}/{$this->SiteName}";
-        $this->TwitterHandle = "{$this->TwitterUrl}/{$this->SiteName}";
-        $this->InstagramHandle = "{$this->InstagramUrl}/{$this->SiteName}";
+        $this->YouTubeUrl = "{$this->Https}{$this->Www}youtube.com/user";
+        $this->FacebookHandle = "{$this->FacebookUrl}/{$this->siteNameLowercase}";
+        $this->TwitterHandle = "{$this->TwitterUrl}/{$this->siteNameLowercase}";
+        $this->InstagramHandle = "{$this->InstagramUrl}/{$this->siteNameLowercase}";
+        $this->YouTubeHandle = "{$this->YouTubeUrl}/{$this->siteNameLowercase}";
         $this->HeadOffice = "Block 2A , Quarters 3 PH Int'l Airport Omagwa.";
         $this->MaximumUserProfileImageSizeInWords = strval($this->MaximumUserProfileImageSize / 10). "mb";
         $this->ContactEmail  = 'contact@'.$this->SiteName;

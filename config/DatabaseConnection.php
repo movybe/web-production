@@ -26,14 +26,11 @@ class DatabaseConnection {
     {
         $server_name = $_SERVER['SERVER_NAME'];
         return $is_production_mode = $server_name !== 'localhost';
+
     }
     final protected  function  establish_database_connection () : bool
 
     {
-
-
-
-
         try {
 
             $database = $this->is_production_mode() ? $this->production_database_name : $this->database;
@@ -237,17 +234,17 @@ class DatabaseConnection {
 
     public final function  try_create_table(string $sql) : bool
     {
+        $return_value = true;
         try {
 
             $this->conn->exec($sql);
             echo "Table Created successfully";
-            return true;
         }
-
         catch (PDOException $exception) {
             echo "Error occurred {$exception->getMessage()}";
-            return false;
+            $return_value =  false;
         }
+        return $return_value;
     }
 
     public final  function  create_queries_table() : bool  {
@@ -449,10 +446,7 @@ ALTER TABLE users ADD last_free_mode_time VARCHAR( 255 ) NOT NULL DEFAULT '0';
         return $this->executeSQL($sql);
     }
     function  increment_values (string $table_name , array  $field_names_and_increment_values,   $where_clause) : bool {
-
-
         $sql = "UPDATE {$table_name} SET ";
-
         $fields_and_values_length = count($field_names_and_increment_values);
         $count = 0;
         foreach($field_names_and_increment_values as $field_name => $increment_value)

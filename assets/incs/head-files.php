@@ -1,4 +1,25 @@
 <?php
+echo $default_meta_tags = <<<DEFAULT_META_TAGS
+    <meta charset="utf-8" />
+    <meta content="309972533028313" property="fb:profile_id">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="robot" content="index, follow" />
+    <meta name="author" content="{$website_details->SiteName}" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <meta content="en_US" property="og:locale" />
+    <meta content="website" property="og:type" />
+    <meta content="{$website_details->SiteNameWithHttps}" property="og:url" />
+    <meta content="{$website_details->IMG_FOLDER}{$website_details->siteNameLowercase}.png" property="og:image" />
+    <meta content="{$website_details->TwitterHandle}" property="og:see_also" />
+    <meta content="{$website_details->FacebookHandle}" property="og:see_also" />
+    <meta content="{$website_details->InstagramHandle}" property="og:see_also" />
+    <meta content="{$website_details->YouTubeHandle}" property="og:see_also" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@{$website_details->siteNameLowercase}" />
+    <meta name="twitter:creator" content="@{$website_details->siteNameLowercase}" />
+    <link rel="canonical" href="<?php echo $website_details->SiteNameWithHttps; ?>" />
+    <link rel="icon" type="image/png" href="{$website_details->IMG_FOLDER}?>favicon.png" />
+DEFAULT_META_TAGS;
 $functions->tryRedirectToHttps();
 $pace_js = array('pace.min.js');
 $pace_css = array('pace.css');
