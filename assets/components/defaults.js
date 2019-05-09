@@ -121,6 +121,12 @@ $(document).ready(function () {
     $('.tap-target').tapTarget('open');
   });
 });
+$(function () {
+  $('.gallery span.modal-link').lightbox();
+  $('.gallery-2 span.gallery-images-link').lightbox(); // If you want seperate galleries on the same page
+  // just specify different class names.
+  //$('.gallery-2 a').lightbox();
+});
 Pace.on('done', function (e) {
   $('main.main-container').removeClass('invisible-class'); //Disable paceCSS since, it interferes with the materialize css
 
