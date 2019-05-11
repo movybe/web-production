@@ -246,11 +246,14 @@ function () {
     };
 
     this.convertToPaystack = function (naira) {
-      var nairaToKobo = naira * 100;
-      var onePoint5Percent = 1.5 / 100 * nairaToKobo;
+      var nairaToKobo =
+      /*remove the decimal */
+      naira * 100;
+      var onePoint5Percent = Math.ceil(1.5 / 100 * nairaToKobo);
       var amount = Number(onePoint5Percent + nairaToKobo);
-      amount = Number(amount.toFixed(2));
-      return amount;
+      amount = Number(Math.round(amount));
+      var charge = 1.5 / 100 * amount;
+      return Math.round(Number((charge + nairaToKobo).toFixed(2)) + 0.3);
     };
   }
 

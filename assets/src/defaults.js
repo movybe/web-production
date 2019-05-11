@@ -233,11 +233,12 @@ class Defaults {
 
         this.convertToPaystack = (naira) =>
         {
-            const nairaToKobo = naira * 100;
-            const onePoint5Percent = (1.5 / 100) *  nairaToKobo;
+            const nairaToKobo = /*remove the decimal */ naira * 100;
+            const onePoint5Percent = Math.ceil((1.5 / 100) *  nairaToKobo);
             let amount = Number(onePoint5Percent + nairaToKobo);
-            amount = Number(amount.toFixed(2));
-            return amount;
+            amount = Number(Math.round(amount));
+            let charge = (1.5 / 100) * amount;
+            return Math.round(Number((charge + nairaToKobo).toFixed(2)) + 0.3);
         };
 
 
