@@ -9,7 +9,8 @@ class Campaign extends  React.Component
 
             this.emailField = $('#email');
             this.referer = this.main.attr('data-referer');
-            this.refererUsername.val(this.referer ? this.referer : this.refererUsername.val());
+            //console.log(this.referer);
+            this.refererUsername.val(this.referer);
             this.campaignFormFieldset = $('#campaign-form-fieldset');
 
             this.selectBankName = $('#select-bank-name');

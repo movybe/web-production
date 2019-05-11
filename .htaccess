@@ -8,7 +8,7 @@ RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule .* - [L]
 RewriteRule ^r/([^/]+)$ r.php?referer=$1 [L,QSA]
-RewriteRule ^r/([^/]+)$ campaign.php?r=$1 [L,QSA]
+RewriteRule ^campaign/([^/]+)$ campaign.php?r=$1 [L,QSA]
 Options -Indexes
 DirectoryIndex index.php
 
