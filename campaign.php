@@ -13,8 +13,8 @@ $page_title = "{$website_details->SiteName} • Join Our Campaign and Become a M
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
 <head>
-    <meta content=<?php echo $page_title; ?> property="og:title" />
-    <meta content=<?php echo $page_description; ?> property="og:description" />
+    <meta content="<?php echo $page_title; ?>" property="og:title" />
+    <meta content="<?php echo $page_description; ?>" property="og:description" />
     <meta name="description" content="<?php echo $page_description;?>" />
     <title><?php echo $page_title;?></title>
         <?php

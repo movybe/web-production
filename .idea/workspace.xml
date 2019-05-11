@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="598e7940-3c59-4d86-9dda-2ed1c27dc0d7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/js/r.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/components/affiliate.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/affiliate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/components/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/components/defaults.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/defaults.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/incs/head-files.php" beforeDir="false" afterPath="$PROJECT_DIR$/assets/incs/head-files.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/affiliate.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/affiliate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/application.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/campaign.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/campaign.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/defaults.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/defaults.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/r.php" beforeDir="false" afterPath="$PROJECT_DIR$/r.php" afterDir="false" />
-    </list>
+    <list default="true" id="598e7940-3c59-4d86-9dda-2ed1c27dc0d7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +46,7 @@
           <entry key="css" value="4" />
           <entry key="gitignore" value="2" />
           <entry key="htaccess" value="4" />
-          <entry key="js" value="48" />
+          <entry key="js" value="49" />
           <entry key="json" value="1" />
           <entry key="php" value="59" />
           <entry key="sql" value="1" />
@@ -70,7 +57,7 @@
         <counts>
           <entry key="CSS" value="4" />
           <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="48" />
+          <entry key="JavaScript" value="49" />
           <entry key="PHP" value="59" />
           <entry key="PLAIN_TEXT" value="3" />
           <entry key="SQL" value="1" />
@@ -137,29 +124,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/src/campaign.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="182" column="42" lean-forward="true" selection-start-line="174" selection-start-column="36" selection-end-line="182" selection-end-column="42" />
+            <state relative-caret-position="49">
+              <caret line="176" lean-forward="true" selection-start-line="176" selection-end-line="176" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/src/defaults.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="193" column="43" selection-start-line="193" selection-start-column="43" selection-end-line="193" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/r.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
-              <caret line="209" column="16" selection-start-line="209" selection-start-column="16" selection-end-line="209" selection-end-column="16" />
+              <caret line="209" lean-forward="true" selection-start-line="209" selection-end-line="209" />
             </state>
           </provider>
         </entry>
@@ -262,8 +240,8 @@
         <option value="$PROJECT_DIR$/assets/src/campaign.js" />
         <option value="$PROJECT_DIR$/assets/incs/head-files.php" />
         <option value="$PROJECT_DIR$/assets/js/r.js" />
-        <option value="$PROJECT_DIR$/assets/src/defaults.js" />
         <option value="$PROJECT_DIR$/r.php" />
+        <option value="$PROJECT_DIR$/assets/src/defaults.js" />
       </list>
     </option>
   </component>
@@ -388,21 +366,20 @@
       <workItem from="1557355640002" duration="24866000" />
       <workItem from="1557464704376" duration="722000" />
       <workItem from="1557476514611" duration="6234000" />
-      <workItem from="1557548006676" duration="3359000" />
+      <workItem from="1557548006676" duration="4210000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="188738000" />
+    <option name="totallyTimeSpent" value="189589000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.22844176" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.22844176" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" visible="true" weight="0.28104576" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="0" visible="true" weight="0.28104576" />
       <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.32843137" />
@@ -619,13 +596,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/campaign.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="182" column="42" lean-forward="true" selection-start-line="174" selection-start-column="36" selection-end-line="182" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
@@ -647,13 +617,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/defaults.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="193" column="43" selection-start-line="193" selection-start-column="43" selection-end-line="193" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/campaign.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
@@ -664,7 +627,24 @@
     <entry file="file://$PROJECT_DIR$/r.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="209" column="16" selection-start-line="209" selection-start-column="16" selection-end-line="209" selection-end-column="16" />
+          <caret line="209" lean-forward="true" selection-start-line="209" selection-end-line="209" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/ignore.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/src/defaults.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="178" column="60" lean-forward="true" selection-start-line="178" selection-start-column="60" selection-end-line="178" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/src/campaign.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49">
+          <caret line="176" lean-forward="true" selection-start-line="176" selection-end-line="176" />
         </state>
       </provider>
     </entry>
