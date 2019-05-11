@@ -272,6 +272,7 @@ class Campaign extends  React.Component
          const action = this.getSelectedCampaignType().toLowerCase().indexOf("merchant") >= 0  ? this.props.resetState({...this.props , showRefererEmailField:  false})
     : this.props.resetState({...this.props , showRefererEmailField:  true});
 
+        $('#login-proceed').prop('disabled' , false);
 };
 
     enableStuffs = () => {
@@ -320,7 +321,9 @@ class Campaign extends  React.Component
                         emailVerified: true,
                         stateReset: false,
                         defaultUsername: response.username
-                    })
+                    });
+
+                    $('#login-proceed').prop('disabled' , true);
                 }
 
 

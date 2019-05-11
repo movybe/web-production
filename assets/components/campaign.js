@@ -168,6 +168,7 @@ function (_React$Component) {
       })) : _this.props.resetState(_objectSpread({}, _this.props, {
         showRefererEmailField: true
       }));
+      $('#login-proceed').prop('disabled', false);
     });
 
     _defineProperty(_assertThisInitialized(_this), "enableStuffs", function () {
@@ -225,6 +226,8 @@ function (_React$Component) {
               stateReset: false,
               defaultUsername: response.username
             }));
+
+            $('#login-proceed').prop('disabled', true);
           } else if (response.user.account_type == 'merchant') {
             _this.loginModalPopup.modal('close');
 
