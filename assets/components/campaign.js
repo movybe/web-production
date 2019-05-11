@@ -53,7 +53,8 @@ function (_React$Component) {
         _this.main = $('main#app');
         _this.refererUsername = $('#referer-username');
         _this.emailField = $('#email');
-        _this.referer = _this.main.attr('data-referer'); //console.log(this.referer);
+        _this.referer = _this.main.attr('data-referer');
+        console.log(_this.referer);
 
         _this.refererUsername.val(_this.referer);
 
