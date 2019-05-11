@@ -6,10 +6,8 @@ if($functions->data_saving_mode_is_enabled())
 {
     header('location: /browser');
 }
-
 */
-
-//$functions->try_insert_or_update_ip_address_in_database();
+$try_insert_or_update_ip_address_in_database = $functions->is_production_mode() ?$functions->try_insert_or_update_ip_address_in_database() : null;
 ?>
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
