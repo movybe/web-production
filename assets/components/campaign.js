@@ -54,10 +54,6 @@ function (_React$Component) {
         _this.refererUsername = $('#referer-username');
         _this.emailField = $('#email');
         _this.referer = _this.main.attr('data-referer');
-        console.log(_this.referer);
-
-        _this.refererUsername.val(_this.referer);
-
         _this.campaignFormFieldset = $('#campaign-form-fieldset');
         _this.selectBankName = $('#select-bank-name');
         $('input#account-number').characterCounter();
@@ -385,6 +381,7 @@ function (_React$Component) {
       }, React.createElement("input", {
         id: "referer-username",
         name: "referer-username",
+        defaultValue: _this.referer,
         type: "text",
         required: "required",
         minLength: defaults.minimumAccountUsernameLength,

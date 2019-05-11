@@ -9,8 +9,6 @@ class Campaign extends  React.Component
 
             this.emailField = $('#email');
             this.referer = this.main.attr('data-referer');
-            console.log(this.referer);
-            this.refererUsername.val(this.referer);
             this.campaignFormFieldset = $('#campaign-form-fieldset');
 
             this.selectBankName = $('#select-bank-name');
@@ -453,7 +451,7 @@ class Campaign extends  React.Component
 
     <div className="row">
           <div className="input-field col s12">
-              <input id="referer-username" name="referer-username" type="text" required = "required" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} className="validate" />
+              <input id="referer-username" name="referer-username" defaultValue={this.referer} type="text" required = "required" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} className="validate" />
               <label htmlFor="referer-username" className="active">Referer username</label>
               <span className="helper-text referer-username" data-error="please,check the username again" data-success="">referer username is mandatory</span>
           </div>
