@@ -249,18 +249,24 @@ class Defaults {
 
 
 const defaults = new Defaults();
-
+let pageLoaded = false;
 Pace.on('done' , function (e) {
-    $('main.main-container').removeClass('invisible-class');
+    if(!pageLoaded) {
+        $('main.main-container').removeClass('invisible-class');
         $('main.main-container').hide();
         $('main.main-container').fadeIn(3000);
 
+        pageLoaded = true;
         //Disable paceCSS since, it interferes with the materialize css
-        $('link[title="pace-css"]').prop('disabled' ,  true);
+        $('link[title="pace-css"]').prop('disabled', true);
         //Remove paceJS as well
         $('#pace-js').remove();
         $('link[title="pace-css"]').remove();
-        try{document.getElementById('pace-css').disabled = true;}
-        catch (e) {}
+        try {
+            document.getElementById('pace-css').disabled = true;
+        }
+        catch (e) {
+        }
+    }
 });
 

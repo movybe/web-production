@@ -261,17 +261,21 @@ function () {
 }();
 
 var defaults = new Defaults();
+var pageLoaded = false;
 Pace.on('done', function (e) {
-  $('main.main-container').removeClass('invisible-class');
-  $('main.main-container').hide();
-  $('main.main-container').fadeIn(3000); //Disable paceCSS since, it interferes with the materialize css
+  if (!pageLoaded) {
+    $('main.main-container').removeClass('invisible-class');
+    $('main.main-container').hide();
+    $('main.main-container').fadeIn(3000);
+    pageLoaded = true; //Disable paceCSS since, it interferes with the materialize css
 
-  $('link[title="pace-css"]').prop('disabled', true); //Remove paceJS as well
+    $('link[title="pace-css"]').prop('disabled', true); //Remove paceJS as well
 
-  $('#pace-js').remove();
-  $('link[title="pace-css"]').remove();
+    $('#pace-js').remove();
+    $('link[title="pace-css"]').remove();
 
-  try {
-    document.getElementById('pace-css').disabled = true;
-  } catch (e) {}
+    try {
+      document.getElementById('pace-css').disabled = true;
+    } catch (e) {}
+  }
 });
