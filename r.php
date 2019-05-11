@@ -185,7 +185,7 @@ class HandleNewInvites extends Functions
     <meta name="author" content="<?php echo $website_details->SiteName; ?>" />
     <meta name="description" content="<?php echo $website_details->PageDescription; ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <title><?php echo 'Your invitation to '.$website_details->SiteName; ?></title>
+    <title><?php echo 'Your invitation to '.$website_details->SiteName.' affiliate Program, Learn how to make money online today with your smartphone'; ?></title>
     <link rel="canonical" href="<?php echo $website_details->SiteNameWithHttps; ?>" />
     <meta name="robot" content="index, follow" />
 
