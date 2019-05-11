@@ -6,6 +6,9 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var isHomePage = window.location.pathname === '/';
+var isCampaignPage = window.location.pathname === '/campaign';
+
 var browserName = function browserName() {
   var userAgent = navigator.userAgent,
       tem,
@@ -55,13 +58,13 @@ var isMobile = function isMobile() {
   return /Mobi/i.test(navigator.userAgent) || /Android/i.test(navigator.userAgent);
 };
 
-$.notify.defaults({
+var notifyPosition = isCampaignPage || isHomePage ? $.notify.defaults({
   position: 'left top',
   autoHideDelay: 10000
-}); //Check for old browsers
+}) : undefined; //Check for old browsers
 
 window.onload = function () {
-  if (!(window.localStorage && window.Blob && window.FileReader)) {
+  if (!(window.localStorage && window.Blob && window.FileReader) && (isHomePage || isCampaignPage)) {
     $.notify("Try disable data-saving mode or upgrade your ".concat(browserName(), " browser").concat(browserName(), "."), 'info');
   } //Operamini browsers fail to render the components, there prompting opera mini users to consider using another browser
 
@@ -121,14 +124,10 @@ $(document).ready(function () {
     $('.tap-target').tapTarget('open');
   });
 });
-$(function () {
-  $('.gallery span.modal-link').lightbox();
-  $('.gallery-2 span.gallery-images-link').lightbox(); // If you want seperate galleries on the same page
-  // just specify different class names.
-  //$('.gallery-2 a').lightbox();
-});
 Pace.on('done', function (e) {
-  $('main.main-container').removeClass('invisible-class'); //Disable paceCSS since, it interferes with the materialize css
+  //$('main.main-container').hide();
+  $('main.main-container').removeClass('invisible-class'); //$('main.main-container').fadeIn(3000);
+  //Disable paceCSS since, it interferes with the materialize css
 
   $('link[title="pace-css"]').prop('disabled', true); //Remove paceJS as well
 
@@ -209,8 +208,8 @@ function () {
     this.amountPaidForReferer = 1400;
     this.minimumWithdrawalAmount = 1000;
     this.numberOfAdsForAdminReview = 10;
-    this.affiliateIntroductionVideo = 'about:blank';
-    this.merchantIntroductionVideo = 'about:blank';
+    this.affiliateIntroductionVideo = this.isProductionMode ? 'https://www.youtube.com/embed/gNU3jJ9ooYQ' : 'about:blank';
+    this.merchantIntroductionVideo = this.isProductionMode ? 'https://www.youtube.com/embed/SIUNqj9XM2M' : 'about:blank';
     this.affiliateTourGuide = 'about:blank';
     this.merchantTourGuide = 'about:blank';
     this.amountPaidForUniqueVisitor = 0.5;

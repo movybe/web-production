@@ -174,10 +174,10 @@ class Campaign extends  React.Component
                                     </p>
                                     <div className="video-container demo-video-container">
 
-                                        {/*
-                                        <iframe width="853" height="480" src={defaults.affiliateIntroductionVideo}
-                                                frameBorder="0" allowFullScreen></iframe>
-                                                */}
+
+                                        <iframe width="560" height="315" src={defaults.affiliateIntroductionVideo}
+                                                frameBorder="0" allowFullScreen allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+
 
 
                                     </div>
@@ -191,13 +191,10 @@ class Campaign extends  React.Component
                                 <div className="card-content">
                                     <p>Watch as our CEO explains how Businesses can advertise their products/services with millions of potential online customers in Nigeria.</p>
                                     <div className="video-container demo-video-container">
-                                        {/*
-                                        <iframe width="853" height="480" src={defaults.merchantIntroductionVideo} frameBorder="0" allowFullScreen></iframe>
 
-                                        <video className="responsive-video" controls>
-                                            <source src={defaults.demoVideo2} type="video/mp4"></source>
-                                        </video>
-                                        */}
+                                        <iframe width="560" height="315" src={defaults.merchantIntroductionVideo} frameBorder="0" allowFullScreen></iframe>
+
+
                                     </div>
                                 </div>
 

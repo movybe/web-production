@@ -6,6 +6,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+$(function () {
+  $('.gallery span.modal-link').lightbox();
+  $('.gallery-2 span.gallery-images-link').lightbox(); // If you want seperate galleries on the same page
+  // just specify different class names.
+  //$('.gallery-2 a').lightbox();
+});
+
 var Config = //Sets the value of the localSearch equal to true if there is no cookie key "localSearch"
 //initialLocalSearchCookieValue = Cookies.get(defaults.localSearchCookieKey) != undefined ? Cookies.get(defaults.localSearchCookieKey) != "false" : true;
 //initialShowImagesCookieValue = Cookies.get(defaults.showImagesCookieKey) != undefined ? Cookies.get(defaults.showImagesCookieKey) != "false" : true;

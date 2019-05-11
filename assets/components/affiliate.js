@@ -273,13 +273,13 @@ function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      var isActivateAccount = this.props.user.subscribed == 1;
-      var accountActivationModal = isActivateAccount ? null : this.accountActivationModal();
-      var userSubscriptionStatus = Number(this.props.user.subscribed);
-      var withdrawalPaymentsSingularOrPlural = this.props.user.withdrawal_requests != 1 ? "payments" : "payment";
+      var isActiveAccount = parseInt(this.props.user.subscribed) === 1;
+      var accountActivationModal = isActiveAccount ? null : this.accountActivationModal();
+      var userSubscriptionStatus = isActiveAccount;
+      var withdrawalPaymentsSingularOrPlural = this.props.user.withdrawal_requests !== 1 ? "payments" : "payment";
       var paymentsHistory = this.props.user.payments.length ? React.createElement("h5", null, "Payments History(", this.props.user.payments.length, ")") : null;
       var withdrawalRequests = this.props.user.withdrawal_requests ? React.createElement("h5", null, "Withdrawal Requests(", this.props.user.withdrawal_requests, ")") : null;
-      var accountDeactivationMessage = !isActivateAccount ? React.createElement("div", {
+      var accountDeactivationMessage = !isActiveAccount ? React.createElement("div", {
         className: "row notice-board z-depth-3 account-deactivation-notice-board card-panel"
       }, React.createElement("div", {
         className: "col s12 valign-wrapper"

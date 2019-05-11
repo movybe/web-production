@@ -17,7 +17,7 @@ echo $default_meta_tags = <<<DEFAULT_META_TAGS
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@{$website_details->siteNameLowercase}">
     <meta name="twitter:creator" content="@{$website_details->siteNameLowercase}">
-    <link rel="canonical" href="{$website_details->SiteNameWithHttps}?>">
+    <link rel="canonical" href="{$website_details->SiteNameWithHttps}">
     <link rel="icon" type="image/png" href="{$website_details->IMG_FOLDER}?>favicon.png">
 DEFAULT_META_TAGS;
 $functions->tryRedirectToHttps();

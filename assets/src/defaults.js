@@ -1,3 +1,5 @@
+const isHomePage = window.location.pathname === '/';
+const isCampaignPage = window.location.pathname === '/campaign';
 const browserName = function () {
     let userAgent = navigator.userAgent, tem, M = userAgent.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
     if (/trident/i.test(M[1])) {
@@ -35,13 +37,12 @@ window.onerror= function(msg, url, linenumber) {
 const isMobile = function() {
     return /Mobi/i.test(navigator.userAgent) || /Android/i.test(navigator.userAgent);
 };
-
-$.notify.defaults({position:'left top' , autoHideDelay: 10000});
+const notifyPosition = isCampaignPage || isHomePage ? $.notify.defaults({position:'left top' , autoHideDelay: 10000}) : undefined;
 
 //Check for old browsers
-
 window.onload = function () {
-    if (!(window.localStorage && window.Blob && window.FileReader)) {
+    if (!(window.localStorage && window.Blob && window.FileReader) && (isHomePage || isCampaignPage)) {
+
         $.notify("Try disable data-saving mode or upgrade your ".concat(browserName(), " browser").concat(browserName(), "."), 'info');
     }
     //Operamini browsers fail to render the components, there prompting opera mini users to consider using another browser
@@ -115,19 +116,12 @@ $(document).ready (function () {
     });
 });
 
-$(function()
-{
-    $('.gallery span.modal-link').lightbox();
-    $('.gallery-2 span.gallery-images-link').lightbox();
-    // If you want seperate galleries on the same page
-    // just specify different class names.
-    //$('.gallery-2 a').lightbox();
-
-});
-
 
 Pace.on('done' , function (e) {
+
+    //$('main.main-container').hide();
     $('main.main-container').removeClass('invisible-class');
+    //$('main.main-container').fadeIn(3000);
     //Disable paceCSS since, it interferes with the materialize css
     $('link[title="pace-css"]').prop('disabled' ,  true);
     //Remove paceJS as well
@@ -197,8 +191,8 @@ class Defaults {
         this.amountPaidForReferer = 1400;
         this.minimumWithdrawalAmount = 1000;
         this.numberOfAdsForAdminReview = 10;
-        this.affiliateIntroductionVideo = 'about:blank';
-        this.merchantIntroductionVideo = 'about:blank';
+        this.affiliateIntroductionVideo = this.isProductionMode ?'https://www.youtube.com/embed/gNU3jJ9ooYQ':'about:blank';
+        this.merchantIntroductionVideo = this.isProductionMode ? 'https://www.youtube.com/embed/SIUNqj9XM2M':'about:blank';
         this.affiliateTourGuide = 'about:blank';
         this.merchantTourGuide = 'about:blank';
         this.amountPaidForUniqueVisitor = 0.5;
@@ -268,5 +262,4 @@ class Defaults {
 
 
 const defaults = new Defaults();
-
 

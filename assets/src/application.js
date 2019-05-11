@@ -1,3 +1,4 @@
+
 class Application extends React.Component {
 
     lastSearchQuery = null;

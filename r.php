@@ -191,16 +191,24 @@ class HandleNewInvites extends Functions
 
     <?php
 
+    require_once ('assets/incs/head-files.php');
     $stylesheets = array('affiliate.css' , 'r.css');
-    echo $materialize = $functions->is_production_mode() ? "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css' />" : $functions->printAssets(['materialize.min.css'] , 'css'  , false);
+    $defaults_js = array('defaults.js');
+    $r_js = array('r.js');
+    echo $functions->printAssets($defaults_js , 'babel' , true ,$functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER  : $website_details->SRC_FOLDER , null , false).$functions->printAssets($r_js , 'babel');
+
+    //echo $materialize = $functions->is_production_mode() ? "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css' />" : $functions->printAssets(['materialize.min.css'] , 'css'  , false);
     echo $functions->printAssets($stylesheets , "css" , false)."\n";
     ?>
-    <link rel="icon" type="image/jpeg" href="<?php echo $website_details->IMG_FOLDER;?>favicon.png" />
+
 </head>
 <body>
 <main class ="container">
     <div class ="section no-pad-bot" id="index-banner">
         <div class="container r-container">
+            <div class="video-container demo-video-container" id="affiliate-video-container">
+
+            </div>
             <div class="row notice-board z-depth-3 card-panel payments-notice-board">
                 <div class="col s12 valign-wrapper">
                         <span class="invitation-message">

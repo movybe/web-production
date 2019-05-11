@@ -47,12 +47,6 @@ class Affiliate extends React.Component
             return 0;
         }
 
-
-
-
-
-
-
         this.accountActivationFieldset.prop(...defaults.disabledTrue);
 
 
@@ -193,23 +187,20 @@ class Affiliate extends React.Component
 
 
 
-        let isActivateAccount = this.props.user.subscribed == 1;
-        let accountActivationModal = isActivateAccount ? null:  this.accountActivationModal();
-        let userSubscriptionStatus = Number(this.props.user.subscribed);
-        let withdrawalPaymentsSingularOrPlural = this.props.user.withdrawal_requests != 1 ? "payments" : "payment";
+        let isActiveAccount = parseInt(this.props.user.subscribed) === 1;
+        let accountActivationModal = isActiveAccount ? null:  this.accountActivationModal();
+        let userSubscriptionStatus = isActiveAccount;
+        let withdrawalPaymentsSingularOrPlural = this.props.user.withdrawal_requests !== 1 ? "payments" : "payment";
 
         let paymentsHistory = this.props.user.payments.length ? <h5>Payments History({this.props.user.payments.length})</h5> : null;
         let withdrawalRequests = this.props.user.withdrawal_requests ? <h5>Withdrawal Requests({this.props.user.withdrawal_requests})</h5> : null;
-
-        let accountDeactivationMessage = !isActivateAccount ?
-
+        let accountDeactivationMessage = !isActiveAccount ?
             <div className="row notice-board z-depth-3 account-deactivation-notice-board card-panel">
                 <div className="col s12 valign-wrapper">
                         <span className="affiliate-withdrawal-requests-message">
                             Your account is no longer active, click <strong className="strong"><a className="modal-trigger account-activation-modal-link" href = "#account-activation-modal">here</a></strong> to re-activate.
                         </span>
                 </div>
-
             </div>
  : null;
 
