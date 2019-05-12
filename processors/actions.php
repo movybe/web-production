@@ -453,7 +453,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                 'total_income_earned' => $this->website_details->amountPaidToAffiliateForReferer ,
                 'total_referer_amount_earned' => $this->website_details->amountPaidToAffiliateForReferer,
                 'amount_earned_for_the_month' => $this->website_details->amountPaidToAffiliateForReferer,
-                'number_of_users_referred' => 1
+                'number_of_users_invited' => 1
             ]
             , "username = '{$referer_username}'");
 
