@@ -371,7 +371,8 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
             'subscribed' => 1,
             'approved' => 1,
             'reference_code' => $reference_code,
-            'referer_usernames' => $referer_username
+            'referer_usernames' => $referer_username,
+            'user_id' => $this->generateUserId()
         ];
 
         $msg = "hi";

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="598e7940-3c59-4d86-9dda-2ed1c27dc0d7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="598e7940-3c59-4d86-9dda-2ed1c27dc0d7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +49,7 @@
           <entry key="htaccess" value="5" />
           <entry key="js" value="53" />
           <entry key="json" value="1" />
-          <entry key="php" value="62" />
+          <entry key="php" value="64" />
           <entry key="sql" value="1" />
           <entry key="txt" value="1" />
         </counts>
@@ -61,7 +59,7 @@
           <entry key="CSS" value="8" />
           <entry key="JSON" value="1" />
           <entry key="JavaScript" value="53" />
-          <entry key="PHP" value="62" />
+          <entry key="PHP" value="64" />
           <entry key="PLAIN_TEXT" value="3" />
           <entry key="SQL" value="1" />
           <entry key="htaccess" value="5" />
@@ -73,7 +71,7 @@
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="26" />
           <entry key="js" value="9732" />
-          <entry key="php" value="7307" />
+          <entry key="php" value="7325" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -81,7 +79,7 @@
           <entry key="CSS" value="353" />
           <entry key="HTML" value="10" />
           <entry key="JavaScript" value="9732" />
-          <entry key="PHP" value="7277" />
+          <entry key="PHP" value="7295" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="20" />
           <entry key="htaccess" value="26" />
@@ -91,7 +89,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/campaign.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="156">
@@ -114,6 +112,24 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="209">
               <caret line="268" lean-forward="true" selection-start-line="268" selection-end-line="268" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/r.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="271">
+              <caret line="55" column="60" lean-forward="true" selection-start-line="55" selection-start-column="60" selection-end-line="55" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/DatabaseConnection.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="212">
+              <caret line="130" column="60" lean-forward="true" selection-start-line="130" selection-start-column="60" selection-end-line="130" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -145,11 +161,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/processors/actions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="455" column="47" lean-forward="true" selection-start-line="455" selection-start-column="47" selection-end-line="455" selection-end-column="47" />
+            <state relative-caret-position="124">
+              <caret line="453" column="41" lean-forward="true" selection-start-line="453" selection-start-column="41" selection-end-line="453" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -158,7 +174,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>$DatabaseConnection</find>
       <find>public</find>
       <find>omoba</find>
       <find>0.5</find>
@@ -188,6 +203,7 @@
       <find>create_new_aff</find>
       <find>number_of_user</find>
       <find>number_of_users_ref</find>
+      <find>vodka123</find>
     </findStrings>
     <replaceStrings>
       <replace>tour</replace>
@@ -215,7 +231,6 @@
         <option value="$PROJECT_DIR$/assets/src/campaign-settings.js" />
         <option value="$PROJECT_DIR$/processors/crawler.php" />
         <option value="$PROJECT_DIR$/test.php" />
-        <option value="$PROJECT_DIR$/processors/actions.php" />
         <option value="$PROJECT_DIR$/processors/suggestions.php" />
         <option value="$PROJECT_DIR$/config/DatabaseConnection.php" />
         <option value="$PROJECT_DIR$/config/config.php" />
@@ -231,13 +246,14 @@
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/config/functions.php" />
         <option value="$PROJECT_DIR$/.htaccess" />
-        <option value="$PROJECT_DIR$/r.php" />
         <option value="$PROJECT_DIR$/assets/src/campaign.js" />
         <option value="$PROJECT_DIR$/assets/css/admin.css" />
         <option value="$PROJECT_DIR$/assets/css/cairo.css" />
         <option value="$PROJECT_DIR$/assets/src/admin.js" />
         <option value="$PROJECT_DIR$/campaign.php" />
         <option value="$PROJECT_DIR$/assets/src/defaults.js" />
+        <option value="$PROJECT_DIR$/processors/actions.php" />
+        <option value="$PROJECT_DIR$/r.php" />
       </list>
     </option>
   </component>
@@ -345,21 +361,21 @@
       <workItem from="1557464704376" duration="722000" />
       <workItem from="1557476514611" duration="6234000" />
       <workItem from="1557548006676" duration="16092000" />
-      <workItem from="1557634600351" duration="6060000" />
+      <workItem from="1557634600351" duration="6444000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="207531000" />
+    <option name="totallyTimeSpent" value="207915000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1378" height="780" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.23292868" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.23292868" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" visible="true" weight="0.2654321" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="0" visible="true" weight="0.2654321" />
       <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.32843137" />
@@ -461,13 +477,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/DatabaseConnection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2227">
-          <caret line="131" column="40" selection-start-line="131" selection-start-column="40" selection-end-line="131" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/config.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="269">
@@ -555,13 +564,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/r.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3808">
-          <caret line="224" column="10" selection-start-line="224" selection-start-column="10" selection-end-line="224" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/r.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -590,13 +592,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/campaign.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="268" lean-forward="true" selection-start-line="268" selection-end-line="268" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -606,20 +601,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/paystack.min.js">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/campaign.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="31" column="128" lean-forward="true" selection-start-line="31" selection-start-column="128" selection-end-line="31" selection-end-column="128" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/admin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="19" column="18" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="18" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.htaccess">
       <provider selected="true" editor-type-id="text-editor">
@@ -651,8 +632,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/processors/actions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="455" column="47" lean-forward="true" selection-start-line="455" selection-start-column="47" selection-end-line="455" selection-end-column="47" />
+        <state relative-caret-position="124">
+          <caret line="453" column="41" lean-forward="true" selection-start-line="453" selection-start-column="41" selection-end-line="453" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/r.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="55" column="60" lean-forward="true" selection-start-line="55" selection-start-column="60" selection-end-line="55" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/DatabaseConnection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="130" column="60" lean-forward="true" selection-start-line="130" selection-start-column="60" selection-end-line="130" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/src/campaign.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="268" lean-forward="true" selection-start-line="268" selection-end-line="268" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/src/admin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="19" column="18" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/campaign.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="31" column="128" lean-forward="true" selection-start-line="31" selection-start-column="128" selection-end-line="31" selection-end-column="128" />
         </state>
       </provider>
     </entry>
