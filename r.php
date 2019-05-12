@@ -49,7 +49,7 @@ class HandleNewInvites extends Functions
         $this->increment_value($this->site_statistics_table_name , 'total_number_of_invites' , 1 , 'id = 1');
 
         //Increment the number of users referred by the invitee
-        $this->increment_value($this->users_table_name , 'number_of_users_referred' , 1 , "username = '{$this->invitee_username}'");
+        $this->increment_value($this->users_table_name , 'number_of_users_invited' , 1 , "username = '{$this->invitee_username}'");
 
 
         //credit the referer
