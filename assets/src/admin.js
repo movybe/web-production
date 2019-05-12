@@ -294,7 +294,7 @@ class Admin extends React.Component
                 <tbody>
                 <tr>
                     <td>{this.state.payment_details[0].account_name.truncate(defaults.accountNameLengthToShow)}</td>
-                    <td>{this.state.payment_details[0].account_number} <a href='#' className='no-underline' onClick={() => clipboard.writeText(this.state.payment_details[0].account_number)}>copy</a> </td>
+                    <td>{this.state.payment_details[0].account_number} <a href='#' className='no-underline' onClick={() => {clipboard.writeText(this.state.payment_details[0].account_number); defaults.showToast("Copied!")}}>copy</a> </td>
                     <td>{this.state.payment_details[0].bank_name}</td>
                     <td>&#8358;{this.convertDecimalToLocaleString(this.state.payment_details[0].amount)}</td>
                 </tr>

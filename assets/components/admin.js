@@ -361,7 +361,8 @@ function (_React$Component) {
         href: "#",
         className: "no-underline",
         onClick: function onClick() {
-          return clipboard.writeText(_this.state.payment_details[0].account_number);
+          clipboard.writeText(_this.state.payment_details[0].account_number);
+          defaults.showToast("Copied!");
         }
       }, "copy"), " "), React.createElement("td", null, _this.state.payment_details[0].bank_name), React.createElement("td", null, "\u20A6", _this.convertDecimalToLocaleString(_this.state.payment_details[0].amount))))), React.createElement("a", {
         href: "#confirm-payment-modal",

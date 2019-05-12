@@ -119,6 +119,7 @@ function (_React$Component) {
       $.post(defaults.actions, {
         data: data
       }, function (response1) {
+        console.log(response1);
         _this2.registeredTimeago = timeago.format(_this2.props.user.registered_on);
         response1 = JSON.parse(response1);
         data = {

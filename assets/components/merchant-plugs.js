@@ -99,24 +99,6 @@ function (_React$Component) {
       uploadImage: false
     });
 
-    _defineProperty(_assertThisInitialized(_this), "refreshProfile", function () {
-      var data = {
-        email: _this.props.email,
-        action: 'FETCH_MERCHANT_DETAILS'
-      };
-      data = JSON.stringify(data);
-      $.post(defaults.actions, {
-        data: data
-      }, function (response1) {
-        response1 = JSON.parse(response1);
-
-        _this.props.resetState(_objectSpread({}, _this.props, {
-          user: response1.user,
-          ads: response1.ads
-        }));
-      });
-    });
-
     _defineProperty(_assertThisInitialized(_this), "changeAdActiveStatus", function (e) {
       e.persist();
       var action = $(e.target).attr('data-pause') == "true" ? 'PAUSE_AD' : 'PLAY_AD';
