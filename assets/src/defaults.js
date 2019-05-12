@@ -128,6 +128,7 @@ class Defaults {
         this.inArray = function (value , arr) {
             return arr.indexOf(value) !== -1;
         };
+        var $this = this;
         this.whatsappContact = '+234 905 897 7259';
         this.isProductionMode = window.location.hostname !== 'localhost';
         this.hostName = window.location.hostname;
@@ -203,9 +204,9 @@ class Defaults {
        this.sponsoredAdText = 'SPONSORED';
        this.siteWebPackageName = "com.movybe";
        this.successText='success';
-        this.payWithPaystack = (email , amount , name , call) =>
+        this.payWithPaystack = (email , amount , name , call , callback) =>
         {
-            const handler = PaystackPop.setup({
+            let paystackHandler = {
                 key: this.paystackKey,
                 email: email,
                 amount,
@@ -222,13 +223,28 @@ class Defaults {
                 },
                 callback: function(response)
                 {
-                  call(response);
+                    call(response);
                 },
                 onClose: function(){
                     //window.console.log('window closed');
                 }
-            });
-            handler.openIframe();
+            };
+
+            let paystackScript = this.isProductionMode ? 'https://js.paystack.co/v1/inline.js?id=1' : defaults.getFileLocation('/assets/js/paystack.min.js');
+            let handler;
+            let handlePaystack = function () {
+                handler = PaystackPop.setup(paystackHandler);
+                handler.openIframe();
+            };
+            if(typeof PaystackPop === 'undefined') {
+                $.getScript(paystackScript).done(handlePaystack).fail(function () {
+                    $this.showToast($this.checkNetworkConnectionError);
+                });
+            }
+            else
+            {
+                handlePaystack();
+            }
         };
 
         this.convertToPaystack = (naira) =>

@@ -71,7 +71,7 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentWillMount", function () {
-      $.getScript('/assets/js/clipboard.js');
+      $.getScript(defaults.getFileLocation('/assets/js/clipboard.js'));
       document.title = defaults.siteName + " • Admin Panel";
     });
 

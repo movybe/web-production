@@ -145,6 +145,7 @@ function () {
       return arr.indexOf(value) !== -1;
     };
 
+    var $this = this;
     this.whatsappContact = '+234 905 897 7259';
     this.isProductionMode = window.location.hostname !== 'localhost';
     this.hostName = window.location.hostname;
@@ -221,8 +222,8 @@ function () {
     this.siteWebPackageName = "com.movybe";
     this.successText = 'success';
 
-    this.payWithPaystack = function (email, amount, name, call) {
-      var handler = PaystackPop.setup({
+    this.payWithPaystack = function (email, amount, name, call, callback) {
+      var paystackHandler = {
         key: _this.paystackKey,
         email: email,
         amount: amount,
@@ -241,8 +242,22 @@ function () {
         },
         onClose: function onClose() {//window.console.log('window closed');
         }
-      });
-      handler.openIframe();
+      };
+      var paystackScript = _this.isProductionMode ? 'https://js.paystack.co/v1/inline.js?id=1' : defaults.getFileLocation('/assets/js/paystack.min.js');
+      var handler;
+
+      var handlePaystack = function handlePaystack() {
+        handler = PaystackPop.setup(paystackHandler);
+        handler.openIframe();
+      };
+
+      if (typeof PaystackPop === 'undefined') {
+        $.getScript(paystackScript).done(handlePaystack).fail(function () {
+          $this.showToast($this.checkNetworkConnectionError);
+        });
+      } else {
+        handlePaystack();
+      }
     };
 
     this.convertToPaystack = function (naira) {
