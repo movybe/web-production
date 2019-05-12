@@ -62,14 +62,6 @@ class MerchantPlugs extends React.Component {
         super();
     }
 
-    refreshProfile = ()  => {
-        let data = {email : this.props.email , action : 'FETCH_MERCHANT_DETAILS'};
-        data = JSON.stringify(data);
-        $.post(defaults.actions , {data} , response1 => {
-            response1 = JSON.parse(response1);
-            this.props.resetState({...this.props , user : response1.user , ads : response1.ads});
-        });
-    }
 
     changeAdActiveStatus = e => {
         e.persist();

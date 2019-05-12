@@ -30,6 +30,7 @@ class Merchant extends React.Component
         let data = {email : this.props.email , action : 'FETCH_MERCHANT_DETAILS'};
         data = JSON.stringify(data);
         $.post(defaults.actions , {data} , response1 => {
+            console.log(response1);
 
 
             this.registeredTimeago = timeago.format(this.props.user.registered_on);
@@ -43,6 +44,8 @@ class Merchant extends React.Component
                 response2 = JSON.parse(response2);
                 this.props.resetState({...this.props , user : response1.user , ads : response1.ads , adRates : {...response2}});
             });
+
+
 
         });
 
@@ -168,7 +171,7 @@ class Merchant extends React.Component
                         </div>
 
                 </div>
-                <MerchantPlugs activateMerchantAccount = {this.activateMerchantAccount} refreshProfile = {this.refreshProfile} />
+                <MerchantPlugs  activateMerchantAccount = {this.activateMerchantAccount} refreshProfile = {this.refreshProfile} />
             </div>
                 <Footer accountType = "Merchant" refreshProfile = {this.refreshProfile} />
             </div>
