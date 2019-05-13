@@ -123,14 +123,18 @@ class Actions extends  Functions
 
             //Decrement the payment charge from website account balance
             $this->decrement_value($this->site_statistics_table_name , 'account_balance' , $withdrawal_charge , 'id = 1');
-            //Increment the profit of the site
 
+            //Increment the profit of the site
             $this->increment_value($this->site_statistics_table_name , 'profit' , $this->website_details->affiliateWithdrawalProfit , 'id = 1');
 
+            //Decrement the account balance of the site
+            $this->decrement_value($this->site_statistics_table_name , 'account_balance' , $amount , 'id = 1');
+
             return json_encode([$this->errorText => $this->successfulWithdrawalMessage  , $this->successText => 1]);
+
         }
 
-        return "a";
+        return '';
     }
 
     private function generateUserId () : string {
