@@ -172,10 +172,10 @@ class Defaults {
         this.disabledFalse = ['disabled' , false];
         this.numberOfAdSpaceForMerchant = [0 , 1];
         this.numberOfAdSpaceForOmoba = [0 , 1 , 2 , 3 , 5];
-        this.minimumAffliateProfit = 6500;
+        this.minimumAffliateProfit = 10000;
         this.minimumAccountUsernameLength = 5;
         this.maximumAccountUsernameLength = 12;
-        this.amountPaidForReferer = 1400;
+        this.amountPaidForReferer = 2000;
         this.minimumWithdrawalAmount = 1000;
         this.numberOfAdsForAdminReview = 10;
         this.affiliateIntroductionVideo = this.isProductionMode ?'https://www.youtube.com/embed/gNU3jJ9ooYQ':'about:blank';
@@ -184,7 +184,7 @@ class Defaults {
         this.merchantTourGuide = 'about:blank';
         this.amountPaidForUniqueVisitor = 0.5;
         this.dummyEmail = 'omobang@gmail.com';
-        this.thresholdAmount = 6500;
+        this.thresholdAmount = 10000;
         this.maximumAdminAdMessageLength = 120;
         this.priceNotSpecifiedText = 'price not specified';
         this.transactionNotSuccessfulMessage = 'Transaction not successful';
@@ -204,7 +204,7 @@ class Defaults {
        this.sponsoredAdText = 'SPONSORED';
        this.siteWebPackageName = "com.movybe";
        this.successText='success';
-        this.payWithPaystack = (email , amount , name , call , callback) =>
+       this.payWithPaystack = (email , amount , name , call , callback) =>
         {
             let paystackHandler = {
                 key: this.paystackKey,
