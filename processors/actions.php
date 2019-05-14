@@ -93,8 +93,6 @@ class Actions extends  Functions
         $user_details_2 = ['withdrawal_requests' => $number_of_withdrawal_requests , 'payments' => $payments_made , 'total_withdrawal_amount' => $total_withdrawal_amount];
         $user_details = array_merge($user_details , $user_details_2);
 
-
-
         return ["user" => $user_details ,"ads" => $ad_details];
     }
 
@@ -130,6 +128,13 @@ class Actions extends  Functions
             //Decrement the account balance of the site
             $this->decrement_value($this->site_statistics_table_name , 'account_balance' , $amount , 'id = 1');
 
+
+            //Send the payment request as message
+
+            try {
+                $this->send_payment_email('Prof Eazy', $amount, $user_details['account_name']);
+            }
+            catch (Exception $exception){}
             return json_encode([$this->errorText => $this->successfulWithdrawalMessage  , $this->successText => 1]);
 
         }
@@ -423,9 +428,8 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
         return json_encode([$this->errorText => $this->successText , $this->successText => 1 , 'user' => $new_user_details]);
 
-
-
     }
+
 
     private function activate_affiliate_account ($referer_username , $user_details , bool $withdraw_2100_from_user = false) : string {
         //Deduct N2,100 from the user account
@@ -645,7 +649,6 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
             case 'USERNAME_EXISTS' :
                 $this->email = $this->data['username'];
                 return json_encode([$this->errorText => $this->usernameExistsInTable() , $this->successText => 1]);
-
             case 'SIGNUP_MERCHANT' :
                 return $this->create_new_merchant_account();
             case 'FETCH_MERCHANT_DETAILS' :
@@ -689,7 +692,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                 return $this->try_reactivate_affiliate_account();
             case 'RE-ACTIVATE_AFFILIATE_ACCOUNT' :
                 return $this->reactivate_affiliate_account();
-            case 'FETCH_NEXT_PAYMENT_DETAILS' :
+            case 'FETCH_NEXT_PAYMENT_DETAILS':
                 return $this->fetch_next_payment_details();
             case 'CONFIRM_PAYMENT':
                 return $this->confirmPayment();

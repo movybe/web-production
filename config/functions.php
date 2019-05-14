@@ -28,6 +28,183 @@ class Functions extends  DatabaseConnection {
 
     }
 
+    function send_payment_email ($amount , $username) : bool
+    {
+        require_once '../phpmailer/PHPMailerAutoload.php';
+        $mail = new PHPMailer;
+        $time = time();
+        $date = date('d-m-Y' , $time);
+        // include  '../emails/basic_emails/verification_email.php';
+        // include  '../emails/html_emails/verification_email.php';
+        $time_string = date('h:i:s a' , $time);
+        $html_email_body = <<<HTML_EMAIL_BODY
+<!DOCTYPE html>
+<html lang = 'en-us'>
+<head>
+<style type='text/css'>
+#mail-logo-image {
+width : 16px;
+height : 16px;
+position:relative;
+left : 93%;
+}
+#email-text , #not-user-message{
+font-family: 'Helvetica Neue Light',Helvetica,Arial,sans-serif;
+font-size: 16px;
+padding: 0px;
+margin: 0px;
+font-weight: normal;
+line-height: 22px;
+color : #222;
+margin-top : 20px;
+}
+body {
+background-color: #f5f8fa;
+margin: 0;
+padding: 0;
+}
+#final-step {
+color : #222;
+font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+font-size:24px;
+padding:0px;
+margin:0px;
+font-weight:bold;
+line-height:32px;
+}
+#date {
+  display : none;
+}
+@media only screen and (max-width: 600px) {
+#main-mail-container-div {
+width : 80%;
+}
+}
+#container{
+background-color : #e1e8ed;
+}
+#main-mail-container-div {
+margin-left : auto;
+margin-right: auto;
+background-color : #fff;
+width : 420px;
+padding : 15px;
+}
+#confirmation-link{
+font-size: 16px;
+font-family: 'HelveticaNeue','Helvetica Neue',Helvetica,Arial,sans-serif;
+color: #ffffff;
+text-decoration: none;
+border-radius: 4px;
+padding: 11px 30px;
+border: 1px solid #1da1f2;
+display: inline-block;
+font-weight: bold;
+background-color: rgb(29, 161, 242);
+margin-top : 20px;
+}
+#not-user-message {
+font-size: 12px;
+}
+#site-address {
+color: #8899a6;
+font-family: 'Helvetica Neue Light',Helvetica,Arial,sans-serif;
+font-size: 12px;
+font-weight: normal;
+line-height: 16px;
+text-align: center;
+width : 180px;
+margin : auto;
+}
+</style>
+</head>
+<body>
+<div id ='container'>
+<div id = 'main-mail-container-div'>
+<p id = 'final-step'>New Payment Request</p>
+<p id = 'email-text'>
+Hello, {$this->website_details->SiteName} there is a payment request from $username of $amount <br /> <br />
+
+</p>
+<a href = "{$this->website_details->campaignPage}" title='Make payment' id = 'confirmation-link'>Continue payment</a>
+<p id = 'not-user-message'>
+This email was automatically sent to you by {$this->website_details->SiteName}.Please do not reply to this email. If you have any question, do not hesistate to <a href="{$this->config->SiteNameWithHttps}">contact us.</a>  Thank you.
+</p>
+<p id = 'site-address'>
+{$this->website_details->SiteName} International ﻿Company.
+{$this->website_details->HeadOffice}
+</p>
+<br />
+<span id = "date">{$time_string}</span>;
+</div>
+</div>
+</body>
+</html> 
+HTML_EMAIL_BODY;
+        $basic_email_body = <<<BASIC_EMAIL_BODY
+<!DOCTYPE html>
+<html lang='en-us' dir='ltr'>
+<body>
+<div id ='container'>
+<div id = 'main-mail-container-div'>
+<p id = 'final-step'>New Payment Request</p>
+<p id = 'email-text'>
+Hello, {$this->website_details->SiteName} there is a payment request from $username of $amount <br /> <br />
+
+</p>
+<a href = "{$this->website_details->campaignPage}" title='Make payment' id = 'confirmation-link'>Continue payment</a>
+<p id = 'not-user-message'>
+This email was automatically sent to you by {$this->website_details->SiteName}.<br /><br />
+Please do not reply to this email. If you have any question, do not hesitate to <a href="{$this->website_details->SiteNameWithHttps}">contact us.</a>  Thank you.
+</p>
+<p id = 'site-address'>
+{$this->website_details->SiteName} International ﻿Company.
+{$this->website_details->HeadOffice}
+</p>
+<br />
+<span id = "date">{$time_string}</span>;
+</div>
+</div>
+</body>
+</html>
+BASIC_EMAIL_BODY;
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = $this->website_details->PrimaryEmailServer;  // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;
+//$mail->SMTPDebug = 3;                              // Enable SMTP authentication
+        $mail->Username = $this->website_details->PrimaryEmail;                 // SMTP username
+        $mail->Password = $this->website_details->PrimaryEmailPassword;                           // SMTP password
+        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;                                    // TCP port to connect to
+        $site_author = $this->website_details->SiteAuthor;
+        $primary_email = $this->website_details->PrimaryEmail;
+        $primary_email_server = $this->website_details->PrimaryEmailServer;
+        $primary_email_password = $this->website_details->PrimaryEmailPassword;
+        try {
+            $mail->setFrom($primary_email_server, "{$site_author} From {$this->website_details->SiteName}");
+        } catch (phpmailerException $e) {
+            //  echo $e->getMessage();
+            return false;
+        }
+        $mail->addAddress($this->website_details->send_withdrawal_request_to, $this->website_details->SiteName);     // Add a recipient
+//$mail->addAddress('ellen@example.com');               // Name is optional
+        $mail->addReplyTo($primary_email, $this->website_details->SiteName);
+// $mail->addCC('cc@example.com');
+//$mail->addBCC('bcc@example.com');
+//$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+//$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = "Withdrawal Requests from {$this->website_details->SiteName}";
+        $mail->Body = $html_email_body;
+        $mail->AltBody = $basic_email_body;
+        if(!$mail->send()) {
+            //  echo 'Mailer Error: ' . $mail->ErrorInfo;
+            return false;
+        } else {
+            return  true;
+        }
+    }
+
 
     function __construct()
     {

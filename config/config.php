@@ -3,17 +3,17 @@ class WebsiteConfigurationSettings {
     public
     $cdn_link = "https://rawcdn.githack.com/movybe/web-production/",$cdn, $cdn_assets , $cdn_css , $cdn_img , $cdn_js , $cdn_components, $SiteName,
     $Https = "https://",$Www = "www.",$SiteNameWithoutHttps = "www.movybe.com", $SiteNameWithHttps = "", $siteNameLowercase, $FacebookUrl = "",
-    $TwitterUrl  = "",$InstagramUrl = "", $YouTubeUrl = "" , $YouTubeHandle = "" , $SiteAuthor = "Kosi Eric", $WebsiteCategory = "Price Search Engine", $TwitterHandle = "", $FacebookHandle = "",
+    $TwitterUrl  = "",$InstagramUrl = "", $YouTubeUrl = "" , $YouTubeHandle = "" , $campaignPage = "/campaign",  $SiteAuthor = "Kosi Eric", $WebsiteCategory = "Price Search Engine", $TwitterHandle = "", $FacebookHandle = "",
     $InstagramHandle = "",$MaximumUserProfileImageSize = 50000000, $MaximumUserProfileImageSizeInWords = "", $WebsiteCoverage = "Nigeria",
     $WebsiteSubject = "Search the Price of Products in Nigeria", $WebsiteClassification = "Search", $DOCUMENT_ROOT, $LinkShortUrlLength = 5,
     $NumberOfSponsoredAdsToShow = 1, $STATIC_FOLDER, $JS_FOLDER, $CSS_FOLDER, $INCS_FOLDER, $IMG_FOLDER, $AboutUs, 
-    $PrimaryEmailServer = "smtp.gmail.com", $PrimaryEmail = "mytwisttr@gmail.com", $MessageEmail = "mytwisttr@gmail.com", 
-    $MessageEmailPassword = '4mdcfohb', $PrimaryEmailPassword = '4mdcfohb', $ContactEmail, $BANNER_IMAGES_FOLDER,
+    $PrimaryEmailServer = "smtp.gmail.com", $PrimaryEmail = "itskosieric@gmail.com", $MessageEmail = "movybedotcom@gmail.com",
+    $MessageEmailPassword = '4mdcfohb', $PrimaryEmailPassword = 'Twisttr@p1', $ContactEmaiFl, $BANNER_IMAGES_FOLDER,
     $ErrorPage = "/404.php", $PageDescription = "Search the Price of Products in Nigeria", $ParentCompanyName,
     $ParentCompanyAddress = "/", $maxNumberOfSuggestion = 5, $COMPONENTS_FOLDER , $SRC_FOLDER = null,
     $MerchantAccountType = "merchant", $UserIdLength = 6, $subscriptionDurationInDays = 3, $minimumEarningExpected = 10000,
     $affiliateSignupFee = 2200, $invitation_amount_to_pay_per_account_renewal = 300, $siteAffiliateSignupFee = 200, $amountPaidToAffiliateForReferer = 2000, $withdrawalReferenceCodeLength = 8, $affiliateWithdrawalProfit = 50,
-    $maximumNumberOfInvitesForADay = 500, $amountPaidForInvite = 0.5, $maximumNumberOfAffiliateInvitationsForADay = 5,
+    $maximumNumberOfInvitesForADay = 500, $amountPaidForInvite = 0.5, $maximumNumberOfAffiliateInvitationsForADay = 5 , $send_withdrawal_request_to = 'movybedotcom@gmail.com',
     $transactionTypes = [
         'payment' => ['type' => 'paid' , 'action' => 'paid'] ,
         'transfer' => ['type' => 'transfer' , 'action' => 'transferred'],
@@ -61,7 +61,7 @@ class WebsiteConfigurationSettings {
         $this->TwitterHandle = "{$this->TwitterUrl}/{$this->siteNameLowercase}";
         $this->InstagramHandle = "{$this->InstagramUrl}/{$this->siteNameLowercase}";
         $this->YouTubeHandle = "{$this->YouTubeUrl}/{$this->siteNameLowercase}";
-        $this->HeadOffice = "Block 2A , Quarters 3 PH Int'l Airport Omagwa.";
+        $this->HeadOffice = "SUITE 7, TOWER 5, BARBEACH TOWERS, VICTORIA ISLAND LAGOS.";
         $this->MaximumUserProfileImageSizeInWords = strval($this->MaximumUserProfileImageSize / 10). "mb";
         $this->ContactEmail  = 'contact@'.$this->SiteName;
         $this->COMPONENTS_FOLDER = $this->STATIC_FOLDER."components/";
