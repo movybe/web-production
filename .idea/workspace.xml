@@ -4,9 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/config/config.php" line="13" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="598e7940-3c59-4d86-9dda-2ed1c27dc0d7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="598e7940-3c59-4d86-9dda-2ed1c27dc0d7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,8 +114,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/src/defaults.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="286" column="3" lean-forward="true" selection-start-line="286" selection-start-column="3" selection-end-line="286" selection-end-column="3" />
+            <state relative-caret-position="170">
+              <caret line="133" column="29" selection-start-line="133" selection-start-column="29" selection-end-line="133" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -153,7 +151,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>public \$database_password \= \&quot;\&quot;\;\n    public \$database_host \= \&quot;localhost\&quot;\;\n    public \$database \= \&quot;movybe\&quot;\; \/\/ database name\n    public \$production_database_username \= \'movybeco_guys\'\;\n    public \$production_database_name \= \'movybeco_users\'\;\n    public \$production_database_password \= \'Quicknaira\.com\'\;\n    public  \$conn\;\n    public \$words_table_name \= \&quot;words\&quot;\;\n    public \$queries_table_name \= \&quot;queries\&quot;\;\n    public \$users_table_name \= \&quot;users\&quot;\;\n    public \$ads_table_name \= \&quot;ads\&quot;\;\n    public \$visitors_table_name \= \&quot;visitors\&quot;\;\n    public \$site_statistics_table_name \= \&quot;site_statistics\&quot;\;\n    public \$withdrawals_table_name \= \&quot;withdrawals\&quot;\;\n    public \$website_details\;\n    public \$site_name\;\n</find>
       <find>transactions</find>
       <find>fetch_next</find>
       <find>confirmP</find>
@@ -183,6 +180,7 @@
       <find>create_new_a</find>
       <find>refreshProfile =() =&gt;</find>
       <find>'account_balance'</find>
+      <find>2000</find>
     </findStrings>
     <replaceStrings>
       <replace>tour</replace>
@@ -252,7 +250,7 @@
       <path value="$PROJECT_DIR$/assets/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="-8" />
     <option name="width" value="1378" />
     <option name="height" value="780" />
@@ -349,15 +347,15 @@
       <workItem from="1557548006676" duration="16092000" />
       <workItem from="1557634600351" duration="6946000" />
       <workItem from="1557645125726" duration="5420000" />
-      <workItem from="1557751313315" duration="9031000" />
+      <workItem from="1557751313315" duration="10611000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="222868000" />
+    <option name="totallyTimeSpent" value="224448000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="0" width="1378" height="780" extended-state="0" />
+    <frame x="-8" y="0" width="1378" height="780" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
@@ -679,8 +677,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/defaults.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="286" column="3" lean-forward="true" selection-start-line="286" selection-start-column="3" selection-end-line="286" selection-end-column="3" />
+        <state relative-caret-position="170">
+          <caret line="133" column="29" selection-start-line="133" selection-start-column="29" selection-end-line="133" selection-end-column="29" />
         </state>
       </provider>
     </entry>

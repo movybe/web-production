@@ -11,9 +11,9 @@ class WebsiteConfigurationSettings {
     $MessageEmailPassword = '4mdcfohb', $PrimaryEmailPassword = '4mdcfohb', $ContactEmail, $BANNER_IMAGES_FOLDER,
     $ErrorPage = "/404.php", $PageDescription = "Search the Price of Products in Nigeria", $ParentCompanyName,
     $ParentCompanyAddress = "/", $maxNumberOfSuggestion = 5, $COMPONENTS_FOLDER , $SRC_FOLDER = null,
-    $MerchantAccountType = "merchant", $UserIdLength = 6, $subscriptionDurationInDays = 30, $minimumEarningExpected = 1000,
+    $MerchantAccountType = "merchant", $UserIdLength = 6, $subscriptionDurationInDays = 3, $minimumEarningExpected = 10000,
     $affiliateSignupFee = 2200, $invitation_amount_to_pay_per_account_renewal = 300, $siteAffiliateSignupFee = 200, $amountPaidToAffiliateForReferer = 2000, $withdrawalReferenceCodeLength = 8, $affiliateWithdrawalProfit = 50,
-    $maximumNumberOfInvitesForADay = 500, $amountPaidForInvite = 0.0, $maximumNumberOfAffiliateInvitationsForADay = 5,
+    $maximumNumberOfInvitesForADay = 500, $amountPaidForInvite = 0.5, $maximumNumberOfAffiliateInvitationsForADay = 5,
     $transactionTypes = [
         'payment' => ['type' => 'paid' , 'action' => 'paid'] ,
         'transfer' => ['type' => 'transfer' , 'action' => 'transferred'],
