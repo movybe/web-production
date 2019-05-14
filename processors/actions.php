@@ -527,7 +527,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         $days = floor($datediff/(60*60*24));
 
         //Check if the referer has made more than N5000 in the last month
-        if($days > $this->website_details->subscriptionDurationInDays && $amount_earned_for_the_month >= $amount_earned_for_the_month)
+        if($days > $this->website_details->subscriptionDurationInDays && $amount_earned_for_the_month >= $this->website_details->minimumEarningExpected)
         {
             //Unsubscribe the user
             $this->update_record($this->users_table_name , 'subscribed' , 0 , 'username' , $referer_username);
