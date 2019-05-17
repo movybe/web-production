@@ -61,7 +61,7 @@ class Actions extends  Functions
         $user_details = $this->fetch_data_from_table($this->users_table_name , "email" , $this->email)[0];
         $username = $user_details['username'];
 
-        if($user_details['subscribed'] == 1) {
+        if((int)$user_details['subscribed'] == 1) {
             $now = date('Y-m-d H:i:s');
             $last_subscription_date = $user_details['last_subscription_date'];
             $amount_earned_for_the_month = (double)$user_details['amount_earned_for_the_month'];
@@ -69,7 +69,7 @@ class Actions extends  Functions
             $current_date = strtotime($now); // change y with your current date var
             $date_difference = $current_date - $login_date;
             $days = floor($date_difference / (60 * 60 * 24));
-            if($days > $this->website_details->subscriptionDurationInDays && $amount_earned_for_the_month >= $amount_earned_for_the_month)
+            if(($days > $this->website_details->subscriptionDurationInDays) && ($amount_earned_for_the_month >= $this->website_details->minimumEarningExpected))
             {
                 //Unsubscribe the user
                 $this->update_record($this->users_table_name , 'subscribed' , 0 , 'username' , $username);
@@ -339,8 +339,8 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         $datediff = $current_date - $login_date;
         $days = floor($datediff/(60*60*24));
 
-        //Check if the referer has made more than N5000 in the last month
-        if($days > $this->website_details->subscriptionDurationInDays && $amount_earned_for_the_month >= $this->website_details->minimumEarningExpected)
+        //Check if the referer has made more than minimum in the last month
+        if(($days > $this->website_details->subscriptionDurationInDays) && ($amount_earned_for_the_month >= $this->website_details->minimumEarningExpected))
         {
             //Unsubscribe the user
             $this->update_record($this->users_table_name , 'subscribed' , 0 , 'username' , $referer_username);
@@ -515,7 +515,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
 
         //Check if the user referer account has expired
-        if($referer_details['subscribed'] != '1')
+        if((int)$referer_details['subscribed'] != 1)
         {
             return json_encode([$this->errorText => $this->refererAccountExpiredMessage , $this->successText => 0]);
         }
