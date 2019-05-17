@@ -131,15 +131,15 @@ class Actions extends  Functions
 
             //Send the payment request as message
 
+            $return_string = json_encode([$this->errorText => $this->successfulWithdrawalMessage  , $this->successText => 1]);
             try {
-                $this->send_payment_email('Prof Eazy', $amount, $user_details['account_name']);
+                $this->send_payment_email($amount, $user_details['account_name']);
+                return $return_string;
             }
-            catch (Exception $exception){}
-            return json_encode([$this->errorText => $this->successfulWithdrawalMessage  , $this->successText => 1]);
-
+            catch (Exception $exception){return $return_string;}
         }
 
-        return '';
+        return json_encode([$this->errorText => $this->successfulWithdrawalMessage  , $this->successText => 1]);
     }
 
     private function generateUserId () : string {
