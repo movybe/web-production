@@ -82,7 +82,7 @@
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="26" />
           <entry key="js" value="9850" />
-          <entry key="php" value="8363" />
+          <entry key="php" value="8400" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -90,7 +90,7 @@
           <entry key="CSS" value="397" />
           <entry key="HTML" value="12" />
           <entry key="JavaScript" value="9850" />
-          <entry key="PHP" value="8331" />
+          <entry key="PHP" value="8368" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="20" />
           <entry key="htaccess" value="26" />
@@ -157,8 +157,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/processors/actions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="343" column="9" lean-forward="true" selection-start-line="343" selection-start-column="9" selection-end-line="343" selection-end-column="9" />
+            <state relative-caret-position="391">
+              <caret line="102" lean-forward="true" selection-start-line="102" selection-end-line="102" />
             </state>
           </provider>
         </entry>
@@ -167,7 +167,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>proceed</find>
       <find>handle</find>
       <find>clipboard</find>
       <find>url()</find>
@@ -197,6 +196,7 @@
       <find>file_get</find>
       <find>$ipUrl</find>
       <find>.prop()</find>
+      <find>'subscribed'</find>
     </findStrings>
     <replaceStrings>
       <replace>tour</replace>
@@ -364,22 +364,21 @@
       <workItem from="1557634600351" duration="6946000" />
       <workItem from="1557645125726" duration="5420000" />
       <workItem from="1557751313315" duration="22279000" />
-      <workItem from="1558032297329" duration="3972000" />
+      <workItem from="1558032297329" duration="4266000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="240088000" />
+    <option name="totallyTimeSpent" value="240382000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="0" width="1378" height="780" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.24430956" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="0" weight="0.3287037" />
-      <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.2654321" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.2654321" />
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="4" weight="0.32843137" />
@@ -702,8 +701,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/processors/actions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="343" column="9" lean-forward="true" selection-start-line="343" selection-start-column="9" selection-end-line="343" selection-end-column="9" />
+        <state relative-caret-position="391">
+          <caret line="102" lean-forward="true" selection-start-line="102" selection-end-line="102" />
         </state>
       </provider>
     </entry>

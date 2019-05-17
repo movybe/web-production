@@ -172,10 +172,10 @@ class Defaults {
         this.disabledFalse = ['disabled' , false];
         this.numberOfAdSpaceForMerchant = [0 , 1];
         this.numberOfAdSpaceForOmoba = [0 , 1 , 2 , 3 , 5];
-        this.minimumAffliateProfit = 10000;
+        this.minimumAffliateProfit = 6500;
         this.minimumAccountUsernameLength = 5;
         this.maximumAccountUsernameLength = 12;
-        this.amountPaidForReferer = 2000;
+        this.amountPaidForReferer = 1400;
         this.minimumWithdrawalAmount = 1000;
         this.numberOfAdsForAdminReview = 10;
         this.affiliateIntroductionVideo = this.isProductionMode ?'https://www.youtube.com/embed/gNU3jJ9ooYQ':'about:blank';
