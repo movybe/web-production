@@ -42,7 +42,7 @@ class Detect {
 			self::$ipUrl = '/' . self::$ipAddress;
 		}
 
-		//self::$ipUrl = self::get_client_ip();
+		self::$ipUrl = self::get_client_ip();
 	}
     public static function get_client_ip() : string {
         $ipaddress = '';
@@ -296,7 +296,7 @@ class Detect {
 			return true;
 		} catch (Exception  $e) {
 			try {
-				self::$ipInfo = json_decode(file_get_contents('http://freegeoip.net/json' . self::$ipUrl));
+				self::$ipInfo = json_decode(file_get_contents('http://freegeoip.net/json/' . self::$ipUrl));
 				self::$ipAddress = self::$ipInfo->ip;
 				self::$ipInfoCountry = self::$ipInfo->country_code;
 				/*self::$ipInfoLatitude = self::$ipInfo->latitude;
