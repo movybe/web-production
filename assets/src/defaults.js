@@ -184,7 +184,7 @@ class Defaults {
         this.merchantTourGuide = 'about:blank';
         this.amountPaidForUniqueVisitor = 0.5;
         this.dummyEmail = 'omobang@gmail.com';
-        this.thresholdAmount = 10000;
+        this.thresholdAmount = 6500;
         this.maximumAdminAdMessageLength = 120;
         this.priceNotSpecifiedText = 'price not specified';
         this.transactionNotSuccessfulMessage = 'Transaction not successful';
