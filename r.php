@@ -24,7 +24,7 @@ class HandleNewInvites extends Functions
 
 
         //get the ip address
-        $ip_address = $this->get_client_ip();
+        $ip_address = Detect::get_client_ip();
 
         //check if the ip address exists in database
         if($this->record_exists_in_table($this->visitors_table_name , 'ip_address' , $ip_address))
