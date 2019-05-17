@@ -42,7 +42,7 @@ class Detect {
 			self::$ipUrl = '/' . self::$ipAddress;
 		}
 
-		self::$ipUrl = self::get_client_ip();
+		//self::$ipUrl = self::get_client_ip();
 	}
     public static function get_client_ip() : string {
         $ipaddress = '';
@@ -277,7 +277,7 @@ class Detect {
 
 	private static function getIpInfo() {
 		try {
-			 self::$ipInfo = json_decode(file_get_contents('http://ipinfo.io' . self::$ipUrl . '/json'));
+			 self::$ipInfo = json_decode(file_get_contents('http://ipinfo.io/' . self::$ipUrl . '/json'));
 
 
 			self::$ipAddress = self::$ipInfo->ip;
