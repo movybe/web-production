@@ -18,6 +18,7 @@ class Config {
     //initialLocalSearchCookieValue = Cookies.get(defaults.localSearchCookieKey) != undefined ? Cookies.get(defaults.localSearchCookieKey) != "false" : true;
     //initialShowImagesCookieValue = Cookies.get(defaults.showImagesCookieKey) != undefined ? Cookies.get(defaults.showImagesCookieKey) != "false" : true;
     initState = {
+        queryParameterString : 'q',
         defaultBackup : "konga" ,
         noDefaultResultsFound: false,
         currentWebsite : null,

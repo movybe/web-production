@@ -407,7 +407,7 @@ class Application extends React.Component {
             case 'olx' :
                 url = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${q}&page=${pageNumber}&user=165548cb5dcx2e53159d`;
 
-                $.get(defaults.crawler, {url}, response => {
+                $.ajax(defaults.crawler, {url}, response => {
 
 
                     if (!response.contents || !response.contents.data.length ) {
@@ -425,19 +425,19 @@ class Application extends React.Component {
 
                             try {
                                 ad.location = obj.locations_resolved.ADMIN_LEVEL_1_name;
-                            }
-                            catch (e) {
-                                ad.location = "Not specified";
-                            }
                                 ad.title = obj.title.truncate(defaults.maxTitleLength);
                                 ad.description = obj.description.truncate(defaults.maxDescriptionLength);
                                 ad.image = obj.images[0].url;
                                 ad.price = obj.price ? obj.price.value.raw.toLocaleString() : 0;
                                 ad.link = 'https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id;
                                 ad.linkText = ('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength);
-
                                 selectedEcommerce.ads.push(ad);
-                            });
+
+                            }
+                            catch (e) {
+                            }
+
+                             });
 
 
                         selectedEcommerce.page = selectedEcommerce.page + 1;
@@ -463,6 +463,17 @@ class Application extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         return this.props !== nextProps;
+    }
+
+
+    getUrlParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 
 
@@ -495,47 +506,48 @@ class Application extends React.Component {
 
 
 
-    handleSearchFormSubmit = (e) => {
 
-        e.preventDefault();
+
+    handleSearchFormSubmit = (queryString , e) => {
+
+        if(e)e.preventDefault();
         this.formSubmitted = false;
 
-        this.searchQuery = this.searchQueryField.val().toLowerCase();
 
 
-        if (!this.searchQuery.length) return;
 
 
         //Filters the search query
         //this.replaceSearchText();
 
-        //Spilts the words of the query into an array
-        let searchQueryToArray = this.searchQuery.split(" ");
+        //Splits the words of the query into an array
 
-        //filters the words(i.e removes common words from the query and removes words that has more than one occurrence)
-        searchQueryToArray = searchQueryToArray.filter((word, pos, self) => {
-            return self.indexOf(word) === pos && defaults.commonWords.indexOf(word) < 0;
-        });
-
-        //Joins the new search query with " " to form a sentence
-        this.searchQuery = searchQueryToArray.join(" ");
+        this.searchQuery = (queryString || this.searchQueryField.val()).toLowerCase();
 
 
+            let searchQueryToArray = this.searchQuery.split(" ");
 
-
-
-        //hide the site footer and the switch container
-        this.searchResults.html(null);
-        this.siteFooter.hide();
-
-        //blurs the search field
-        $(':focus').blur();
+            //filters the words(i.e removes common words from the query and removes words that has more than one occurrence)
+            searchQueryToArray = searchQueryToArray.filter((word, pos, self) => {
+                return self.indexOf(word) === pos && defaults.commonWords.indexOf(word) < 0;
+            });
 
 
 
+            //Joins the new search query with " " to form a sentence
+            this.searchQuery = searchQueryToArray.join(" ");
 
-        //default search website depending on the users's settings
-        const q = this.searchQuery.split(" ").join("+");
+
+            this.searchQueryField.val(this.searchQuery);
+
+            //default search website depending on the users's settings
+            const q = this.searchQuery.split(" ").join("+");
+
+
+
+        //Check if it's not android app change the url
+        if(!(defaults.isAndroidApp && queryString))History.replaceState(null , this.searchQuery + " - " + defaults.siteName + " Search" , `/?${this.props.queryParameterString}=${q}`);
+
 
         //The default website to make the search and filter contents
         let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${q}&page=0&user=165548cb5dcx2e53159d`;
@@ -564,6 +576,8 @@ class Application extends React.Component {
 
 
 
+
+
         //set the loadMore key of this website object to false
         this.props.locale[0].loadMore = true;
         while(this.props.sponsoredAdsClicked.length)
@@ -572,11 +586,16 @@ class Application extends React.Component {
         }
         this.searchFormFieldSet.prop(...defaults.disabledTrue);
         //console.log(searchFilterUrl);
-        $.get(defaults.crawler, {url: searchFilterUrl}, response => {
 
+        $.ajax(
+            {
 
-
-
+                method : 'GET',
+                url : defaults.crawler,
+                data: {url : searchFilterUrl}
+            }
+            ).done(response => {
+                console.log(response);
             //Check if a response was received from the server
             if (!response.contents || !response.contents.data) {
                 return  M.toast({html: this.networkError});
@@ -584,11 +603,7 @@ class Application extends React.Component {
 
             //Check if there is not data returned, meaning empty result
             else if (!response.contents.data.length) {
-
-
-
                 //M.toast({html: this.enterValidKeywordsWarning});
-
                 this.searchTabs.show();
                 $('#tabs.tabs').tabs('select', this.props.defaultBackup);
                 this.searchQueryField.blur();
@@ -602,7 +617,8 @@ class Application extends React.Component {
 
                 //also set the loadMore key of this website object to false
                 this.props.locale[0].loadMore = false;
-                if(this.props.switchWebsite({...this.props , q , query : this.searchQuery ,  noDefaultResultsFound: true})){
+
+                if(this.props.switchWebsite({...this.props , q , query : this.searchQuery ,  noDefaultResultsFound: true , local : this.props.locale})){
 
                     this.switchToWebsite(this.props.defaultBackup , null , null , true);
 
@@ -653,8 +669,7 @@ class Application extends React.Component {
                 ad.price = obj.price ? obj.price.value.raw.toLocaleString() : 0;
                 ad.link = 'https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id;
                 ad.linkText = ('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength);
-                defaultEcommerceWebsite.ads.push(ad)
-
+                defaultEcommerceWebsite.ads.push(ad);
 
  });
             let returnNow = false;
@@ -670,6 +685,7 @@ class Application extends React.Component {
                 local.page = 0;
                 local.error = null;
                 local.loadMore = true;
+
             });
 
 
@@ -694,14 +710,6 @@ class Application extends React.Component {
 
             this.searchFormFieldSet.prop(...defaults.disabledFalse);
         });
-
-
-
-
-
-
-
-
 
 
     };
@@ -987,12 +995,18 @@ class Application extends React.Component {
 
         }
 
-
-
         this.loadSuggestions();
-
-
-
+        /*window.onerror = () => {
+            this.props.restoreState();
+        };
+        */
+        const queryStringValue  = this.getUrlParameterByName(this.props.queryParameterString);
+        //if the query string is not null and is different from the query string stored in "query" filed of the savedState, search the result
+        if(!(queryStringValue && queryStringValue.length))return;
+        document.title = `${defaults.siteName} - ${queryStringValue}`;
+       try {
+           if(queryStringValue.toLowerCase() !== JSON.parse(localStorage.getItem(defaults.savedState)).query.toLowerCase()) {this.handleSearchFormSubmit(queryStringValue)}
+       }catch (e) {}
     }
 
     toggleShowSearchImages = (e) => {
@@ -1024,7 +1038,7 @@ class Application extends React.Component {
             return <span key={Math.random()} className="gallery-images-link" href={image.src} data-caption = {image.alt}></span>
         });
 
-        const downloadApkLink = navigator.userAgent === defaults.siteWebPackageName ? null :
+        const downloadApkLink = defaults.isAndroidApp ? null :
             <li><a href={defaults.apkDownloadLink} id="download-apk-link"><span className="small material-icons app-download-icon">vertical_align_bottom</span> Download APK</a></li>
         const downloadApkDivider = downloadApkLink === null ? null :  <li className="divider" tabIndex="-1"></li>;
 
@@ -1037,7 +1051,7 @@ class Application extends React.Component {
 
             <div>
                 <fieldset id = "search-form-fieldset">
-                    <form autoComplete="off" id="search-form" onSubmit={this.handleSearchFormSubmit} method="get" action="#">
+                    <form autoComplete="off" id="search-form" onSubmit={(e) => {this.handleSearchFormSubmit(null , e)}} method="get" action="#">
                         <div className="input-group">
                             <div className="input-field col s12">
                                 <i className="material-icons prefix"></i>

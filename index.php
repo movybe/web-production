@@ -18,7 +18,7 @@ $try_insert_or_update_ip_address_in_database = $functions->is_production_mode() 
     <title><?php echo $website_details->SiteName; ?> • <?php echo $website_details->WebsiteSubject; ?></title>
     <?php require_once $website_details->INCS_FOLDER.'head-files.php'; ?>
     <?php
-    $includes = array("polyfill.js" , "cookie.min.js" , "bgset.min.js" , "lazy-bg.min.js" ,  "notify.min.js" , "jquery.lightbox.min.js"  ,"numeral.min.js");
+    $includes = array("polyfill.js" , "cookie.min.js" , "bgset.min.js" , "lazy-bg.min.js" ,  "notify.min.js" , "jquery.lightbox.min.js"  ,"numeral.min.js" , "jquery.history.min.js");
     $defaults_js = array("defaults.js");
     echo $functions->printAssets($includes ,'javascript' , true , null).$functions->printAssets($defaults_js , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER : $website_details->SRC_FOLDER);
     ?>
@@ -29,8 +29,13 @@ $try_insert_or_update_ip_address_in_database = $functions->is_production_mode() 
     ?>
 </head>
 <body>
+<div class="progress progress-bar">
+    <div class="determinate" style="width: 70%"></div>
+</div>
 <main class ="container invisible-class main-container">
+
     <div class ="section no-pad-bot" id="index-banner">
+
         <div class="container">
             <br><br>
             <h1 class="header center pink-text text-lighten-3"><img data-src="<?php echo $website_details->IMG_FOLDER.strtolower($website_details->SiteName);?>.png" class="responsive-img brand-logo logo-image lazyload" width="220" height="81" alt = "<?php echo $website_details->SiteName." logo"?>" /></h1>
