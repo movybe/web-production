@@ -1,4 +1,3 @@
-
 class Application extends React.Component {
 
     lastSearchQuery = null;
@@ -35,12 +34,9 @@ class Application extends React.Component {
 
 
         /*
-
         The function below warns the user of two possible error outcomes:
-
         1. a network Error, meaning that there was no response at all from the server
         2. a result Error , ,meaning that the search query did not return any result
-
         */
 
         const showError = (networkError = true) => {
@@ -61,12 +57,8 @@ class Application extends React.Component {
         };
 
         /*
-
-
         query : "samsung galaxy s7 edge"
         q : "samsung+galaxy+s7+edge" //default query type for most modern E-commerce websites
-
-
          */
 
         const {query , q} = this.props;
@@ -106,9 +98,7 @@ class Application extends React.Component {
 
         /*
         Sets the "currentWebsite" key of the props to the "website" parameter an sets processingAction = true in the props
-
         just in case this action fails it should return {just in case (~_~) }
-
         */
         if(!this.props.switchWebsite({...this.props , processingAction:  true , currentWebsite : website})) return;
 
@@ -116,7 +106,6 @@ class Application extends React.Component {
 
 
         /*
-
         Resets all the arrays of the selected E-commerce website
         so that new titles , descriptions , prices , images will be replaced with new ones
         */
@@ -407,7 +396,7 @@ class Application extends React.Component {
             case 'olx' :
                 url = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${q}&page=${pageNumber}&user=165548cb5dcx2e53159d`;
 
-                $.ajax(defaults.crawler, {url}, response => {
+                $.get(defaults.crawler, {url}, response => {
 
 
                     if (!response.contents || !response.contents.data.length ) {
@@ -425,19 +414,19 @@ class Application extends React.Component {
 
                             try {
                                 ad.location = obj.locations_resolved.ADMIN_LEVEL_1_name;
-                                ad.title = obj.title.truncate(defaults.maxTitleLength);
-                                ad.description = obj.description.truncate(defaults.maxDescriptionLength);
-                                ad.image = obj.images[0].url;
-                                ad.price = obj.price ? obj.price.value.raw.toLocaleString() : 0;
-                                ad.link = 'https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id;
-                                ad.linkText = ('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength);
-                                selectedEcommerce.ads.push(ad);
-
                             }
                             catch (e) {
+                                ad.location = "Not specified";
                             }
+                            ad.title = obj.title.truncate(defaults.maxTitleLength);
+                            ad.description = obj.description.truncate(defaults.maxDescriptionLength);
+                            ad.image = obj.images[0].url;
+                            ad.price = obj.price ? obj.price.value.raw.toLocaleString() : 0;
+                            ad.link = 'https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id;
+                            ad.linkText = ('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength);
 
-                             });
+                            selectedEcommerce.ads.push(ad);
+                        });
 
 
                         selectedEcommerce.page = selectedEcommerce.page + 1;
@@ -463,17 +452,6 @@ class Application extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         return this.props !== nextProps;
-    }
-
-
-    getUrlParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, '\\$&');
-        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 
 
@@ -506,48 +484,47 @@ class Application extends React.Component {
 
 
 
+    handleSearchFormSubmit = (e) => {
 
-
-    handleSearchFormSubmit = (queryString , e) => {
-
-        if(e)e.preventDefault();
+        e.preventDefault();
         this.formSubmitted = false;
 
+        this.searchQuery = this.searchQueryField.val().toLowerCase();
 
 
+        if (!this.searchQuery.length) return;
 
 
         //Filters the search query
         //this.replaceSearchText();
 
-        //Splits the words of the query into an array
+        //Spilts the words of the query into an array
+        let searchQueryToArray = this.searchQuery.split(" ");
 
-        this.searchQuery = (queryString || this.searchQueryField.val()).toLowerCase();
+        //filters the words(i.e removes common words from the query and removes words that has more than one occurrence)
+        searchQueryToArray = searchQueryToArray.filter((word, pos, self) => {
+            return self.indexOf(word) === pos && defaults.commonWords.indexOf(word) < 0;
+        });
 
-
-            let searchQueryToArray = this.searchQuery.split(" ");
-
-            //filters the words(i.e removes common words from the query and removes words that has more than one occurrence)
-            searchQueryToArray = searchQueryToArray.filter((word, pos, self) => {
-                return self.indexOf(word) === pos && defaults.commonWords.indexOf(word) < 0;
-            });
-
-
-
-            //Joins the new search query with " " to form a sentence
-            this.searchQuery = searchQueryToArray.join(" ");
-
-
-            this.searchQueryField.val(this.searchQuery);
-
-            //default search website depending on the users's settings
-            const q = this.searchQuery.split(" ").join("+");
+        //Joins the new search query with " " to form a sentence
+        this.searchQuery = searchQueryToArray.join(" ");
 
 
 
-        //Check if it's not android app change the url
-        if(!(defaults.isAndroidApp && queryString))History.replaceState(null , this.searchQuery + " - " + defaults.siteName + " Search" , `/?${this.props.queryParameterString}=${q}`);
 
+
+        //hide the site footer and the switch container
+        this.searchResults.html(null);
+        this.siteFooter.hide();
+
+        //blurs the search field
+        $(':focus').blur();
+
+
+
+
+        //default search website depending on the users's settings
+        const q = this.searchQuery.split(" ").join("+");
 
         //The default website to make the search and filter contents
         let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${q}&page=0&user=165548cb5dcx2e53159d`;
@@ -576,8 +553,6 @@ class Application extends React.Component {
 
 
 
-
-
         //set the loadMore key of this website object to false
         this.props.locale[0].loadMore = true;
         while(this.props.sponsoredAdsClicked.length)
@@ -586,16 +561,11 @@ class Application extends React.Component {
         }
         this.searchFormFieldSet.prop(...defaults.disabledTrue);
         //console.log(searchFilterUrl);
+        $.get(defaults.crawler, {url: searchFilterUrl}, response => {
 
-        $.ajax(
-            {
 
-                method : 'GET',
-                url : defaults.crawler,
-                data: {url : searchFilterUrl}
-            }
-            ).done(response => {
-                console.log(response);
+
+
             //Check if a response was received from the server
             if (!response.contents || !response.contents.data) {
                 return  M.toast({html: this.networkError});
@@ -603,7 +573,11 @@ class Application extends React.Component {
 
             //Check if there is not data returned, meaning empty result
             else if (!response.contents.data.length) {
+
+
+
                 //M.toast({html: this.enterValidKeywordsWarning});
+
                 this.searchTabs.show();
                 $('#tabs.tabs').tabs('select', this.props.defaultBackup);
                 this.searchQueryField.blur();
@@ -617,8 +591,7 @@ class Application extends React.Component {
 
                 //also set the loadMore key of this website object to false
                 this.props.locale[0].loadMore = false;
-
-                if(this.props.switchWebsite({...this.props , q , query : this.searchQuery ,  noDefaultResultsFound: true , local : this.props.locale})){
+                if(this.props.switchWebsite({...this.props , q , query : this.searchQuery ,  noDefaultResultsFound: true})){
 
                     this.switchToWebsite(this.props.defaultBackup , null , null , true);
 
@@ -654,6 +627,13 @@ class Application extends React.Component {
 
                 try {
                     ad.location = obj.locations_resolved.ADMIN_LEVEL_1_name;
+                    ad.title = obj.title.truncate(defaults.maxTitleLength);
+                    ad.description = obj.description.truncate(defaults.maxDescriptionLength);
+                    ad.image = obj.images[0].url;
+                    ad.price = obj.price ? obj.price.value.raw.toLocaleString() : 0;
+                    ad.link = 'https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id;
+                    ad.linkText = ('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength);
+                    defaultEcommerceWebsite.ads.push(ad);
                 }
                 catch (e) {
                     ad.location = "not specified";
@@ -663,15 +643,10 @@ class Application extends React.Component {
 
 
 
-                ad.title = obj.title.truncate(defaults.maxTitleLength);
-                ad.description = obj.description.truncate(defaults.maxDescriptionLength);
-                ad.image = obj.images[0].url;
-                ad.price = obj.price ? obj.price.value.raw.toLocaleString() : 0;
-                ad.link = 'https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id;
-                ad.linkText = ('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength);
-                defaultEcommerceWebsite.ads.push(ad);
 
- });
+
+
+            });
             let returnNow = false;
             this.fetchSponsoredAds(response => {
                 if(!this.props.switchWebsite({...this.props , currentWebsite : this.props.locale[0].shortName , noDefaultResultsFound : false , processingAction : false , sponsoredAds : response}))returnNow = true;
@@ -685,7 +660,6 @@ class Application extends React.Component {
                 local.page = 0;
                 local.error = null;
                 local.loadMore = true;
-
             });
 
 
@@ -710,6 +684,14 @@ class Application extends React.Component {
 
             this.searchFormFieldSet.prop(...defaults.disabledFalse);
         });
+
+
+
+
+
+
+
+
 
 
     };
@@ -850,8 +832,6 @@ class Application extends React.Component {
         //Remove words that are not found in the list of titles from the array
         /*
         searchQueryToArray = searchQueryToArray.filter((word, index) => {
-
-
             return validTitles.indexOf(word) >= 0 && searchQueryToArray[index] !== searchQueryToArray[index + 1];
         });
 */
@@ -882,19 +862,13 @@ class Application extends React.Component {
             this.switchContainer.hide();
 
             /*
-
             this.props.locale.forEach(obj => {
-
                 Object.keys(obj).map(key => {
-
                     if (Array.isArray(obj[key])) {
                         obj[key] = [];
                     }
                 })
-
-
             });
-
 */
         });
     };
@@ -969,13 +943,9 @@ class Application extends React.Component {
 
 
                 /*
-
-
                if there is a difference in the length of the savedState object keys
                and the length of the default state stored in the redux store,
                meaning there was a change in the source code this will trigger the automatic update of the savedState
-
-
                */
 
                 //console.log(storageObjectKeysCount , propsKeysCount);
@@ -995,18 +965,12 @@ class Application extends React.Component {
 
         }
 
+
+
         this.loadSuggestions();
-        /*window.onerror = () => {
-            this.props.restoreState();
-        };
-        */
-        const queryStringValue  = this.getUrlParameterByName(this.props.queryParameterString);
-        //if the query string is not null and is different from the query string stored in "query" filed of the savedState, search the result
-        if(!(queryStringValue && queryStringValue.length))return;
-        document.title = `${defaults.siteName} - ${queryStringValue}`;
-       try {
-           if(queryStringValue.toLowerCase() !== JSON.parse(localStorage.getItem(defaults.savedState)).query.toLowerCase()) {this.handleSearchFormSubmit(queryStringValue)}
-       }catch (e) {}
+
+
+
     }
 
     toggleShowSearchImages = (e) => {
@@ -1028,7 +992,6 @@ class Application extends React.Component {
         /*
         * the function below sets the initial search type according to the cookie value of 'localSearch' key
         * if the key 'localSearch' doesn't exists  int the browser cookie, then we set the value of localSearch to true
-
         */
 
 
@@ -1038,7 +1001,7 @@ class Application extends React.Component {
             return <span key={Math.random()} className="gallery-images-link" href={image.src} data-caption = {image.alt}></span>
         });
 
-        const downloadApkLink = defaults.isAndroidApp ? null :
+        const downloadApkLink = navigator.userAgent === defaults.siteWebPackageName ? null :
             <li><a href={defaults.apkDownloadLink} id="download-apk-link"><span className="small material-icons app-download-icon">vertical_align_bottom</span> Download APK</a></li>
         const downloadApkDivider = downloadApkLink === null ? null :  <li className="divider" tabIndex="-1"></li>;
 
@@ -1051,14 +1014,14 @@ class Application extends React.Component {
 
             <div>
                 <fieldset id = "search-form-fieldset">
-                    <form autoComplete="off" id="search-form" onSubmit={(e) => {this.handleSearchFormSubmit(null , e)}} method="get" action="#">
+                    <form autoComplete="off" id="search-form" onSubmit={this.handleSearchFormSubmit} method="get" action="#">
                         <div className="input-group">
                             <div className="input-field col s12">
                                 <i className="material-icons prefix"></i>
                                 <input  onBlur={() => {
 
 
-                                   // if(!this.searchQueryField.val().length) return;
+                                    // if(!this.searchQueryField.val().length) return;
                                     if(this.props.locale[0].ads.length  || this.props.locale[3].ads.length){
 
                                         this.searchTabs.show();
@@ -1119,9 +1082,3 @@ class Application extends React.Component {
     }
 
 }
-
-
-
-
-
-
