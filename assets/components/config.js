@@ -24,6 +24,7 @@ function Config() {
   _defineProperty(this, "localSearchCookieKey", "localSearch");
 
   _defineProperty(this, "initState", {
+    queryParameterString: 'q',
     defaultBackup: "konga",
     noDefaultResultsFound: false,
     currentWebsite: null,
@@ -171,7 +172,7 @@ function Config() {
     sponsoredAdsClicked: [],
     lastUpdated:
     /*dd-mm-yyyy*/
-    "22-04-2019",
+    "05-06-2019",
     updateOnlyAds: true,
     sponsoredAds: []
   });

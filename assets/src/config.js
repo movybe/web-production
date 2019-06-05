@@ -44,7 +44,7 @@ class Config {
             {shortName :  "bestbuy"  , name : "Best buy"         , textColor :  '#f6eb16' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
         ],
         sponsoredAdsClicked : [] ,
-        lastUpdated : /*dd-mm-yyyy*/ "22-04-2019",
+        lastUpdated : /*dd-mm-yyyy*/ "05-06-2019",
         updateOnlyAds : true,
         sponsoredAds : [],
 

@@ -70,10 +70,10 @@ function (_React$Component) {
         return local.shortName === website;
       });
       /*
-        The function below warns the user of two possible error outcomes:
-        1. a network Error, meaning that there was no response at all from the server
+      The function below warns the user of two possible error outcomes:
+      1. a network Error, meaning that there was no response at all from the server
       2. a result Error , ,meaning that the search query did not return any result
-        */
+      */
 
 
       var showError = function showError() {
@@ -96,9 +96,9 @@ function (_React$Component) {
         }
       };
       /*
-          query : "samsung galaxy s7 edge"
+      query : "samsung galaxy s7 edge"
       q : "samsung+galaxy+s7+edge" //default query type for most modern E-commerce websites
-           */
+       */
 
 
       var _this$props = _this.props,
@@ -132,8 +132,8 @@ function (_React$Component) {
       }
       /*
       Sets the "currentWebsite" key of the props to the "website" parameter an sets processingAction = true in the props
-        just in case this action fails it should return {just in case (~_~) }
-        */
+      just in case this action fails it should return {just in case (~_~) }
+      */
 
 
       if (!_this.props.switchWebsite(_objectSpread({}, _this.props, {
@@ -141,7 +141,7 @@ function (_React$Component) {
         currentWebsite: website
       }))) return;
       /*
-        Resets all the arrays of the selected E-commerce website
+      Resets all the arrays of the selected E-commerce website
       so that new titles , descriptions , prices , images will be replaced with new ones
       */
 
@@ -573,20 +573,29 @@ function (_React$Component) {
             linkText: null,
             location: null
           };
+          var prop,
+              addNewAd = true;
 
           try {
             ad.location = obj.locations_resolved.ADMIN_LEVEL_1_name;
+            ad.title = obj.title.truncate(defaults.maxTitleLength);
+            ad.description = obj.description.truncate(defaults.maxDescriptionLength);
+            ad.image = obj.images[0].url;
+            ad.price = obj.price ? obj.price.value.raw.toLocaleString() : 0;
+            ad.link = 'https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id;
+            ad.linkText = ('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength);
+
+            for (prop in ad) {
+              if (!ad[prop] || typeof ad[prop] === 'undefined') {
+                addNewAd = false;
+                break;
+              }
+            }
+
+            if (addNewAd) defaultEcommerceWebsite.ads.push(ad);
           } catch (e) {
             ad.location = "not specified";
           }
-
-          ad.title = obj.title.truncate(defaults.maxTitleLength);
-          ad.description = obj.description.truncate(defaults.maxDescriptionLength);
-          ad.image = obj.images[0].url;
-          ad.price = obj.price ? obj.price.value.raw.toLocaleString() : 0;
-          ad.link = 'https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id;
-          ad.linkText = ('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength);
-          defaultEcommerceWebsite.ads.push(ad);
         });
         var returnNow = false;
 
@@ -702,7 +711,7 @@ function (_React$Component) {
 
       /*
       searchQueryToArray = searchQueryToArray.filter((word, index) => {
-              return validTitles.indexOf(word) >= 0 && searchQueryToArray[index] !== searchQueryToArray[index + 1];
+          return validTitles.indexOf(word) >= 0 && searchQueryToArray[index] !== searchQueryToArray[index + 1];
       });
       */
 
@@ -733,13 +742,13 @@ function (_React$Component) {
 
         _this.switchContainer.hide();
         /*
-          this.props.locale.forEach(obj => {
-              Object.keys(obj).map(key => {
-                  if (Array.isArray(obj[key])) {
+        this.props.locale.forEach(obj => {
+            Object.keys(obj).map(key => {
+                if (Array.isArray(obj[key])) {
                     obj[key] = [];
                 }
             })
-            });
+        });
         */
 
       });
@@ -851,10 +860,10 @@ function (_React$Component) {
             return typeof _this2.props[key] !== 'function' ? propsKeysCount += 1 : null;
           });
           /*
-             if there is a difference in the length of the savedState object keys
+          if there is a difference in the length of the savedState object keys
           and the length of the default state stored in the redux store,
           meaning there was a change in the source code this will trigger the automatic update of the savedState
-             */
+          */
           //console.log(storageObjectKeysCount , propsKeysCount);
 
           if (storageObjectKeysCount !== propsKeysCount || this.props.lastUpdated !== _storageObj.lastUpdated) return this.props.restoreState(true);
@@ -888,7 +897,7 @@ function (_React$Component) {
       /*
       * the function below sets the initial search type according to the cookie value of 'localSearch' key
       * if the key 'localSearch' doesn't exists  int the browser cookie, then we set the value of localSearch to true
-        */
+      */
       var gallery = this.props.gallery;
       var images = gallery.map(function (image) {
         return React.createElement("span", {
@@ -948,7 +957,7 @@ function (_React$Component) {
         className: "autocomplete search-query-field"
       }), React.createElement("label", {
         htmlFor: "autocomplete-input"
-      }, "What do you want to buy?"))), React.createElement("button", {
+      }, this.props.query ? "" : "What do you want to buy?"))), React.createElement("button", {
         type: "submit",
         className: "input-group-addon btn waves-effect waves-light left",
         id: "search-button"

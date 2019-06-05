@@ -624,6 +624,7 @@ class Application extends React.Component {
 
                 ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
 
+                let prop, addNewAd = true;
 
                 try {
                     ad.location = obj.locations_resolved.ADMIN_LEVEL_1_name;
@@ -633,7 +634,17 @@ class Application extends React.Component {
                     ad.price = obj.price ? obj.price.value.raw.toLocaleString() : 0;
                     ad.link = 'https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id;
                     ad.linkText = ('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength);
-                    defaultEcommerceWebsite.ads.push(ad);
+
+
+                    for(prop in ad){
+                        if(!ad[prop] ||  typeof ad[prop] === 'undefined')
+                        {
+                            addNewAd = false;
+                            break;
+                        }
+                    }
+
+                    if(addNewAd)defaultEcommerceWebsite.ads.push(ad);
                 }
                 catch (e) {
                     ad.location = "not specified";
@@ -1030,7 +1041,7 @@ class Application extends React.Component {
 
 
                                 }} onFocus={() => {this.searchTabs.hide();}  } type="text" defaultValue = {this.props.query ? this.props.query : ""} onChange={this.handleSearchTextChange}  id="autocomplete-input" className="autocomplete search-query-field" />
-                                <label htmlFor="autocomplete-input">What do you want to buy?</label>
+                                <label htmlFor="autocomplete-input">{this.props.query ? "" : "What do you want to buy?"}</label>
                             </div>
 
                         </div>

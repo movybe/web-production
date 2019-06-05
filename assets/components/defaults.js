@@ -41,7 +41,8 @@ var browserName = function browserName() {
   }
 
   return M[0]; //M.join(' ');
-}; //Handle errors
+}; //JQuery AJAX progress
+//Handle errors
 
 
 var errorMessage = "";
@@ -146,6 +147,7 @@ function () {
     };
 
     var $this = this;
+    this.apkDownloadLink = 'https://play.google.com/store/apps/details?id=movybe.com.movybe';
     this.whatsappContact = '+234 905 897 7259';
     this.isProductionMode = window.location.hostname !== 'localhost';
     this.hostName = window.location.hostname;
@@ -178,6 +180,21 @@ function () {
     this.noResultsFoundError = 'no results found';
     this.pleaseWaitText = 'Please wait...';
     this.searchSuggestionsLimit = 7;
+
+    this.ajaxProgress = function (e) {
+      console.log('not computable');
+      if (!e.lengthComputable) return;
+      console.log('length computable');
+      var percent = Math.round(e.loaded / e.total * 100); // Get the percent of data
+
+      if (percent < 2) $('.progress.progress-bar').show(); //Show the progress wrapper
+
+      if (percent === 100) $('.progress.progress-bar').hide(); //hide  the progress bar wrapper
+      //change the width of the progress bar
+
+      $('.progress.progress-bar .determinate').css('width', percent + '%');
+    };
+
     this.bannerImageLocation = '/banner/';
     this.siteAddress = this.siteName.toLowerCase() + '.com';
     this.siteAddressHttp = 'http://' + this.siteAddress;
@@ -221,6 +238,7 @@ function () {
     this.sponsoredAdText = 'SPONSORED';
     this.siteWebPackageName = "com.movybe";
     this.successText = 'success';
+    this.isAndroidApp = navigator.userAgent === this.siteWebPackageName;
 
     this.payWithPaystack = function (email, amount, name, call, callback) {
       var paystackHandler = {
