@@ -22,11 +22,10 @@ a {
 }
 
 body {
-    -webkit-filter: contrast(120%) saturate(125%);
-    filter: contrast(120%) saturate(125%);
+    //-webkit-filter: contrast(120%) saturate(125%);
+    //filter: contrast(120%) saturate(125%);
     mix-blend-mode: overlay;
-    background: rgba(127, 187, 227, 0.2);
-
+    background-color: rgba(127, 187, 227, 0.2);
 }
 .tabs.locale-tabs{
     background-color :inherit;
