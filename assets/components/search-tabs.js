@@ -232,7 +232,8 @@ function (_React$Component) {
         var sponsoredAdLength = 0;
         var isValidSponsoredAd;
         var seenBestOffer = false;
-        var bestOfferClass = "";
+        var bestOfferClass,
+            bestOfferTextClass = "";
         var priceToNumber = 0;
         var template = local.ads.length ? local.ads.map(function (ad, index) {
           priceToNumber = parseInt(ad.price.toString().replace(/,/g, ''));
@@ -242,9 +243,11 @@ function (_React$Component) {
             bestOfferClass = React.createElement("div", {
               className: "best-offer"
             });
-            console.log("Yah");
+            bestOfferTextClass = React.createElement("i", {
+              className: "best-offer-text material-icons"
+            }, "star");
           } else {
-            bestOfferClass = "";
+            bestOfferClass = "", bestOfferTextClass = "";
           }
 
           var savedImage;
@@ -279,7 +282,7 @@ function (_React$Component) {
           currency = _this3.props.settings.localSearch ? React.createElement("span", null, "\u20A6") : React.createElement("span", null, "$");
           showPrice = ad.price !== 0 ? React.createElement("h6", {
             className: "green-text search-result-price"
-          }, currency, ad.price) : React.createElement("h5", {
+          }, currency, ad.price, bestOfferTextClass) : React.createElement("h5", {
             className: "green-text search-result-price"
           }, defaults.priceNotSpecifiedText);
           showPrice = ad.is_sponsored_ad ? React.createElement("h6", {

@@ -259,19 +259,17 @@ class  LocalSearchTab extends React.Component{
             let sponsoredAdLength = 0;
             let isValidSponsoredAd;
             let seenBestOffer = false;
-            let bestOfferClass = "";
+            let bestOfferClass,bestOfferTextClass = "";
             let priceToNumber = 0;
             let template = (local.ads.length) ? local.ads.map((ad, index) => {
-
                 priceToNumber = parseInt(ad.price.toString().replace(/,/g, ''));
                 if(priceToNumber >= local.bestOfferInt && !seenBestOffer) {
                     seenBestOffer = true;
                     bestOfferClass = <div className="best-offer"></div> ;
-
-                    console.log("Yah");
+                    bestOfferTextClass = <i className="best-offer-text material-icons">star</i>
                 }
                 else {
-                    bestOfferClass = "";
+                    bestOfferClass = "" , bestOfferTextClass = "";
                 }
 
                 let savedImage;
@@ -297,7 +295,7 @@ class  LocalSearchTab extends React.Component{
 
                 isValidSponsoredAd = ad.is_sponsored_ad && this.props.sponsoredAdsClicked.indexOf(ad.ad_id) < 0;
                 currency = this.props.settings.localSearch ? <span>&#8358;</span> : <span>$</span>;
-                showPrice = (ad.price !== 0) ? <h6 className="green-text search-result-price">{currency}{ad.price}</h6> : <h5 className="green-text search-result-price">{defaults.priceNotSpecifiedText}</h5>;
+                showPrice = (ad.price !== 0) ? <h6 className="green-text search-result-price">{currency}{ad.price}{bestOfferTextClass}</h6> : <h5 className="green-text search-result-price">{defaults.priceNotSpecifiedText}</h5>;
                 showPrice = (ad.is_sponsored_ad) ? <h6 className="green-text search-result-price">{defaults.sponsoredAdText}</h6> : showPrice;
                 showLocation = ad.location.length ?
                     <span className="search-result-locations blue-grey-text"><i

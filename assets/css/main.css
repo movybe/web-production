@@ -518,3 +518,11 @@ div.best-offer {
     position:relative;
 
 }
+
+i.best-offer-text
+{
+    position:absolute;
+    left :85%;
+    font-size : 30px;
+    color : tomato;
+}
