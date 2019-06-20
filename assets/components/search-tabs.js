@@ -103,7 +103,7 @@ function (_React$Component) {
       var _this2 = this;
 
       this.defaultActions();
-      var x, sum, price, priceList, adsLength, isOddAdLength, average, priceListLengthDividedBy4, priceListLengthDividedBy2, median, middleSum, firstNPrice, lastNPrice, sumOfFirstNPrice, sumOfLatNPrice, newAdsPriceSum, newPriceList, newPriceListAverage, newSum, sortAdInAscendingOrder;
+      var x, sum, price, priceList, adsLength, isOddAdLength, average, priceListLengthDividedBy4, priceListLengthDividedBy2, median, middleSum, firstNPrice, lastNPrice, sumOfFirstNPrice, sumOfLatNPrice, newAdsPriceSum, newPriceList, newPriceListAverage, newSum, sortAdInAscendingOrder, medianPlusMax;
       var locale = this.props.locale;
       var ad1Price, ad2Price;
       locale.forEach(function (local) {
@@ -154,7 +154,10 @@ function (_React$Component) {
         middleSum = priceList[priceListLengthDividedBy2 - 1] + priceList[priceListLengthDividedBy2];
         median = Math.round(middleSum / 2);
         local.average = numeral(median).format('0.0a');
-        local.max = numeral(local.ads[local.ads.length - 1].price).format('0.0a'); //To prevent resorting of already sorted ad array
+        local.max = numeral(local.ads[local.ads.length - 1].price).format('0.0a');
+        medianPlusMax = median + priceList[priceList.length - 1];
+        local.bestDealInt = parseInt(medianPlusMax / 2);
+        local.bestDeal = numeral(local.bestDealInt.toLocaleString()).format('0.0a'); //To prevent resorting of already sorted ad array
 
         local.lastSortedPage += 1;
       }); // this.props.switchWebsite({...this.props , locale});
@@ -228,7 +231,25 @@ function (_React$Component) {
         var averagePrice;
         var sponsoredAdLength = 0;
         var isValidSponsoredAd;
+        var seenBestDeal = false;
+        var bestDealStart = 0;
+        var bestDealPosition = 0;
+        var bestDealClass = "";
+        var priceToNumber = 0;
         var template = local.ads.length ? local.ads.map(function (ad, index) {
+          bestDealStart++;
+          priceToNumber = parseInt(ad.price.toString().replace(/,/g, ''));
+
+          if (priceToNumber >= local.bestDealInt && !seenBestDeal) {
+            seenBestDeal = true;
+            bestDealPosition = bestDealStart;
+            bestDealClass = React.createElement("div", {
+              className: "best-deal"
+            });
+          } else {
+            bestDealClass = "";
+          }
+
           var savedImage;
           var imageSaved = false;
           savedImage = _this3.props.gallery.find(function (imageObject, index) {
@@ -246,7 +267,7 @@ function (_React$Component) {
               _this3.saveImage(ad.title, ad.link, ad.image);
             },
             "data-image": ad.image
-          }, React.createElement("div", {
+          }, bestDealClass, React.createElement("div", {
             className: "blurred-bg lazyload",
             "data-bgset": bg
           }), React.createElement("div", {

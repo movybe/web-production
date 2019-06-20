@@ -504,3 +504,17 @@ body.blurred > * {
 
     visibility: hidden;
 }
+
+div.best-deal {
+    height : 100px;
+    width : inherit;
+//opacity:.4;
+//background-color:red;
+    background-image: url(../img/best_offer-512.png);
+    background-repeat:no-repeat;
+    background-position : 50% 90%;
+    background-size: 180px;
+    z-index:300;
+    position:relative;
+
+}

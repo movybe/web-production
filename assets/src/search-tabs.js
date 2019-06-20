@@ -31,7 +31,7 @@ class  LocalSearchTab extends React.Component{
         this.defaultActions();
 
         let x ,sum, price , priceList , adsLength , isOddAdLength , average , priceListLengthDividedBy4 , priceListLengthDividedBy2, median , middleSum,  firstNPrice , lastNPrice , sumOfFirstNPrice , sumOfLatNPrice ,
-            newAdsPriceSum , newPriceList , newPriceListAverage , newSum , sortAdInAscendingOrder;
+            newAdsPriceSum , newPriceList , newPriceListAverage , newSum , sortAdInAscendingOrder , medianPlusMax;
 
 
 
@@ -91,6 +91,7 @@ class  LocalSearchTab extends React.Component{
                 });
 
 
+
                 if(isOddAdLength)
                 {
 
@@ -122,22 +123,29 @@ class  LocalSearchTab extends React.Component{
 
 
 
+
+
                 local.average = numeral(median).format('0.0a');
+
                 local.max = numeral(local.ads[local.ads.length -1].price).format('0.0a');
+
+                medianPlusMax = median + priceList[priceList.length -1];
+
+                local.bestDealInt = parseInt(medianPlusMax / 2);
+
+                local.bestDeal = numeral(local.bestDealInt.toLocaleString()).format('0.0a');
+
+
+
 
                 //To prevent resorting of already sorted ad array
                 local.lastSortedPage += 1;
-
 
             });
 
 
        // this.props.switchWebsite({...this.props , locale});
         this.props.switchWebsite({...this.props , locale});
-
-
-
-
 
 
 
@@ -233,6 +241,7 @@ class  LocalSearchTab extends React.Component{
 
 
 
+
             loadMoreButton = (local.loadMore && !this.props.processingAction && local.ads.length) ?
                 <div className="load-more-action-button-wrapper">
                 <span className="waves-effect waves-light btn-small load-more-action" onClick={() => {this.props.switchToWebsite(local.shortName , pos , true)}}
@@ -251,8 +260,25 @@ class  LocalSearchTab extends React.Component{
             let averagePrice;
             let sponsoredAdLength = 0;
             let isValidSponsoredAd;
-
+            let seenBestDeal = false;
+            let bestDealStart = 0;
+            let bestDealPosition = 0;
+            let bestDealClass = "";
+            let priceToNumber = 0;
             let template = (local.ads.length) ? local.ads.map((ad, index) => {
+                bestDealStart ++;
+
+                priceToNumber = parseInt(ad.price.toString().replace(/,/g, ''));
+                 if(priceToNumber >= local.bestDealInt && !seenBestDeal) {
+                    seenBestDeal = true;
+                    bestDealPosition = bestDealStart;
+                     bestDealClass = <div className="best-deal"></div> ;
+
+                }
+                else {
+                    bestDealClass = "";
+                }
+
                 let savedImage;
                 let imageSaved = false;
 
@@ -267,7 +293,8 @@ class  LocalSearchTab extends React.Component{
                 bg = `${ad.image}`;
                 showImages = (this.props.settings.showImages) && ad.image != null ?
                     <span className="modal-link"  data-caption = {ad.title} href = {ad.image}>
-                    <div className="image-container" onClick={  imageSaved ? null : () => {this.saveImage(ad.title , ad.link , ad.image)}} data-image={ad.image}>
+                    <div className={"image-container"} onClick={  imageSaved ? null : () => {this.saveImage(ad.title , ad.link , ad.image)}} data-image={ad.image}>
+                        {bestDealClass}
                         <div className="blurred-bg lazyload" data-bgset={bg}></div>
                     <div className="lazyload overlay" data-bgset={bg}  title = {ad.title} onClick={() => {return imageSaved ? null : null}}></div>
                     </div>
