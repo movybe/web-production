@@ -40,83 +40,36 @@ class  LocalSearchTab extends React.Component{
 
 
 
-            let ad1Price, ad2Price;
-            locale.forEach(local => {
+        let ad1Price, ad2Price;
+        locale.forEach(local => {
 
 
 
-                //Prevent the function from performing same action on same ad page
-                if(!local.page || local.page === local.lastSortedPage || !local.ads.length || local.ads.length < 8) return;
+            //Prevent the function from performing same action on same ad page
+            if(!local.page || local.page === local.lastSortedPage || !local.ads.length || local.ads.length < 8) return;
 
 
-                if (!local.shownSponsoredAds) {
-                    local.ads.push(...this.props.sponsoredAds);
-                    local.shownSponsoredAds = true;
-                }
+            if (!local.shownSponsoredAds) {
+                local.ads.push(...this.props.sponsoredAds);
+                local.shownSponsoredAds = true;
+            }
 
-                if(!local.shownSponsoredAds ) return;
-
-
-
-
-                sortAdInAscendingOrder = () => {
-
-
-                   local.ads.sort((a , b) => {
-                       ad1Price = parseInt(a.price.toString().replace(/\D/g,''));
-                       ad2Price = parseInt(b.price.toString().replace(/\D/g,''));
-                       return ad1Price - ad2Price;
-                   });
-
-
-                };
+            if(!local.shownSponsoredAds ) return;
 
 
 
 
+            sortAdInAscendingOrder = () => {
 
 
-
-
-               isOddAdLength = !(!(local.ads.length%2));
-
-                //Check if the ad length is an odd number
-
-                priceList = [];
-
-                local.ads.forEach((ad) => {
-
-                    price = parseInt(ad.price.toString().replace(/\D/g,''));
-                        priceList.push(price);
+                local.ads.sort((a , b) => {
+                    ad1Price = parseInt(a.price.toString().replace(/\D/g,''));
+                    ad2Price = parseInt(b.price.toString().replace(/\D/g,''));
+                    return ad1Price - ad2Price;
                 });
 
 
-
-                if(isOddAdLength)
-                {
-
-                    sum = priceList.reduce((prev , next) => prev + next);
-
-                    average = Math.round(sum / priceList.length);
-
-                    priceList.push(average);
-                }
-
-
-                sortAdInAscendingOrder();
-
-                //Sort the priceList
-                priceList.sort((a , b) => a - b);
-
-
-                priceListLengthDividedBy2 = priceList.length / 2;
-
-
-                //Get the middle numbers of the price
-                middleSum = priceList[priceListLengthDividedBy2 - 1] + priceList[priceListLengthDividedBy2];
-
-
-                median = Math.round(middleSum / 2);
+            };
 
 
 
@@ -125,26 +78,73 @@ class  LocalSearchTab extends React.Component{
 
 
 
-                local.average = numeral(median).format('0.0a');
+            isOddAdLength = !(!(local.ads.length%2));
 
-                local.max = numeral(local.ads[local.ads.length -1].price).format('0.0a');
+            //Check if the ad length is an odd number
 
-                medianPlusMax = median + priceList[priceList.length -1];
+            priceList = [];
 
-                local.bestDealInt = parseInt(medianPlusMax / 2);
+            local.ads.forEach((ad) => {
 
-                local.bestDeal = numeral(local.bestDealInt.toLocaleString()).format('0.0a');
-
-
-
-
-                //To prevent resorting of already sorted ad array
-                local.lastSortedPage += 1;
-
+                price = parseInt(ad.price.toString().replace(/\D/g,''));
+                priceList.push(price);
             });
 
 
-       // this.props.switchWebsite({...this.props , locale});
+
+            if(isOddAdLength)
+            {
+
+                sum = priceList.reduce((prev , next) => prev + next);
+
+                average = Math.round(sum / priceList.length);
+
+                priceList.push(average);
+            }
+
+
+            sortAdInAscendingOrder();
+
+            //Sort the priceList
+            priceList.sort((a , b) => a - b);
+
+
+            priceListLengthDividedBy2 = priceList.length / 2;
+
+
+            //Get the middle numbers of the price
+            middleSum = priceList[priceListLengthDividedBy2 - 1] + priceList[priceListLengthDividedBy2];
+
+
+            median = Math.round(middleSum / 2);
+
+
+
+
+
+
+
+
+            local.average = numeral(median).format('0.0a');
+
+            local.max = numeral(local.ads[local.ads.length -1].price).format('0.0a');
+
+            medianPlusMax = median + priceList[priceList.length -1];
+
+            local.bestOfferInt = parseInt(medianPlusMax / 2);
+
+            local.bestOffer = numeral(local.bestOfferInt.toLocaleString()).format('0.0a');
+
+
+
+
+            //To prevent resorting of already sorted ad array
+            local.lastSortedPage += 1;
+
+        });
+
+
+        // this.props.switchWebsite({...this.props , locale});
         this.props.switchWebsite({...this.props , locale});
 
 
@@ -164,11 +164,9 @@ class  LocalSearchTab extends React.Component{
         if (localStorage.getItem(defaults.savedState)) {
             let cookieObj = JSON.parse(localStorage.getItem(defaults.savedState));
             if(this.props.switchWebsite({...cookieObj , processingAction : false})){
-
                 this.defaultActions();
             }
         }
-
         */
     }
 
@@ -192,7 +190,7 @@ class  LocalSearchTab extends React.Component{
 
         $.post(defaults.actions , {data} , response => {
 
-                 const sponsoredAdsClicked = [...this.props.sponsoredAdsClicked , adID];
+            const sponsoredAdsClicked = [...this.props.sponsoredAdsClicked , adID];
 
             this.props.switchWebsite({...this.props , sponsoredAdsClicked});
 
@@ -200,7 +198,7 @@ class  LocalSearchTab extends React.Component{
     };
 
 
-   tabListClickAction = (name , index) => {
+    tabListClickAction = (name , index) => {
 
 
         return  !this.props.processingAction ? this.props.switchToWebsite(name , index) : null;
@@ -260,23 +258,20 @@ class  LocalSearchTab extends React.Component{
             let averagePrice;
             let sponsoredAdLength = 0;
             let isValidSponsoredAd;
-            let seenBestDeal = false;
-            let bestDealStart = 0;
-            let bestDealPosition = 0;
-            let bestDealClass = "";
+            let seenBestOffer = false;
+            let bestOfferClass = "";
             let priceToNumber = 0;
             let template = (local.ads.length) ? local.ads.map((ad, index) => {
-                bestDealStart ++;
 
                 priceToNumber = parseInt(ad.price.toString().replace(/,/g, ''));
-                 if(priceToNumber >= local.bestDealInt && !seenBestDeal) {
-                    seenBestDeal = true;
-                    bestDealPosition = bestDealStart;
-                     bestDealClass = <div className="best-deal"></div> ;
+                if(priceToNumber >= local.bestOfferInt && !seenBestOffer) {
+                    seenBestOffer = true;
+                    bestOfferClass = <div className="best-offer"></div> ;
 
+                    console.log("Yah");
                 }
                 else {
-                    bestDealClass = "";
+                    bestOfferClass = "";
                 }
 
                 let savedImage;
@@ -294,7 +289,7 @@ class  LocalSearchTab extends React.Component{
                 showImages = (this.props.settings.showImages) && ad.image != null ?
                     <span className="modal-link"  data-caption = {ad.title} href = {ad.image}>
                     <div className={"image-container"} onClick={  imageSaved ? null : () => {this.saveImage(ad.title , ad.link , ad.image)}} data-image={ad.image}>
-                        {bestDealClass}
+                        {bestOfferClass}
                         <div className="blurred-bg lazyload" data-bgset={bg}></div>
                     <div className="lazyload overlay" data-bgset={bg}  title = {ad.title} onClick={() => {return imageSaved ? null : null}}></div>
                     </div>
@@ -399,4 +394,3 @@ let mapStateToProps = (state , ownProps) => {
     return {...state , ...ownProps};
 };
 LocalSearchTab = connect(mapStateToProps , mapDispatchToProps)(LocalSearchTab);
-

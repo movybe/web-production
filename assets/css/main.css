@@ -505,7 +505,7 @@ body.blurred > * {
     visibility: hidden;
 }
 
-div.best-deal {
+div.best-offer {
     height : 100px;
     width : inherit;
 //opacity:.4;
