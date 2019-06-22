@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/components/search-tabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/search-tabs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/search-tabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/search-tabs.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,7 +31,7 @@
     <session id="-353072969">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="8" />
           <entry key="project.open.time.102" value="1" />
           <entry key="project.open.time.103" value="1" />
           <entry key="project.open.time.108" value="1" />
@@ -159,7 +156,7 @@
         <entry file="file://$PROJECT_DIR$/assets/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="309">
-              <caret line="527" column="1" lean-forward="true" selection-start-line="527" selection-start-column="1" selection-end-line="527" selection-end-column="1" />
+              <caret line="527" column="1" selection-start-line="527" selection-start-column="1" selection-end-line="527" selection-end-column="1" />
               <folding>
                 <element signature="e#6378#6525#2" expanded="true" />
               </folding>
@@ -306,7 +303,7 @@
   <component name="PhpServers">
     <servers />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="width" value="1378" />
     <option name="height" value="780" />
   </component>
@@ -425,15 +422,15 @@
       <workItem from="1560498567917" duration="794000" />
       <workItem from="1560952132366" duration="9008000" />
       <workItem from="1560990061349" duration="55000" />
-      <workItem from="1560990945003" duration="4957000" />
+      <workItem from="1560990945003" duration="5663000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="295758000" />
+    <option name="totallyTimeSpent" value="296464000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1378" height="780" extended-state="1" />
+    <frame x="0" y="0" width="1378" height="780" extended-state="0" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.2837633" />
@@ -806,7 +803,7 @@
     <entry file="file://$PROJECT_DIR$/assets/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="309">
-          <caret line="527" column="1" lean-forward="true" selection-start-line="527" selection-start-column="1" selection-end-line="527" selection-end-column="1" />
+          <caret line="527" column="1" selection-start-line="527" selection-start-column="1" selection-end-line="527" selection-end-column="1" />
           <folding>
             <element signature="e#6378#6525#2" expanded="true" />
           </folding>
