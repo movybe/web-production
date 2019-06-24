@@ -622,7 +622,7 @@ class Application extends React.Component {
 
 
 
-                ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
+                ad = {title : null , showAdImage : false , description : null , price : null , image : null , link : null, linkText : null , location : null};
 
                 let prop, addNewAd = true;
 
@@ -637,7 +637,8 @@ class Application extends React.Component {
 
 
                     for(prop in ad){
-                        if(!ad[prop] ||  typeof ad[prop] === 'undefined')
+                        if(prop === "showAdImage")continue;
+                        else if(!ad[prop] ||  typeof ad[prop] === 'undefined' )
                         {
                             addNewAd = false;
                             break;

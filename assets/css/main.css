@@ -526,3 +526,36 @@ i.best-offer-text
     font-size : 30px;
     color : tomato;
 }
+
+i.material-icons.modified-ad-icons {
+    font-size:19px;
+}
+
+a.image-download-link
+{
+    position : relative;
+    top : 9px;
+}
+
+i.search-location-icons
+{
+    position:relative;
+    top : 3px;
+}
+
+i.modified-ad-icons.ad-image-icon
+{
+    position : relative;
+    top : 12px;
+}
+a.show-ad-image
+{
+    margin-left:10px;
+    margin-right : 8px;
+}
+
+span.view-save-separator {
+    position : relative;
+    top : 10px;
+    margin-right:3px;
+}

@@ -2,6 +2,8 @@
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -9,8 +11,6 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -44,6 +44,23 @@ function (_React$Component) {
     _classCallCheck(this, LocalSearchTab);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(LocalSearchTab).call(this));
+
+    _defineProperty(_assertThisInitialized(_this), "toggleImageView", function (e, local, localIndex, ad, adIndex) {
+      var show = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : true;
+      e.preventDefault(); //console.log(e, local , ad , index);
+
+      ad.showAdImage = show;
+
+      var newLocale = _toConsumableArray(_this.props.locale);
+
+      local.ads[adIndex] = ad;
+      newLocale[localIndex] = local; //newLocale[localIndex] = local;
+      //console.log(newLocale);
+
+      _this.props.switchWebsite(_objectSpread({}, _this.props, {
+        locale: _toConsumableArray(newLocale)
+      }));
+    });
 
     _defineProperty(_assertThisInitialized(_this), "defaultActions", function () {
       var tabs = $('.tabs#tabs');
@@ -235,6 +252,7 @@ function (_React$Component) {
         var bestOfferClass,
             bestOfferTextClass = "";
         var priceToNumber = 0;
+        var boldedQuery, showAdImage, viewSaveSeparator;
         var template = local.ads.length ? local.ads.map(function (ad, index) {
           priceToNumber = parseInt(ad.price.toString().replace(/,/g, ''));
 
@@ -256,8 +274,25 @@ function (_React$Component) {
             return ad.image === imageObject.src;
           });
           imageSaved = savedImage !== undefined;
+          showAdImage = !_this3.props.settings.showImages && !ad.showAdImage ? React.createElement("a", {
+            href: "#",
+            className: "show-ad-image image-download-link search-result-images blue-text",
+            onClick: function onClick(e) {
+              return _this3.toggleImageView(e, local, pos, ad, index);
+            }
+          }, "View") : null;
+          showAdImage = showAdImage === null && !_this3.props.settings.showImages && ad.showAdImage ? React.createElement("a", {
+            href: "#",
+            className: "show-ad-image image-download-link search-result-images blue-text",
+            onClick: function onClick(e) {
+              return _this3.toggleImageView(e, local, pos, ad, index, false);
+            }
+          }, "Hide") : showAdImage;
+          viewSaveSeparator = !_this3.props.settings.showImages && !ad.showAdImage ? React.createElement("span", {
+            className: "view-save-separator"
+          }, "\u2022") : null;
           bg = "".concat(ad.image);
-          showImages = _this3.props.settings.showImages && ad.image != null ? React.createElement("span", {
+          showImages = _this3.props.settings.showImages && ad.image != null || ad.showAdImage ? React.createElement("span", {
             className: "modal-link",
             "data-caption": ad.title,
             href: ad.image
@@ -291,8 +326,10 @@ function (_React$Component) {
           showLocation = ad.location.length ? React.createElement("span", {
             className: "search-result-locations blue-grey-text"
           }, React.createElement("i", {
-            className: "tiny material-icons search-location-icons"
-          }, "location_on"), ad.location) : null;
+            className: "small material-icons search-location-icons modified-ad-icons"
+          }, "location_on"), React.createElement("span", {
+            className: "ad-location-text"
+          }, " ", ad.location)) : null;
           return React.createElement("div", {
             className: "search-result",
             key: Math.random()
@@ -306,19 +343,22 @@ function (_React$Component) {
             href: ad.link
           }, ad.title)), React.createElement("a", {
             className: "search-result-link-address",
-            href: "#"
+            href: "#",
+            onClick: function onClick(e) {
+              return e.preventDefault();
+            }
           }, ad.linkText), React.createElement("span", {
             className: "search-result-link-description"
-          }, ad.description), showImages, React.createElement("a", {
+          }, ad.description), showImages, React.createElement("i", {
+            className: "small material-icons search-image-icons blue-text modified-ad-icons ad-image-icon"
+          }, "image"), showAdImage, viewSaveSeparator, React.createElement("a", {
             download: ad.title,
             target: "_blank",
             href: ad.image,
             className: "image-download-link search-result-images blue-text"
-          }, React.createElement("i", {
-            className: "tiny material-icons search-image-icons"
-          }, "image"), " ", imageSaved ? "Image Saved" : "Save Image"), showLocation);
+          }, " ", imageSaved ? "Saved" : "Save"), showLocation);
         }) : null;
-        var boldedQuery = React.createElement("strong", null, _this3.props.query);
+        boldedQuery = React.createElement("strong", null, _this3.props.query);
         template = template === null && local.page && !_this3.props.processingAction ? React.createElement("h5", {
           className: "center-align load-more-error-messages"
         }, defaults.noResultsFoundError + " for \"", boldedQuery, "\" on ".concat(local.name)) : template;

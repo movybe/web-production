@@ -10,6 +10,24 @@ class  LocalSearchTab extends React.Component{
 
 
 
+    toggleImageView = (e ,local , localIndex,  ad , adIndex , show = true) => {
+        e.preventDefault();
+        //console.log(e, local , ad , index);
+        ad.showAdImage = show;
+
+        let newLocale = [...this.props.locale];
+
+        local.ads[adIndex] = ad;
+
+        newLocale[localIndex] = local;
+        //newLocale[localIndex] = local;
+
+
+
+        //console.log(newLocale);
+        this.props.switchWebsite({...this.props , locale : [...newLocale]});
+    };
+
 
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -261,6 +279,7 @@ class  LocalSearchTab extends React.Component{
             let seenBestOffer = false;
             let bestOfferClass,bestOfferTextClass = "";
             let priceToNumber = 0;
+            let boldedQuery,showAdImage,viewSaveSeparator;
             let template = (local.ads.length) ? local.ads.map((ad, index) => {
                 priceToNumber = parseInt(ad.price.toString().replace(/,/g, ''));
                 if(priceToNumber >= local.bestOfferInt && !seenBestOffer) {
@@ -281,10 +300,11 @@ class  LocalSearchTab extends React.Component{
 
                 imageSaved = savedImage !== undefined;
 
-
-
+                showAdImage = (!this.props.settings.showImages && !ad.showAdImage) ? <a href="#"  className="show-ad-image image-download-link search-result-images blue-text" onClick={e => this.toggleImageView(e , local , pos ,   ad , index)}>View</a> : null;
+                showAdImage = (showAdImage === null && !this.props.settings.showImages && ad.showAdImage) ? <a href="#"  className="show-ad-image image-download-link search-result-images blue-text" onClick={e => this.toggleImageView(e , local , pos ,   ad , index , false)}>Hide</a>: showAdImage;
+                viewSaveSeparator = (!this.props.settings.showImages && !ad.showAdImage)  ? <span className="view-save-separator">•</span> : null;
                 bg = `${ad.image}`;
-                showImages = (this.props.settings.showImages) && ad.image != null ?
+                showImages = (this.props.settings.showImages && ad.image != null) || (ad.showAdImage) ?
                     <span className="modal-link"  data-caption = {ad.title} href = {ad.image}>
                     <div className={"image-container"} onClick={  imageSaved ? null : () => {this.saveImage(ad.title , ad.link , ad.image)}} data-image={ad.image}>
                         {bestOfferClass}
@@ -293,13 +313,15 @@ class  LocalSearchTab extends React.Component{
                     </div>
     </span>: null;
 
+
+
                 isValidSponsoredAd = ad.is_sponsored_ad && this.props.sponsoredAdsClicked.indexOf(ad.ad_id) < 0;
                 currency = this.props.settings.localSearch ? <span>&#8358;</span> : <span>$</span>;
                 showPrice = (ad.price !== 0) ? <h6 className="green-text search-result-price">{currency}{ad.price}{bestOfferTextClass}</h6> : <h5 className="green-text search-result-price">{defaults.priceNotSpecifiedText}</h5>;
                 showPrice = (ad.is_sponsored_ad) ? <h6 className="green-text search-result-price">{defaults.sponsoredAdText}</h6> : showPrice;
                 showLocation = ad.location.length ?
                     <span className="search-result-locations blue-grey-text"><i
-                        className="tiny material-icons search-location-icons">location_on</i>{ad.location}</span> : null;
+                        className="small material-icons search-location-icons modified-ad-icons">location_on</i><span className="ad-location-text"> {ad.location}</span></span> : null;
                 return (
 
                     <div className="search-result" key = {Math.random()}>
@@ -310,22 +332,27 @@ class  LocalSearchTab extends React.Component{
                             {ad.title}
                         </a></h3>
                         <a className="search-result-link-address"
-                           href="#">
+                           href="#" onClick={ (e)  => e.preventDefault()}>
                             {ad.linkText}
                         </a>
                         <span className="search-result-link-description">
 {ad.description}
 </span>
                         {showImages}
-                        <a download = {ad.title} target="_blank" href={ad.image}     className="image-download-link search-result-images blue-text"><i
-                            className="tiny material-icons search-image-icons">image</i> {  imageSaved ? "Image Saved" : "Save Image"}</a>
+
+                        <i className="small material-icons search-image-icons blue-text modified-ad-icons ad-image-icon">image</i>
+                        {showAdImage}
+                        {viewSaveSeparator}
+                        <a download = {ad.title} target="_blank" href={ad.image}  className="image-download-link search-result-images blue-text"> {  imageSaved ? "Saved" : "Save"}</a>
                         {showLocation}
+
 
 
                     </div>)
             }) :  null;
 
-            let boldedQuery = <strong>{this.props.query}</strong>;
+            boldedQuery = <strong>{this.props.query}</strong>;
+
             template = (template === null && local.page && !this.props.processingAction) ? <h5 className="center-align load-more-error-messages">{defaults.noResultsFoundError + ` for "`}{boldedQuery}{`" on ${local.name}` }</h5> : template;
 
             preloader = (template === null && this.props.processingAction) ?

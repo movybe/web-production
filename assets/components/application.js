@@ -566,6 +566,7 @@ function (_React$Component) {
         response.contents.data.forEach(function (obj) {
           ad = {
             title: null,
+            showAdImage: false,
             description: null,
             price: null,
             image: null,
@@ -586,7 +587,7 @@ function (_React$Component) {
             ad.linkText = ('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength);
 
             for (prop in ad) {
-              if (!ad[prop] || typeof ad[prop] === 'undefined') {
+              if (prop === "showAdImage") continue;else if (!ad[prop] || typeof ad[prop] === 'undefined') {
                 addNewAd = false;
                 break;
               }
