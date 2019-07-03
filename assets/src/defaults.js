@@ -167,6 +167,22 @@ class Defaults {
         this.noResultsFoundError = 'no results found';
         this.pleaseWaitText = 'Please wait...';
         this.searchSuggestionsLimit = 7;
+        this.affiliateAccountDurationInDays =7;
+        this.copyToClipboard = function (content) {
+          clipboard.writeText(content);
+          this.showToast("Copied!");
+        };
+        this.showCopiedToast = (content = null) => {
+            if(typeof clipboard === 'undefined'){
+                $.getScript(defaults.getFileLocation('/assets/js/clipboard.js')).done(() => {
+                        this.copyToClipboard(content);
+                    }
+                   ).fail(() =>  {
+                    this.showToast(this.checkNetworkConnectionError);
+                });
+            }
+            else {this.copyToClipboard(content)}
+            };
         this.ajaxProgress = e =>  {
 
             console.log('not computable');
@@ -184,25 +200,25 @@ class Defaults {
         this.siteAddressHttp = 'http://' + this.siteAddress;
         this.siteAddressHttps = 'https://' + this.siteAddress;
         this.merchantAccountType = 'merchant';
-        this.withdrawalCharge = 100;
+        this.withdrawalCharge = 50;
         this.enterNewRefererUsernameMessage = 'This user had previously referred you, enter a new username';
         this.disabledTrue = ['disabled' , true];
         this.disabledFalse = ['disabled' , false];
         this.numberOfAdSpaceForMerchant = [0 , 1];
         this.numberOfAdSpaceForOmoba = [0 , 1 , 2 , 3 , 5];
-        this.minimumAffliateProfit = 6500;
+        this.minimumAffliateProfit = 2500;
         this.minimumAccountUsernameLength = 5;
         this.maximumAccountUsernameLength = 12;
-        this.amountPaidForReferer = 1400;
-        this.minimumWithdrawalAmount = 1000;
+        this.amountPaidForReferer = 500;
+        this.minimumWithdrawalAmount = 600;
         this.numberOfAdsForAdminReview = 10;
-        this.affiliateIntroductionVideo = this.isProductionMode ?'https://www.youtube.com/embed/gNU3jJ9ooYQ':'about:blank';
+        this.affiliateIntroductionVideo = this.isProductionMode ?'https://www.youtube.com/embed/6u30400HRus':'about:blank';
         this.merchantIntroductionVideo = this.isProductionMode ? 'https://www.youtube.com/embed/SIUNqj9XM2M':'about:blank';
         this.affiliateTourGuide = 'about:blank';
         this.merchantTourGuide = 'about:blank';
         this.amountPaidForUniqueVisitor = 0.5;
         this.dummyEmail = 'omobang@gmail.com';
-        this.thresholdAmount = 6500;
+        this.thresholdAmount = 2500;
         this.maximumAdminAdMessageLength = 120;
         this.priceNotSpecifiedText = 'price not specified';
         this.transactionNotSuccessfulMessage = 'Transaction not successful';
@@ -235,7 +251,7 @@ class Defaults {
                     custom_fields: [
                         {
                             display_name: name,
-                            variable_name: 'email_address',
+                            variable_name: 'E-mail address',
                             value: email
                         }
                     ]

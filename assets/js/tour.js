@@ -11,6 +11,7 @@ function _tourJS()
     this.tourJSClassName = '.tourJS';
     this.overlayEffectClassName =  this.tourJSClassName+' .overlay-effect';
     this.overlayClassName = 'overlay';
+    this.closeClassName = 'close';
     this.stepAttribute = 'data-step';
     this.currentStepClass = 'current-step';
     this.tourJSTooltip = this.tourJSClassName + ' .tourJS-tooltip';
@@ -19,7 +20,15 @@ function _tourJS()
     this.tourJSNextTooltip = $(this.tourJSClassName + ' .tourJS-next-tooltip');
     this.tourJSCurrentProgress = $(this.tourJSClassName + ' .tourJS-current-progress');
     this.tourJSTotalProgress = $(this.tourJSClassName + ' .tourJS-total-progress');
+
+    this.tourJSClose = $(this.tourJSClassName + ' .tourJS-close');
+
     this.actionAttribute = 'data-tourjs-action';
+
+    this.tourJSClose.on('click' , function (e) {
+       e.preventDefault();
+       _this.stop();
+    });
 
 
     var currentIndex, elementsWithTheClassName , currentClassName = "" , firstOccurrenceClass = "" , classes = [];

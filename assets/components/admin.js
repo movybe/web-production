@@ -71,7 +71,6 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentWillMount", function () {
-      $.getScript(defaults.getFileLocation('/assets/js/clipboard.js'));
       document.title = defaults.siteName + " • Admin Panel";
     });
 
@@ -361,10 +360,9 @@ function (_React$Component) {
         href: "#",
         className: "no-underline",
         onClick: function onClick() {
-          clipboard.writeText(_this.state.payment_details[0].account_number);
-          defaults.showToast("Copied!");
+          defaults.showCopiedToast(_this.state.payment_details[0].account_number);
         }
-      }, "copy"), " "), React.createElement("td", null, _this.state.payment_details[0].bank_name), React.createElement("td", null, "\u20A6", _this.convertDecimalToLocaleString(_this.state.payment_details[0].amount))))), React.createElement("a", {
+      }, "copy")), React.createElement("td", null, _this.state.payment_details[0].bank_name), React.createElement("td", null, "\u20A6", _this.convertDecimalToLocaleString(_this.state.payment_details[0].amount))))), React.createElement("a", {
         href: "#confirm-payment-modal",
         className: "waves-effect waves-light next-payment-button btn right modal-trigger"
       }, "Next")) : React.createElement("h5", null, "No payment Request yet.");

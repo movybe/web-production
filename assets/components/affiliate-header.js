@@ -68,12 +68,12 @@ function (_React$Component) {
       question: "Why is my account deactivated",
       answer: React.createElement("span", null, "When your account is deactivated,it simply means you have earned more than ", React.createElement("span", {
         className: "strong"
-      }, "\u20A6", defaults.thresholdAmount), " in the last 30 days. therefore you're required to re-activate your account with a new referer username this time, different from your old referer.")
+      }, "\u20A6", defaults.thresholdAmount), " in the last ", defaults.affiliateAccountDurationInDays, " days. therefore you're required to re-activate your account with a new referer username this time, different from your old referer.")
     }, {
       question: "How long does my account activation last",
       answer: React.createElement("span", null, "Your account will only be de-activated if You've earned more than ", React.createElement("span", {
         className: "strong"
-      }, "\u20A6", defaults.thresholdAmount), " in the last 30 days. ", React.createElement("q", {
+      }, "\u20A6", defaults.thresholdAmount), " in the last ", defaults.affiliateAccountDurationInDays, " days. ", React.createElement("q", {
         className: "light strong"
       }, "else your account remains active"))
     }, {
@@ -83,7 +83,7 @@ function (_React$Component) {
         href: "#"
       }, defaults.siteAddressHttps + "/r/" + _this.props.user.username), " with your friends.", React.createElement("br", null), "you get paid ", React.createElement("span", {
         className: "strong"
-      }, "\u20A6", defaults.amountPaidForUniqueVisitor), " for each unique visitor that visits that url.")
+      }, "\u20A6", defaults.amountPaidForUniqueVisitor), " for each unique visitor that visits that url.", React.createElement("br", null), "Also,when your username is used to re-activate any member's account, you earn \u20A6", defaults.amountPaidForReferer, " instantly.")
     }]);
 
     _defineProperty(_assertThisInitialized(_this), "mobileNavs", function () {
@@ -153,15 +153,21 @@ function (_React$Component) {
       if (_this.withdrawalForm.valid()) {
         var _this$withdrawalField;
 
-        var amount = parseInt(_this.withdrawalAmount.val()) - defaults.withdrawalCharge;
+        var totalWithdrawalAmount = parseInt(_this.withdrawalAmount.val());
+        var hundredPerThousand = Math.ceil(totalWithdrawalAmount / 1000) * 100;
+        var paymentAmount = totalWithdrawalAmount - hundredPerThousand; //The amount the user would receive
+
+        var profit = hundredPerThousand - defaults.withdrawalCharge; //The profit made by the website
+
         var email = _this.props.email;
         var action = 'AFFILIATE_WITHDRAWAL';
-        var withdrawalCharge = defaults.withdrawalCharge;
         var data = {
-          amount: amount,
+          payment_amount: paymentAmount,
           email: email,
           action: action,
-          withdrawal_charge: withdrawalCharge
+          profit: profit,
+          withdrawal_charge: defaults.withdrawalCharge,
+          total_withdrawal_amount: totalWithdrawalAmount
         };
         data = JSON.stringify(data);
 
@@ -172,6 +178,7 @@ function (_React$Component) {
         }, function (response) {
           var _this$withdrawalField2;
 
+          console.log(response);
           response = JSON.parse(response);
 
           _this.withdrawalResponseMessage.text(response.error);
@@ -323,9 +330,9 @@ function (_React$Component) {
       }, "Proceed"), React.createElement("span", {
         className: "helper-text right",
         id: "withdrawal-charge-message"
-      }, "QuickTeller will charge ", React.createElement("span", {
+      }, React.createElement("strong", null, "NOTE : "), "We charge ", React.createElement("span", {
         className: "strong"
-      }, "\u20A6", defaults.withdrawalCharge), " for this transfer.")))))), React.createElement("div", {
+      }, "\u20A6", defaults.withdrawalCharge), " for every ", React.createElement("strong", null, "\u20A61000"), ".")))))), React.createElement("div", {
         className: "modal-footer"
       }, React.createElement("a", {
         href: "#",
@@ -423,7 +430,7 @@ function (_React$Component) {
         className: "faq-question"
       }, "Payments"), React.createElement("p", null, "All payments made on this website (", defaults.siteAddressHttp, ") are non-refundable, we are not held responsible for any damage as a result of payment on this website."), React.createElement("h6", {
         className: "faq-question"
-      }, "Subscription (Affiliate)"), React.createElement("p", null, "Some parts of the Service are billed on a subscription basis i.e Affiliate  (\"Subscription(s)\"). You will be billed in advance on a recurring", React.createElement("br", null), React.createElement("br", null), "While we make every effort to ensure that we accurately represent all the products and services reviewed on ", defaults.siteAddress, " affiliate Income Program and their potential for income, it should be noted that earnings and income statements made by ", defaults.siteAddress, " and its advertisers / sponsors are estimates only of what we think you can possibly earn. There is no guarantee that you will make these levels of income and you accept the risk that the earnings and income statements differ by individual.", React.createElement("br", null), React.createElement("br", null), "As with any business, your results may vary, and will be based on your individual capacity, business experience, expertise, and level of desire. There are no guarantees concerning the level of success you may experience. The testimonials and examples used are exceptional results, which do not apply to the average purchaser, and are not intended to represent or guarantee that anyone will achieve the same or similar results. Each individual\u2019s success depends on his or her background, dedication, desire and motivation.", React.createElement("br", null), React.createElement("br", null), "There is no assurance that examples of past earnings can be duplicated in the future. We cannot guarantee your future results and/or success. There are some unknown risks in business and on the internet that we cannot foresee which could reduce results you experience. We are not responsible for your actions.", React.createElement("br", null), React.createElement("br", null), "The use of our information, products and services should be based on your own due diligence and you agree that ", defaults.siteAddress, " and the advertisers / sponsors of this website are not liable for any success or failure of your business that is directly or indirectly related to the purchase and use of our information, products and services reviewed or advertised on this website.", React.createElement("br", null), React.createElement("br", null), "All Affiliate accounts older than 6 Months , with a net profit of more than ", React.createElement("strong", null, "\u20A6", defaults.minimumAffliateProfit), " are subject to been deactivated."), React.createElement("h6", {
+      }, "Subscription (Affiliate)"), React.createElement("p", null, "Some parts of the Service are billed on a subscription basis i.e Affiliate  (\"Subscription(s)\"). You will be billed in advance on a recurring", React.createElement("br", null), React.createElement("br", null), "While we make every effort to ensure that we accurately represent all the products and services reviewed on ", defaults.siteAddress, " affiliate Income Program and their potential for income, it should be noted that earnings and income statements made by ", defaults.siteAddress, " and its advertisers / sponsors are estimates only of what we think you can possibly earn. There is no guarantee that you will make these levels of income and you accept the risk that the earnings and income statements differ by individual.", React.createElement("br", null), React.createElement("br", null), "As with any business, your results may vary, and will be based on your individual capacity, business experience, expertise, and level of desire. There are no guarantees concerning the level of success you may experience. The testimonials and examples used are exceptional results, which do not apply to the average purchaser, and are not intended to represent or guarantee that anyone will achieve the same or similar results. Each individual\u2019s success depends on his or her background, dedication, desire and motivation.", React.createElement("br", null), React.createElement("br", null), "There is no assurance that examples of past earnings can be duplicated in the future. We cannot guarantee your future results and/or success. There are some unknown risks in business and on the internet that we cannot foresee which could reduce results you experience. We are not responsible for your actions.", React.createElement("br", null), React.createElement("br", null), "The use of our information, products and services should be based on your own due diligence and you agree that ", defaults.siteAddress, " and the advertisers / sponsors of this website are not liable for any success or failure of your business that is directly or indirectly related to the purchase and use of our information, products and services reviewed or advertised on this website.", React.createElement("br", null), React.createElement("br", null), "All Affiliate accounts older than ", defaults.affiliateAccountDurationInDays, " days , with a net profit of more than ", React.createElement("strong", null, "\u20A6", defaults.minimumAffliateProfit), " are subject to been deactivated."), React.createElement("h6", {
         className: "faq-question"
       }, "Terms of Participation (Affiliate)"), React.createElement("p", null, "Members must be 18 years of age or older to participate. Members must provide ", defaults.siteAddress, " affiliate Income Program with accurate, complete and updated registration information, including an accurate account name , bank name , account number  and email address. To the full extent allowed by applicable law, ", defaults.siteAddress, " affiliate Income Program at its sole discretion and for any or no reason may refuse to accept applications for membership."), React.createElement("h6", {
         className: "faq-question"

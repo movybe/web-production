@@ -29,6 +29,16 @@ class Affiliate extends React.Component
         document.title = defaults.siteName + ` •  ${this.props.user.username.capitalize()}`;
 
     };
+
+    copyLinkIcon = (e) => {
+
+
+
+        let link =  $(e.target).siblings('span').text();
+        defaults.showCopiedToast(link);
+
+    };
+
     handleAccountActivation = e => {
 
         e.preventDefault();
@@ -39,7 +49,6 @@ class Affiliate extends React.Component
         const refererUsername = this.refererUsername.val().toLowerCase();
 
         const refererUsernames = this.props.user.referer_usernames.split(',');
-
 
         if(refererUsernames.indexOf(refererUsername) >= 0)
         {
@@ -249,8 +258,8 @@ class Affiliate extends React.Component
                         <div className="col s12 valign-wrapper">
 
                             <p className="notice-message">
-                                Your affiliate account will require renewal once every 30 days, provided you've reached our threshold of <strong className='strong'>&#8358;{defaults.thresholdAmount.toLocaleString()}</strong> for the month.
-                                <br />our Demo Video is also a good tour guide for beginners.
+                                Your affiliate account will require renewal once every {defaults.affiliateAccountDurationInDays} days, provided you've earned more than <strong className='strong'>&#8358;{defaults.thresholdAmount.toLocaleString()}</strong>.
+
                             </p>
                         </div>
                     </div>
@@ -299,8 +308,8 @@ class Affiliate extends React.Component
                                 <div className="card-tabs">
                                     <ul className="tabs tabs-fixed-width account-info-tabs">
                                         <li className="tab" id="email-tab"><a href="#email-address">E-mail</a></li>
-                                        <li className="tab"><a href="#test5" className="flow-text tourJS affiliate-account-tour tour-6" data-step ="6"  data-caption = "Your account status is shown here.">Status</a></li>
-                                        <li className="tab"><a href="#test6" className="flow-text tourJS affiliate-account-tour tour-7" data-step ="7"  data-caption = "Your earnings for the last 30 days.">This Month</a></li>
+                                        <li className="tab"><a href="#test5" className="flow-text tourJS affiliate-account-tour tour-6" data-step ="6"  data-caption = "Your account status is shown here.">STATUS</a></li>
+                                        <li className="tab"><a href="#test6" className="flow-text tourJS affiliate-account-tour tour-7" data-step ="7"  data-caption = "Your recent earnings.">RECENT EARNING</a></li>
                                     </ul>
                                 </div>
                                 <div className="card-content grey lighten-4">
@@ -322,20 +331,30 @@ class Affiliate extends React.Component
                                 </div>
                                 <div className="card-tabs">
                                     <ul className="tabs fund-status-tabs tabs-fixed-width">
-                                        <li className="tab" id="account-balance-tab"><a className="active tourJS affiliate-account-tour tour-9" data-step ="9"  data-caption = {`use this link to refer your friends to ${defaults.siteName}.`} href="#referer-link">Moref</a></li>
+                                        <li className="tab" id="account-balance-tab">
+                                            <a className="active tourJS affiliate-account-tour tour-9" data-step ="9"  data-caption = {`use this link to refer your friends to ${defaults.siteName}.`} href="#referer-link">
+                                                Moref
+                                            </a>
+
+                                        </li>
                                         <li className="tab"><a href="#referer-username">Username</a></li>
                                         <li className="tab"><a href="#invite-link" className="tourJS affiliate-account-tour tour-8" data-step ="8"  data-caption = {`use this link to invite your friends to ${defaults.siteName}.`}>Molin</a></li>
                                     </ul>
                                 </div>
                                 <div className="card-content grey lighten-4">
                                     <div id="referer-link" style={{display : 'none'}}>
-                                        <span>{defaults.siteAddressHttps + `/campaign/${this.props.user.username}`}</span>
+                                        <span>
+                                            {defaults.siteAddressHttps + `/campaign/${this.props.user.username}`}
+                                            </span>
+                                        <i title="Copy" id="copy-referer-link" className="material-icons copy-link-icons" onClick={this.copyLinkIcon}>content_copy</i>
                                     </div>
                                     <div id="referer-username">
                                         <span>{this.props.user.username}</span>
+                                        <i title="Copy" id="copy-username" className="material-icons copy-link-icons" onClick={this.copyLinkIcon}>content_copy</i>
                                     </div>
                                     <div id="invite-link" style={{ display : 'none'}}>
                                         <span>{defaults.siteAddressHttps + `/r/${this.props.user.username}`}</span>
+                                        <i title="Copy" id="copy-invite-link" className="material-icons copy-link-icons" onClick={this.copyLinkIcon}>content_copy</i>
                                     </div>
                                 </div>
                             </div>

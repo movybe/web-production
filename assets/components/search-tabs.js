@@ -45,17 +45,48 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(LocalSearchTab).call(this));
 
-    _defineProperty(_assertThisInitialized(_this), "toggleImageView", function (e, local, localIndex, ad, adIndex) {
+    _defineProperty(_assertThisInitialized(_this), "toggleImageView", function (
+    /*
+    The element that calls for the action i.e <a>
+    */
+    e,
+    /*
+    The particular locale, i.e olx , jiji , kong e.t.c
+    */
+    local,
+    /*
+    The index of the local 0 for olx 1 for jiji
+    */
+    localIndex,
+    /*
+     The particular Object
+     */
+    ad,
+    /*
+     The index of that ad
+     */
+    adIndex) {
       var show = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : true;
-      e.preventDefault(); //console.log(e, local , ad , index);
+      e.preventDefault();
+      /*
+      Prevent the default action ,
+      for links, this would be either opening a url if the url is not "#"
+      or going to the top of the page if the url is a valid link
+      */
 
       ad.showAdImage = show;
+      /*
+      each ad object has a showAdImage Property which must have a boolean value
+      */
 
-      var newLocale = _toConsumableArray(_this.props.locale);
+      var newLocale = _toConsumableArray(_this.props.locale); //now, create a new locale
+      //modify the ad that has this index
 
-      local.ads[adIndex] = ad;
+
+      local.ads[adIndex] = ad; //Now, modify the local position
+
       newLocale[localIndex] = local; //newLocale[localIndex] = local;
-      //console.log(newLocale);
+      //Let this be included in the state
 
       _this.props.switchWebsite(_objectSpread({}, _this.props, {
         locale: _toConsumableArray(newLocale)
@@ -107,7 +138,8 @@ function (_React$Component) {
     });
 
     return _this;
-  }
+  } //The method below let's you show/hide a particular image in a given search result
+
 
   _createClass(LocalSearchTab, [{
     key: "shouldComponentUpdate",
@@ -120,7 +152,7 @@ function (_React$Component) {
       var _this2 = this;
 
       this.defaultActions();
-      var x, sum, price, priceList, adsLength, isOddAdLength, average, priceListLengthDividedBy4, priceListLengthDividedBy2, median, middleSum, firstNPrice, lastNPrice, sumOfFirstNPrice, sumOfLatNPrice, newAdsPriceSum, newPriceList, newPriceListAverage, newSum, sortAdInAscendingOrder, medianPlusMax;
+      var x, sum, price, priceList, adsLength, isOddAdLength, average, priceListLengthDividedBy4, priceListLengthDividedBy2, median, middleSum, sortAdInAscendingOrder, medianPlusMax;
       var locale = this.props.locale;
       var ad1Price, ad2Price;
       locale.forEach(function (local) {

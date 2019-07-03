@@ -1,3 +1,6 @@
+
+
+
 .progress.progress-bar
 {
     position: fixed;
@@ -558,4 +561,8 @@ span.view-save-separator {
     position : relative;
     top : 10px;
     margin-right:3px;
+}
+.card.campaign-card{
+    max-height : 300px;
+    overflow-y: visible;
 }

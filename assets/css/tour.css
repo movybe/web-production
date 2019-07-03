@@ -104,3 +104,13 @@
 {
     font-weight: bold;
 }
+a.tourJS-close
+{
+    color: lightcoral;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    position: relative;
+    top : 4px;
+}

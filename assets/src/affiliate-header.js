@@ -31,7 +31,7 @@ class  AffiliateHeader extends React.Component {
         {
             question : `Why is my account deactivated` ,
             answer : <span>
-                When your account is deactivated,it simply means you have earned more than <span className="strong">&#8358;{defaults.thresholdAmount}</span> in the last 30 days.
+                When your account is deactivated,it simply means you have earned more than <span className="strong">&#8358;{defaults.thresholdAmount}</span> in the last {defaults.affiliateAccountDurationInDays} days.
                 therefore you're required to re-activate your account with a new referer username this time, different from your old referer.
             </span>
         }
@@ -39,7 +39,7 @@ class  AffiliateHeader extends React.Component {
         {
 
             question : `How long does my account activation last` ,
-            answer : <span>Your account will only be de-activated if You've earned more than <span className="strong">&#8358;{defaults.thresholdAmount}</span> in the last 30 days. <q className="light strong">else your account remains active</q></span>
+            answer : <span>Your account will only be de-activated if You've earned more than <span className="strong">&#8358;{defaults.thresholdAmount}</span> in the last {defaults.affiliateAccountDurationInDays} days. <q className="light strong">else your account remains active</q></span>
         }
         ,
 
@@ -48,6 +48,8 @@ class  AffiliateHeader extends React.Component {
             answer : <span>
                 You can also earn when you invite your friends to {defaults.siteName} by sharing your invitation link: <a className="red-text strong" href="#">{defaults.siteAddressHttps + "/r/" + this.props.user.username}</a> with your friends.<br />
                 you get paid <span className="strong">&#8358;{defaults.amountPaidForUniqueVisitor}</span> for each unique visitor that visits that url.
+                <br />
+                Also,when your username is used to re-activate any member's account, you earn &#8358;{defaults.amountPaidForReferer} instantly.
             </span>
 
         }];
@@ -134,18 +136,24 @@ class  AffiliateHeader extends React.Component {
 
         if(this.withdrawalForm.valid())
         {
-            const amount = parseInt(this.withdrawalAmount.val()) - defaults.withdrawalCharge;
+            const totalWithdrawalAmount = parseInt(this.withdrawalAmount.val());
+            const hundredPerThousand = Math.ceil(totalWithdrawalAmount / 1000) * 100;
+            const paymentAmount = totalWithdrawalAmount - hundredPerThousand; //The amount the user would receive
+            const profit = hundredPerThousand - defaults.withdrawalCharge; //The profit made by the website
             const email = this.props.email;
             const action = 'AFFILIATE_WITHDRAWAL';
-            const withdrawalCharge = defaults.withdrawalCharge;
 
-            let data = {amount , email , action , withdrawal_charge : withdrawalCharge};
+            let data = {payment_amount : paymentAmount , email , action , profit ,
+                withdrawal_charge : defaults.withdrawalCharge,
+                total_withdrawal_amount : totalWithdrawalAmount
+            };
             data = JSON.stringify(data);
 
             this.withdrawalFieldSet.prop(...defaults.disabledTrue);
 
             $.post(defaults.actions , {data} , response => {
 
+                console.log(response);
 
                 response = JSON.parse(response);
                 this.withdrawalResponseMessage.text(response.error);
@@ -226,7 +234,7 @@ class  AffiliateHeader extends React.Component {
                                    <span className="helper-text" id = "withdrawal-response-message"></span>
 
                                    <button type="submit" id="withdrawal-submit-button" className="waves-effect waves-light btn-small">Proceed</button>
-                                   <span className="helper-text right" id ="withdrawal-charge-message">QuickTeller will charge <span className="strong">&#8358;{defaults.withdrawalCharge}</span> for this transfer.</span>
+                                   <span className="helper-text right" id ="withdrawal-charge-message"><strong>NOTE : </strong>We charge <span className="strong">&#8358;{defaults.withdrawalCharge}</span> for every <strong>&#8358;1000</strong>.</span>
                                </div>
                            </div>
                           </form>
@@ -312,7 +320,6 @@ class  AffiliateHeader extends React.Component {
                 </div>
             </div>
         );
-
     };
 
     tosModal = () =>
@@ -357,7 +364,7 @@ class  AffiliateHeader extends React.Component {
 
                         The use of our information, products and services should be based on your own due diligence and you agree that {defaults.siteAddress} and the advertisers / sponsors of this website are not liable for any success or failure of your business that is directly or indirectly related to the purchase and use of our information, products and services reviewed or advertised on this website.<br /><br />
 
-                        All Affiliate accounts older than 6 Months , with a net profit of more than <strong>&#8358;{defaults.minimumAffliateProfit}</strong> are subject to been deactivated.
+                        All Affiliate accounts older than {defaults.affiliateAccountDurationInDays} days , with a net profit of more than <strong>&#8358;{defaults.minimumAffliateProfit}</strong> are subject to been deactivated.
 
 
                     </p>
@@ -369,7 +376,6 @@ class  AffiliateHeader extends React.Component {
                     <p className="strong light">As we are offering non-tangible virtual digital goods ({defaults.siteAddress} affiliate Pack) which is form of registration fee , we do not generally issue refunds after the purchase of {defaults.siteAddress} affiliate Pack has been made. Please note that by purchasing the {defaults.siteAddress} affiliate Pack, you agree to the terms of the Refund Policy.</p>
                     <p>
                         Member’s discontinued participation in the {defaults.siteAddress} Income Program or failure to notify {defaults.siteAddress} Income Program of any address (mailing or email) changes may result in the termination of Member’s membership and forfeiture of Member’s unredeemed Earnings.<br /><br />
-
                         If member objects to any of the Terms and Conditions of this Agreement, or any subsequent modifications to this agreement, or becomes dissatisfied with the Program, Member’s only recourse is to immediately discontinue participation in {defaults.siteAddress} Income Program and properly terminate his or her membership.
                     </p>
 

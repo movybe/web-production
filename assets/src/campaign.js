@@ -5,15 +5,14 @@ class Campaign extends  React.Component
     {
         if(!this.main) {
             this.main = $('main#app');
-            this.refererUsername = $('#referer-username');
+            this.referrerUsername = $('#referer-username');
 
             this.emailField = $('#email');
-            this.referer = this.main.attr('data-referer');
+            this.referrer = this.main.attr('data-referrer') || this.main.attr('data-next-referrer');
+            this.isReferrallLink = this.main.attr('data-is-referral-link');
+            this.nextReferrer = this.main.attr('data-next-referrer');
             this.campaignFormFieldset = $('#campaign-form-fieldset');
-
             this.selectBankName = $('#select-bank-name');
-
-
             $('input#account-number').characterCounter();
         }
     };
@@ -165,18 +164,107 @@ class Campaign extends  React.Component
 
                         <div className="col s12 m6">
                             <h5 className="status-headers">How {defaults.siteName} Affiliate works:</h5>
-                            <div className="card">
+                            <div className="card campaign-card">
                                 <div className="card-content">
+                                    <p>Hello there.</p>
+
+                                        <p>Welcome to {defaults.siteName} Campaign , We call it <strong><i>Mocam</i></strong></p>
+
+                                     <p>
+                                         Mocam is here to revolutionise your browsing time, Have you ever wished the endless hours you spend online could earn you some money?
+                                         Imagine if you earned 10 kobo every minute you spent online.
+                                     </p>
                                     <p>
-                                        Watch as our CEO explains how {defaults.siteName} Affiliate works,
-                                        and how you too can start making money right now with {defaults.siteName} Affiliate.
+                                        You would earn &#8358;4320 a month if you spend 4 hours online
+                                        every day! It even gets more interesting! If you had a signature online that earns you 10 kobo per view online,
+                                        you can earn a hundred Thousand Naira a day if you get a million views! 
+                                        What about if you earn One Thousand Four Hundred Naira every day? 
+                                        Imagine who you will be in 30 days?!! No need for a regular paying job again, right? Well, we at {defaults.siteName} think the same.
                                     </p>
+
+                                    <p>
+                                        Mocam is here to help you realise riches.
+                                    </p>
+                                    <p>
+                                        <strong><i>
+                                            We are on a mission to build the most visited website in Nigeria.
+                                        </i></strong>
+                                    </p>
+                                    <p>
+                                        Driving our vision is your sweet {defaults.siteName} Nigeria Product Search Engine.
+                                    </p>
+                                    <p>
+                                    We have come up with Mocam to make our mission successful while earning good money for you.
+                                        Mocam is a referral programme like no other.
+                                    </p>
+                                    <p>
+                                    We intend for members of Mocam to aggressively advertise {defaults.siteName} while making money for themselves.
+                                        To become a member of Mocam, you register with
+                                        <strong><i> &#8358;{defaults.amountPaidForReferer.toLocaleString()}</i></strong>.
+                                    </p>
+                                    <p>
+                                        This amount is credited to the account of your referrer, just like you would be credited if you refer someone to this programme,
+                                        in other words
+                                        <strong><i> We don't make any profit, with this programme, it's only a means to advertise our Search Engine.
+                                        </i></strong>
+                                        <p>
+                                        You get two links; a Mocam Referral Link also known as <strong><i>Moref</i></strong> and a Mocam Invitation link which we call <strong><i>Molin</i></strong>.
+                                        </p>
+                                        <p>
+                                            Anytime someone joins Mocam using your Moref, you earn <strong><i>&#8358;{defaults.amountPaidForReferer.toLocaleString()}</i></strong>, If you get a thousand people joining Mocam using your Moref, do the maths!
+                                        </p>
+                                    </p>
+                                    <p>
+                                        Your Molin is also a potential money spinner!
+                                    </p>
+
+                                    <p>
+                                            The Molin is a link that drives visitors to watch our presentation video.
+
+                                    </p>
+                                    <p>
+                                    Every time someone clicks on your Molin, they are directed to our site to watch this video.
+                                    </p>
+                                    <p>
+                                        We have deployed advanced programming to identify unique visitors to our videos.
+                                    </p>
+                                    <p>
+                                        So whenever a unique visitor uses your Molin to watch our video, you are paid <strong><i>&#8358;{defaults.amountPaidForUniqueVisitor}</i></strong>,
+                                        If your link gets a thousand clicks a day, you earn a sweet &#8358;{(defaults.amountPaidForUniqueVisitor * 1000).toLocaleString()}.
+                                    </p>
+                                    <p><strong>NOTE ALSO :</strong></p>
+                                    <p>
+                                        Your account will be credited with <strong><i>&#8358;{defaults.amountPaidForReferer.toLocaleString()}</i></strong> each time your username is used to re-activate an in-active account, this way,
+                                        you are sure of payments even when you've referred everyone you know.
+                                    </p>
+
+                                    <p>This also prevents the programme from becoming a Ponzi Scheme</p>
+
+                                <p>
+                                    The advantage of keeping your Moref is that very successful Morefs would get special packages like all paid vacations abroad from {defaults.siteName} Studio occasionally.
+                                </p>
+                                    <p>
+                                        Other incentives like new cars, houses and other gifts would be offered to members with very successful Morefs from time to time!
+                                      If you are still wondering how to start earning these fast bucks, it’s as easy as having social media accounts. Paste your Moref and/or your Molin as your signature on social media sites.
+                                    </p>
+
+                                    <p>
+                                        Place your link as signature on all your comments on social media sites and of course, invite your family and friends to sign up on Mocam using your Moref!
+                                    </p>
+                                    <p>
+                                        <strong><i>{defaults.siteName}! Rev up your vibe!<br />
+                                        Mocam! We make money move!
+                                        </i>
+                                        </strong>
+                                    </p>
+                                    
                                     <div className="video-container demo-video-container">
 
 
-                                        <iframe width="560" height="315" src={defaults.affiliateIntroductionVideo}
+                                        {/*<iframe width="560" height="315" src={defaults.affiliateIntroductionVideo}
                                                 frameBorder="0" allowFullScreen allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
 
+                                         */}
 
 
                                     </div>
@@ -186,7 +274,7 @@ class Campaign extends  React.Component
                         <div className="col s12 m6">
 
                             <h5 className="status-headers">How {defaults.siteName} Merchant works:</h5>
-                            <div className="card">
+                            <div className="card campaign-card">
                                 <div className="card-content">
                                     <p>Watch as our CEO explains how Businesses can advertise their products/services with millions of potential online customers in Nigeria.</p>
                                     <div className="video-container demo-video-container">
@@ -403,11 +491,10 @@ class Campaign extends  React.Component
                    if(response.status !== defaults.successText)return defaults.showToast(defaults.transactionNotSuccessfulMessage);
 
                    let  data = {email , referer_username : refererUsername , username , action : 'SIGNUP_AFFILIATE' ,
-                       account_name :accountName , account_number : accountNumber , bank_name : bankName , reference_code :
+                       account_name :accountName , is_referral_link : this.isReferrallLink , next_referrer : this.nextReferrer , account_number : accountNumber , bank_name : bankName , reference_code :
                        response.reference};
                    data = JSON.stringify(data);
                    $.post(defaults.actions , {data} , response =>{
-
                        response = JSON.parse(response);
 
                        this.enableStuffs();
@@ -454,8 +541,8 @@ class Campaign extends  React.Component
 
     <div className="row">
           <div className="input-field col s12">
-              <input id="referer-username" name="referer-username" defaultValue={this.referer} type="text" required = "required" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} className="validate" />
-              <label htmlFor="referer-username" className="active">Referer username</label>
+              <input id="referer-username" name="referer-username" defaultValue={this.referrer} type="text" required = "required" minLength={defaults.minimumAccountUsernameLength} maxLength={defaults.maximumAccountUsernameLength} pattern={`[a-zA-Z0-9]{${defaults.minimumAccountUsernameLength},${defaults.maximumAccountUsernameLength}}`} className="validate" />
+              <label htmlFor="referer-username" className="active">Referrer username</label>
               <span className="helper-text referer-username" data-error="please,check the username again" data-success="">referer username is mandatory</span>
           </div>
       </div>
@@ -542,8 +629,6 @@ class Campaign extends  React.Component
                                         <span className="helper-text email"  data-error="please enter a valid email" data-success="">Please enter a valid email address</span>
                                 </div>
                             </div>
-
-
 
                             {accountTypeSelection}
 

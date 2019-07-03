@@ -80,6 +80,11 @@ function (_React$Component) {
       document.title = defaults.siteName + " \u2022  ".concat(_this.props.user.username.capitalize());
     });
 
+    _defineProperty(_assertThisInitialized(_this), "copyLinkIcon", function (e) {
+      var link = $(e.target).siblings('span').text();
+      defaults.showCopiedToast(link);
+    });
+
     _defineProperty(_assertThisInitialized(_this), "handleAccountActivation", function (e) {
       var _this$accountActivati;
 
@@ -351,9 +356,9 @@ function (_React$Component) {
         className: "col s12 valign-wrapper"
       }, React.createElement("p", {
         className: "notice-message"
-      }, "Your affiliate account will require renewal once every 30 days, provided you've reached our threshold of ", React.createElement("strong", {
+      }, "Your affiliate account will require renewal once every ", defaults.affiliateAccountDurationInDays, " days, provided you've earned more than ", React.createElement("strong", {
         className: "strong"
-      }, "\u20A6", defaults.thresholdAmount.toLocaleString()), " for the month.", React.createElement("br", null), "our Demo Video is also a good tour guide for beginners."))), React.createElement("div", {
+      }, "\u20A6", defaults.thresholdAmount.toLocaleString()), "."))), React.createElement("div", {
         className: "row"
       }, React.createElement("div", {
         className: "col s12 m6"
@@ -434,14 +439,14 @@ function (_React$Component) {
         className: "flow-text tourJS affiliate-account-tour tour-6",
         "data-step": "6",
         "data-caption": "Your account status is shown here."
-      }, "Status")), React.createElement("li", {
+      }, "STATUS")), React.createElement("li", {
         className: "tab"
       }, React.createElement("a", {
         href: "#test6",
         className: "flow-text tourJS affiliate-account-tour tour-7",
         "data-step": "7",
-        "data-caption": "Your earnings for the last 30 days."
-      }, "This Month")))), React.createElement("div", {
+        "data-caption": "Your recent earnings."
+      }, "RECENT EARNING")))), React.createElement("div", {
         className: "card-content grey lighten-4"
       }, React.createElement("div", {
         id: "email-address",
@@ -501,14 +506,29 @@ function (_React$Component) {
         style: {
           display: 'none'
         }
-      }, React.createElement("span", null, defaults.siteAddressHttps + "/campaign/".concat(this.props.user.username))), React.createElement("div", {
+      }, React.createElement("span", null, defaults.siteAddressHttps + "/campaign/".concat(this.props.user.username)), React.createElement("i", {
+        title: "Copy",
+        id: "copy-referer-link",
+        className: "material-icons copy-link-icons",
+        onClick: this.copyLinkIcon
+      }, "content_copy")), React.createElement("div", {
         id: "referer-username"
-      }, React.createElement("span", null, this.props.user.username)), React.createElement("div", {
+      }, React.createElement("span", null, this.props.user.username), React.createElement("i", {
+        title: "Copy",
+        id: "copy-username",
+        className: "material-icons copy-link-icons",
+        onClick: this.copyLinkIcon
+      }, "content_copy")), React.createElement("div", {
         id: "invite-link",
         style: {
           display: 'none'
         }
-      }, React.createElement("span", null, defaults.siteAddressHttps + "/r/".concat(this.props.user.username)))))))), React.createElement(Footer, {
+      }, React.createElement("span", null, defaults.siteAddressHttps + "/r/".concat(this.props.user.username)), React.createElement("i", {
+        title: "Copy",
+        id: "copy-invite-link",
+        className: "material-icons copy-link-icons",
+        onClick: this.copyLinkIcon
+      }, "content_copy"))))))), React.createElement(Footer, {
         accountType: "Affiliate",
         refreshProfile: this.refreshProfile
       }));

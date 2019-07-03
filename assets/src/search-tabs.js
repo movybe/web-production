@@ -1,30 +1,57 @@
 let {connect} = ReactRedux;
-
-
 class  LocalSearchTab extends React.Component{
-
-
     constructor() {
         super();
     }
 
+    //The method below let's you show/hide a particular image in a given search result
+    toggleImageView = (
+                        /*
+                        The element that calls for the action i.e <a>
+                        */
+                        e ,
+                        /*
+                        The particular locale, i.e olx , jiji , kong e.t.c
+                        */
+                        local ,
+                        /*
+                        The index of the local 0 for olx 1 for jiji
+                        */
+                        localIndex ,
+                        /*
+                         The particular Object
+                         */
+                        ad ,
+                        /*
+                         The index of that ad
+                         */
+                        adIndex ,
+                        /*
+                         show/hide
+                         */ show = true) => {
+
+        e.preventDefault(); /*
+        Prevent the default action ,
+        for links, this would be either opening a url if the url is not "#"
+        or going to the top of the page if the url is a valid link
+        */
 
 
-    toggleImageView = (e ,local , localIndex,  ad , adIndex , show = true) => {
-        e.preventDefault();
-        //console.log(e, local , ad , index);
-        ad.showAdImage = show;
+        ad.showAdImage = show; /*
+        each ad object has a showAdImage Property which must have a boolean value
+        */
 
-        let newLocale = [...this.props.locale];
 
+        let newLocale = [...this.props.locale]; //now, create a new locale
+
+        //modify the ad that has this index
         local.ads[adIndex] = ad;
 
+        //Now, modify the local position
         newLocale[localIndex] = local;
         //newLocale[localIndex] = local;
 
-
-
-        //console.log(newLocale);
+        //Let this be included in the state
         this.props.switchWebsite({...this.props , locale : [...newLocale]});
     };
 
@@ -48,8 +75,7 @@ class  LocalSearchTab extends React.Component{
     componentDidUpdate() {
         this.defaultActions();
 
-        let x ,sum, price , priceList , adsLength , isOddAdLength , average , priceListLengthDividedBy4 , priceListLengthDividedBy2, median , middleSum,  firstNPrice , lastNPrice , sumOfFirstNPrice , sumOfLatNPrice ,
-            newAdsPriceSum , newPriceList , newPriceListAverage , newSum , sortAdInAscendingOrder , medianPlusMax;
+        let x ,sum, price , priceList , adsLength , isOddAdLength , average , priceListLengthDividedBy4 , priceListLengthDividedBy2, median , middleSum ,sortAdInAscendingOrder , medianPlusMax;
 
 
 
@@ -60,7 +86,6 @@ class  LocalSearchTab extends React.Component{
 
         let ad1Price, ad2Price;
         locale.forEach(local => {
-
 
 
             //Prevent the function from performing same action on same ad page

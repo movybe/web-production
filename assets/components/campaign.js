@@ -51,9 +51,11 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "nonLoggedDefaultActions", function () {
       if (!_this.main) {
         _this.main = $('main#app');
-        _this.refererUsername = $('#referer-username');
+        _this.referrerUsername = $('#referer-username');
         _this.emailField = $('#email');
-        _this.referer = _this.main.attr('data-referer');
+        _this.referrer = _this.main.attr('data-referrer') || _this.main.attr('data-next-referrer');
+        _this.isReferrallLink = _this.main.attr('data-is-referral-link');
+        _this.nextReferrer = _this.main.attr('data-next-referrer');
         _this.campaignFormFieldset = $('#campaign-form-fieldset');
         _this.selectBankName = $('#select-bank-name');
         $('input#account-number').characterCounter();
@@ -106,24 +108,17 @@ function (_React$Component) {
       }, React.createElement("h5", {
         className: "status-headers"
       }, "How ", defaults.siteName, " Affiliate works:"), React.createElement("div", {
-        className: "card"
+        className: "card campaign-card"
       }, React.createElement("div", {
         className: "card-content"
-      }, React.createElement("p", null, "Watch as our CEO explains how ", defaults.siteName, " Affiliate works, and how you too can start making money right now with ", defaults.siteName, " Affiliate."), React.createElement("div", {
+      }, React.createElement("p", null, "Hello there."), React.createElement("p", null, "Welcome to ", defaults.siteName, " Campaign , We call it ", React.createElement("strong", null, React.createElement("i", null, "Mocam"))), React.createElement("p", null, "Mocam is here to revolutionise your browsing time, Have you ever wished the endless hours you spend online could earn you some money? Imagine if you earned 10 kobo every minute you spent online."), React.createElement("p", null, "You would earn \u20A64320 a month if you spend 4 hours online every day! It even gets more interesting! If you had a signature online that earns you 10 kobo per view online, you can earn a hundred Thousand Naira a day if you get a million views! What about if you earn One Thousand Four Hundred Naira every day? Imagine who you will be in 30 days?!! No need for a regular paying job again, right? Well, we at ", defaults.siteName, " think the same."), React.createElement("p", null, "Mocam is here to help you realise riches."), React.createElement("p", null, React.createElement("strong", null, React.createElement("i", null, "We are on a mission to build the most visited website in Nigeria."))), React.createElement("p", null, "Driving our vision is your sweet ", defaults.siteName, " Nigeria Product Search Engine."), React.createElement("p", null, "We have come up with Mocam to make our mission successful while earning good money for you. Mocam is a referral programme like no other."), React.createElement("p", null, "We intend for members of Mocam to aggressively advertise ", defaults.siteName, " while making money for themselves. To become a member of Mocam, you register with", React.createElement("strong", null, React.createElement("i", null, " \u20A6", defaults.amountPaidForReferer.toLocaleString())), "."), React.createElement("p", null, "This amount is credited to the account of your referrer, just like you would be credited if you refer someone to this programme, in other words", React.createElement("strong", null, React.createElement("i", null, " We don't make any profit, with this programme, it's only a means to advertise our Search Engine.")), React.createElement("p", null, "You get two links; a Mocam Referral Link also known as ", React.createElement("strong", null, React.createElement("i", null, "Moref")), " and a Mocam Invitation link which we call ", React.createElement("strong", null, React.createElement("i", null, "Molin")), "."), React.createElement("p", null, "Anytime someone joins Mocam using your Moref, you earn ", React.createElement("strong", null, React.createElement("i", null, "\u20A6", defaults.amountPaidForReferer.toLocaleString())), ", If you get a thousand people joining Mocam using your Moref, do the maths!")), React.createElement("p", null, "Your Molin is also a potential money spinner!"), React.createElement("p", null, "The Molin is a link that drives visitors to watch our presentation video."), React.createElement("p", null, "Every time someone clicks on your Molin, they are directed to our site to watch this video."), React.createElement("p", null, "We have deployed advanced programming to identify unique visitors to our videos."), React.createElement("p", null, "So whenever a unique visitor uses your Molin to watch our video, you are paid ", React.createElement("strong", null, React.createElement("i", null, "\u20A6", defaults.amountPaidForUniqueVisitor)), ", If your link gets a thousand clicks a day, you earn a sweet \u20A6", (defaults.amountPaidForUniqueVisitor * 1000).toLocaleString(), "."), React.createElement("p", null, React.createElement("strong", null, "NOTE ALSO :")), React.createElement("p", null, "Your account will be credited with ", React.createElement("strong", null, React.createElement("i", null, "\u20A6", defaults.amountPaidForReferer.toLocaleString())), " each time your username is used to re-activate an in-active account, this way, you are sure of payments even when you've referred everyone you know."), React.createElement("p", null, "This also prevents the programme from becoming a Ponzi Scheme"), React.createElement("p", null, "The advantage of keeping your Moref is that very successful Morefs would get special packages like all paid vacations abroad from ", defaults.siteName, " Studio occasionally."), React.createElement("p", null, "Other incentives like new cars, houses and other gifts would be offered to members with very successful Morefs from time to time! If you are still wondering how to start earning these fast bucks, it\u2019s as easy as having social media accounts. Paste your Moref and/or your Molin as your signature on social media sites."), React.createElement("p", null, "Place your link as signature on all your comments on social media sites and of course, invite your family and friends to sign up on Mocam using your Moref!"), React.createElement("p", null, React.createElement("strong", null, React.createElement("i", null, defaults.siteName, "! Rev up your vibe!", React.createElement("br", null), "Mocam! We make money move!"))), React.createElement("div", {
         className: "video-container demo-video-container"
-      }, React.createElement("iframe", {
-        width: "560",
-        height: "315",
-        src: defaults.affiliateIntroductionVideo,
-        frameBorder: "0",
-        allowFullScreen: true,
-        allow: "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      }))))), React.createElement("div", {
+      })))), React.createElement("div", {
         className: "col s12 m6"
       }, React.createElement("h5", {
         className: "status-headers"
       }, "How ", defaults.siteName, " Merchant works:"), React.createElement("div", {
-        className: "card"
+        className: "card campaign-card"
       }, React.createElement("div", {
         className: "card-content"
       }, React.createElement("p", null, "Watch as our CEO explains how Businesses can advertise their products/services with millions of potential online customers in Nigeria."), React.createElement("div", {
@@ -323,6 +318,8 @@ function (_React$Component) {
               username: username,
               action: 'SIGNUP_AFFILIATE',
               account_name: accountName,
+              is_referral_link: _this.isReferrallLink,
+              next_referrer: _this.nextReferrer,
               account_number: accountNumber,
               bank_name: bankName,
               reference_code: response.reference
@@ -384,7 +381,7 @@ function (_React$Component) {
       }, React.createElement("input", {
         id: "referer-username",
         name: "referer-username",
-        defaultValue: _this.referer,
+        defaultValue: _this.referrer,
         type: "text",
         required: "required",
         minLength: defaults.minimumAccountUsernameLength,
@@ -394,7 +391,7 @@ function (_React$Component) {
       }), React.createElement("label", {
         htmlFor: "referer-username",
         className: "active"
-      }, "Referer username"), React.createElement("span", {
+      }, "Referrer username"), React.createElement("span", {
         className: "helper-text referer-username",
         "data-error": "please,check the username again",
         "data-success": ""

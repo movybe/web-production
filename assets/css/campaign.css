@@ -1,3 +1,27 @@
+/* width */
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(255,99,71 , .6);
+    border-radius: 2px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(179 , 0 , 0 , .5);
+    opacity :.5;
+}
+
 .bonus-text {
     font-size: 18px !important;
 }
@@ -82,8 +106,29 @@ li a {
 
 a.back-url
 {
-        color : blueviolet;
+    color : blueviolet;
 }
+
+.card.campaign-card .card-content{
+    max-height : 300px;
+    overflow-y: auto;
+}
+
+.campaign-card .card-content p {
+    display: block;
+    margin-bottom: 5px;
+}
+i.copy-link-icons
+{
+    position: relative;
+    left : 10px;;
+    top : 3px;
+    font-size: 18px;
+    color : blue;
+    cursor :pointer;
+
+}
+
 /*font awesome */
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
