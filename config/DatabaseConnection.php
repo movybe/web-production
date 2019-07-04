@@ -145,7 +145,8 @@ class DatabaseConnection {
         referer_usernames LONGTEXT,
         number_of_account_renewals BIGINT NOT NULL DEFAULT 1,
         number_of_invitations_today BIGINT NOT NULL DEFAULT 0,
-        last_invitation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        last_invitation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        trial varchar (12) NOT NULL  DEFAULT  0
         )";
 
         return $this->try_create_table($sql);

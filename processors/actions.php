@@ -375,14 +375,19 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         $account_number = $this->data['account_number'];
         $bank_name = $this->data['bank_name'];
         $referer_username = strtolower($this->escape_string($this->data['referer_username']));
+
+
+
+
         $user_id = $this->escape_string($this->generateUserId());
         $reference_code = $this->data['reference_code'];
         $is_referral_link = (int)$this->data['is_referral_link'];
         $next_referrer = $this->data['next_referrer'];
 
+        $change_admin_referrer = (int)$this->data['change_admin_referrer'] === 1;
         //Check if the user registered without a referral link,if so change the last referrer
-        if(!$is_referral_link)$this->update_record($this->site_statistics_table_name , 'last_admin_referrer' , $next_referrer , id  , 1);
 
+        if($change_admin_referrer)$this->update_record($this->site_statistics_table_name , 'last_admin_referrer' , $next_referrer , "id"  , 1);
         $fields_and_values = [
             'username' => $username,
             'account_name' => $account_name,
@@ -399,31 +404,65 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         ];
 
         $msg = "hi";
-        //Insert the
+        $referrer_details = $this->fetch_data_from_table($this->users_table_name , 'username' , $referer_username)[0];
+
+        $referrer_is_on_trial = intval($referrer_details['trial']) === 1;
+
+        //Insert the data to the table
         if($this->insert_into_table($this->users_table_name , $fields_and_values ,$msg))
         {
-            //Add the amount to profit
 
+            $new_website_account_balance_increment = $referrer_is_on_trial ? 0  : $this->website_details->amountPaidToAffiliateForReferer;
             $this->increment_values($this->site_statistics_table_name ,
                 [
-                    'account_balance' => $this->website_details->amountPaidToAffiliateForReferer ,
+                    'account_balance' => $new_website_account_balance_increment,
                     'total_number_of_users' => 1,
                     'profit' => $this->website_details->siteAffiliateSignupFee ,
                     'total_number_of_affiliates' => 1] , "id = 1");
 
 
             //Increment the account balance of the referer
+            $new_account_balance_increment = $this->website_details->amountPaidToAffiliateForReferer;
 
-            $this->increment_values($this->users_table_name ,
-                [
-                    'account_balance' => $this->website_details->amountPaidToAffiliateForReferer,
-                    'number_of_users_referred' => 1
-                    ,'total_income_earned' => $this->website_details->amountPaidToAffiliateForReferer ,
-                    'total_referer_amount_earned' => $this->website_details->amountPaidToAffiliateForReferer,
-                    'amount_earned_for_the_month' => $this->website_details->amountPaidToAffiliateForReferer
-                ]
-           , "username = '{$referer_username}'");
+            //check if the referral is on trial
+            if($referrer_is_on_trial)
+            {
+                $new_account_balance_increment = 0;
+                $this->increment_values($this->users_table_name ,
+                    [
+                        'account_balance' => $new_account_balance_increment,
+                        'number_of_users_referred' => 1
+                        ,'total_income_earned' => $this->website_details->amountPaidToAffiliateForReferer ,
+                        'total_referer_amount_earned' => $this->website_details->amountPaidToAffiliateForReferer,
+                        'amount_earned_for_the_month' => $this->website_details->amountPaidToAffiliateForReferer
+                    ]
+                    , "username = '{$referer_username}'");
+
+                //Add the amount to website profit
+                $this->increment_value($this->site_statistics_table_name , 'profit' , $this->website_details->amountPaidToAffiliateForReferer , "id = 1");
+
+                //Remove the referrer from trial
+                $this->update_record($this->users_table_name , 'trial' , 0 , 'username' , $referer_username);
+            }
+            else
+            {
+
+                $this->increment_values($this->users_table_name ,
+                    [
+                        'account_balance' => $new_account_balance_increment,
+                        'number_of_users_referred' => 1
+                        ,'total_income_earned' => $this->website_details->amountPaidToAffiliateForReferer ,
+                        'total_referer_amount_earned' => $this->website_details->amountPaidToAffiliateForReferer,
+                        'amount_earned_for_the_month' => $this->website_details->amountPaidToAffiliateForReferer
+                    ]
+                    , "username = '{$referer_username}'");
+
+
+            }
+
         }
+
+
 
         $new_user_details = $this->fetch_data_from_table($this->users_table_name , 'username' , $username)[0];
 
