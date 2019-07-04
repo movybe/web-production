@@ -1,6 +1,6 @@
 <?php
 require_once 'config/functions.php';
-require_once 'config/detect.php';
+//require_once 'config/detect.php';
 class HandleNewInvites extends Functions
 {
     private $now;
@@ -12,19 +12,20 @@ class HandleNewInvites extends Functions
     {
 
         //Get the country of the visitor
-        $user_country = Detect::ipCountry();
+        $ip_details = json_decode(file_get_contents($this->website_details->ip_url) , true);
+        $user_country = $ip_details['countryCode'];
 
-        //Check if the user is in Nigeria
+         //Check if the user is in Nigeria
         if($user_country != 'NG')
         {
-            echo "This invitation is limited to non-Nigeria visitors";
+            echo "Sorry, this invitation is not available in your country";
             return false;
         }
 
 
 
         //get the ip address
-        $ip_address = Detect::get_client_ip();
+        $ip_address = $ip_details['query'];
 
         //check if the ip address exists in database
         if($this->record_exists_in_table($this->visitors_table_name , 'ip_address' , $ip_address))
@@ -34,6 +35,13 @@ class HandleNewInvites extends Functions
         }
 
         //echo $this->fetch_data_from_table($this->visitors_table_name , 'ip_address' , $ip_address);
+
+        //insert the ip address
+        $this->insert_into_table($this->visitors_table_name ,
+            [
+                'ip_address' => $ip_address ,
+                'country' => $user_country
+            ]);
 
         //update the last invite date of the website
         $this->update_record($this->site_statistics_table_name , 'last_invitation_date' , $this->now , 'id' , 1);
@@ -53,13 +61,12 @@ class HandleNewInvites extends Functions
 
 
         //credit the referer
-        if($this->increment_value($this->users_table_name , 'account_balance' , $this->website_details->amountPaidForInvite , "username = '{$this->invitee_username}'"))
+        if(true or $this->increment_value($this->users_table_name , 'account_balance' , $this->website_details->amountPaidForInvite , "username = '{$this->invitee_username}'"))
         {
 
             echo "{$this->invitee_username} has been credited with <b>&#8358;{$this->website_details->amountPaidForInvite}</b>";
             //deduct the money from the site profit
-            return $this->decrement_value($this->site_statistics_table_name , 'profit' , $this->website_details->amountPaidForInvite , 'id =1');
-
+           // return $this->decrement_value($this->site_statistics_table_name , 'profit' , $this->website_details->amountPaidForInvite , 'id =1');
         }
 
         return false;
@@ -223,7 +230,6 @@ class HandleNewInvites extends Functions
             </div>
         </div>
     </div>
-
 </main>
 </body>
 </html>

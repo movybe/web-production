@@ -6,9 +6,14 @@ require_once 'config/functions.php';
  }
 */
  //$functions->try_insert_or_update_ip_address_in_database();
+//echo $functions->send_payment_email(20000 , "Kosi Eric");
 $page_description = "Movybe Campaign is the easiest way to advertise your products/Services in Nigeria, with our affiliate, you also can make money in Nigeria, from the comfort of your home.";
 $page_title = "{$website_details->SiteName} • Join Our Campaign and Become a Merchant/Affiliate";
 $try_insert_or_update_ip_address_in_database = $functions->is_production_mode() ?$functions->try_insert_or_update_ip_address_in_database() : null;
+$random_referrers  = ["amily" , "hilltop"];
+$previous_referrer = $functions->fetch_data_from_table($functions->site_statistics_table_name , 'id' , 1)[0]['last_admin_referrer'];
+$next_referrer = $random_referrers[$previous_referrer === $random_referrers[0] ? 1 : 0];
+
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +36,7 @@ $try_insert_or_update_ip_address_in_database = $functions->is_production_mode() 
 </head>
 <body id = 'particles-js' class='lazyloads'  data-bgset="<?php echo $website_details->IMG_FOLDER.'campaign-background.jpg'; ?>">
 <div>
-    <main id='app' class = 'main-container invisible-class' data-referer = '<?php echo isset($_GET['r']) ?  $_GET['r'] : null; ?>'>
+    <main data-is-referral-link = "<?php echo (isset($_GET['r']) && !empty($_GET['r']))?  '1' :  '0';?>" data-next-referrer = "<?php echo $next_referrer; ?>"  id='app' class = 'main-container invisible-class' data-referrer = '<?php echo isset($_GET['r']) ?  $_GET['r'] : $next_referrer; ?>'>
 </main>
        </div>
 <div class="tourJS">
@@ -40,6 +45,7 @@ $try_insert_or_update_ip_address_in_database = $functions->is_production_mode() 
     <span class="tourJS-caption-text"></span>
     <a class="tourJS-next-tooltip">Next</a>
     <a class="tourJS-progress"><span class="tourJS-current-progress">1</span>&nbsp;/&nbsp;<span class="tourJS-total-progress">4</span></a>
+    <a class="tourJS-close" href = "#">Close</a>
 </div>
 </div>
  <?php

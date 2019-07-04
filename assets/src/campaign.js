@@ -258,16 +258,7 @@ class Campaign extends  React.Component
                                         </strong>
                                     </p>
                                     
-                                    <div className="video-container demo-video-container">
 
-
-                                        {/*<iframe width="560" height="315" src={defaults.affiliateIntroductionVideo}
-                                                frameBorder="0" allowFullScreen allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
-
-                                         */}
-
-
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -276,14 +267,46 @@ class Campaign extends  React.Component
                             <h5 className="status-headers">How {defaults.siteName} Merchant works:</h5>
                             <div className="card campaign-card">
                                 <div className="card-content">
-                                    <p>Watch as our CEO explains how Businesses can advertise their products/services with millions of potential online customers in Nigeria.</p>
-                                    <div className="video-container demo-video-container">
+                                    <h3>Get your ad on {defaults.siteName} today</h3>.
 
-                                        <iframe width="560" height="315" src={defaults.merchantIntroductionVideo} frameBorder="0" allowFullScreen></iframe>
+                                    <p>
+                                        Be seen by customers at the very moment that they’re searching on {defaults.siteName} for the things you offer.
+                                        And only pay when they click to visit your website, products page or call.
+                                    </p>
 
+                                    <h4>
+                                        Why {defaults.siteName} Ads?
+                                    </h4>
 
-                                    </div>
-                                </div>
+                                    <p className='strong'>Attract more customers.</p>
+
+                                    <p>
+                                        Whether you’re looking to bring in new website visitors, grow online sales,
+                                        get the phones ringing or keep customers coming back for more,
+                                        {defaults.siteName} Ads can help.
+                                    </p>
+
+                                    <h4>Reach the right people at the right time</h4>
+
+                                    <p>
+                                        Your business gets found by people on {defaults.siteName} precisely when they’re searching for the things that you offer.
+                                    </p>
+                                    <h4>You only pay for results.</h4>
+                                    <p className='strong'>No visit, no fee.</p>
+                                    <p>
+                                        Signing up for {defaults.siteName} Ads is free. You only pay when someone clicks your ad to visit your website, or calls you. In other words, when your advertising is working.
+                                    </p>
+                                    <h4>
+                                        Start with your own budget.
+                                    </h4>
+                                    <p>You set your own budget, so your costs will depend on what you are trying to accomplish with your advertising. Some businesses spend tens of thousands of dollars a month, and others are comfortable investing several hundred.</p>
+
+                                    <h4>Take the guesswork out of advertising.</h4>
+                                    <p className='strong'>See how your ads are doing.</p>
+                                    <p>With {defaults.siteName} Ads you will see how many people are shown your ads, visit your website, or call your business. You can even target specific types of people if your business is specialized.</p>
+
+                                                                   </div>
+
 
                             </div>
                         </div>
@@ -296,7 +319,7 @@ class Campaign extends  React.Component
                                        className="no-underline back-url"><span className="back-text">Back</span></a>
 
                                     <a title="Login or Signup" href="#login-modal"
-                                       className="modal-trigger text-right continue-modal-trigger no-underline">Continue<i className="material-icons continue-arrow-icon">arrow_forward</i> </a>
+                                       className="btn btn-default modal-trigger text-right continue-modal-trigger no-underline">Continue {/*<i className="material-icons continue-arrow-icon">arrow_forward</i>*/}</a>
 
                                                                   </p>
                             </div>
@@ -639,7 +662,7 @@ class Campaign extends  React.Component
                     </div>
             </div>
             <div className="modal-footer">
-                <a href="#" onClick={() => this.loginModalPopup.modal('close')}
+                <a href="#" onClick={ e => {e.preventDefault(); this.loginModalPopup.modal('close')}}
                    className='no-underline grey-text' id="close-login-modal">CLOSE</a>
 <button type="submit" form="campaign-form" className="waves-effect waves-light btn" id="login-proceed" value="Proceed">Proceed</button>
             </div>

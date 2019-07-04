@@ -61,7 +61,7 @@ class Actions extends  Functions
         $user_details = $this->fetch_data_from_table($this->users_table_name , "email" , $this->email)[0];
         $username = $user_details['username'];
 
-        if((int)$user_details['subscribed'] == 1) {
+        if((int)$user_details['subscribed'] === 1) {
             $now = date('Y-m-d H:i:s');
             $last_subscription_date = $user_details['last_subscription_date'];
             $amount_earned_for_the_month = (double)$user_details['amount_earned_for_the_month'];
@@ -78,7 +78,7 @@ class Actions extends  Functions
         }
         $user_details = $this->fetch_data_from_table($this->users_table_name , "email" , $this->email)[0];
 
-        //Check if the user has made more than N5000 in the last month
+        //Check if the user has made more than the minimum in the last n days
 
         $ad_details = $this->fetch_data_from_table($this->ads_table_name , "posted_by" , $user_details['user_id']);
         $withdrawal_requests_by_affiliate = $this->fetch_data_from_table_with_conditions($this->withdrawals_table_name , "paid = 0 AND username = '{$username}'");
@@ -99,44 +99,56 @@ class Actions extends  Functions
 
     private function affiliateWithdrawal () : string  {
 
-        $amount =(double)$this->data['amount'];
-
+        $total_withdrawal_amount = (double)$this->data['total_withdrawal_amount'];
+        $payment_amount = (double)$this->data['payment_amount']; //amount to pay the user
+        $profit = (int)$this->data['profit'];
         $withdrawal_charge = (double)$this->data['withdrawal_charge'];
+
+
+
+
+
         $user_details = $this->fetch_data_from_table($this->users_table_name , 'email'  , $this->email)[0];
 
         $user_account_balance = (double)$user_details['account_balance'];
 
-        if($user_account_balance < $amount)
+        if($user_account_balance < $total_withdrawal_amount)
         {
             return json_encode([$this->errorText => "Withdrawal failed due to insufficient funds" , $this->successText => 0]);
         }
 
-        else if($this->decrement_value($this->users_table_name , 'account_balance' , $amount + $withdrawal_charge, "email = '{$this->email}'"))
+        else if($this->decrement_value($this->users_table_name , 'account_balance' , $total_withdrawal_amount, "email = '{$this->email}'"))
         {
             $this->insert_into_table($this->withdrawals_table_name , [
-                'amount' => $amount ,
+                'amount' => $payment_amount ,
                 'username' => $user_details['username'] ,
                 'reference_code' => $this->generateID($this->website_details->withdrawalReferenceCodeLength , $this->withdrawals_table_name , 'reference_code')
                 ]);
 
-            //Decrement the payment charge from website account balance
-            $this->decrement_value($this->site_statistics_table_name , 'account_balance' , $withdrawal_charge , 'id = 1');
+            //Decrement the total amount from the website account balance
+            $this->decrement_value($this->site_statistics_table_name , 'account_balance' , $total_withdrawal_amount , 'id = 1');
 
             //Increment the profit of the site
-            $this->increment_value($this->site_statistics_table_name , 'profit' , $this->website_details->affiliateWithdrawalProfit , 'id = 1');
+            $this->increment_value($this->site_statistics_table_name , 'profit' , $profit , 'id = 1');
 
-            //Decrement the account balance of the site
-            $this->decrement_value($this->site_statistics_table_name , 'account_balance' , $amount , 'id = 1');
+            //Increment the account_balance of the site by the  withdrawal charge
+            $this->increment_value($this->site_statistics_table_name , 'account_balance' , $withdrawal_charge , 'id = 1');
 
 
             //Send the payment request as message
-
             $return_string = json_encode([$this->errorText => $this->successfulWithdrawalMessage  , $this->successText => 1]);
+
+            /*
             try {
-                $this->send_payment_email($amount, $user_details['account_name']);
-                return $return_string;
+                $this->send_payment_email($payment_amount, $user_details['account_name']);
             }
-            catch (Exception $exception){return $return_string;}
+            catch (Exception $exception){
+
+                return $return_string;
+           }
+            */
+            return $return_string;
+
         }
 
         return json_encode([$this->errorText => $this->successfulWithdrawalMessage  , $this->successText => 1]);
@@ -235,17 +247,13 @@ class Actions extends  Functions
             //Update the last clicked;
             $now = date('Y-m-d H:i:s');
             $this->update_record($this->ads_table_name , 'last_clicked' , $now , 'ad_id' , $ad_id);
-
         }
-
         //Decrement the account balance of the user
-
         //if the remaining_units is 0, deactivate the ad
         if(($sponsored_ad['remaining_units'] - 1)  === 0)
         {
             //Deactivate the ad
             $this->update_record($this->ads_table_name , 'active' , 0 , 'ad_id' , $ad_id);
-
             //Decrement the number of active ads from the site statistics table
             $this->decrement_value($this->site_statistics_table_name , 'total_number_of_active_ads' , 1 , ' id = 1');
         }
@@ -369,6 +377,12 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         $referer_username = strtolower($this->escape_string($this->data['referer_username']));
         $user_id = $this->escape_string($this->generateUserId());
         $reference_code = $this->data['reference_code'];
+        $is_referral_link = (int)$this->data['is_referral_link'];
+        $next_referrer = $this->data['next_referrer'];
+
+        //Check if the user registered without a referral link,if so change the last referrer
+        if(!$is_referral_link)$this->update_record($this->site_statistics_table_name , 'last_admin_referrer' , $next_referrer , id  , 1);
+
         $fields_and_values = [
             'username' => $username,
             'account_name' => $account_name,
@@ -520,7 +534,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
             return json_encode([$this->errorText => $this->refererAccountExpiredMessage , $this->successText => 0]);
         }
 
-        //Now check if the user account has exceeded a month
+        //Now check if the user account has exceeded n days
 
         $now = date('Y-m-d H:i:s');
         $last_subscription_date = $referer_details['last_subscription_date'] ;
@@ -530,7 +544,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         $datediff = $current_date - $login_date;
         $days = floor($datediff/(60*60*24));
 
-        //Check if the referer has made more than N5000 in the last month
+        //Check if the referer has made more than x in the last n days
         if($days > $this->website_details->subscriptionDurationInDays && $amount_earned_for_the_month >= $this->website_details->minimumEarningExpected)
         {
             //Unsubscribe the user

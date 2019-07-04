@@ -107,6 +107,14 @@ li a {
 a.back-url
 {
     color : blueviolet;
+    text-decoration-color: white;
+}
+
+a.continue-modal-trigger
+{
+    color : #fff;
+    font-weight : normal;
+    text-align:center;
 }
 
 .card.campaign-card .card-content{

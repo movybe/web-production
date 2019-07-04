@@ -11,14 +11,14 @@ class WebsiteConfigurationSettings {
     $MessageEmailPassword = '4mdcfohb', $PrimaryEmailPassword = 'Twisttr@p1', $ContactEmaiFl, $BANNER_IMAGES_FOLDER,
     $ErrorPage = "/404.php", $PageDescription = "Search the Price of Products in Nigeria", $ParentCompanyName,
     $ParentCompanyAddress = "/", $maxNumberOfSuggestion = 5, $COMPONENTS_FOLDER , $SRC_FOLDER = null,
-    $MerchantAccountType = "merchant", $UserIdLength = 6, $subscriptionDurationInDays = 30, $minimumEarningExpected = 6500,
-    $affiliateSignupFee = 2100, $invitation_amount_to_pay_per_account_renewal = 300, $siteAffiliateSignupFee = 700, $amountPaidToAffiliateForReferer = 1400, $withdrawalReferenceCodeLength = 8, $affiliateWithdrawalProfit = 50,
+    $MerchantAccountType = "merchant", $UserIdLength = 6, $subscriptionDurationInDays = 7, $minimumEarningExpected = 2500,
+    $affiliateSignupFee = 500, $invitation_amount_to_pay_per_account_renewal = 300, /*Profit 0 Naira */ $siteAffiliateSignupFee = 0, $amountPaidToAffiliateForReferer = 500, $withdrawalReferenceCodeLength = 8,
     $maximumNumberOfInvitesForADay = 500, $amountPaidForInvite = 0.5, $maximumNumberOfAffiliateInvitationsForADay = 5 , $send_withdrawal_request_to = 'movybedotcom@gmail.com',
     $transactionTypes = [
         'payment' => ['type' => 'paid' , 'action' => 'paid'] ,
         'transfer' => ['type' => 'transfer' , 'action' => 'transferred'],
         'receive' => ['type' => 'receive' , 'action' => 'received']
-    ];
+    ], $ip_url = "http://ip-api.com/json/";
     
     function setPageTitleDescriptionKeywords(string  $title, string $description , string $keywords){}
     final public function is_production_mode () : bool

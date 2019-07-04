@@ -107,8 +107,8 @@ class DatabaseConnection {
         $sql = "CREATE TABLE IF NOT EXISTS {$this->visitors_table_name}(
 
              id BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-             ip_address VARCHAR (100) UNIQUE NOT NULL DEFAULT 'zyxwvuts', 
-             country VARCHAR (100) NOT NULL DEFAULT 'abcdefgh',
+             ip_address VARCHAR (100) UNIQUE NOT NULL DEFAULT '010.199.212.002', 
+             country VARCHAR (100) NOT NULL DEFAULT 'NG',
              visits BIGINT NOT NULL DEFAULT 1 ,
              last_visit TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )";
@@ -212,7 +212,8 @@ class DatabaseConnection {
                number_of_invites_today bigint NOT NULL DEFAULT 0,
                admin_login_email varchar(100) NOT NULL DEFAULT 'movybeadmin@mail.com',
                advert_login_email varchar(100) NOT NULL  DEFAULT 'movybemerchant@mail.com',
-               total_number_of_invites BIGINT NOT NULL DEFAULT 0
+               total_number_of_invites BIGINT NOT NULL DEFAULT 0,
+               last_admin_referrer VARCHAR (255) NOT NULL  DEFAULT  'amily'
                 )";
 
         return $this->try_create_table($sql);

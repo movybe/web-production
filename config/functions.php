@@ -5,7 +5,7 @@ $dir = dirname(__FILE__);
 
 require_once $dir.'/DatabaseConnection.php';
 require_once $dir.'/config.php';
-require_once $dir.'/detect.php';
+//require_once $dir.'/detect.php';
 //echo $ip_address = Detect::ip();
 //$cwd = getcwd();
 class Functions extends  DatabaseConnection {
@@ -31,12 +31,11 @@ class Functions extends  DatabaseConnection {
 
     function send_payment_email ($amount , $username) : bool
     {
-        require_once '../phpmailer/PHPMailerAutoload.php';
-        $mail = new PHPMailer;
+        global $dir;
+        require_once $dir.'/phpmailer/PHPMailerAutoload.php';
         $time = time();
-        $date = date('d-m-Y' , $time);
-        // include  '../emails/basic_emails/verification_email.php';
-        // include  '../emails/html_emails/verification_email.php';
+
+
         $time_string = date('h:i:s a' , $time);
         $html_email_body = <<<HTML_EMAIL_BODY
 <!DOCTYPE html>
@@ -129,7 +128,7 @@ Hello, {$this->website_details->SiteName} there is a payment request from $usern
 </p>
 <a href = "{$this->website_details->campaignPage}" title='Make payment' id = 'confirmation-link'>Continue payment</a>
 <p id = 'not-user-message'>
-This email was automatically sent to you by {$this->website_details->SiteName}.Please do not reply to this email. If you have any question, do not hesistate to <a href="{$this->config->SiteNameWithHttps}">contact us.</a>  Thank you.
+This email was automatically sent to you by {$this->website_details->SiteName}.Please do not reply to this email. If you have any question, do not hesistate to <a href="{$this->website_details->SiteNameWithHttps}">contact us.</a>  Thank you.
 </p>
 <p id = 'site-address'>
 {$this->website_details->SiteName} International ﻿Company.
@@ -169,20 +168,21 @@ Please do not reply to this email. If you have any question, do not hesitate to 
 </body>
 </html>
 BASIC_EMAIL_BODY;
+        $mail = new PHPMailer;
+        $primary_email = $this->website_details->PrimaryEmail;
+        $primary_email_server = $this->website_details->PrimaryEmailServer;
         $mail->isSMTP();                                      // Set mailer to use SMTP
-        $mail->Host = $this->website_details->PrimaryEmailServer;  // Specify main and backup SMTP servers
+        $mail->Host = $primary_email_server;  // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;
-//$mail->SMTPDebug = 3;                              // Enable SMTP authentication
-        $mail->Username = $this->website_details->PrimaryEmail;                 // SMTP username
+        $mail->SMTPDebug = 3;                              // Enable SMTP authentication
+        $mail->Username = $primary_email;                 // SMTP username
         $mail->Password = $this->website_details->PrimaryEmailPassword;                           // SMTP password
         $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 587;                                    // TCP port to connect to
         $site_author = $this->website_details->SiteAuthor;
-        $primary_email = $this->website_details->PrimaryEmail;
-        $primary_email_server = $this->website_details->PrimaryEmailServer;
-        $primary_email_password = $this->website_details->PrimaryEmailPassword;
+                $primary_email_password = $this->website_details->PrimaryEmailPassword;
         try {
-            $mail->setFrom($primary_email_server, "{$site_author} From {$this->website_details->SiteName}");
+            $mail->setFrom($primary_email, "{$site_author} From {$this->website_details->SiteName}");
         } catch (phpmailerException $e) {
             //  echo $e->getMessage();
             return false;
@@ -199,10 +199,12 @@ BASIC_EMAIL_BODY;
         $mail->Body = $html_email_body;
         $mail->AltBody = $basic_email_body;
         if(!$mail->send()) {
-            //  echo 'Mailer Error: ' . $mail->ErrorInfo;
+            //echo 'Mailer Error: ' . $mail->ErrorInfo;
             return false;
         } else {
+            //echo "Sent successfully";
             return  true;
+
         }
     }
 
@@ -431,10 +433,9 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
     {
 
 
-        $detect = new Detect();
-
+        //$detect = new Detect();
         $ip_address= $this->get_client_ip();
-        $country = Detect::ipCountry();
+        $country = "NG";
         if($this->record_exists_in_table($this->visitors_table_name , 'ip_address' , $ip_address))
         {
             $now = date('Y-m-d H:i:s');
