@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/css/jquery.progressbar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/js/jquery.form.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/js/jquery.progressbar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/merchant.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/merchant.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/campaign.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/campaign.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/merchant-header.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/merchant-header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/merchant-plugs.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/merchant-plugs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/merchant.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/merchant.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/banner/Kk2zd6K.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/campaign.php" beforeDir="false" afterPath="$PROJECT_DIR$/campaign.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/r.php" beforeDir="false" afterPath="$PROJECT_DIR$/r.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/jquery.progressbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/jquery.progressbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/banner/Kk2zd6K.jpg" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -109,7 +99,7 @@
           <entry key="css" value="587" />
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="26" />
-          <entry key="js" value="19790" />
+          <entry key="js" value="19794" />
           <entry key="php" value="11290" />
         </counts>
       </usages-collector>
@@ -117,7 +107,7 @@
         <counts>
           <entry key="CSS" value="587" />
           <entry key="HTML" value="16" />
-          <entry key="JavaScript" value="23127" />
+          <entry key="JavaScript" value="23131" />
           <entry key="PHP" value="11328" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="23" />
@@ -146,11 +136,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/src/merchant-plugs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="338" column="21" selection-start-line="338" selection-start-column="21" selection-end-line="338" selection-end-column="21" />
+            <state relative-caret-position="111">
+              <caret line="345" column="29" lean-forward="true" selection-start-line="345" selection-start-column="29" selection-end-line="345" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -173,11 +163,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/js/jquery.progressbar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+            <state relative-caret-position="119">
+              <caret line="7" column="23" lean-forward="true" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -305,11 +295,11 @@
         <option value="$PROJECT_DIR$/assets/css/merchant.css" />
         <option value="$PROJECT_DIR$/assets/src/merchant.js" />
         <option value="$PROJECT_DIR$/assets/css/jquery.progressbar.css" />
-        <option value="$PROJECT_DIR$/assets/js/jquery.progressbar.js" />
         <option value="$PROJECT_DIR$/assets/js/jquery.form.js" />
         <option value="$PROJECT_DIR$/campaign.php" />
         <option value="$PROJECT_DIR$/assets/src/campaign.js" />
         <option value="$PROJECT_DIR$/assets/src/merchant-plugs.js" />
+        <option value="$PROJECT_DIR$/assets/js/jquery.progressbar.js" />
       </list>
     </option>
   </component>
@@ -455,15 +445,16 @@
       <workItem from="1561862095347" duration="7057000" />
       <workItem from="1561975808889" duration="45073000" />
       <workItem from="1562230228351" duration="19281000" />
-      <workItem from="1562315697733" duration="6712000" />
+      <workItem from="1562315697733" duration="8325000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="392182000" />
+    <option name="totallyTimeSpent" value="393795000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1378" height="780" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.3110774" />
@@ -837,13 +828,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/jquery.progressbar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/campaign.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="317">
@@ -853,8 +837,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/merchant-plugs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="338" column="21" selection-start-line="338" selection-start-column="21" selection-end-line="338" selection-end-column="21" />
+        <state relative-caret-position="111">
+          <caret line="345" column="29" lean-forward="true" selection-start-line="345" selection-start-column="29" selection-end-line="345" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/jquery.progressbar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="23" lean-forward="true" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
         </state>
       </provider>
     </entry>

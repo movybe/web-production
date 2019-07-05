@@ -5,7 +5,7 @@
             backgroundColor: '#b3cef6',
             progressColor: '#4b86db',
             percent: percent.toString(),
-            duration: 2000
+            duration: 0
         };
 
         $(this).each(function () {
