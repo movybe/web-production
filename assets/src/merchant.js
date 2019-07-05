@@ -30,7 +30,6 @@ class Merchant extends React.Component
         let data = {email : this.props.email , action : 'FETCH_MERCHANT_DETAILS'};
         data = JSON.stringify(data);
         $.post(defaults.actions , {data} , response1 => {
-            console.log(response1);
 
 
             this.registeredTimeago = timeago.format(this.props.user.registered_on);

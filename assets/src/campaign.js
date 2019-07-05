@@ -603,10 +603,7 @@ class Campaign extends  React.Component
 
 
 };
-
-
-
-    render ()
+  render ()
     {
 
         let template = null;

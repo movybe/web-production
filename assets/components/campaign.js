@@ -460,7 +460,9 @@ function (_React$Component) {
       }, React.createElement("div", {
         className: "input-field col s12"
       }, React.createElement("input", {
-        defaultValue: _this.props.defaultUsername,
+        defaultValue: ""
+        /*this.props.defaultUsername*/
+        ,
         id: "username",
         name: "username",
         type: "text",

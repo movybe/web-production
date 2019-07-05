@@ -256,7 +256,9 @@ function (_React$Component) {
         className: "modal-footer"
       }, React.createElement("a", {
         href: "#",
-        onClick: function onClick() {
+        onClick: function onClick(e) {
+          e.preventDefault();
+
           _this.demoModalPopUp.modal('close');
         },
         className: "modal-close waves-effect waves-green btn-flat no-underline strong light"
@@ -285,7 +287,9 @@ function (_React$Component) {
         className: "modal-footer"
       }, React.createElement("a", {
         href: "#",
-        onClick: function onClick() {
+        onClick: function onClick(e) {
+          e.preventDefault();
+
           _this.tosModalPopUp.modal('close');
         },
         className: "modal-close waves-effect waves-green btn-flat no-underline strong light"

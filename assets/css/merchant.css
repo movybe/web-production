@@ -2,10 +2,10 @@
 #fund-status-container {
 }
 .account-info-headers{
-  background-color : #fff;
-  margin-top : 30px;
-  border :1px solid rgba(212 , 212 , 212 , .6);
-  border-radius:3px;   
+    background-color : #fff;
+    margin-top : 30px;
+    border :1px solid rgba(212 , 212 , 212 , .6);
+    border-radius:3px;
 }
 
 .tabs .indicator
@@ -29,7 +29,7 @@
     font-weight: bold;
     text-transform:uppercase;
     font-size: 12px;
-        
+
 }
 
 .amount-value{
@@ -65,7 +65,7 @@ div.activate-account.materialize-red-text{
     text-decoration-color: rgba(212 , 212 , 212 , .5);
     font-weight: bolder;
     text-decoration-color: white;
-    
+
 }
 
 .notice-message{
@@ -100,26 +100,26 @@ footer{
     border: 1px solid #ccc;
     background-color: #ffff;
     border-radius: 2px;
-    
+
 }
 
 p.number-of-merchant-ads{
-   color : rgba(0 , 0 , 0 , .6);
+    color : rgba(0 , 0 , 0 , .6);
     width: 100%;
 
 }
 .add-ad-icon
 {
 
-    
-  position: relative;
+
+    position: relative;
     top : 5px;
     color : green;
     cursor: pointer;
 }
 
 #close-new-ad-form{
-    
+
     position: relative;
     top : 9px;
     left : 5px;
@@ -136,15 +136,15 @@ label.merchant-ad-image-label.valign-wrapper
     width : 180px;
     height: 90px;
     text-align: center !important;
-  /*background-image: url("/assets/img/dummy.png"); */
+    /*background-image: url("/assets/img/dummy.png"); */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    
-    
+
+
 }
 .material-icons.merchant-upload-image-icon{
-  
+
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -172,8 +172,8 @@ div.merchant-upload-image-file-path-wrapper
 
 .modal-activate-account-content div {
     position: relative;
-top: 50%;
-transform: translateY(-50%);
+    top: 50%;
+    transform: translateY(-50%);
     text-align: center;
     width : 100%;
 }
@@ -205,7 +205,7 @@ label.strong{
     border : 1px solid lightgrey;
     background-color : rgba(192 , 192 ,192 , .2);
     cursor: initial;
-    
+
 }
 
 .ad-stat-modal-link
@@ -235,7 +235,7 @@ label.strong{
 {
     position: relative;
     left : -20px !important;
-    
+
 }
 
 .value{
@@ -321,3 +321,41 @@ span.affiliate-payment-reference-code{
     left : 10px;
     cursor: pointer;
 }
+.ad-stat-modal-trigger.modal-trigger
+{
+    color : green;
+    text-decoration:none;
+}
+
+/*
+.form-progress#ad-form-progress
+{
+    width: 90%;
+    height :30px;
+    border: 1px solid lightgrey;
+    position: fixed;
+    padding: 3px;
+    border-radius :2px;
+    top : 50%;
+    left:50%;
+    margin-top : -150px;
+    margin-left : -45%;
+
+}
+.form-progress#ad-form-percent
+{
+    position: absolute;
+    left: 50%;
+    color:deepskyblue;
+    font-weight : bold;
+}
+
+
+.form-progress#ad-form-bar
+{
+    height: 20px;
+    background-color: rgba(0 , 255 , 0 ,.6 );
+    width: 20%;
+    z-index : 2;
+}
+*/

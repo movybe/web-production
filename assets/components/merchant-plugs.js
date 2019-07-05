@@ -146,6 +146,7 @@ function (_React$Component) {
       _this.adTypeSelection.formSelect();
 
       _this.adUnit = $('#ad-unit');
+      _this.progressBar = $('.progress-bar');
       _this.totalAdCharge = $('#total-ad-charge');
       _this.adFormFieldset = $('#ad-form-fieldset');
       $('input#ad-title').characterCounter();
@@ -296,7 +297,29 @@ function (_React$Component) {
         formData.append("ad_id", _this.state.editAdFormID || "");
         formData.set("location", _this.updateAdPreview());
         formData.append("ad_location", _this.adLocation.val());
+
+        var percentComplete = 0,
+            parent = _assertThisInitialized(_this);
+
         $.ajax({
+          xhr: function xhr() {
+            parent.progressBar.loading(0);
+            parent.progressBar.show();
+            var xhr = new window.XMLHttpRequest();
+            xhr.upload.addEventListener("progress", function (e) {
+              if (e.lengthComputable) {
+                percentComplete = e.loaded / e.total;
+                percentComplete = parseInt(percentComplete * 100);
+                parent.progressBar.loading(percentComplete);
+
+                if (percentComplete === 100) {
+                  parent.progressBar.loading(0);
+                  parent.progressBar.hide();
+                }
+              }
+            }, false);
+            return xhr;
+          },
           url: defaults.handleAdForm,
           type: 'POST',
           data: formData,
@@ -602,8 +625,10 @@ function (_React$Component) {
         className: "modal-footer"
       }, React.createElement("a", {
         href: "#",
-        onClick: function onClick() {
-          return _this.adStatModalPopup.modal('close');
+        onClick: function onClick(e) {
+          e.preventDefault();
+
+          _this.adStatModalPopup.modal('close');
         },
         className: "no-underline grey-text close-modal-right",
         id: "close-new-ad-form"
@@ -628,12 +653,11 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "adModal", function () {
-      var proceedButton = Number(_this.props.user.subscribed) ? React.createElement("button", {
-        type: "submit",
-        form: "ad-form",
+      var proceedButton = Number(_this.props.user.subscribed) ? React.createElement("label", {
+        "for": "submit-ad-form-button",
+        tabIndex: "0",
         className: "waves-effect waves-light btn",
-        id: "login-proceed",
-        value: "Proceed"
+        id: "ad-form-proceed"
       }, "Proceed") : null;
       var closeModalButtonPositionLeftOrRight = proceedButton === null ? "right" : "left";
       return React.createElement("div", {
@@ -645,8 +669,10 @@ function (_React$Component) {
         className: "modal-footer"
       }, proceedButton, React.createElement("a", {
         href: "#",
-        onClick: function onClick() {
-          return _this.adModalPopup.modal('close');
+        onClick: function onClick(e) {
+          e.preventDefault();
+
+          _this.adModalPopup.modal('close');
         },
         className: "no-underline ".concat(closeModalButtonPositionLeftOrRight, " grey-text"),
         id: "close-new-ad-form"
@@ -962,7 +988,12 @@ function (_React$Component) {
         className: "blurred-bg ad-image-previews"
       }), React.createElement("div", {
         className: "overlay ad-image-previews"
-      }))))))));
+      }))))), React.createElement("input", {
+        type: "submit",
+        id: "submit-ad-form-button",
+        className: "hidden  hide",
+        value: "Submit"
+      }))));
     });
 
     _defineProperty(_assertThisInitialized(_this), "adModalContent", function () {

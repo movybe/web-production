@@ -106,6 +106,8 @@ class MerchantPlugs extends React.Component {
         this.adTypeSelection = $('#ad-type-selection');
         this.adTypeSelection.formSelect();
         this.adUnit = $('#ad-unit');
+
+        this.progressBar   = $('.progress-bar');
         this.totalAdCharge = $('#total-ad-charge');
         this.adFormFieldset = $('#ad-form-fieldset');
         $('input#ad-title').characterCounter();
@@ -211,7 +213,6 @@ class MerchantPlugs extends React.Component {
     handleAdForm = (e , form) => {
 
 
-
         M.updateTextFields();
 
 
@@ -237,7 +238,8 @@ class MerchantPlugs extends React.Component {
 
           this.adFormFieldset.prop(...defaults.disabledTrue);
 
-          const isNewOrRenewedAd = this.state.editAdFormAction === this.editAdFormActions.NEW || this.state.editAdFormAction === this.editAdFormActions.RENEW; 
+
+          const isNewOrRenewedAd = this.state.editAdFormAction === this.editAdFormActions.NEW || this.state.editAdFormAction === this.editAdFormActions.RENEW;
           let payWithPaystack = isNewOrRenewedAd ? defaults.payWithPaystack :
             function(email , amount = 5000 , name , callback){
                 callback({status : "success"});
@@ -261,6 +263,7 @@ class MerchantPlugs extends React.Component {
 
               
               this.adFormFieldset.prop(...defaults.disabledFalse);
+
 
               let formData = new FormData(form);
 
@@ -304,14 +307,40 @@ class MerchantPlugs extends React.Component {
            
 
 
-             formData.append("email" , this.props.user.email);
+              formData.append("email" , this.props.user.email);
               formData.append("action" , serverFormAction);
               formData.append('UPLOAD_IMAGE' , this.state.uploadImage);
               formData.append("ad_id" , this.state.editAdFormID || "");
               
               formData.set("location" , this.updateAdPreview());
               formData.append("ad_location" , this.adLocation.val()); 
+              let percentComplete = 0 , parent =  this;
               $.ajax({
+                  xhr: function() {
+                      parent.progressBar.loading(0);
+                      parent.progressBar.show();
+
+                      let xhr = new window.XMLHttpRequest();
+
+                      xhr.upload.addEventListener("progress", e => {
+                          if (e.lengthComputable) {
+                              percentComplete = e.loaded / e.total;
+                              percentComplete = parseInt(percentComplete * 100);
+                              parent.progressBar.loading(percentComplete);
+
+
+
+                              if (percentComplete === 100) {
+                                  parent.progressBar.loading(0);
+                                  parent.progressBar.hide();
+
+                              }
+
+                          }
+                      }, false);
+
+                      return xhr;
+                  },
                   url: defaults.handleAdForm,
                   type: 'POST',
                   data: formData,
@@ -603,7 +632,7 @@ class MerchantPlugs extends React.Component {
 
                 </div>
                 <div className="modal-footer">
-                    <a href="#" onClick={() => this.adStatModalPopup.modal('close')}
+                    <a href="#" onClick={(e) => {e.preventDefault(); this.adStatModalPopup.modal('close')}}
                        className={`no-underline grey-text close-modal-right`} id="close-new-ad-form">CLOSE</a>
                 </div>
             </div>
@@ -632,16 +661,18 @@ class MerchantPlugs extends React.Component {
     {
 
         const proceedButton =Number(this.props.user.subscribed) ?
-            <button type="submit" form="ad-form" className="waves-effect waves-light btn" id="login-proceed" value="Proceed">Proceed</button> : null;
+            <label for ="submit-ad-form-button" tabIndex="0" className="waves-effect waves-light btn" id="ad-form-proceed">Proceed</label> : null;
         const closeModalButtonPositionLeftOrRight = proceedButton === null ? "right"  : "left";
         return (
             <div id="ad-modal" className="modal modal-fixed-footer">
+
                 <div className="modal-content">
+
                     {this.adModalContent()}
             </div>
     <div className="modal-footer">
         {proceedButton}
-        <a href="#" onClick={() => this.adModalPopup.modal('close')}
+        <a href="#" onClick={(e) => {e.preventDefault(); this.adModalPopup.modal('close')}}
            className={`no-underline ${closeModalButtonPositionLeftOrRight} grey-text`} id="close-new-ad-form">CLOSE</a>
         </div>
     </div>
@@ -664,6 +695,7 @@ class MerchantPlugs extends React.Component {
                                   name="ad-form" id="ad-form" action="#" encType="mutipart/form-data" noValidate="noValidate">
                                 {/* Title */}
                                 <div className="row">
+
                                     <div className="input-field col s12">
                                         <i className="material-icons small prefix">short_text</i>
                                         <input data-name = "title" placeholder="Please write a clear title for your ad" id="ad-title"
@@ -893,7 +925,7 @@ class MerchantPlugs extends React.Component {
                                     </div>
                                 </div>
 
-
+<input type = "submit" id = "submit-ad-form-button" className='hidden  hide' value = 'Submit'/>
                             </form>
                         </fieldset>
                     </div>

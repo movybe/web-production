@@ -16,7 +16,7 @@ class HandleNewInvites extends Functions
         $user_country = $ip_details['countryCode'];
 
          //Check if the user is in Nigeria
-        if($user_country != 'NG')
+        if(strtoupper($user_country) != 'NG')
         {
             echo "Sorry, this invitation is not available in your country";
             return false;

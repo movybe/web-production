@@ -294,7 +294,7 @@ class  MerchantHeader extends React.Component {
 
                 </div>
                 <div className="modal-footer">
-                    <a href="#" onClick={() => {this.demoModalPopUp.modal('close')}} className="modal-close waves-effect waves-green btn-flat no-underline strong light">Close</a>
+                    <a href="#" onClick={(e) => {e.preventDefault(); this.demoModalPopUp.modal('close')}} className="modal-close waves-effect waves-green btn-flat no-underline strong light">Close</a>
                 </div>
             </div>
         );
@@ -370,7 +370,7 @@ class  MerchantHeader extends React.Component {
                     This Agreement constitutes the entire Agreement between Member and {defaults.siteAddress} affiliate program in connection with general membership in the {defaults.siteAddress} affiliate program and supersedes all prior agreements between the parties regarding the subject matter contained herein. If any provision of this AGREEMENT is found invalid or unenforceable, that provision will be enforced to the maximum extent permissible, and the other provisions of this AGREEMENT will remain in force. No failure of either party to exercise or enforce any of its rights under this AGREEMENT will act as a waiver of such rights. <br /><br />
                 </div>
                 <div className="modal-footer">
-                    <a href="#" onClick={() => {this.tosModalPopUp.modal('close')}} className="modal-close waves-effect waves-green btn-flat no-underline strong light">OK, I've accepted</a>
+                    <a href="#" onClick={(e) => {e.preventDefault(); this.tosModalPopUp.modal('close')}} className="modal-close waves-effect waves-green btn-flat no-underline strong light">OK, I've accepted</a>
                 </div>
             </div>
 
