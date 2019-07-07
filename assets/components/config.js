@@ -171,8 +171,8 @@ function Config() {
     }],
     sponsoredAdsClicked: [],
     lastUpdated:
-    /*dd-mm-yyyy*/
-    "07-07-2019",
+    /*dd-mm-yyyy HH:MM*/
+    "07-07-2019 19:51",
     updateOnlyAds: true,
     sponsoredAds: []
   });

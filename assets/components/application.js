@@ -375,7 +375,7 @@ function (_React$Component) {
             var html;
 
             try {
-              html = $(response).find('.post') ? $(response.contents).find('.post') : html;
+              html = $(response).find('.post') ? $(response).find('.post') : html;
             } catch (e) {
               return showError();
             }

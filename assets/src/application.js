@@ -364,13 +364,14 @@ class Application extends React.Component {
                 url = `https://deals.jumia.com.ng/catalog?search-keyword=${q}&page=${pageNumber}`;
 
 
+
                 $.get(defaults.crawler , {url, mode : 'native'} , response => {
 
                     let html;
 
 
                     try {
-                        html = $(response).find('.post') ? $(response.contents).find('.post') : html;
+                        html = $(response).find('.post') ? $(response).find('.post') : html;
 
                     }
 
@@ -378,6 +379,9 @@ class Application extends React.Component {
                         return showError();
 
                     }
+
+
+
                     if(!html.length) return showError();
 
 
