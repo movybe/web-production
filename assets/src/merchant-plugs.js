@@ -326,6 +326,7 @@ class MerchantPlugs extends React.Component {
                           if (e.lengthComputable) {
                               percentComplete = e.loaded / e.total;
                               percentComplete = parseInt(percentComplete * 100);
+                              parent.progressBar.loading(0);
                               parent.progressBar.loading(percentComplete);
 
 
@@ -907,9 +908,14 @@ class MerchantPlugs extends React.Component {
                                         book pro 2017</a></h3><a className="search-result-link-address" target="_blank"
                                                                  href="#" id="ad-link-preview">https://www.olx.com.ng/item/mac-book-pro-201...</a><span
                                         className="search-result-link-description" id="ad-description-preview">8gb ram 2.3ghzIntel core i5 13inch display</span><span className="modal-link" data-caption="mac book pro 2017"></span>
-                                        <a download="mac book pro 2017" target="_blank" href="#"
-                                        className="image-download-link search-result-images blue-text"><i
-                                        className="tiny material-icons search-image-icons">image</i> Save Image</a>
+
+                                            <i className="small material-icons search-image-icons blue-text modified-ad-icons ad-image-icon">image</i>
+
+                                        <a href="#"
+                                           className="show-ad-image image-download-link search-result-images blue-text">View</a>
+                                        <span className="view-save-separator">•</span>
+                                        <a download="Your ad title goes here" target="_blank" href="/banner/Kk2zd6K.png"
+                                           className="image-download-link search-result-images blue-text"> Save</a>
                                         <span className="search-result-locations blue-grey-text"><i
                                             className="tiny material-icons search-location-icons">location_on</i><span id ="ad-location-preview">Lagos</span></span>
 

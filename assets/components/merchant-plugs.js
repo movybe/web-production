@@ -310,6 +310,7 @@ function (_React$Component) {
               if (e.lengthComputable) {
                 percentComplete = e.loaded / e.total;
                 percentComplete = parseInt(percentComplete * 100);
+                parent.progressBar.loading(0);
                 parent.progressBar.loading(percentComplete);
 
                 if (percentComplete === 100) {
@@ -967,14 +968,19 @@ function (_React$Component) {
       }, "8gb ram 2.3ghzIntel core i5 13inch display"), React.createElement("span", {
         className: "modal-link",
         "data-caption": "mac book pro 2017"
-      }), React.createElement("a", {
-        download: "mac book pro 2017",
-        target: "_blank",
+      }), React.createElement("i", {
+        className: "small material-icons search-image-icons blue-text modified-ad-icons ad-image-icon"
+      }, "image"), React.createElement("a", {
         href: "#",
+        className: "show-ad-image image-download-link search-result-images blue-text"
+      }, "View"), React.createElement("span", {
+        className: "view-save-separator"
+      }, "\u2022"), React.createElement("a", {
+        download: "Your ad title goes here",
+        target: "_blank",
+        href: "/banner/Kk2zd6K.png",
         className: "image-download-link search-result-images blue-text"
-      }, React.createElement("i", {
-        className: "tiny material-icons search-image-icons"
-      }, "image"), " Save Image"), React.createElement("span", {
+      }, " Save"), React.createElement("span", {
         className: "search-result-locations blue-grey-text"
       }, React.createElement("i", {
         className: "tiny material-icons search-location-icons"

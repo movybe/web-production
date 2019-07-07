@@ -61,7 +61,7 @@ class Application extends React.Component {
         q : "samsung+galaxy+s7+edge" //default query type for most modern E-commerce websites
          */
 
-        const {query , q} = this.props;
+        let {query , q} = this.props;
 
         //increments the pageNumber so that it can pass it to the search url
         // e.g if the previous page for olx = 1
@@ -144,11 +144,11 @@ class Application extends React.Component {
                 let url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
 
 
-                $.get(defaults.crawler , {url} , response => {
+                $.get(defaults.crawler , {url , mode : 'native'} , response => {
 
                     let html;
                     try{
-                        html = $(response.contents).find('.b-list-advert__template');
+                        html = $(response).find('.b-list-advert__template');
                     }
                     catch (e) {
                         showError();
@@ -169,6 +169,7 @@ class Application extends React.Component {
                         let counter = 0;
 
 
+                        let prop, addNewAd = true;
                         html.each(function (index) {
                             ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
 
@@ -179,7 +180,17 @@ class Application extends React.Component {
                             ad.image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
                             ad.location = $(this).find('.b-list-advert__item-region').text();
                             ad.linkText = ad.link.truncate(defaults.maxLinkLength);
-                            selectedEcommerce.ads.push(ad);
+
+
+                            for(prop in ad){
+                                if(prop === "showAdImage")continue;
+                                else if(ad[prop] === null ||  typeof ad[prop] === 'undefined' )
+                                {
+                                    addNewAd = false;
+                                    break;
+                                }
+                            }
+                           if(addNewAd)selectedEcommerce.ads.push(ad);
 
                         });
 
@@ -205,12 +216,12 @@ class Application extends React.Component {
 
 
                 //url = "http://localhost:2021/jumia.php";
-                $.get(defaults.crawler , {url} , response => {
+                $.get(defaults.crawler , {url, mode : 'native'} , response => {
 
                     let html;
 
                     try{
-                        html = $(response.contents).find('.sku.-gallery');
+                        html = $(response).find('.sku.-gallery');
 
                     }
                     catch (e) {
@@ -232,7 +243,7 @@ class Application extends React.Component {
                         let price;
                         let ad;
                         //let location;
-                        let link;
+                        let link , prop, addNewAd = true;
                         html.each(function (index) {
 
                             ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
@@ -253,7 +264,15 @@ class Application extends React.Component {
                                 ad.location = "";
                                 ad.linkText =link.truncate(defaults.maxLinkLength);
 
-                                selectedEcommerce.ads.push(ad);
+                                for(prop in ad){
+                                    if(prop === "showAdImage")continue;
+                                    else if(ad[prop] === null ||  typeof ad[prop] === 'undefined' )
+                                    {
+                                        addNewAd = false;
+                                        break;
+                                    }
+                                }
+                                if(addNewAd)selectedEcommerce.ads.push(ad);
                             }
                         });
 
@@ -299,7 +318,7 @@ class Application extends React.Component {
 
 
 
-                    let specialPrice;
+                    let specialPrice, prop , addNewAd = true;
                     resultObject.forEach(obj => {
                         ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
                         ad.title = obj.name.truncate(defaults.maxTitleLength);
@@ -312,8 +331,17 @@ class Application extends React.Component {
 
                         ad.link = 'https://konga.com/product/' + obj.url_key;
                         ad.linkText = ('https://konga.com/product/' + obj.url_key).truncate(defaults.maxLinkLength);
-                        selectedEcommerce.ads.push(ad);
 
+                        for(prop in ad){
+                            if(prop === "showAdImage")continue;
+                            else if(ad[prop] === null ||  typeof ad[prop] === 'undefined' )
+                            {
+                                addNewAd = false;
+                                break;
+                            }
+                        }
+
+                        if(addNewAd)selectedEcommerce.ads.push(ad);
 
                     });
 
@@ -336,13 +364,13 @@ class Application extends React.Component {
                 url = `https://deals.jumia.com.ng/catalog?search-keyword=${q}&page=${pageNumber}`;
 
 
-                $.get(defaults.crawler , {url} , response => {
+                $.get(defaults.crawler , {url, mode : 'native'} , response => {
 
                     let html;
 
 
                     try {
-                        html = $(response.contents).find('.post') ? $(response.contents).find('.post') : html;
+                        html = $(response).find('.post') ? $(response.contents).find('.post') : html;
 
                     }
 
@@ -362,7 +390,7 @@ class Application extends React.Component {
                     {
 
                         let counter = 0;
-                        let ad;
+                        let ad , prop ,addNewAd = true;
                         html.each(function (index) {
 
                             ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
@@ -374,7 +402,16 @@ class Application extends React.Component {
                             ad.location = $(this).find('.address').text();
                             ad.linkText = ad.link.truncate(defaults.maxLinkLength);
 
-                            selectedEcommerce.ads.push(ad);
+                            for(prop in ad){
+                                if(prop === "showAdImage")continue;
+                                else if(ad[prop] === null ||  typeof ad[prop] === 'undefined' )
+                                {
+                                    addNewAd = false;
+                                    break;
+                                }
+                            }
+                            if(addNewAd)selectedEcommerce.ads.push(ad);
+
                         });
 
                         selectedEcommerce.page = selectedEcommerce.page + 1;
@@ -393,55 +430,76 @@ class Application extends React.Component {
 
                 break;
 
-            case 'olx' :
-                url = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${q}&page=${pageNumber}&user=165548cb5dcx2e53159d`;
+            case 'habari' :
 
-                $.get(defaults.crawler, {url}, response => {
+                q = query.split(' ').join("%20");
 
-
-                    if (!response.contents || !response.contents.data.length ) {
-                        return showError();
-                    }
+                url = `http://admin.shopping.habarigt.com/index.php/rest/V1/product-list-by-slug/all?q=${q}&limit=19&page=${pageNumber}`;
 
 
-                    {
+                var getRequest = () => {
+
+                    $.get(defaults.crawler, {url, mode : 'native'}, response => {
+
+                        try {
+                            response = JSON.parse(response);
+                        }
+                        catch (e) {
+                            getRequest();
+                        }
+                        if (!response.item || !response.item.length ) {
+
+                            return showError();
+                        }
 
 
-                        let ad;
-                        response.contents.data.forEach(obj => {
-
-                            ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
-
-                            try {
-                                ad.location = obj.locations_resolved.ADMIN_LEVEL_1_name;
-                            }
-                            catch (e) {
-                                ad.location = "Not specified";
-                            }
-                            ad.title = obj.title.truncate(defaults.maxTitleLength);
-                            ad.description = obj.description.truncate(defaults.maxDescriptionLength);
-                            ad.image = obj.images[0].url;
-                            ad.price = obj.price ? obj.price.value.raw.toLocaleString() : 0;
-                            ad.link = 'https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id;
-                            ad.linkText = ('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength);
-
-                            selectedEcommerce.ads.push(ad);
-                        });
+                        {
 
 
-                        selectedEcommerce.page = selectedEcommerce.page + 1;
+                            let ad,prop,addNewAd = true;
+                            response.item.forEach(obj => {
 
-                        this.props.locale[index] = selectedEcommerce;
-                        let previousLocale = this.props.locale;
 
-                        savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+                                ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
 
-                        defaultAction();
+                                ad.location = "";
+                                ad.title = obj.name.truncate(defaults.maxTitleLength);
+                                ad.description = obj.seller_title.truncate(defaults.maxDescriptionLength);
+                                ad.image = obj.image_url;
+                                ad.price = obj.meal_price ? obj.meal_price.toLocaleString() : 0;
 
-                    }
+                                ad.link = 'https://habarigt.com/shopping/product-detail/' + obj.slug;
+                                ad.linkText = ('https://habarigt.com/shopping/product-detail/' + obj.slug).truncate(defaults.maxLinkLength);
 
-                });
+                                for(prop in ad){
+                                    if(prop === "showAdImage")continue;
+                                    else if(ad[prop] === null ||  typeof ad[prop] === 'undefined' )
+                                    {
+                                        addNewAd = false;
+                                        break;
+                                    }
+                                }
+                                if(addNewAd)selectedEcommerce.ads.push(ad);
 
+                            });
+
+
+                            selectedEcommerce.page = selectedEcommerce.page + 1;
+
+                            this.props.locale[index] = selectedEcommerce;
+                            let previousLocale = this.props.locale;
+
+                            savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+
+                            defaultAction();
+
+                        }
+
+                    });
+
+                };
+
+                getRequest();
 
         }
 
@@ -527,7 +585,8 @@ class Application extends React.Component {
         const q = this.searchQuery.split(" ").join("+");
 
         //The default website to make the search and filter contents
-        let searchFilterUrl = `https://api.olx.com.ng/relevance/search?facet_limit=100&location_facet_limit=6&query=${q}&page=0&user=165548cb5dcx2e53159d`;
+        let searchFilterUrl = `https://jiji.ng/search?query=${q}&page=0`;
+
 
 
         this.props.locale.forEach(obj => {
@@ -561,18 +620,21 @@ class Application extends React.Component {
         }
         this.searchFormFieldSet.prop(...defaults.disabledTrue);
         //console.log(searchFilterUrl);
-        $.get(defaults.crawler, {url: searchFilterUrl}, response => {
+        $.get(defaults.crawler, {url: searchFilterUrl , mode : 'native'}, response => {
 
 
 
+            let html;
 
-            //Check if a response was received from the server
-            if (!response.contents || !response.contents.data) {
-                return  M.toast({html: this.networkError});
+            try{
+                html = $(response).find('.b-list-advert__template');
+            }
+            catch (e){
+                console.log();
             }
 
             //Check if there is not data returned, meaning empty result
-            else if (!response.contents.data.length) {
+            if (!html.length) {
 
 
 
@@ -602,11 +664,13 @@ class Application extends React.Component {
 
             let titles = [];
 
-            response.contents.data.forEach(obj => {
 
-                titles.push(obj.title.toLowerCase());
-
+            html.each(function (index) {
+                titles.push($.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength).toLowerCase());
             });
+
+
+
 
             this.filterTitles(titles);
 
@@ -618,22 +682,23 @@ class Application extends React.Component {
 
             let ad;
 
-            response.contents.data.forEach(obj => {
-
+            html.each(function (index) {
 
 
                 ad = {title : null , showAdImage : false , description : null , price : null , image : null , link : null, linkText : null , location : null};
 
+
                 let prop, addNewAd = true;
 
+
                 try {
-                    ad.location = obj.locations_resolved.ADMIN_LEVEL_1_name;
-                    ad.title = obj.title.truncate(defaults.maxTitleLength);
-                    ad.description = obj.description.truncate(defaults.maxDescriptionLength);
-                    ad.image = obj.images[0].url;
-                    ad.price = obj.price ? obj.price.value.raw.toLocaleString() : 0;
-                    ad.link = 'https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id;
-                    ad.linkText = ('https://www.olx.com.ng/item/' + obj.title.split(" ").join("-").toLowerCase() + "-iid-" + obj.id).truncate(defaults.maxLinkLength);
+                    ad.title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
+                    ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
+                    ad.price = $.trim($(this).find('.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
+                    ad.link = $(this).find('.js-advert-link').attr('href');
+                    ad.image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
+                    ad.location = $(this).find('.b-list-advert__item-region').text();
+                    ad.linkText = ad.link.truncate(defaults.maxLinkLength);
 
 
                     for(prop in ad){
@@ -651,14 +716,8 @@ class Application extends React.Component {
                     ad.location = "not specified";
                 }
 
-
-
-
-
-
-
-
             });
+
             let returnNow = false;
             this.fetchSponsoredAds(response => {
                 if(!this.props.switchWebsite({...this.props , currentWebsite : this.props.locale[0].shortName , noDefaultResultsFound : false , processingAction : false , sponsoredAds : response}))returnNow = true;

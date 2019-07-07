@@ -38,9 +38,9 @@ function Config() {
     formSubmitted: false,
     processingAction: false,
     locale: [{
-      shortName: "olx",
-      name: "olx",
-      textColor: 'purple',
+      shortName: "jiji",
+      name: "jiji",
+      textColor: 'green',
       ads: [],
       page: 0,
       error: "",
@@ -50,9 +50,9 @@ function Config() {
       lastSortedPage: 0,
       shownSponsoredAds: false
     }, {
-      shortName: "jiji",
-      name: "jiji",
-      textColor: 'green',
+      shortName: "konga",
+      name: "konga",
+      textColor: 'orange',
       ads: [],
       page: 0,
       error: "",
@@ -74,9 +74,9 @@ function Config() {
       lastSortedPage: 0,
       shownSponsoredAds: false
     }, {
-      shortName: "konga",
-      name: "konga",
-      textColor: 'orange',
+      shortName: "habari",
+      name: "habari",
+      textColor: 'tomato',
       ads: [],
       page: 0,
       error: "",
@@ -172,7 +172,7 @@ function Config() {
     sponsoredAdsClicked: [],
     lastUpdated:
     /*dd-mm-yyyy*/
-    "05-06-2019",
+    "07-07-2019",
     updateOnlyAds: true,
     sponsoredAds: []
   });

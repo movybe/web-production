@@ -142,7 +142,7 @@ ini_set('user_agent', "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.
 
 // Change these configuration options if needed, see above descriptions for info.
 $enable_jsonp    = false;
-$enable_native   = false;
+$enable_native   = true;
 $valid_url_regex = '/.*/';
 
 // ############################################################################
@@ -166,10 +166,11 @@ if ( !$url ) {
 
 } else {
     $ch = curl_init( $url );
+    curl_setopt($ch, CURLOPT_URL, $url);
 
     if(!$functions->is_production_mode())
     {
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     }
     //curl_setopt ($ch, CURLOPT_PORT , 2022);
     if ( strtolower($_SERVER['REQUEST_METHOD']) == 'post' ) {
@@ -191,12 +192,17 @@ if ( !$url ) {
     }
 
     curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-    curl_setopt( $ch, CURLOPT_HEADER, true );
+    curl_setopt($ch, CURLOPT_ENCODING,  '');
+    curl_setopt( $ch, CURLOPT_HEADER, false);
+
+    if (defined('CURLOPT_IPRESOLVE') && defined('CURL_IPRESOLVE_V4')){
+        curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+    }
 
     curl_setopt( $ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
     curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 
-    list( $header, $contents ) = preg_split( '/([\r\n][\r\n])\\1/', curl_exec( $ch ), 2 );
+    $contents  =  curl_exec( $ch );
 
     $status = curl_getinfo( $ch );
 
@@ -204,7 +210,7 @@ if ( !$url ) {
 }
 
 // Split header text into an array.
-$header_text = preg_split( '/[\r\n]+/', $header );
+//$header_text = preg_split( '/[\r\n]+/', $header );
 
 if ( isset($_GET['mode']) && $_GET['mode'] == 'native' ) {
     if ( !$enable_native ) {
@@ -213,13 +219,17 @@ if ( isset($_GET['mode']) && $_GET['mode'] == 'native' ) {
     }
 
     // Propagate headers to response.
+
+    /*
     foreach ( $header_text as $header ) {
         if ( preg_match( '/^(?:Content-Type|Content-Language|Set-Cookie):/i', $header ) ) {
             header( $header );
         }
     }
+    */
 
-    print $contents;
+
+        print $contents;
 
 } else {
 
@@ -230,12 +240,15 @@ if ( isset($_GET['mode']) && $_GET['mode'] == 'native' ) {
     if ( isset($_GET['full_headers']) ) {
         $data['headers'] = array();
 
+
+        /*
         foreach ( $header_text as $header ) {
             preg_match( '/^(.+?):\s+(.*)$/', $header, $matches );
             if ( $matches ) {
                 $data['headers'][ $matches[1] ] = $matches[2];
             }
         }
+        */
     }
 
     // Propagate all cURL request / response info to the JSON data object.
