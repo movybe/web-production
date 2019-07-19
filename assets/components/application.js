@@ -232,8 +232,7 @@ function (_React$Component) {
           break;
 
         case 'jumia':
-          url = "https://www.jumia.com.ng/catalog/?q=".concat(q, "&page=").concat(pageNumber); //url = "http://localhost:2021/jumia.php";
-
+          url = "https://www.jumia.com.ng/catalog/?q=".concat(q, "&page=").concat(pageNumber);
           $.get(defaults.crawler, {
             url: url,
             mode: 'native'

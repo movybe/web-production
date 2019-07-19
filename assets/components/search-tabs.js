@@ -411,7 +411,7 @@ function (_React$Component) {
           className: "average-price right"
         }, React.createElement("span", {
           className: "market-price"
-        }, "Mkt Price:"), " \u20A6", local.average, " - \u20A6", local.max, " ") : null;
+        }, "Result :"), " \u20A6", local.average, " - \u20A6", local.max, " ") : null;
         return React.createElement("div", {
           id: local.shortName,
           className: "col s12 gallery",

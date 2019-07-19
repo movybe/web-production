@@ -392,8 +392,7 @@ class  LocalSearchTab extends React.Component{
                 : null;
 
             template = (template === null && this.props.processingAction) ? <h5 className="center-align load-more-error-messages">{defaults.pleaseWaitText}</h5> : template;
-            averagePrice = local.average !== 0 ? <span className="average-price right"><span className="market-price">Mkt Price:</span> &#8358;{local.average} - &#8358;{local.max} </span> : null;
-
+            averagePrice = local.average !== 0 ? <span className="average-price right"><span className="market-price">Result :</span> &#8358;{local.average} - &#8358;{local.max} </span> : null;
             return (
 
                 <div id={local.shortName} className="col s12 gallery" key={local.name}>

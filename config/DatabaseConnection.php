@@ -147,6 +147,7 @@ class DatabaseConnection {
         number_of_invitations_today BIGINT NOT NULL DEFAULT 0,
         last_invitation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         trial varchar (12) NOT NULL  DEFAULT  0
+        08083596143
         )";
 
         return $this->try_create_table($sql);

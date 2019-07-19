@@ -12,26 +12,16 @@ class Application extends React.Component {
 
     constructor() {
         super();
-
     }
-
-
     switchToWebsite = (website , /* not event necessary */ index = 0 , /* if the user clicks on load more button */
                        loadMore = false , /* if the default E-commerce website doesn't return any result*/backup = false) => {
-
-
-
-
-
         // here i want to find the E-commerce website object from the props using the "website" parameter
         let selectedEcommerce = this.props.locale.find((local  , pos)=> {
                 index = pos;
-
                 // if the current E-commerce shortName is equal to the "website" parameter sent to the function
                 return local.shortName === website;
             }
         );
-
 
         /*
         The function below warns the user of two possible error outcomes:
@@ -42,14 +32,9 @@ class Application extends React.Component {
         const showError = (networkError = true) => {
             selectedEcommerce.error = defaults.noDataError;
             selectedEcommerce.page = selectedEcommerce.page + 1;
-
             selectedEcommerce.loadMore = false;
             this.props.locale[index] = selectedEcommerce;
-
             if (this.props.switchWebsite({...this.props, processingAction : false , locale: this.props.locale, currentWebsite: website})) {
-
-
-
 
                 return networkError ?  M.toast({html: defaults.networkError}) :  M.toast({html: this.enterValidKeywordsWarning});
 
@@ -81,7 +66,6 @@ class Application extends React.Component {
             the "website" paramater, set the "currentWebsite" key of the state
             to the parameter "website";
          */
-
             if(this.props.currentWebsite !== website){
                 this.props.switchWebsite({...this.props , currentWebsite : website});
             }
@@ -89,12 +73,6 @@ class Application extends React.Component {
             //Then,  return to prevent a recursion of this function
             return ;
         }
-
-
-
-
-
-
 
         /*
         Sets the "currentWebsite" key of the props to the "website" parameter an sets processingAction = true in the props
@@ -154,11 +132,7 @@ class Application extends React.Component {
                         showError();
                     }
 
-
                     if(!html.length) return showError();
-
-
-
 
                     //Clearing some memory
                     response = null;
@@ -180,8 +154,6 @@ class Application extends React.Component {
                             ad.image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
                             ad.location = $(this).find('.b-list-advert__item-region').text();
                             ad.linkText = ad.link.truncate(defaults.maxLinkLength);
-
-
                             for(prop in ad){
                                 if(prop === "showAdImage")continue;
                                 else if(ad[prop] === null ||  typeof ad[prop] === 'undefined' )
@@ -203,39 +175,23 @@ class Application extends React.Component {
                         savedState = {...this.props , locale : previousLocale , currentWebsite : website};
 
                         defaultAction();
-
-
                     }
-
-
                 });
                 break;
             case 'jumia' :
-
                 url = `https://www.jumia.com.ng/catalog/?q=${q}&page=${pageNumber}`;
-
-
-                //url = "http://localhost:2021/jumia.php";
                 $.get(defaults.crawler , {url, mode : 'native'} , response => {
-
                     let html;
-
                     try{
                         html = $(response).find('.sku.-gallery');
-
                     }
                     catch (e) {
                         return showError();
                     }
 
-
                     if(!html.length) return showError();
 
-
-
                     response = null;
-
-
                     {
                         let title;
                         let description;
@@ -287,15 +243,11 @@ class Application extends React.Component {
 
                 });
 
-
-
                 break;
             case 'konga' :
 
                 url = "https://b9zcrrrvom-3.algolianet.com/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.30.0%3Breact-instantsearch%205.3.2%3BJS%20Helper%202.26.1&x-algolia-application-id=B9ZCRRRVOM&x-algolia-api-key=cb605b0936b05ce1a62d96f53daa24f7";
                 let postData = {"requests":[{"indexName":"catalog_store_konga","params":`query=${query.replace(" " , "%20")}&maxValuesPerFacet=50&page=${pageNumber}&highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&facets=%5B%22special_price%22%2C%22attributes.brand%22%2C%22attributes.screen_size%22%2C%22attributes.ram_gb%22%2C%22attributes.sim%22%2C%22attributes.sim_slots%22%2C%22attributes.capacity%22%2C%22attributes.battery%22%2C%22attributes.connectivity%22%2C%22attributes.hard_drive%22%2C%22attributes.internal%22%2C%22attributes.tv_screen_size%22%2C%22attributes.operating_system%22%2C%22attributes.kids_shoes%22%2C%22attributes.heel_type%22%2C%22attributes.heel_height%22%2C%22attributes.leg_width%22%2C%22attributes.fastening%22%2C%22attributes.shirt_size%22%2C%22attributes.shoe_size%22%2C%22attributes.lingerie_size%22%2C%22attributes.pants_size%22%2C%22attributes.size%22%2C%22attributes.color%22%2C%22attributes.mainmaterial%22%2C%22konga_fulfilment_type%22%2C%22is_pay_on_delivery%22%2C%22is_free_shipping%22%2C%22pickup%22%2C%22categories.lvl0%22%5D&tagFilters=&ruleContexts=%5B%22%22%5D`}]};
-
-
                 $.post(url , JSON.stringify(postData) , response => {
 
 
@@ -312,11 +264,7 @@ class Application extends React.Component {
                     //Check if Konga is used as a backup search result website and filter the titles if so
                     let filterAction = backup ? this.filterTitles(titlesArray) : null;
 
-
                     let ad;
-
-
-
 
                     let specialPrice, prop , addNewAd = true;
                     resultObject.forEach(obj => {
@@ -345,17 +293,11 @@ class Application extends React.Component {
 
                     });
 
-
-
-
                     selectedEcommerce.page += 1;
 
                     this.props.locale[index] = selectedEcommerce;
                     let previousLocale = this.props.locale;
                     savedState = {...this.props , locale : previousLocale , currentWebsite : website};
-
-
-
                     defaultAction();
 
                 });

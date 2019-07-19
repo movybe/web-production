@@ -1,5 +1,4 @@
 
-
 $(function()
 {
     $('.gallery span.modal-link').lightbox();
@@ -120,10 +119,6 @@ class Config {
         ReactDOM.render(<Provider store = {store} ><App /></Provider> , document.getElementById('form-container'));
 
     }
-
-
-
-
 }
 
 let config = new Config();
