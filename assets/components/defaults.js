@@ -156,7 +156,7 @@ function () {
     this.siteNameLowercase = this.siteName.toLowerCase();
     this.whatsappContactLink = "https://wa.me/".concat(this.whatsappContact.replace(/ /g, ''), "?text=Hello%20").concat(this.siteName);
     this.imageDirectory = this.getFileLocation('/assets/img/');
-    this.processorsFolder = this.getFileLocation('/processors/');
+    this.processorsFolder = '/processors/';
     this.queryProcessor = this.processorsFolder + 'query.php';
     this.crawler = this.processorsFolder + 'crawler.php';
     this.suggestions = this.processorsFolder + 'suggestions.php';
