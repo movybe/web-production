@@ -143,7 +143,7 @@ class Defaults {
         this.siteNameLowercase = this.siteName.toLowerCase();
         this.whatsappContactLink = `https://wa.me/${this.whatsappContact.replace(/ /g,'')}?text=Hello%20${this.siteName}`;
         this.imageDirectory = this.getFileLocation('/assets/img/');
-        this.processorsFolder = '/processors/';
+        this.processorsFolder = this.getFileLocation('/processors/');
         this.queryProcessor = this.processorsFolder + 'query.php';
         this.crawler = this.processorsFolder + 'crawler.php';
         this.suggestions = this.processorsFolder + 'suggestions.php';
