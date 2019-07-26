@@ -18,8 +18,6 @@ class Campaign extends  React.Component
     };
 
     logout = () => {
-
-
         if(this.props.factoryReset())
         {
             window.location.reload();
@@ -32,13 +30,15 @@ class Campaign extends  React.Component
 
     loggedInDefaultAction = () => {
         this.loginModalPopup.modal('close');
-};
+    };
+
     //Initial actions to perform depending on the user's login status
     initActions = () =>
     {
-        this.labels = $('label');
 
+        this.labels = $('label');
         const defaultAction = !this.props.alreadyExistingAccount ? this.nonLoggedDefaultActions() : this.loggedInDefaultAction();
+
     };
 
     componentDidMount() {
@@ -78,17 +78,7 @@ class Campaign extends  React.Component
                 if (storageObjectKeysCount !== propsKeysCount && this.props.restoreState())this.stateRestored = true;
 
 
-
             }
-
-
-
-
-
-
-
-
-
 
         }
 

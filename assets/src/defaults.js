@@ -26,7 +26,7 @@ const browserName = function () {
 
 
 
-//Handle errors
+//Handle errors, used for debuggin sake
 let errorMessage = "";
 /*
 window.onerror= function(msg, url, linenumber) {
@@ -43,7 +43,7 @@ const isMobile = function() {
 const notifyPosition = isCampaignPage || isHomePage ? $.notify.defaults({position:'left top' , autoHideDelay: 10000}) : undefined;
 
 //Check for old browsers
-window.onload = function () {
+window.onload =  () => {
     if (!(window.localStorage && window.Blob && window.FileReader) && (isHomePage || isCampaignPage)) {
 
         $.notify("Try disable data-saving mode or upgrade your ".concat(browserName(), " browser").concat(browserName(), "."), 'info');
@@ -99,12 +99,10 @@ String.prototype.format = String.format ||
                 ;
         });
     };
-
 //Add capitalize() method to strings
-String.prototype.capitalize = function() {
+String.prototype.capitalize = () => {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
-
 $(document).ready (function () {
 
     let dataSavingsInfo = $('#data-savings-info');
@@ -133,7 +131,7 @@ class Defaults {
         this.inArray = function (value , arr) {
             return arr.indexOf(value) !== -1;
         };
-        var $this = this;
+        const $this = this;
         this.apkDownloadLink = 'https://play.google.com/store/apps/details?id=movybe.com.movybe';
         this.whatsappContact = '+234 905 897 7259';
         this.isProductionMode = window.location.hostname !== 'localhost';
@@ -184,10 +182,7 @@ class Defaults {
             else {this.copyToClipboard(content)}
             };
         this.ajaxProgress = e =>  {
-
-            console.log('not computable');
             if(!e.lengthComputable) return;
-            console.log('length computable');
             let percent = Math.round( (e.loaded / e.total) * 100); // Get the percent of data
             if(percent < 2) $('.progress.progress-bar').show();//Show the progress wrapper
             if (percent === 100) $('.progress.progress-bar').hide(); //hide  the progress bar wrapper
@@ -239,7 +234,7 @@ class Defaults {
        this.siteWebPackageName = "com.movybe";
        this.successText='success';
        this.isAndroidApp = navigator.userAgent === this.siteWebPackageName;
-        this.payWithPaystack = (email , amount , name , call , callback) =>
+       this.payWithPaystack = (email , amount , name , call , callback) =>
         {
             let paystackHandler = {
                 key: this.paystackKey,
@@ -303,21 +298,22 @@ const defaults = new Defaults();
 let pageLoaded = false;
 Pace.on('done' , function (e) {
     if(!pageLoaded) {
-        $('main.main-container').removeClass('invisible-class');
-        $('main.main-container').hide();
-        $('main.main-container').fadeIn(3000);
-
+        const mainContainer = $('main.main-container'), paceCss = $('link[title="pace-css"]');
+        mainContainer.removeClass('invisible-class');
+        mainContainer.hide();
+        mainContainer.fadeIn(3000);
         pageLoaded = true;
+
         //Disable paceCSS since, it interferes with the materialize css
-        $('link[title="pace-css"]').prop('disabled', true);
+        paceCss.prop('disabled', true);
+
         //Remove paceJS as well
         $('#pace-js').remove();
-        $('link[title="pace-css"]').remove();
+        paceCss.remove();
         try {
             document.getElementById('pace-css').disabled = true;
         }
-        catch (e) {
-        }
+        catch (e) {}
     }
 });
 

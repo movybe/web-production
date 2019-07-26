@@ -102,7 +102,13 @@ function (_React$Component) {
       }, "2(two) ad space"), " only.", React.createElement("br", null), "This is to prevent ad space monopoly by big companies , who have all the money to throw around, thereby preventing small businesses from seeing the light of the day.")
     }, {
       question: "Are there any discounts",
-      answer: React.createElement("span", null, "No, our ad rates are too cheap for we to consider offering discounted ads.")
+      answer: React.createElement("span", null, "No, our ad rates are too cheap for we to consider offering discounted ads, at least for now.")
+    }, {
+      question: "What rate do we pay our affiliates for PPC or PPV",
+      answer: React.createElement("span", null, "We pay our affiliates half the rate we charge for either PPC or PPV, e.g if We charge charge you \u20A64 for PPC, our affiliate would collect \u20A62 for each unique click.")
+    }, {
+      question: "How do we i know that the clicks/views are genuine and not fake",
+      answer: React.createElement("span", null, "It's simple, we use our ", React.createElement("strong", null, "ADVANCED CLICK FRAUD PREVENTION ALGORITHM"), " to prevent click fraud, and affiliates who are found guilty of this act, loose their accounts immediately, and your funds returned back to you immediately")
     }]);
 
     _defineProperty(_assertThisInitialized(_this), "mobileNavs", function () {

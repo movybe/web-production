@@ -1,7 +1,7 @@
 <?php
 class WebsiteConfigurationSettings {
     public
-    $cdn_link = "https://rawcdn.githack.com/movybe/web-production/",$cdn, $cdn_assets , $cdn_css , $cdn_img , $cdn_js , $cdn_components, $SiteName,
+    $cdn_assets , $cdn_css , $cdn_img , $cdn_js , $cdn_components, $SiteName,
     $Https = "https://",$Www = "www.",$SiteNameWithoutHttps = "www.movybe.com", $SiteNameWithHttps = "", $siteNameLowercase, $FacebookUrl = "",
     $TwitterUrl  = "",$InstagramUrl = "", $YouTubeUrl = "" , $YouTubeHandle = "" , $campaignPage = "/campaign",  $SiteAuthor = "Kosi Eric", $WebsiteCategory = "Price Search Engine", $TwitterHandle = "", $FacebookHandle = "",
     $InstagramHandle = "",$MaximumUserProfileImageSize = 50000000, $MaximumUserProfileImageSizeInWords = "", $WebsiteCoverage = "Nigeria",
@@ -31,18 +31,9 @@ class WebsiteConfigurationSettings {
     {
         return $this->is_production_mode() ? "/{$this->siteNameLowercase}/{$filename}" : "/".$filename;
     }
-    /*public final function set_cdn($latest_commit) {
-        $this->cdn = $this->cdn_link."$latest_commit/";
-        $this->cdn_assets = $this->cdn."assets/";
-        $this->cdn_img = $this->cdn_assets."img/";
-        $this->cdn_js = $this->cdn_assets."js/";
-        $this->cdn_css = $this->cdn_assets."css/";
-        $this->cdn_components = $this->cdn_assets."components/";
-    }*/
     public function __construct() {
         //movybe
         $this->SiteName = 'Movybe';
-       // $this->set_cdn("212324f03701737a9a30b76c3c0754577b72a4dc");
         $this->siteNameLowercase = strtolower($this->SiteName);
         $this->ParentCompanyName = $this->SiteName.' Studios';
         $this->DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
@@ -82,5 +73,6 @@ class WebsiteDetails extends WebsiteConfigurationSettings {
         parent::__construct();
     }
 }
+
 $website_details = new WebsiteDetails();
 ?>

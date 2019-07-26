@@ -1,5 +1,7 @@
 "use strict";
 
+var _this = void 0;
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -42,7 +44,7 @@ var browserName = function browserName() {
 
   return M[0]; //M.join(' ');
 }; //JQuery AJAX progress
-//Handle errors
+//Handle errors, used for debuggin sake
 
 
 var errorMessage = "";
@@ -115,7 +117,7 @@ String.prototype.format = String.format || function (format) {
 
 
 String.prototype.capitalize = function () {
-  return this.charAt(0).toUpperCase() + this.slice(1);
+  return _this.charAt(0).toUpperCase() + _this.slice(1);
 };
 
 $(document).ready(function () {
@@ -137,7 +139,7 @@ function () {
   }]);
 
   function Defaults() {
-    var _this = this;
+    var _this2 = this;
 
     _classCallCheck(this, Defaults);
 
@@ -192,19 +194,17 @@ function () {
 
       if (typeof clipboard === 'undefined') {
         $.getScript(defaults.getFileLocation('/assets/js/clipboard.js')).done(function () {
-          _this.copyToClipboard(content);
+          _this2.copyToClipboard(content);
         }).fail(function () {
-          _this.showToast(_this.checkNetworkConnectionError);
+          _this2.showToast(_this2.checkNetworkConnectionError);
         });
       } else {
-        _this.copyToClipboard(content);
+        _this2.copyToClipboard(content);
       }
     };
 
     this.ajaxProgress = function (e) {
-      console.log('not computable');
       if (!e.lengthComputable) return;
-      console.log('length computable');
       var percent = Math.round(e.loaded / e.total * 100); // Get the percent of data
 
       if (percent < 2) $('.progress.progress-bar').show(); //Show the progress wrapper
@@ -262,7 +262,7 @@ function () {
 
     this.payWithPaystack = function (email, amount, name, call, callback) {
       var paystackHandler = {
-        key: _this.paystackKey,
+        key: _this2.paystackKey,
         email: email,
         amount: amount,
         currency: 'NGN',
@@ -281,7 +281,7 @@ function () {
         onClose: function onClose() {//window.console.log('window closed');
         }
       };
-      var paystackScript = _this.isProductionMode ? 'https://js.paystack.co/v1/inline.js?id=1' : defaults.getFileLocation('/assets/js/paystack.min.js');
+      var paystackScript = _this2.isProductionMode ? 'https://js.paystack.co/v1/inline.js?id=1' : defaults.getFileLocation('/assets/js/paystack.min.js');
       var handler;
 
       var handlePaystack = function handlePaystack() {
@@ -317,15 +317,17 @@ var defaults = new Defaults();
 var pageLoaded = false;
 Pace.on('done', function (e) {
   if (!pageLoaded) {
-    $('main.main-container').removeClass('invisible-class');
-    $('main.main-container').hide();
-    $('main.main-container').fadeIn(3000);
+    var mainContainer = $('main.main-container'),
+        paceCss = $('link[title="pace-css"]');
+    mainContainer.removeClass('invisible-class');
+    mainContainer.hide();
+    mainContainer.fadeIn(3000);
     pageLoaded = true; //Disable paceCSS since, it interferes with the materialize css
 
-    $('link[title="pace-css"]').prop('disabled', true); //Remove paceJS as well
+    paceCss.prop('disabled', true); //Remove paceJS as well
 
     $('#pace-js').remove();
-    $('link[title="pace-css"]').remove();
+    paceCss.remove();
 
     try {
       document.getElementById('pace-css').disabled = true;

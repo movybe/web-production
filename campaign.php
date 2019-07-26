@@ -7,7 +7,7 @@ require_once 'config/functions.php';
 */
  //$functions->try_insert_or_update_ip_address_in_database();
 //echo $functions->send_payment_email(20000 , "Kosi Eric");
-$page_description = "Movybe Campaign is the easiest way to advertise your products/Services in Nigeria, with our affiliate, you also can make money in Nigeria, from the comfort of your home.";
+$page_description = "{$website_details->SiteName} Campaign is the easiest way to advertise your products/Services in Nigeria, with our affiliate, you also can make money in Nigeria, from the comfort of your home.";
 $page_title = "{$website_details->SiteName} • Campaign";
 $try_insert_or_update_ip_address_in_database = $functions->is_production_mode() ?$functions->try_insert_or_update_ip_address_in_database() : null;
 $random_referrers  = ["amily" , "hilltop"];

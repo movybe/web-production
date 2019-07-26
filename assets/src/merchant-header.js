@@ -125,17 +125,21 @@ class  MerchantHeader extends React.Component {
             This is to prevent ad space monopoly by big companies , who have all the money to throw around, thereby preventing
                 small businesses from seeing the light of the day.
             </span>
-
-
         },
-
         {
-
-
             question : `Are there any discounts`,
-            answer : <span>No, our ad rates are too cheap for we to consider offering discounted ads.</span>
+            answer : <span>No, our ad rates are too cheap for we to consider offering discounted ads, at least for now.</span>
+        },
+        {
+          question : `What rate do we pay our affiliates for PPC or PPV`,
+          answer : <span>We pay our affiliates half the rate we charge for either PPC or PPV, e.g
+          if We charge charge you &#8358;4 for PPC, our affiliate would collect &#8358;2 for each unique click.</span>
+        },
+        {
+            question : `How do we i know that the clicks/views are genuine and not fake`,
+            answer : <span>It's simple, we use our <strong>ADVANCED CLICK FRAUD PREVENTION ALGORITHM</strong> to prevent click fraud,
+                and affiliates who are found guilty of this act, loose their accounts immediately, and your funds returned back to you immediately</span>
         }
-
     ];
     mobileNavs = () => {
 

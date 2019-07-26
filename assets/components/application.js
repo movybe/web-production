@@ -579,6 +579,7 @@ function (_React$Component) {
       }, function (response) {
         var _this$searchFormField3;
 
+        console.log(response);
         var html;
 
         try {

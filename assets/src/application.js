@@ -40,7 +40,6 @@ class Application extends React.Component {
 
             }
         };
-
         /*
         query : "samsung galaxy s7 edge"
         q : "samsung+galaxy+s7+edge" //default query type for most modern E-commerce websites
@@ -570,6 +569,7 @@ class Application extends React.Component {
 
 
 
+            console.log(response);
             let html;
 
             try{
