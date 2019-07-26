@@ -149,8 +149,6 @@ $valid_url_regex = '/.*/';
 
 
 $url = $_GET['url'] ?: $_POST['url'];
-$proxy = "1.1.1.1:12121";
-//$proxy = '127.0.0.1:8080';
 
 $default_user_agent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36";
 $_SERVER['HTTP_USER_AGENT'] = $default_user_agent;
@@ -170,34 +168,36 @@ if ( !$url ) {
     $ch = curl_init( $url );
     curl_setopt($ch, CURLOPT_URL, $url);
 
-    if(!$functions->is_production_mode())
+    if(true && !$functions->is_production_mode())
     {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     }
+
+
     //curl_setopt ($ch, CURLOPT_PORT , 2022);
     if ( strtolower($_SERVER['REQUEST_METHOD']) == 'post' ) {
         curl_setopt( $ch, CURLOPT_POST, true );
         curl_setopt( $ch, CURLOPT_POSTFIELDS, $_POST );
     }
 
-    if ( isset($_GET['send_cookies']) ) {
+   if (true && isset($_GET['send_cookies']) ) {
         $cookie = array();
         foreach ( $_COOKIE as $key => $value ) {
             $cookie[] = $key . '=' . $value;
         }
-
+       /*
         if ( $_GET['send_session'] ) {
             $cookie[] = SID;
         }
+       */
         $cookie = implode( '; ', $cookie );
 
         curl_setopt( $ch, CURLOPT_COOKIE, $cookie );
     }
-    //curl_setopt($ch, CURLOPT_PROXY, $proxy);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+    curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
     curl_setopt($ch, CURLOPT_ENCODING,  '');
-    curl_setopt( $ch, CURLOPT_HEADER, 1);
+    curl_setopt( $ch, CURLOPT_HEADER, false);
 
     if (defined('CURLOPT_IPRESOLVE') && defined('CURL_IPRESOLVE_V4')){
         curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
@@ -233,7 +233,7 @@ if ( isset($_GET['mode']) && $_GET['mode'] == 'native' ) {
     */
 
 
-        print $contents;
+    print $contents;
 
 } else {
 
