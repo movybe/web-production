@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/processors/crawler.php" beforeDir="false" afterPath="$PROJECT_DIR$/processors/crawler.php" afterDir="false" />
-    </list>
+    <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +100,7 @@
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="26" />
           <entry key="js" value="22203" />
-          <entry key="php" value="11834" />
+          <entry key="php" value="11842" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -110,7 +108,7 @@
           <entry key="CSS" value="587" />
           <entry key="HTML" value="17" />
           <entry key="JavaScript" value="25539" />
-          <entry key="PHP" value="11872" />
+          <entry key="PHP" value="11880" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="23" />
           <entry key="htaccess" value="26" />
@@ -141,8 +139,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/processors/crawler.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="188" column="5" lean-forward="true" selection-start-line="188" selection-start-column="5" selection-end-line="188" selection-end-column="5" />
+            <state relative-caret-position="340">
+              <caret line="185" column="6" lean-forward="true" selection-start-line="185" selection-start-column="6" selection-end-line="185" selection-end-column="6" />
               <folding>
                 <element signature="e#7#69#0#PHP" expanded="true" />
               </folding>
@@ -450,16 +448,15 @@
       <workItem from="1563518214873" duration="3249000" />
       <workItem from="1563636516629" duration="4030000" />
       <workItem from="1564086241174" duration="5374000" />
-      <workItem from="1564105421786" duration="5625000" />
+      <workItem from="1564105421786" duration="6359000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="444288000" />
+    <option name="totallyTimeSpent" value="445022000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1378" height="780" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="0" width="1378" height="780" extended-state="1" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.3414264" />
@@ -848,8 +845,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/processors/crawler.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="188" column="5" lean-forward="true" selection-start-line="188" selection-start-column="5" selection-end-line="188" selection-end-column="5" />
+        <state relative-caret-position="340">
+          <caret line="185" column="6" lean-forward="true" selection-start-line="185" selection-start-column="6" selection-end-line="185" selection-end-column="6" />
           <folding>
             <element signature="e#7#69#0#PHP" expanded="true" />
           </folding>

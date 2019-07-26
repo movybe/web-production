@@ -195,10 +195,11 @@ if ( !$url ) {
         curl_setopt( $ch, CURLOPT_COOKIE, $cookie );
     }
 
+    $ip = "193.171.122.20";
     curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
     curl_setopt($ch, CURLOPT_ENCODING,  '');
     curl_setopt( $ch, CURLOPT_HEADER, false);
-
+    curl_setopt( $ch, CURLOPT_HTTPHEADER, array("REMOTE_ADDR: $ip", "HTTP_X_FORWARDED_FOR: $ip"));
     if (defined('CURLOPT_IPRESOLVE') && defined('CURL_IPRESOLVE_V4')){
         curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
     }
