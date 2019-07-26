@@ -121,7 +121,7 @@ class Application extends React.Component {
                 let url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
 
 
-                $.get(defaults.crawler , {url , mode : 'native'} , response => {
+                $.get(defaults.crawler , {url , mode : 'native', send_cookies : true , send_session : true} , response => {
 
                     let html;
                     try{
@@ -565,7 +565,7 @@ class Application extends React.Component {
         }
         this.searchFormFieldSet.prop(...defaults.disabledTrue);
         //console.log(searchFilterUrl);
-        $.get(defaults.crawler, {url: searchFilterUrl , mode : 'native'}, response => {
+        $.get(defaults.crawler, {url: searchFilterUrl , mode : 'native' , send_cookies : true , send_session : true}, response => {
 
 
 
