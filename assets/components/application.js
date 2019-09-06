@@ -516,8 +516,8 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "getRandomCrawler", function () {
-      var crawlers = ["http://nypd1.000webhostapp.com/crawler.php", "http://nypd2.000webhostapp.com/crawler.php", "http://nypd4.000webhostapp.com/crawler.php", "http://nypd5.000webhostapp.com/crawler.php", defaults.crawler];
-      return crawlers[Math.ceil(Math.random() * crawlers.length)];
+      var crawlers = ["https://nypd1.000webhostapp.com/crawler.php", "https://nypd2.000webhostapp.com/crawler.php", "https://nypd4.000webhostapp.com/crawler.php", "https://nypd5.000webhostapp.com/crawler.php", defaults.crawler];
+      return defaults.crawler; //crawlers[Math.ceil(Math.random() * crawlers.length)];
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleSearchFormSubmit", function (e) {

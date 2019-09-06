@@ -495,7 +495,8 @@ class Application extends React.Component {
             defaults.crawler
         ];
 
-        return crawlers[Math.ceil(Math.random() * crawlers.length)];
+        return defaults.crawler; //crawlers[Math.ceil(Math.random() * crawlers.length)];
+
 
     };
 

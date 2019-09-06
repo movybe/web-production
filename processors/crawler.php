@@ -185,11 +185,11 @@ if ( !$url ) {
 
     //curl_setopt ($ch, CURLOPT_PORT , 2022);
     if ( strtolower($_SERVER['REQUEST_METHOD']) == 'post' ) {
-        curl_setopt( $ch, CURLOPT_POST, true );
-        curl_setopt( $ch, CURLOPT_POSTFIELDS, $_POST );
+        //curl_setopt( $ch, CURLOPT_POST, true );
+        //curl_setopt( $ch, CURLOPT_POSTFIELDS, $_POST );
     }
 
-    if (true && isset($_GET['send_cookies']) ) {
+    if (true && isset($_GET['send_cookies']) or isset($_POST['send_cookies'])) {
         $cookie = array();
         foreach ( $_COOKIE as $key => $value ) {
             $cookie[] = $key . '=' . $value;
@@ -226,7 +226,7 @@ if ( !$url ) {
 // Split header text into an array.
 //$header_text = preg_split( '/[\r\n]+/', $header );
 
-if ( isset($_GET['mode']) && $_GET['mode'] == 'native' ) {
+if ( (isset($_GET['mode']) && $_GET['mode'] == 'native') or (isset($_POST['mode']) && $_POST['mode'] == 'native') ) {
     if ( !$enable_native ) {
         $contents = 'ERROR: invalid mode';
         $status = array( 'http_code' => 'ERROR' );
