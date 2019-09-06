@@ -137,7 +137,16 @@
 
 require_once '../config/functions.php';
 
-ini_set('user_agent', "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36");
+$user_agent_strings =
+    [
+        "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36" ,
+        "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0",
+        "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+        "Googlebot/2.1 (+http://www.google.com/bot.html)",
+        "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36"
+    ];
+$default_user_agent = $user_agent_strings[rand(0, count($user_agent_strings) - 1)];
+ini_set('user_agent', $default_user_agent);
 
 
 // Change these configuration options if needed, see above descriptions for info.
@@ -150,7 +159,7 @@ $valid_url_regex = '/.*/';
 
 $url = $_GET['url'] ?: $_POST['url'];
 
-$default_user_agent = "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36";
+
 $_SERVER['HTTP_USER_AGENT'] = $default_user_agent;
 if ( !$url ) {
 
@@ -204,7 +213,7 @@ if ( !$url ) {
         curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
     }
 
-    curl_setopt( $ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
+    curl_setopt( $ch, CURLOPT_USERAGENT, $default_user_agent);
     curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 
     $contents  =  curl_exec( $ch );

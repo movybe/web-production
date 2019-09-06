@@ -121,7 +121,7 @@ class Application extends React.Component {
                 let url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
 
 
-                $.get(defaults.crawler , {url , mode : 'native', send_cookies : true , send_session : true} , response => {
+                $.get(this.getRandomCrawler() , {url , mode : 'native', send_cookies : true , send_session : true} , response => {
 
                     let html;
                     try{
@@ -179,7 +179,7 @@ class Application extends React.Component {
                 break;
             case 'jumia' :
                 url = `https://www.jumia.com.ng/catalog/?q=${q}&page=${pageNumber}`;
-                $.get(defaults.crawler , {url, mode : 'native'} , response => {
+                $.get(this.getRandomCrawler() , {url, mode : 'native'} , response => {
                     let html;
                     try{
                         html = $(response).find('.sku.-gallery');
@@ -306,7 +306,7 @@ class Application extends React.Component {
 
 
 
-                $.get(defaults.crawler , {url, mode : 'native'} , response => {
+                $.get(this.getRandomCrawler() , {url, mode : 'native'} , response => {
 
                     let html;
 
@@ -384,7 +384,7 @@ class Application extends React.Component {
 
                 var getRequest = () => {
 
-                    $.get(defaults.crawler, {url, mode : 'native'}, response => {
+                    $.get(this.getRandomCrawler(), {url, mode : 'native'}, response => {
 
                         try {
                             response = JSON.parse(response);
@@ -486,6 +486,18 @@ class Application extends React.Component {
 
 
 
+    getRandomCrawler = () => {
+       let crawlers = [
+            "http://nypd1.000webhostapp.com/crawler.php",
+            "http://nypd2.000webhostapp.com/crawler.php",
+            "http://nypd4.000webhostapp.com/crawler.php",
+            "http://nypd5.000webhostapp.com/crawler.php",
+            defaults.crawler
+        ];
+
+        return crawlers[Math.ceil(Math.random() * crawlers.length)];
+
+    };
 
     handleSearchFormSubmit = (e) => {
 
@@ -565,12 +577,11 @@ class Application extends React.Component {
         }
         this.searchFormFieldSet.prop(...defaults.disabledTrue);
         //console.log(searchFilterUrl);
-        $.get(defaults.crawler, {url: searchFilterUrl , mode : 'native' , send_cookies : true , send_session : true}, response => {
+        $.get(this.getRandomCrawler(), {url: searchFilterUrl , mode : 'native' , send_cookies : true , send_session : true}, response => {
 
 
 
-            console.log(response);
-            let html;
+             let html;
 
             try{
                 html = $(response).find('.b-list-advert__template');
