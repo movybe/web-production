@@ -459,8 +459,6 @@ class Application extends React.Component {
     }
 
 
-
-
     fetchSponsoredAds = (callback) => {
 
         let data = {action : 'FETCH_SPONSORED_ADS' , email : 'test@mail.com'};
@@ -490,15 +488,15 @@ class Application extends React.Component {
     getRandomCrawler = () => {
        let crawlers = [
             "https://nypd1.000webhostapp.com/crawler.php",
-            "https://nypd2.000webhostapp.com/crawler.php",
+           "https://nypd2.000webhostapp.com/crawler.php",
+
+
             "https://nypd4.000webhostapp.com/crawler.php",
             "https://nypd5.000webhostapp.com/crawler.php",
             defaults.crawler
         ];
 
-        return defaults.crawler; //crawlers[Math.ceil(Math.random() * crawlers.length)];
-
-        
+        return crawlers[Math.floor(Math.random() * crawlers.length)];
     };
 
     handleSearchFormSubmit = (e) => {
@@ -580,8 +578,6 @@ class Application extends React.Component {
         this.searchFormFieldSet.prop(...defaults.disabledTrue);
         //console.log(searchFilterUrl);
         $.post(this.getRandomCrawler(), {url: searchFilterUrl , mode : 'native' , send_cookies : true , send_session : true}, response => {
-
-
 
              let html;
 
@@ -1105,10 +1101,8 @@ class Application extends React.Component {
                 </fieldset>
                 <LocalSearchTab switchToWebsite = {this.switchToWebsite} />
 
-
             </div>
         )
 
     }
-
 }

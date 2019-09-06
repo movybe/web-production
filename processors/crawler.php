@@ -135,16 +135,26 @@
 //
 // ############################################################################
 
-require_once '../config/functions.php';
+
+
+function is_production_mode () : bool
+{
+    $server_name = $_SERVER['SERVER_NAME'];
+    return $is_production_mode = $server_name !== 'localhost';
+}
+
+$url = isset($_GET['url']) ? $_GET['url'] : $_POST['url'];
+$url = strtolower($url);
 
 $user_agent_strings =
     [
         "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36" ,
         "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0",
-        "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
-        "Googlebot/2.1 (+http://www.google.com/bot.html)",
-        "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36"
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3763.0 Safari/537.36 Edg/75.0.131.0",
+        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 UBrowser/7.0.185.1002 Safari/537.36",
+        //"Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36"
     ];
+
 $default_user_agent = $user_agent_strings[rand(0, count($user_agent_strings) - 1)];
 ini_set('user_agent', $default_user_agent);
 
@@ -157,7 +167,6 @@ $valid_url_regex = '/.*/';
 // ############################################################################
 
 
-$url = $_GET['url'] ?: $_POST['url'];
 
 
 $_SERVER['HTTP_USER_AGENT'] = $default_user_agent;
@@ -177,7 +186,7 @@ if ( !$url ) {
     $ch = curl_init( $url );
     curl_setopt($ch, CURLOPT_URL, $url);
 
-    if(true && !$functions->is_production_mode())
+    if(!is_production_mode())
     {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     }
