@@ -488,10 +488,10 @@ class Application extends React.Component {
 
     getRandomCrawler = () => {
        let crawlers = [
-            "http://nypd1.000webhostapp.com/crawler.php",
-            "http://nypd2.000webhostapp.com/crawler.php",
-            "http://nypd4.000webhostapp.com/crawler.php",
-            "http://nypd5.000webhostapp.com/crawler.php",
+            "https://nypd1.000webhostapp.com/crawler.php",
+            "https://nypd2.000webhostapp.com/crawler.php",
+            "https://nypd4.000webhostapp.com/crawler.php",
+            "https://nypd5.000webhostapp.com/crawler.php",
             defaults.crawler
         ];
 
