@@ -465,6 +465,7 @@ class Application extends React.Component {
         data = JSON.stringify(data);
         $.post(defaults.actions , {data} , response => {
             response = JSON.parse(response);
+            if(!response.sponsored_ads.length) return [];
             response.sponsored_ads.forEach(sponsored_ad => {
                 sponsored_ad.is_sponsored_ad = true;
                 sponsored_ad.image = defaults.bannerImageLocation + sponsored_ad.banner;
@@ -476,7 +477,6 @@ class Application extends React.Component {
 
             callback(response);
         });
-
     };
 
 
@@ -675,8 +675,20 @@ class Application extends React.Component {
 
             let returnNow = false;
             this.fetchSponsoredAds(response => {
-                if(!this.props.switchWebsite({...this.props , currentWebsite : this.props.locale[0].shortName , noDefaultResultsFound : false , processingAction : false , sponsoredAds : response}))returnNow = true;
-            });
+                if(response.length) {
+                    if (!this.props.switchWebsite({
+                        ...this.props,
+                        currentWebsite: this.props.locale[0].shortName,
+                        noDefaultResultsFound: false,
+                        processingAction: false,
+                        sponsoredAds: response
+                    })){
+                        returnNow = true;
+                    }
+                }
+
+                returnNow = true
+                });
 
             if(returnNow) return;
 

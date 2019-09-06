@@ -269,10 +269,8 @@ class Actions extends  Functions
         
         $sponsored_ads = $this->fetch_data_from_sql("SELECT * FROM ads WHERE paused = 0 and active = 1 and approved = 1 and remaining_units > 0
 ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
-
         $ad_rate = null;
         $ad_id = null;
-
         foreach ($sponsored_ads as $sponsored_ad)
 
         {
@@ -287,7 +285,6 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
             else {
                 $this->perform_ad_actions($sponsored_ad , true , true , false);
             }
-
 
 
         }

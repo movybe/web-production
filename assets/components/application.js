@@ -505,6 +505,7 @@ function (_React$Component) {
         data: data
       }, function (response) {
         response = JSON.parse(response);
+        if (!response.sponsored_ads.length) return [];
         response.sponsored_ads.forEach(function (sponsored_ad) {
           sponsored_ad.is_sponsored_ad = true;
           sponsored_ad.image = defaults.bannerImageLocation + sponsored_ad.banner;
@@ -674,12 +675,18 @@ function (_React$Component) {
         var returnNow = false;
 
         _this.fetchSponsoredAds(function (response) {
-          if (!_this.props.switchWebsite(_objectSpread({}, _this.props, {
-            currentWebsite: _this.props.locale[0].shortName,
-            noDefaultResultsFound: false,
-            processingAction: false,
-            sponsoredAds: response
-          }))) returnNow = true;
+          if (response.length) {
+            if (!_this.props.switchWebsite(_objectSpread({}, _this.props, {
+              currentWebsite: _this.props.locale[0].shortName,
+              noDefaultResultsFound: false,
+              processingAction: false,
+              sponsoredAds: response
+            }))) {
+              returnNow = true;
+            }
+          }
+
+          returnNow = true;
         });
 
         if (returnNow) return;
