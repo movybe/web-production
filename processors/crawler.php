@@ -189,7 +189,7 @@ if ( !$url ) {
         //curl_setopt( $ch, CURLOPT_POSTFIELDS, $_POST );
     }
 
-    if (true && isset($_GET['send_cookies']) or isset($_POST['send_cookies'])) {
+    if (isset($_GET['send_cookies']) or isset($_POST['send_cookies'])) {
         $cookie = array();
         foreach ( $_COOKIE as $key => $value ) {
             $cookie[] = $key . '=' . $value;

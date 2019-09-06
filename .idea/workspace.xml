@@ -139,20 +139,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/src/application.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="498" lean-forward="true" selection-start-line="498" selection-end-line="498" />
+            <state relative-caret-position="130">
+              <caret line="383" lean-forward="true" selection-start-line="383" selection-end-line="383" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/processors/crawler.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="293" column="2" lean-forward="true" selection-start-line="293" selection-start-column="2" selection-end-line="293" selection-end-column="2" />
+            <state relative-caret-position="353">
+              <caret line="196" column="10" lean-forward="true" selection-start-line="196" selection-start-column="10" selection-end-line="196" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -188,8 +188,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>CLOSE</find>
-      <find>create</find>
       <find>affiliate si</find>
       <find>refererUsername</find>
       <find>this.isReferrallL</find>
@@ -218,6 +216,8 @@
       <find>random</find>
       <find>defaults.cr</find>
       <find>console</find>
+      <find>.get(</find>
+      <find>$.get(this.getRandomCrawler()</find>
     </findStrings>
     <replaceStrings>
       <replace>tour</replace>
@@ -228,6 +228,8 @@
       <replace>Offer</replace>
       <replace>{defaults.siteName}</replace>
       <replace>referrerUsername</replace>
+      <replace>.post(</replace>
+      <replace>$.post(this.getRandomCrawler()</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\xampp\htdocs\web-production\assets\src</dir>
@@ -283,8 +285,8 @@
         <option value="$PROJECT_DIR$/assets/src/campaign.js" />
         <option value="$PROJECT_DIR$/assets/src/merchant-header.js" />
         <option value="$PROJECT_DIR$/config/DatabaseConnection.php" />
-        <option value="$PROJECT_DIR$/processors/crawler.php" />
         <option value="$PROJECT_DIR$/assets/src/application.js" />
+        <option value="$PROJECT_DIR$/processors/crawler.php" />
       </list>
     </option>
   </component>
@@ -305,7 +307,7 @@
   <component name="PhpServers">
     <servers />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1382" />
@@ -431,17 +433,17 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="454113000" />
+    <option name="totallyTimeSpent" value="455766000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.39863843" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.39863843" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="0" weight="0.3287037" />
-      <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.1879085" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.1879085" />
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="4" weight="0.32843137" />
@@ -815,17 +817,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/processors/crawler.php">
+    <entry file="file://$PROJECT_DIR$/assets/src/application.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="293" column="2" lean-forward="true" selection-start-line="293" selection-start-column="2" selection-end-line="293" selection-end-column="2" />
+        <state relative-caret-position="130">
+          <caret line="383" lean-forward="true" selection-start-line="383" selection-end-line="383" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/application.js">
+    <entry file="file://$PROJECT_DIR$/processors/crawler.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="498" lean-forward="true" selection-start-line="498" selection-end-line="498" />
+        <state relative-caret-position="353">
+          <caret line="196" column="10" lean-forward="true" selection-start-line="196" selection-start-column="10" selection-end-line="196" selection-end-column="10" />
         </state>
       </provider>
     </entry>

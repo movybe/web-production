@@ -121,7 +121,7 @@ class Application extends React.Component {
                 let url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
 
 
-                $.get(this.getRandomCrawler() , {url , mode : 'native', send_cookies : true , send_session : true} , response => {
+                $.post(this.getRandomCrawler() , {url , mode : 'native', send_cookies : true , send_session : true} , response => {
 
                     let html;
                     try{
@@ -179,7 +179,7 @@ class Application extends React.Component {
                 break;
             case 'jumia' :
                 url = `https://www.jumia.com.ng/catalog/?q=${q}&page=${pageNumber}`;
-                $.get(this.getRandomCrawler() , {url, mode : 'native'} , response => {
+                $.post(this.getRandomCrawler() , {url, mode : 'native'} , response => {
                     let html;
                     try{
                         html = $(response).find('.sku.-gallery');
@@ -306,7 +306,7 @@ class Application extends React.Component {
 
 
 
-                $.get(this.getRandomCrawler() , {url, mode : 'native'} , response => {
+                $.post(this.getRandomCrawler() , {url, mode : 'native'} , response => {
 
                     let html;
 
@@ -384,7 +384,7 @@ class Application extends React.Component {
 
                 var getRequest = () => {
 
-                    $.get(this.getRandomCrawler(), {url, mode : 'native'}, response => {
+                    $.post(this.getRandomCrawler(), {url, mode : 'native'}, response => {
 
                         try {
                             response = JSON.parse(response);
@@ -497,7 +497,7 @@ class Application extends React.Component {
 
         return defaults.crawler; //crawlers[Math.ceil(Math.random() * crawlers.length)];
 
-
+        
     };
 
     handleSearchFormSubmit = (e) => {
@@ -578,7 +578,7 @@ class Application extends React.Component {
         }
         this.searchFormFieldSet.prop(...defaults.disabledTrue);
         //console.log(searchFilterUrl);
-        $.get(this.getRandomCrawler(), {url: searchFilterUrl , mode : 'native' , send_cookies : true , send_session : true}, response => {
+        $.post(this.getRandomCrawler(), {url: searchFilterUrl , mode : 'native' , send_cookies : true , send_session : true}, response => {
 
 
 
