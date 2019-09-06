@@ -180,6 +180,7 @@ class Application extends React.Component {
             case 'jumia' :
                 url = `https://www.jumia.com.ng/catalog/?q=${q}&page=${pageNumber}`;
                 $.post(this.getRandomCrawler() , {url, mode : 'native'} , response => {
+                    console.log(response);
                     let html;
                     try{
                         html = $(response).find('.sku.-gallery');

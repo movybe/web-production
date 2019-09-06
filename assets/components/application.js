@@ -172,7 +172,7 @@ function (_React$Component) {
       switch (website) {
         case 'jiji':
           var url = "https://jiji.ng/search?query=".concat(q, "&page=").concat(pageNumber);
-          $.get(_this.getRandomCrawler(), {
+          $.post(_this.getRandomCrawler(), {
             url: url,
             mode: 'native',
             send_cookies: true,
@@ -235,10 +235,11 @@ function (_React$Component) {
 
         case 'jumia':
           url = "https://www.jumia.com.ng/catalog/?q=".concat(q, "&page=").concat(pageNumber);
-          $.get(_this.getRandomCrawler(), {
+          $.post(_this.getRandomCrawler(), {
             url: url,
             mode: 'native'
           }, function (response) {
+            console.log(response);
             var html;
 
             try {
@@ -369,7 +370,7 @@ function (_React$Component) {
 
         case 'deals':
           url = "https://deals.jumia.com.ng/catalog?search-keyword=".concat(q, "&page=").concat(pageNumber);
-          $.get(_this.getRandomCrawler(), {
+          $.post(_this.getRandomCrawler(), {
             url: url,
             mode: 'native'
           }, function (response) {
@@ -433,7 +434,7 @@ function (_React$Component) {
           url = "http://admin.shopping.habarigt.com/index.php/rest/V1/product-list-by-slug/all?q=".concat(q, "&limit=19&page=").concat(pageNumber);
 
           var getRequest = function getRequest() {
-            $.get(_this.getRandomCrawler(), {
+            $.post(_this.getRandomCrawler(), {
               url: url,
               mode: 'native'
             }, function (response) {
@@ -580,7 +581,7 @@ function (_React$Component) {
       (_this$searchFormField2 = _this.searchFormFieldSet).prop.apply(_this$searchFormField2, _toConsumableArray(defaults.disabledTrue)); //console.log(searchFilterUrl);
 
 
-      $.get(_this.getRandomCrawler(), {
+      $.post(_this.getRandomCrawler(), {
         url: searchFilterUrl,
         mode: 'native',
         send_cookies: true,
