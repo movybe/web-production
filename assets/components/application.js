@@ -172,9 +172,11 @@ function (_React$Component) {
       switch (website) {
         case 'jiji':
           var url = "https://jiji.ng/search?query=".concat(q, "&page=").concat(pageNumber);
-          $.get(defaults.crawler, {
+          $.get(_this.getRandomCrawler(), {
             url: url,
-            mode: 'native'
+            mode: 'native',
+            send_cookies: true,
+            send_session: true
           }, function (response) {
             var html;
 
@@ -233,7 +235,7 @@ function (_React$Component) {
 
         case 'jumia':
           url = "https://www.jumia.com.ng/catalog/?q=".concat(q, "&page=").concat(pageNumber);
-          $.get(defaults.crawler, {
+          $.get(_this.getRandomCrawler(), {
             url: url,
             mode: 'native'
           }, function (response) {
@@ -367,7 +369,7 @@ function (_React$Component) {
 
         case 'deals':
           url = "https://deals.jumia.com.ng/catalog?search-keyword=".concat(q, "&page=").concat(pageNumber);
-          $.get(defaults.crawler, {
+          $.get(_this.getRandomCrawler(), {
             url: url,
             mode: 'native'
           }, function (response) {
@@ -431,7 +433,7 @@ function (_React$Component) {
           url = "http://admin.shopping.habarigt.com/index.php/rest/V1/product-list-by-slug/all?q=".concat(q, "&limit=19&page=").concat(pageNumber);
 
           var getRequest = function getRequest() {
-            $.get(defaults.crawler, {
+            $.get(_this.getRandomCrawler(), {
               url: url,
               mode: 'native'
             }, function (response) {
@@ -513,6 +515,11 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "getRandomCrawler", function () {
+      var crawlers = ["http://nypd1.000webhostapp.com/crawler.php", "http://nypd2.000webhostapp.com/crawler.php", "http://nypd4.000webhostapp.com/crawler.php", "http://nypd5.000webhostapp.com/crawler.php", defaults.crawler];
+      return crawlers[Math.ceil(Math.random() * crawlers.length)];
+    });
+
     _defineProperty(_assertThisInitialized(_this), "handleSearchFormSubmit", function (e) {
       var _this$searchFormField2;
 
@@ -573,13 +580,14 @@ function (_React$Component) {
       (_this$searchFormField2 = _this.searchFormFieldSet).prop.apply(_this$searchFormField2, _toConsumableArray(defaults.disabledTrue)); //console.log(searchFilterUrl);
 
 
-      $.get(defaults.crawler, {
+      $.get(_this.getRandomCrawler(), {
         url: searchFilterUrl,
-        mode: 'native'
+        mode: 'native',
+        send_cookies: true,
+        send_session: true
       }, function (response) {
         var _this$searchFormField3;
 
-        console.log(response);
         var html;
 
         try {
