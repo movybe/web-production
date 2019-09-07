@@ -144,6 +144,7 @@ function is_production_mode () : bool
 }
 
 $url = isset($_GET['url']) ? $_GET['url'] : $_POST['url'];
+
 $url = strtolower($url);
 
 $user_agent_strings =
@@ -155,7 +156,12 @@ $user_agent_strings =
         //"Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36"
     ];
 
-$default_user_agent = $user_agent_strings[rand(0, count($user_agent_strings) - 1)];
+$default_user_agent = null;
+$user_agent_string_key = 'user_agent_string';
+if(isset($_GET[$user_agent_string_key])) $default_user_agent = $_GET[$user_agent_string_key];
+else if(isset($_POST[$user_agent_string_key]))$default_user_agent = $_POST[$user_agent_string_key];
+else $default_user_agent = $user_agent_strings[rand(0, count($user_agent_strings) - 1)];
+
 ini_set('user_agent', $default_user_agent);
 
 

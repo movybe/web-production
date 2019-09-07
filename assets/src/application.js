@@ -10,6 +10,44 @@ class Application extends React.Component {
     networkError = "failed to receive response, check your network connection";
 
 
+    getRandomUserAgent = (desktop = true) =>
+    {
+        let DesktopUserAgentStrings = [
+            "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36" ,
+            "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3763.0 Safari/537.36 Edg/75.0.131.0",
+            "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 UBrowser/7.0.185.1002 Safari/537.36",
+            //"Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36"
+        ];
+
+        let mobileUserAgentStrings = [
+            "Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>",
+            "Mozilla/5.0 (Android; Mobile; rv:40.0) Gecko/40.0 Firefox/40.0"
+        ];
+
+        let platformArray = desktop ? DesktopUserAgentStrings : mobileUserAgentStrings;
+
+        return platformArray[Math.floor(Math.random() * platformArray.length)];
+    };
+
+
+    getRandomCrawler = () => {
+        let crawlers = [
+            "https://nypd1.000webhostapp.com/crawler.php",
+            "https://nypd2.000webhostapp.com/crawler.php",
+            "https://nypd4.000webhostapp.com/crawler.php",
+            "https://nypd5.000webhostapp.com/crawler.php",
+            defaults.crawler
+        ];
+        return crawlers[Math.floor(Math.random() * crawlers.length)];
+    };
+
+    getRequestObject = (url , desktop = true) => {
+        return {url , mode : 'native', send_cookies : true , send_session : true , user_agent_string : this.getRandomUserAgent(desktop)}
+
+    };
+
+
     constructor() {
         super();
     }
@@ -116,12 +154,13 @@ class Application extends React.Component {
         };
 
         switch (website) {
-            case 'jiji' :
+            case 'olist' :
 
-                let url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
+                let url = `https://olist.ng/search?keyword=${q}&state_id=&page=${pageNumber}`;
 
 
-                $.post(this.getRandomCrawler() , {url , mode : 'native', send_cookies : true , send_session : true} , response => {
+                $.post(this.getRandomCrawler() , this.getRequestObject(url) , response => {
+
 
                     let html;
                     try{
@@ -146,14 +185,14 @@ class Application extends React.Component {
                         html.each(function (index) {
                             ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
 
-                            ad.title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
+                            ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
                             ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-                            ad.price = $.trim($(this).find('.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
-                            ad.link = $(this).find('.js-advert-link').attr('href');
-                            ad.image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
+                            ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
+                            ad.link = "https://olist.ng"+$(this).find('.js-advert-link').attr('href');
+                            ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
                             ad.location = $(this).find('.b-list-advert__item-region').text();
-                            ad.linkText = ad.link.truncate(defaults.maxLinkLength);
-                            for(prop in ad){
+                            ad.linkText = ad.link.truncate(defaults.maxLinkLength);  for(prop in ad){
+
                                 if(prop === "showAdImage")continue;
                                 else if(ad[prop] === null ||  typeof ad[prop] === 'undefined' )
                                 {
@@ -179,8 +218,8 @@ class Application extends React.Component {
                 break;
             case 'jumia' :
                 url = `https://www.jumia.com.ng/catalog/?q=${q}&page=${pageNumber}`;
-                $.post(this.getRandomCrawler() , {url, mode : 'native'} , response => {
-                    console.log(response);
+                $.post(this.getRandomCrawler() , this.getRequestObject(url) , response => {
+
                     let html;
                     try{
                         html = $(response).find('.sku.-gallery');
@@ -249,8 +288,6 @@ class Application extends React.Component {
                 url = "https://b9zcrrrvom-3.algolianet.com/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.30.0%3Breact-instantsearch%205.3.2%3BJS%20Helper%202.26.1&x-algolia-application-id=B9ZCRRRVOM&x-algolia-api-key=cb605b0936b05ce1a62d96f53daa24f7";
                 let postData = {"requests":[{"indexName":"catalog_store_konga","params":`query=${query.replace(" " , "%20")}&maxValuesPerFacet=50&page=${pageNumber}&highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&facets=%5B%22special_price%22%2C%22attributes.brand%22%2C%22attributes.screen_size%22%2C%22attributes.ram_gb%22%2C%22attributes.sim%22%2C%22attributes.sim_slots%22%2C%22attributes.capacity%22%2C%22attributes.battery%22%2C%22attributes.connectivity%22%2C%22attributes.hard_drive%22%2C%22attributes.internal%22%2C%22attributes.tv_screen_size%22%2C%22attributes.operating_system%22%2C%22attributes.kids_shoes%22%2C%22attributes.heel_type%22%2C%22attributes.heel_height%22%2C%22attributes.leg_width%22%2C%22attributes.fastening%22%2C%22attributes.shirt_size%22%2C%22attributes.shoe_size%22%2C%22attributes.lingerie_size%22%2C%22attributes.pants_size%22%2C%22attributes.size%22%2C%22attributes.color%22%2C%22attributes.mainmaterial%22%2C%22konga_fulfilment_type%22%2C%22is_pay_on_delivery%22%2C%22is_free_shipping%22%2C%22pickup%22%2C%22categories.lvl0%22%5D&tagFilters=&ruleContexts=%5B%22%22%5D`}]};
                 $.post(url , JSON.stringify(postData) , response => {
-
-
                     if(!response.results) return showError();
                     if(!response.results.length) return showError(false);
 
@@ -307,7 +344,7 @@ class Application extends React.Component {
 
 
 
-                $.post(this.getRandomCrawler() , {url, mode : 'native'} , response => {
+                $.post(this.getRandomCrawler() , this.getRequestObject(url) , response => {
 
                     let html;
 
@@ -383,9 +420,9 @@ class Application extends React.Component {
                 url = `http://admin.shopping.habarigt.com/index.php/rest/V1/product-list-by-slug/all?q=${q}&limit=19&page=${pageNumber}`;
 
 
-                var getRequest = () => {
+                let getRequest = () => {
 
-                    $.post(this.getRandomCrawler(), {url, mode : 'native'}, response => {
+                    $.post(this.getRandomCrawler(), this.getRequestObject(url), response => {
 
                         try {
                             response = JSON.parse(response);
@@ -483,22 +520,6 @@ class Application extends React.Component {
     /*******     ***********/
 
 
-
-
-    getRandomCrawler = () => {
-       let crawlers = [
-            "https://nypd1.000webhostapp.com/crawler.php",
-           "https://nypd2.000webhostapp.com/crawler.php",
-
-
-            "https://nypd4.000webhostapp.com/crawler.php",
-            "https://nypd5.000webhostapp.com/crawler.php",
-            defaults.crawler
-        ];
-
-        return crawlers[Math.floor(Math.random() * crawlers.length)];
-    };
-
     handleSearchFormSubmit = (e) => {
 
         e.preventDefault();
@@ -542,7 +563,7 @@ class Application extends React.Component {
         const q = this.searchQuery.split(" ").join("+");
 
         //The default website to make the search and filter contents
-        let searchFilterUrl = `https://jiji.ng/search?query=${q}&page=0`;
+        let searchFilterUrl = `https://olist.ng/search?keyword=${q}&state_id=&page=1`;
 
 
 
@@ -577,17 +598,18 @@ class Application extends React.Component {
         }
         this.searchFormFieldSet.prop(...defaults.disabledTrue);
         //console.log(searchFilterUrl);
-        $.post(this.getRandomCrawler(), {url: searchFilterUrl , mode : 'native' , send_cookies : true , send_session : true}, response => {
+        $.post(this.getRandomCrawler(), this.getRequestObject(searchFilterUrl , true), response => {
 
+            console.log(response);
              let html;
 
             try{
-                html = $(response).find('.b-list-advert__template');
+                html = $(response).find('.b-list-advert__item.qa-advert-list-item');
+                console.log(html.length)
             }
-            catch (e){
-                console.log();
-            }
+            catch (e){console.log();}
 
+            console.log(html.length);
             //Check if there is not data returned, meaning empty result
             if (!html.length) {
 
@@ -621,7 +643,7 @@ class Application extends React.Component {
 
 
             html.each(function (index) {
-                titles.push($.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength).toLowerCase());
+                titles.push($.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength).toLowerCase());
             });
 
 
@@ -647,14 +669,13 @@ class Application extends React.Component {
 
 
                 try {
-                    ad.title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
+                    ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
                     ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-                    ad.price = $.trim($(this).find('.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
-                    ad.link = $(this).find('.js-advert-link').attr('href');
-                    ad.image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
+                    ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
+                    ad.link = "https://olist.ng"+$(this).find('.js-advert-link').attr('href');
+                    ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
                     ad.location = $(this).find('.b-list-advert__item-region').text();
                     ad.linkText = ad.link.truncate(defaults.maxLinkLength);
-
 
                     for(prop in ad){
                         if(prop === "showAdImage")continue;
@@ -922,6 +943,8 @@ class Application extends React.Component {
         });
 
     };
+
+
 
 
 

@@ -58,6 +58,30 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "networkError", "failed to receive response, check your network connection");
 
+    _defineProperty(_assertThisInitialized(_this), "getRandomUserAgent", function () {
+      var desktop = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      var DesktopUserAgentStrings = ["Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3763.0 Safari/537.36 Edg/75.0.131.0", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 UBrowser/7.0.185.1002 Safari/537.36"];
+      var mobileUserAgentStrings = ["Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>", "Mozilla/5.0 (Android; Mobile; rv:40.0) Gecko/40.0 Firefox/40.0"];
+      var platformArray = desktop ? DesktopUserAgentStrings : mobileUserAgentStrings;
+      return platformArray[Math.floor(Math.random() * platformArray.length)];
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "getRandomCrawler", function () {
+      var crawlers = ["https://nypd1.000webhostapp.com/crawler.php", "https://nypd2.000webhostapp.com/crawler.php", "https://nypd4.000webhostapp.com/crawler.php", "https://nypd5.000webhostapp.com/crawler.php", defaults.crawler];
+      return crawlers[Math.floor(Math.random() * crawlers.length)];
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "getRequestObject", function (url) {
+      var desktop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      return {
+        url: url,
+        mode: 'native',
+        send_cookies: true,
+        send_session: true,
+        user_agent_string: _this.getRandomUserAgent(desktop)
+      };
+    });
+
     _defineProperty(_assertThisInitialized(_this), "switchToWebsite", function (website) {
       var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var loadMore = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
@@ -170,14 +194,9 @@ function (_React$Component) {
       };
 
       switch (website) {
-        case 'jiji':
-          var url = "https://jiji.ng/search?query=".concat(q, "&page=").concat(pageNumber);
-          $.post(_this.getRandomCrawler(), {
-            url: url,
-            mode: 'native',
-            send_cookies: true,
-            send_session: true
-          }, function (response) {
+        case 'olist':
+          var url = "https://olist.ng/search?keyword=".concat(q, "&state_id=&page=").concat(pageNumber);
+          $.post(_this.getRandomCrawler(), _this.getRequestObject(url), function (response) {
             var html;
 
             try {
@@ -204,11 +223,11 @@ function (_React$Component) {
                   linkText: null,
                   location: null
                 };
-                ad.title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
+                ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
                 ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-                ad.price = $.trim($(this).find('.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
-                ad.link = $(this).find('.js-advert-link').attr('href');
-                ad.image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
+                ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
+                ad.link = "https://olist.ng" + $(this).find('.js-advert-link').attr('href');
+                ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
                 ad.location = $(this).find('.b-list-advert__item-region').text();
                 ad.linkText = ad.link.truncate(defaults.maxLinkLength);
 
@@ -235,11 +254,7 @@ function (_React$Component) {
 
         case 'jumia':
           url = "https://www.jumia.com.ng/catalog/?q=".concat(q, "&page=").concat(pageNumber);
-          $.post(_this.getRandomCrawler(), {
-            url: url,
-            mode: 'native'
-          }, function (response) {
-            console.log(response);
+          $.post(_this.getRandomCrawler(), _this.getRequestObject(url), function (response) {
             var html;
 
             try {
@@ -370,10 +385,7 @@ function (_React$Component) {
 
         case 'deals':
           url = "https://deals.jumia.com.ng/catalog?search-keyword=".concat(q, "&page=").concat(pageNumber);
-          $.post(_this.getRandomCrawler(), {
-            url: url,
-            mode: 'native'
-          }, function (response) {
+          $.post(_this.getRandomCrawler(), _this.getRequestObject(url), function (response) {
             var html;
 
             try {
@@ -434,10 +446,7 @@ function (_React$Component) {
           url = "http://admin.shopping.habarigt.com/index.php/rest/V1/product-list-by-slug/all?q=".concat(q, "&limit=19&page=").concat(pageNumber);
 
           var getRequest = function getRequest() {
-            $.post(_this.getRandomCrawler(), {
-              url: url,
-              mode: 'native'
-            }, function (response) {
+            $.post(_this.getRandomCrawler(), _this.getRequestObject(url), function (response) {
               try {
                 response = JSON.parse(response);
               } catch (e) {
@@ -517,11 +526,6 @@ function (_React$Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getRandomCrawler", function () {
-      var crawlers = ["https://nypd1.000webhostapp.com/crawler.php", "https://nypd2.000webhostapp.com/crawler.php", "https://nypd4.000webhostapp.com/crawler.php", "https://nypd5.000webhostapp.com/crawler.php", defaults.crawler];
-      return crawlers[Math.floor(Math.random() * crawlers.length)];
-    });
-
     _defineProperty(_assertThisInitialized(_this), "handleSearchFormSubmit", function (e) {
       var _this$searchFormField2;
 
@@ -551,7 +555,7 @@ function (_React$Component) {
       var q = _this.searchQuery.split(" ").join("+"); //The default website to make the search and filter contents
 
 
-      var searchFilterUrl = "https://jiji.ng/search?query=".concat(q, "&page=0");
+      var searchFilterUrl = "https://olist.ng/search?keyword=".concat(q, "&state_id=&page=1");
 
       _this.props.locale.forEach(function (obj) {
         Object.keys(obj).map(function (key) {
@@ -582,22 +586,20 @@ function (_React$Component) {
       (_this$searchFormField2 = _this.searchFormFieldSet).prop.apply(_this$searchFormField2, _toConsumableArray(defaults.disabledTrue)); //console.log(searchFilterUrl);
 
 
-      $.post(_this.getRandomCrawler(), {
-        url: searchFilterUrl,
-        mode: 'native',
-        send_cookies: true,
-        send_session: true
-      }, function (response) {
+      $.post(_this.getRandomCrawler(), _this.getRequestObject(searchFilterUrl, true), function (response) {
         var _this$searchFormField3;
 
+        console.log(response);
         var html;
 
         try {
-          html = $(response).find('.b-list-advert__template');
+          html = $(response).find('.b-list-advert__item.qa-advert-list-item');
+          console.log(html.length);
         } catch (e) {
           console.log();
-        } //Check if there is not data returned, meaning empty result
+        }
 
+        console.log(html.length); //Check if there is not data returned, meaning empty result
 
         if (!html.length) {
           //M.toast({html: this.enterValidKeywordsWarning});
@@ -629,7 +631,7 @@ function (_React$Component) {
 
         var titles = [];
         html.each(function (index) {
-          titles.push($.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength).toLowerCase());
+          titles.push($.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength).toLowerCase());
         });
 
         _this.filterTitles(titles);
@@ -652,11 +654,11 @@ function (_React$Component) {
               addNewAd = true;
 
           try {
-            ad.title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
+            ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
             ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-            ad.price = $.trim($(this).find('.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
-            ad.link = $(this).find('.js-advert-link').attr('href');
-            ad.image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
+            ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
+            ad.link = "https://olist.ng" + $(this).find('.js-advert-link').attr('href');
+            ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
             ad.location = $(this).find('.b-list-advert__item-region').text();
             ad.linkText = ad.link.truncate(defaults.maxLinkLength);
 

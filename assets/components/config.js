@@ -38,9 +38,9 @@ function Config() {
     formSubmitted: false,
     processingAction: false,
     locale: [{
-      shortName: "jiji",
-      name: "jiji",
-      textColor: 'green',
+      shortName: "olist",
+      name: "olist",
+      textColor: 'blue',
       ads: [],
       page: 0,
       error: "",
@@ -172,7 +172,7 @@ function Config() {
     sponsoredAdsClicked: [],
     lastUpdated:
     /*dd-mm-yyyy HH:MM*/
-    "07-07-2019 19:51",
+    "07-09-2019 19:51",
     updateOnlyAds: true,
     sponsoredAds: []
   });
