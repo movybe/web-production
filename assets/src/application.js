@@ -1097,14 +1097,13 @@ class Application extends React.Component {
         let validTitles = [];
 
         const titles = titlesArr.forEach(title => {
-            let currentTitle = title.toLowerCase();
+            let currentTitle = title.toLowerCase().replace(/ +(?= )/g,'');
             let currentTitleToArray = currentTitle.split(" ");
             currentTitleToArray.forEach(word => {
                 if (validTitles.indexOf(word) < 0) {
                     validTitles.push(word);
                 }
             });
-
         });
 
 

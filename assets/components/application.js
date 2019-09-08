@@ -958,7 +958,7 @@ function (_React$Component) {
       //an array containing all the titles of the first search
       var validTitles = [];
       var titles = titlesArr.forEach(function (title) {
-        var currentTitle = title.toLowerCase();
+        var currentTitle = title.toLowerCase().replace(/ +(?= )/g, '');
         var currentTitleToArray = currentTitle.split(" ");
         currentTitleToArray.forEach(function (word) {
           if (validTitles.indexOf(word) < 0) {

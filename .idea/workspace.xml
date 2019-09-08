@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/assets/src/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/application.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/search-tabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/search-tabs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/DatabaseConnection.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/DatabaseConnection.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/processors/actions.php" beforeDir="false" afterPath="$PROJECT_DIR$/processors/actions.php" afterDir="false" />
-    </list>
+    <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +101,7 @@
           <entry key="css" value="587" />
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="26" />
-          <entry key="js" value="26744" />
+          <entry key="js" value="26753" />
           <entry key="php" value="14262" />
         </counts>
       </usages-collector>
@@ -116,7 +109,7 @@
         <counts>
           <entry key="CSS" value="587" />
           <entry key="HTML" value="17" />
-          <entry key="JavaScript" value="30080" />
+          <entry key="JavaScript" value="30089" />
           <entry key="PHP" value="14293" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="30" />
@@ -139,8 +132,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/src/application.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="245" lean-forward="true" selection-start-line="245" selection-end-line="245" />
+            <state relative-caret-position="192">
+              <caret line="1099" column="50" selection-start-line="1099" selection-start-column="50" selection-end-line="1099" selection-end-column="50" />
               <folding>
                 <element signature="e#471#1640#0" />
                 <element signature="e#457#872#0" />
@@ -473,12 +466,12 @@
       <workItem from="1564086241174" duration="5374000" />
       <workItem from="1564105421786" duration="6359000" />
       <workItem from="1567801564071" duration="9968000" />
-      <workItem from="1567848870284" duration="44662000" />
+      <workItem from="1567848870284" duration="45551000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="510396000" />
+    <option name="totallyTimeSpent" value="511285000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -488,7 +481,7 @@
       <window_info content_ui="combo" id="Project" order="1" weight="0.4107413" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="0" weight="0.3287037" />
-      <window_info anchor="bottom" id="Terminal" order="1" weight="0.1879085" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.1879085" />
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="4" weight="0.32843137" />
@@ -871,8 +864,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/application.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="245" lean-forward="true" selection-start-line="245" selection-end-line="245" />
+        <state relative-caret-position="192">
+          <caret line="1099" column="50" selection-start-line="1099" selection-start-column="50" selection-end-line="1099" selection-end-column="50" />
           <folding>
             <element signature="e#471#1640#0" />
             <element signature="e#457#872#0" />
