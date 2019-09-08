@@ -58,6 +58,8 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "networkError", "failed to receive response, check your network connection");
 
+    _defineProperty(_assertThisInitialized(_this), "updateSearchResultAction", 'UPDATE_SEARCH_RESULT');
+
     _defineProperty(_assertThisInitialized(_this), "getRandomUserAgent", function () {
       var desktop = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
       var DesktopUserAgentStrings = ["Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3763.0 Safari/537.36 Edg/75.0.131.0", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 UBrowser/7.0.185.1002 Safari/537.36"];
@@ -193,275 +195,33 @@ function (_React$Component) {
         }))) return;
       };
 
+      var resp;
+
       switch (website) {
         case 'olist':
           var url = "https://olist.ng/search?keyword=".concat(q, "&state_id=&page=").concat(pageNumber);
-          $.post(_this.getRandomCrawler(), _this.getRequestObject(url), function (response) {
-            var html;
 
-            try {
-              html = $(response).find('.b-list-advert__template');
-            } catch (e) {
-              showError();
-            }
+          _this.tryGetCachedResult(_this.getRandomCrawler(), _this.getRequestObject(url), url, function (response) {
+            resp = response;
 
-            if (!html.length) return showError(); //Clearing some memory
+            if (response.is_html) {
+              var html;
 
-            response = null;
-            {
-              var ad;
-              var counter = 0;
-              var prop,
-                  addNewAd = true;
-              html.each(function (index) {
-                ad = {
-                  title: null,
-                  description: null,
-                  price: null,
-                  image: null,
-                  link: null,
-                  linkText: null,
-                  location: null
-                };
-                ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
-                ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-                ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
-                ad.link = "https://olist.ng" + $(this).find('.js-advert-link').attr('href');
-                ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
-                ad.location = $(this).find('.b-list-advert__item-region').text();
-                ad.linkText = ad.link.truncate(defaults.maxLinkLength);
-
-                for (prop in ad) {
-                  if (prop === "showAdImage") continue;else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
-                    addNewAd = false;
-                    break;
-                  }
-                }
-
-                if (addNewAd) selectedEcommerce.ads.push(ad);
-              });
-              selectedEcommerce.page += 1;
-              _this.props.locale[index] = selectedEcommerce;
-              var previousLocale = _this.props.locale;
-              savedState = _objectSpread({}, _this.props, {
-                locale: previousLocale,
-                currentWebsite: website
-              });
-              defaultAction();
-            }
-          });
-          break;
-
-        case 'jumia':
-          url = "https://www.jumia.com.ng/catalog/?q=".concat(q, "&page=").concat(pageNumber);
-          $.post(_this.getRandomCrawler(), _this.getRequestObject(url), function (response) {
-            var html;
-
-            try {
-              html = $(response).find('.sku.-gallery');
-            } catch (e) {
-              return showError();
-            }
-
-            if (!html.length) return showError();
-            response = null;
-            {
-              var title;
-              var description;
-              var image;
-              var price;
-              var ad; //let location;
-
-              var link,
-                  prop,
-                  addNewAd = true;
-              html.each(function (index) {
-                ad = {
-                  title: null,
-                  description: null,
-                  price: null,
-                  image: null,
-                  link: null,
-                  linkText: null,
-                  location: null
-                };
-                title = $.trim($(this).find('.name').text()).truncate(defaults.maxTitleLength);
-                description = $.trim($(this).find('.name').text()).truncate(defaults.maxDescriptionLength);
-                image = $.trim($(this).find('.lazy.image').attr('data-src'));
-                price = $.trim($(this).find('.price').first().text().replace(/^\D+/g, '')).toLocaleString();
-                link = $(this).find('.link').attr('href'); //location = $(this).find('.b-list-advert__item-region').text();
-
-                if (title !== "") {
-                  ad.title = title;
-                  ad.description = description;
-                  ad.image = image;
-                  ad.price = price;
-                  ad.link = link;
-                  ad.location = "";
-                  ad.linkText = link.truncate(defaults.maxLinkLength);
-
-                  for (prop in ad) {
-                    if (prop === "showAdImage") continue;else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
-                      addNewAd = false;
-                      break;
-                    }
-                  }
-
-                  if (addNewAd) selectedEcommerce.ads.push(ad);
-                }
-              });
-              selectedEcommerce.page += 1;
-              _this.props.locale[index] = selectedEcommerce;
-              var previousLocale = _this.props.locale;
-              savedState = _objectSpread({}, _this.props, {
-                locale: previousLocale,
-                currentWebsite: website
-              });
-              defaultAction();
-            }
-          });
-          break;
-
-        case 'konga':
-          url = "https://b9zcrrrvom-3.algolianet.com/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.30.0%3Breact-instantsearch%205.3.2%3BJS%20Helper%202.26.1&x-algolia-application-id=B9ZCRRRVOM&x-algolia-api-key=cb605b0936b05ce1a62d96f53daa24f7";
-          var postData = {
-            "requests": [{
-              "indexName": "catalog_store_konga",
-              "params": "query=".concat(query.replace(" ", "%20"), "&maxValuesPerFacet=50&page=").concat(pageNumber, "&highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&facets=%5B%22special_price%22%2C%22attributes.brand%22%2C%22attributes.screen_size%22%2C%22attributes.ram_gb%22%2C%22attributes.sim%22%2C%22attributes.sim_slots%22%2C%22attributes.capacity%22%2C%22attributes.battery%22%2C%22attributes.connectivity%22%2C%22attributes.hard_drive%22%2C%22attributes.internal%22%2C%22attributes.tv_screen_size%22%2C%22attributes.operating_system%22%2C%22attributes.kids_shoes%22%2C%22attributes.heel_type%22%2C%22attributes.heel_height%22%2C%22attributes.leg_width%22%2C%22attributes.fastening%22%2C%22attributes.shirt_size%22%2C%22attributes.shoe_size%22%2C%22attributes.lingerie_size%22%2C%22attributes.pants_size%22%2C%22attributes.size%22%2C%22attributes.color%22%2C%22attributes.mainmaterial%22%2C%22konga_fulfilment_type%22%2C%22is_pay_on_delivery%22%2C%22is_free_shipping%22%2C%22pickup%22%2C%22categories.lvl0%22%5D&tagFilters=&ruleContexts=%5B%22%22%5D")
-            }]
-          };
-          $.post(url, JSON.stringify(postData), function (response) {
-            if (!response.results) return showError();
-            if (!response.results.length) return showError(false);
-            var resultObject = response.results[0].hits;
-            var titlesArray = [];
-            resultObject.forEach(function (obj) {
-              return titlesArray.push(obj.name);
-            }); //Check if Konga is used as a backup search result website and filter the titles if so
-
-            var filterAction = backup ? _this.filterTitles(titlesArray) : null;
-            var ad;
-            var specialPrice,
-                prop,
-                addNewAd = true;
-            resultObject.forEach(function (obj) {
-              ad = {
-                title: null,
-                description: null,
-                price: null,
-                image: null,
-                link: null,
-                linkText: null,
-                location: null
-              };
-              ad.title = obj.name.truncate(defaults.maxTitleLength);
-              ad.description = obj.description.truncate(defaults.maxDescriptionLength);
-              ad.image = "https://www-konga-com-res.cloudinary.com/w_auto,f_auto,fl_lossy,dpr_auto,q_auto/media/catalog/product" + obj.image_thumbnail_path;
-              specialPrice = obj.special_price || obj.price;
-              ad.price = specialPrice.toLocaleString();
-              ad.location = "";
-              ad.link = 'https://konga.com/product/' + obj.url_key;
-              ad.linkText = ('https://konga.com/product/' + obj.url_key).truncate(defaults.maxLinkLength);
-
-              for (prop in ad) {
-                if (prop === "showAdImage") continue;else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
-                  addNewAd = false;
-                  break;
-                }
-              }
-
-              if (addNewAd) selectedEcommerce.ads.push(ad);
-            });
-            selectedEcommerce.page += 1;
-            _this.props.locale[index] = selectedEcommerce;
-            var previousLocale = _this.props.locale;
-            savedState = _objectSpread({}, _this.props, {
-              locale: previousLocale,
-              currentWebsite: website
-            });
-            defaultAction();
-          });
-          break;
-
-        case 'deals':
-          url = "https://deals.jumia.com.ng/catalog?search-keyword=".concat(q, "&page=").concat(pageNumber);
-          $.post(_this.getRandomCrawler(), _this.getRequestObject(url), function (response) {
-            var html;
-
-            try {
-              html = $(response).find('.post') ? $(response).find('.post') : html;
-            } catch (e) {
-              return showError();
-            }
-
-            if (!html.length) return showError(); //Clearing some memory
-
-            response = null;
-            {
-              var counter = 0;
-              var ad,
-                  prop,
-                  addNewAd = true;
-              html.each(function (index) {
-                ad = {
-                  title: null,
-                  description: null,
-                  price: null,
-                  image: null,
-                  link: null,
-                  linkText: null,
-                  location: null
-                };
-                ad.title = $.trim($(this).find('.post-link').text()).truncate(defaults.maxTitleLength);
-                ad.description = $.trim($(this).find('.post-link').text()).truncate(defaults.maxDescriptionLength);
-                ad.image = $.trim($(this).find('.product-images').attr('data-src'));
-                ad.price = $.trim($(this).find('.price').text().replace(/^\D+/g, '')).toLocaleString();
-                ad.link = "https://deals.jumia.com.ng" + $(this).find('.post-link').attr('href');
-                ad.location = $(this).find('.address').text();
-                ad.linkText = ad.link.truncate(defaults.maxLinkLength);
-
-                for (prop in ad) {
-                  if (prop === "showAdImage") continue;else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
-                    addNewAd = false;
-                    break;
-                  }
-                }
-
-                if (addNewAd) selectedEcommerce.ads.push(ad);
-              });
-              selectedEcommerce.page = selectedEcommerce.page + 1;
-              _this.props.locale[index] = selectedEcommerce;
-              var previousLocale = _this.props.locale;
-              savedState = _objectSpread({}, _this.props, {
-                locale: previousLocale,
-                currentWebsite: website
-              });
-              defaultAction();
-            }
-          });
-          break;
-
-        case 'habari':
-          q = query.split(' ').join("%20");
-          url = "http://admin.shopping.habarigt.com/index.php/rest/V1/product-list-by-slug/all?q=".concat(q, "&limit=19&page=").concat(pageNumber);
-
-          var getRequest = function getRequest() {
-            $.post(_this.getRandomCrawler(), _this.getRequestObject(url), function (response) {
               try {
-                response = JSON.parse(response);
+                html = $(response.html).find('.b-list-advert__template');
               } catch (e) {
-                getRequest();
+                showError();
               }
 
-              if (!response.item || !response.item.length) {
-                return showError();
-              }
+              if (!html.length) return showError(); //Clearing some memory
 
+              response = null;
               {
-                var ad,
-                    prop,
+                var ad;
+                var counter = 0;
+                var prop,
                     addNewAd = true;
-                response.item.forEach(function (obj) {
+                html.each(function (index) {
                   ad = {
                     title: null,
                     description: null,
@@ -471,13 +231,13 @@ function (_React$Component) {
                     linkText: null,
                     location: null
                   };
-                  ad.location = "";
-                  ad.title = obj.name.truncate(defaults.maxTitleLength);
-                  ad.description = obj.seller_title.truncate(defaults.maxDescriptionLength);
-                  ad.image = obj.image_url;
-                  ad.price = obj.meal_price ? obj.meal_price.toLocaleString() : 0;
-                  ad.link = 'https://habarigt.com/shopping/product-detail/' + obj.slug;
-                  ad.linkText = ('https://habarigt.com/shopping/product-detail/' + obj.slug).truncate(defaults.maxLinkLength);
+                  ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
+                  ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
+                  ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
+                  ad.link = "https://olist.ng" + $(this).find('.js-advert-link').attr('href');
+                  ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
+                  ad.location = $(this).find('.b-list-advert__item-region').text();
+                  ad.linkText = ad.link.truncate(defaults.maxLinkLength);
 
                   for (prop in ad) {
                     if (prop === "showAdImage") continue;else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
@@ -488,15 +248,376 @@ function (_React$Component) {
 
                   if (addNewAd) selectedEcommerce.ads.push(ad);
                 });
-                selectedEcommerce.page = selectedEcommerce.page + 1;
-                _this.props.locale[index] = selectedEcommerce;
-                var previousLocale = _this.props.locale;
-                savedState = _objectSpread({}, _this.props, {
-                  locale: previousLocale,
-                  currentWebsite: website
-                });
-                defaultAction();
               }
+            } else {
+              response.ads.forEach(function (ad) {
+                selectedEcommerce.ads.push(ad);
+              });
+            }
+
+            if (resp.update) {
+              var data = {
+                url: url,
+                ads: selectedEcommerce.ads,
+                email: 'username@domain.com',
+                action: _this.updateSearchResultAction
+              };
+              data = JSON.stringify(data);
+              $.post(defaults.actions, {
+                data: data
+              }, function (response) {});
+            }
+
+            selectedEcommerce.page += 1;
+            _this.props.locale[index] = selectedEcommerce;
+            var previousLocale = _this.props.locale;
+            savedState = _objectSpread({}, _this.props, {
+              locale: previousLocale,
+              currentWebsite: website
+            });
+            defaultAction();
+          });
+
+          break;
+
+        case 'jumia':
+          url = "https://www.jumia.com.ng/catalog/?q=".concat(q, "&page=").concat(pageNumber);
+
+          _this.tryGetCachedResult(_this.getRandomCrawler(), _this.getRequestObject(url), url, function (response) {
+            resp = response;
+            var html;
+
+            if (response.is_html) {
+              try {
+                html = $(response.html).find('.sku.-gallery');
+              } catch (e) {
+                return showError();
+              }
+
+              if (!html.length) return showError();
+              response = null;
+              {
+                var title;
+                var description;
+                var image;
+                var price;
+                var ad; //let location;
+
+                var link,
+                    prop,
+                    addNewAd = true;
+                html.each(function (index) {
+                  ad = {
+                    title: null,
+                    description: null,
+                    price: null,
+                    image: null,
+                    link: null,
+                    linkText: null,
+                    location: null
+                  };
+                  title = $.trim($(this).find('.name').text()).truncate(defaults.maxTitleLength);
+                  description = $.trim($(this).find('.name').text()).truncate(defaults.maxDescriptionLength);
+                  image = $.trim($(this).find('.lazy.image').attr('data-src'));
+                  price = $.trim($(this).find('.price').first().text().replace(/^\D+/g, '')).toLocaleString();
+                  link = $(this).find('.link').attr('href'); //location = $(this).find('.b-list-advert__item-region').text();
+
+                  if (title !== "") {
+                    ad.title = title;
+                    ad.description = description;
+                    ad.image = image;
+                    ad.price = price;
+                    ad.link = link;
+                    ad.location = "";
+                    ad.linkText = link.truncate(defaults.maxLinkLength);
+
+                    for (prop in ad) {
+                      if (prop === "showAdImage") continue;else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
+                        addNewAd = false;
+                        break;
+                      }
+                    }
+
+                    if (addNewAd) selectedEcommerce.ads.push(ad);
+                  }
+                });
+              }
+            } else {
+              response.ads.forEach(function (ad) {
+                selectedEcommerce.ads.push(ad);
+              });
+            }
+
+            if (resp.update) {
+              var data = {
+                url: url,
+                ads: selectedEcommerce.ads,
+                email: 'username@domain.com',
+                action: _this.updateSearchResultAction
+              };
+              data = JSON.stringify(data);
+              $.post(defaults.actions, {
+                data: data
+              }, function (response) {});
+            }
+
+            selectedEcommerce.page += 1;
+            _this.props.locale[index] = selectedEcommerce;
+            var previousLocale = _this.props.locale;
+            savedState = _objectSpread({}, _this.props, {
+              locale: previousLocale,
+              currentWebsite: website
+            });
+            defaultAction();
+          });
+
+          break;
+
+        case 'konga':
+          url = "https://b9zcrrrvom-3.algolianet.com/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.30.0%3Breact-instantsearch%205.3.2%3BJS%20Helper%202.26.1&x-algolia-application-id=B9ZCRRRVOM&x-algolia-api-key=cb605b0936b05ce1a62d96f53daa24f7";
+          var req = {
+            "requests": [{
+              "indexName": "catalog_store_konga",
+              "params": "query=".concat(query.replace(" ", "%20"), "&maxValuesPerFacet=50&page=").concat(pageNumber, "&highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&facets=%5B%22special_price%22%2C%22attributes.brand%22%2C%22attributes.screen_size%22%2C%22attributes.ram_gb%22%2C%22attributes.sim%22%2C%22attributes.sim_slots%22%2C%22attributes.capacity%22%2C%22attributes.battery%22%2C%22attributes.connectivity%22%2C%22attributes.hard_drive%22%2C%22attributes.internal%22%2C%22attributes.tv_screen_size%22%2C%22attributes.operating_system%22%2C%22attributes.kids_shoes%22%2C%22attributes.heel_type%22%2C%22attributes.heel_height%22%2C%22attributes.leg_width%22%2C%22attributes.fastening%22%2C%22attributes.shirt_size%22%2C%22attributes.shoe_size%22%2C%22attributes.lingerie_size%22%2C%22attributes.pants_size%22%2C%22attributes.size%22%2C%22attributes.color%22%2C%22attributes.mainmaterial%22%2C%22konga_fulfilment_type%22%2C%22is_pay_on_delivery%22%2C%22is_free_shipping%22%2C%22pickup%22%2C%22categories.lvl0%22%5D&tagFilters=&ruleContexts=%5B%22%22%5D")
+            }]
+          };
+          ;
+
+          _this.tryGetCachedResult(_this.getRandomCrawler(), _this.getRequestObject(url), url, function (response) {
+            resp = response;
+
+            if (response.is_html) {
+              if (!response.html.results) return showError();
+              if (!response.html.results.length) return showError(false);
+              var resultObject = response.html.results[0].hits;
+              var titlesArray = [];
+              resultObject.forEach(function (obj) {
+                return titlesArray.push(obj.name);
+              }); //Check if Konga is used as a backup search result website and filter the titles if so
+
+              var filterAction = backup ? _this.filterTitles(titlesArray) : null;
+              var ad;
+              var specialPrice,
+                  prop,
+                  addNewAd = true;
+              resultObject.forEach(function (obj) {
+                ad = {
+                  title: null,
+                  description: null,
+                  price: null,
+                  image: null,
+                  link: null,
+                  linkText: null,
+                  location: null
+                };
+                ad.title = obj.name.truncate(defaults.maxTitleLength);
+                ad.description = obj.description.truncate(defaults.maxDescriptionLength);
+                ad.image = "https://www-konga-com-res.cloudinary.com/w_auto,f_auto,fl_lossy,dpr_auto,q_auto/media/catalog/product" + obj.image_thumbnail_path;
+                specialPrice = obj.special_price || obj.price;
+                ad.price = specialPrice.toLocaleString();
+                ad.location = "";
+                ad.link = 'https://konga.com/product/' + obj.url_key;
+                ad.linkText = ('https://konga.com/product/' + obj.url_key).truncate(defaults.maxLinkLength);
+
+                for (prop in ad) {
+                  if (prop === "showAdImage") continue;else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
+                    addNewAd = false;
+                    break;
+                  }
+                }
+
+                if (addNewAd) selectedEcommerce.ads.push(ad);
+              });
+            } else {
+              response.ads.forEach(function (ad) {
+                selectedEcommerce.ads.push(ad);
+              });
+            }
+
+            if (resp.update) {
+              var data = {
+                url: url,
+                ads: selectedEcommerce.ads,
+                email: 'username@domain.com',
+                action: _this.updateSearchResultAction
+              };
+              data = JSON.stringify(data);
+              $.post(defaults.actions, {
+                data: data
+              }, function (response) {});
+            }
+
+            selectedEcommerce.page += 1;
+            _this.props.locale[index] = selectedEcommerce;
+            var previousLocale = _this.props.locale;
+            savedState = _objectSpread({}, _this.props, {
+              locale: previousLocale,
+              currentWebsite: website
+            });
+            defaultAction();
+          }, "konga", req);
+
+          break;
+
+        case 'deals':
+          url = "https://deals.jumia.com.ng/catalog?search-keyword=".concat(q, "&page=").concat(pageNumber);
+
+          _this.tryGetCachedResult(_this.getRandomCrawler(), _this.getRequestObject(url), url, function (response) {
+            resp = response;
+            var html;
+
+            if (response.is_html) {
+              try {
+                html = $(response.html).find('.post') ? $(response.html).find('.post') : html;
+              } catch (e) {
+                return showError();
+              }
+
+              if (!html.length) return showError(); //Clearing some memory
+
+              response = null;
+              {
+                var counter = 0;
+                var ad,
+                    prop,
+                    addNewAd = true;
+                html.each(function (index) {
+                  ad = {
+                    title: null,
+                    description: null,
+                    price: null,
+                    image: null,
+                    link: null,
+                    linkText: null,
+                    location: null
+                  };
+                  ad.title = $.trim($(this).find('.post-link').text()).truncate(defaults.maxTitleLength);
+                  ad.description = $.trim($(this).find('.post-link').text()).truncate(defaults.maxDescriptionLength);
+                  ad.image = $.trim($(this).find('.product-images').attr('data-src'));
+                  ad.price = $.trim($(this).find('.price').text().replace(/^\D+/g, '')).toLocaleString();
+                  ad.link = "https://deals.jumia.com.ng" + $(this).find('.post-link').attr('href');
+                  ad.location = $(this).find('.address').text();
+                  ad.linkText = ad.link.truncate(defaults.maxLinkLength);
+
+                  for (prop in ad) {
+                    if (prop === "showAdImage") continue;else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
+                      addNewAd = false;
+                      break;
+                    }
+                  }
+
+                  if (addNewAd) selectedEcommerce.ads.push(ad);
+                });
+              }
+            } else {
+              response.ads.forEach(function (ad) {
+                selectedEcommerce.ads.push(ad);
+              });
+            }
+
+            if (resp.update) {
+              var data = {
+                url: url,
+                ads: selectedEcommerce.ads,
+                email: 'username@domain.com',
+                action: _this.updateSearchResultAction
+              };
+              data = JSON.stringify(data);
+              $.post(defaults.actions, {
+                data: data
+              }, function (response) {});
+            }
+
+            selectedEcommerce.page = selectedEcommerce.page + 1;
+            _this.props.locale[index] = selectedEcommerce;
+            var previousLocale = _this.props.locale;
+            savedState = _objectSpread({}, _this.props, {
+              locale: previousLocale,
+              currentWebsite: website
+            });
+            defaultAction();
+          });
+
+          break;
+
+        case 'habari':
+          q = query.split(' ').join("%20");
+          url = "http://admin.shopping.habarigt.com/index.php/rest/V1/product-list-by-slug/all?q=".concat(q, "&limit=19&page=").concat(pageNumber);
+
+          var getRequest = function getRequest() {
+            _this.tryGetCachedResult(_this.getRandomCrawler(), _this.getRequestObject(url), url, function (response) {
+              resp = response;
+
+              if (response.is_html) {
+                try {
+                  response = JSON.parse(response.html);
+                } catch (e) {
+                  getRequest();
+                }
+
+                if (!response.html.item || !response.html.item.length) {
+                  return showError();
+                }
+
+                {
+                  var ad,
+                      prop,
+                      addNewAd = true;
+                  response.item.forEach(function (obj) {
+                    ad = {
+                      title: null,
+                      description: null,
+                      price: null,
+                      image: null,
+                      link: null,
+                      linkText: null,
+                      location: null
+                    };
+                    ad.location = "";
+                    ad.title = obj.name.truncate(defaults.maxTitleLength);
+                    ad.description = obj.seller_title.truncate(defaults.maxDescriptionLength);
+                    ad.image = obj.image_url;
+                    ad.price = obj.meal_price ? obj.meal_price.toLocaleString() : 0;
+                    ad.link = 'https://habarigt.com/shopping/product-detail/' + obj.slug;
+                    ad.linkText = ('https://habarigt.com/shopping/product-detail/' + obj.slug).truncate(defaults.maxLinkLength);
+
+                    for (prop in ad) {
+                      if (prop === "showAdImage") continue;else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
+                        addNewAd = false;
+                        break;
+                      }
+                    }
+
+                    if (addNewAd) selectedEcommerce.ads.push(ad);
+                  });
+                }
+              } else {
+                response.ads.forEach(function (ad) {
+                  selectedEcommerce.ads.push(ad);
+                });
+              }
+
+              if (resp.update) {
+                var data = {
+                  url: url,
+                  ads: selectedEcommerce.ads,
+                  email: 'username@domain.com',
+                  action: _this.updateSearchResultAction
+                };
+                data = JSON.stringify(data);
+                $.post(defaults.actions, {
+                  data: data
+                }, function (response) {});
+              }
+
+              selectedEcommerce.page = selectedEcommerce.page + 1;
+              _this.props.locale[index] = selectedEcommerce;
+              var previousLocale = _this.props.locale;
+              savedState = _objectSpread({}, _this.props, {
+                locale: previousLocale,
+                currentWebsite: website
+              });
+              defaultAction();
             });
           };
 
@@ -523,6 +644,39 @@ function (_React$Component) {
         });
         response = response.sponsored_ads;
         callback(response);
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "tryGetCachedResult", function (url, dataObject, searchUrl, callback) {
+      var siteName = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : "other";
+      var req = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {};
+      var data = JSON.stringify({
+        url: searchUrl,
+        action: 'FETCH_CACHED_AD',
+        email: 'username@domain.com'
+      });
+      $.post(defaults.actions, {
+        data: data
+      }, function (cacheResponse) {
+        //return;
+        cacheResponse = JSON.parse(cacheResponse);
+        cacheResponse['is_html'] = true;
+        var isKongaRequest = siteName.toLowerCase().indexOf('konga') >= 0;
+
+        if (cacheResponse.update && !isKongaRequest) {
+          $.post(url, dataObject, function (response) {
+            cacheResponse['html'] = response;
+            return callback(cacheResponse);
+          });
+        } else if (cacheResponse.update && isKongaRequest) {
+          $.post(searchUrl, JSON.stringify(req), function (response) {
+            cacheResponse['html'] = response;
+            return callback(cacheResponse);
+          });
+        } else {
+          cacheResponse['is_html'] = false;
+          return callback(cacheResponse);
+        }
       });
     });
 
@@ -586,94 +740,117 @@ function (_React$Component) {
       (_this$searchFormField2 = _this.searchFormFieldSet).prop.apply(_this$searchFormField2, _toConsumableArray(defaults.disabledTrue)); //console.log(searchFilterUrl);
 
 
-      $.post(_this.getRandomCrawler(), _this.getRequestObject(searchFilterUrl, true), function (response) {
+      _this.tryGetCachedResult(_this.getRandomCrawler(), _this.getRequestObject(searchFilterUrl), searchFilterUrl, function (response) {
         var _this$searchFormField3;
 
-        console.log(response);
         var html;
 
-        try {
-          html = $(response).find('.b-list-advert__item.qa-advert-list-item');
-          console.log(html.length);
-        } catch (e) {
-          console.log();
-        }
-
-        console.log(html.length); //Check if there is not data returned, meaning empty result
-
-        if (!html.length) {
-          //M.toast({html: this.enterValidKeywordsWarning});
-          _this.searchTabs.show();
-
-          $('#tabs.tabs').tabs('select', _this.props.defaultBackup);
-
-          _this.searchQueryField.blur();
-
-          _this.formSubmitted = true; //Make another request to Backup
-
-          _this.props.locale.forEach(function (obj) {
-            return obj.page = 0;
-          }); //also set the loadMore key of this website object to false
+        if (response.is_html) {
+          try {
+            html = $(response.html).find('.b-list-advert__item.qa-advert-list-item');
+          } catch (e) {
+            console.log();
+          } //Check if there is not data returned, meaning empty result
 
 
-          _this.props.locale[0].loadMore = false;
+          if (!html.length) {
+            //M.toast({html: this.enterValidKeywordsWarning});
+            _this.searchTabs.show();
 
-          if (_this.props.switchWebsite(_objectSpread({}, _this.props, {
-            q: q,
-            query: _this.searchQuery,
-            noDefaultResultsFound: true
-          }))) {
-            _this.switchToWebsite(_this.props.defaultBackup, null, null, true);
+            $('#tabs.tabs').tabs('select', _this.props.defaultBackup);
 
-            return;
+            _this.searchQueryField.blur();
+
+            _this.formSubmitted = true; //Make another request to Backup
+
+            _this.props.locale.forEach(function (obj) {
+              return obj.page = 0;
+            }); //also set the loadMore key of this website object to false
+
+
+            _this.props.locale[0].loadMore = false;
+
+            if (_this.props.switchWebsite(_objectSpread({}, _this.props, {
+              q: q,
+              query: _this.searchQuery,
+              noDefaultResultsFound: true
+            }))) {
+              _this.switchToWebsite(_this.props.defaultBackup, null, null, true);
+
+              return;
+            }
           }
         }
 
         var titles = [];
-        html.each(function (index) {
-          titles.push($.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength).toLowerCase());
-        });
 
-        _this.filterTitles(titles);
+        if (response.is_html) {
+          html.each(function (index) {
+            titles.push($.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength).toLowerCase());
+          });
+
+          _this.filterTitles(titles);
+        }
 
         var defaultEcommerceWebsite = _this.props.locale[0];
         var defaultEcommerceWebsiteShortName = defaultEcommerceWebsite.shortName;
         var ad;
-        html.each(function (index) {
-          ad = {
-            title: null,
-            showAdImage: false,
-            description: null,
-            price: null,
-            image: null,
-            link: null,
-            linkText: null,
-            location: null
-          };
-          var prop,
-              addNewAd = true;
 
-          try {
-            ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
-            ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-            ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
-            ad.link = "https://olist.ng" + $(this).find('.js-advert-link').attr('href');
-            ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
-            ad.location = $(this).find('.b-list-advert__item-region').text();
-            ad.linkText = ad.link.truncate(defaults.maxLinkLength);
+        if (response.is_html) {
+          html.each(function (index) {
+            ad = {
+              title: null,
+              showAdImage: false,
+              description: null,
+              price: null,
+              image: null,
+              link: null,
+              linkText: null,
+              location: null
+            };
+            var prop,
+                addNewAd = true;
 
-            for (prop in ad) {
-              if (prop === "showAdImage") continue;else if (!ad[prop] || typeof ad[prop] === 'undefined') {
-                addNewAd = false;
-                break;
+            try {
+              ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
+              ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
+              ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
+              ad.link = "https://olist.ng" + $(this).find('.js-advert-link').attr('href');
+              ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
+              ad.location = $(this).find('.b-list-advert__item-region').text();
+              ad.linkText = ad.link.truncate(defaults.maxLinkLength);
+
+              for (prop in ad) {
+                if (prop === "showAdImage") continue;else if (!ad[prop] || typeof ad[prop] === 'undefined') {
+                  addNewAd = false;
+                  break;
+                }
               }
-            }
 
-            if (addNewAd) defaultEcommerceWebsite.ads.push(ad);
-          } catch (e) {
-            ad.location = "not specified";
-          }
-        });
+              if (addNewAd) defaultEcommerceWebsite.ads.push(ad);
+            } catch (e) {
+              ad.location = "not specified";
+            }
+          });
+        } else {
+          response.ads.forEach(function (ad) {
+            defaultEcommerceWebsite.ads.push(ad);
+          });
+        }
+
+        if (response.update) {
+          var data = {
+            url: searchFilterUrl,
+            ads: defaultEcommerceWebsite.ads,
+            email: 'username@domain.com',
+            action: _this.updateSearchResultAction
+          };
+          data = JSON.stringify(data);
+          $.post(defaults.actions, {
+            data: data
+          }, function (response) {});
+        }
+
         var returnNow = false;
 
         _this.fetchSponsoredAds(function (response) {

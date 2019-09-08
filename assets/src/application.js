@@ -1,5 +1,10 @@
 class Application extends React.Component {
 
+
+
+
+
+
     lastSearchQuery = null;
     formSubmitted = false;
     cookiesQueryKey = "queries";
@@ -8,7 +13,7 @@ class Application extends React.Component {
     lastSearchedQueryKey = "lastSearchedQuery";
     enterValidKeywordsWarning = "Please enter valid keyword(s)";
     networkError = "failed to receive response, check your network connection";
-
+    updateSearchResultAction = 'UPDATE_SEARCH_RESULT';
 
     getRandomUserAgent = (desktop = true) =>
     {
@@ -149,9 +154,12 @@ class Application extends React.Component {
         let savedState = {};
         const  defaultAction = () => {
             this.searchFormFieldSet.prop(...defaults.disabledFalse);
-            if(this.props.switchWebsite({...savedState , processingAction: false})) return
+            if(this.props.switchWebsite({...savedState , processingAction: false})) return;
+
 
         };
+
+        let resp;
 
         switch (website) {
             case 'olist' :
@@ -159,117 +167,178 @@ class Application extends React.Component {
                 let url = `https://olist.ng/search?keyword=${q}&state_id=&page=${pageNumber}`;
 
 
-                $.post(this.getRandomCrawler() , this.getRequestObject(url) , response => {
+
+                this.tryGetCachedResult(this.getRandomCrawler() , this.getRequestObject(url) , url ,  response => {
 
 
-                    let html;
-                    try{
-                        html = $(response).find('.b-list-advert__template');
-                    }
-                    catch (e) {
-                        showError();
-                    }
+                    resp = response;
 
-                    if(!html.length) return showError();
+                    if(response.is_html) {
+                        let html;
+                        try {
+                            html = $(response.html).find('.b-list-advert__template');
+                        }
+                        catch (e) {
+                            showError();
+                        }
 
-                    //Clearing some memory
-                    response = null;
+                        if (!html.length) return showError();
 
-
-                    {
-                        let ad;
-                        let counter = 0;
+                        //Clearing some memory
+                        response = null;
 
 
-                        let prop, addNewAd = true;
-                        html.each(function (index) {
-                            ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
-
-                            ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
-                            ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-                            ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
-                            ad.link = "https://olist.ng"+$(this).find('.js-advert-link').attr('href');
-                            ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
-                            ad.location = $(this).find('.b-list-advert__item-region').text();
-                            ad.linkText = ad.link.truncate(defaults.maxLinkLength);  for(prop in ad){
-
-                                if(prop === "showAdImage")continue;
-                                else if(ad[prop] === null ||  typeof ad[prop] === 'undefined' )
-                                {
-                                    addNewAd = false;
-                                    break;
-                                }
-                            }
-                           if(addNewAd)selectedEcommerce.ads.push(ad);
-
-                        });
-
-                        selectedEcommerce.page += 1;
-
-                        this.props.locale[index] = selectedEcommerce;
-                        let previousLocale = this.props.locale;
+                        {
+                            let ad;
+                            let counter = 0;
 
 
-                        savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+                            let prop, addNewAd = true;
+                            html.each(function (index) {
+                                ad = {
+                                    title: null,
+                                    description: null,
+                                    price: null,
+                                    image: null,
+                                    link: null,
+                                    linkText: null,
+                                    location: null
+                                };
 
-                        defaultAction();
-                    }
-                });
-                break;
-            case 'jumia' :
-                url = `https://www.jumia.com.ng/catalog/?q=${q}&page=${pageNumber}`;
-                $.post(this.getRandomCrawler() , this.getRequestObject(url) , response => {
+                                ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
+                                ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
+                                ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
+                                ad.link = "https://olist.ng" + $(this).find('.js-advert-link').attr('href');
+                                ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
+                                ad.location = $(this).find('.b-list-advert__item-region').text();
+                                ad.linkText = ad.link.truncate(defaults.maxLinkLength);
+                                for (prop in ad) {
 
-                    let html;
-                    try{
-                        html = $(response).find('.sku.-gallery');
-                    }
-                    catch (e) {
-                        return showError();
-                    }
-
-                    if(!html.length) return showError();
-
-                    response = null;
-                    {
-                        let title;
-                        let description;
-                        let image;
-                        let price;
-                        let ad;
-                        //let location;
-                        let link , prop, addNewAd = true;
-                        html.each(function (index) {
-
-                            ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
-
-                            title = $.trim($(this).find('.name').text()).truncate(defaults.maxTitleLength);
-                            description = $.trim($(this).find('.name').text()).truncate(defaults.maxDescriptionLength);
-                            image = $.trim($(this).find('.lazy.image').attr('data-src'));
-                            price = $.trim($(this).find('.price').first().text().replace(/^\D+/g, '')).toLocaleString();
-                            link = $(this).find('.link').attr('href');
-
-                            //location = $(this).find('.b-list-advert__item-region').text();
-                            if(title !== "") {
-                                ad.title = title;
-                                ad.description = description;
-                                ad.image = image;
-                                ad.price = price;
-                                ad.link = link;
-                                ad.location = "";
-                                ad.linkText =link.truncate(defaults.maxLinkLength);
-
-                                for(prop in ad){
-                                    if(prop === "showAdImage")continue;
-                                    else if(ad[prop] === null ||  typeof ad[prop] === 'undefined' )
-                                    {
+                                    if (prop === "showAdImage") continue;
+                                    else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
                                         addNewAd = false;
                                         break;
                                     }
                                 }
-                                if(addNewAd)selectedEcommerce.ads.push(ad);
-                            }
+                                if (addNewAd) selectedEcommerce.ads.push(ad);
+
+                            });
+
+                        }
+                    }
+                    else {
+
+                        response.ads.forEach(ad => {
+
+                            selectedEcommerce.ads.push(ad);
                         });
+                    }
+                    if(resp.update){
+
+                        let data = {url , ads : selectedEcommerce.ads, email : 'username@domain.com' , action : this.updateSearchResultAction};
+                        data = JSON.stringify(data);
+                        $.post(defaults.actions ,  {data} , response=> {
+
+                        });
+                    }
+
+
+
+                    selectedEcommerce.page += 1;
+
+                        this.props.locale[index] = selectedEcommerce;
+                        let previousLocale = this.props.locale;
+
+
+                        savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+
+                        defaultAction();
+                    });
+
+                break;
+            case 'jumia' :
+                url = `https://www.jumia.com.ng/catalog/?q=${q}&page=${pageNumber}`;
+                this.tryGetCachedResult(this.getRandomCrawler() , this.getRequestObject(url) , url, response => {
+
+                    resp = response;
+
+                    let html;
+                    if(response.is_html) {
+
+                        try {
+                            html = $(response.html).find('.sku.-gallery');
+                        }
+                        catch (e) {
+                            return showError();
+                        }
+
+                        if (!html.length) return showError();
+
+                        response = null;
+                        {
+                            let title;
+                            let description;
+                            let image;
+                            let price;
+                            let ad;
+                            //let location;
+                            let link, prop, addNewAd = true;
+                            html.each(function (index) {
+
+                                ad = {
+                                    title: null,
+                                    description: null,
+                                    price: null,
+                                    image: null,
+                                    link: null,
+                                    linkText: null,
+                                    location: null
+                                };
+
+                                title = $.trim($(this).find('.name').text()).truncate(defaults.maxTitleLength);
+                                description = $.trim($(this).find('.name').text()).truncate(defaults.maxDescriptionLength);
+                                image = $.trim($(this).find('.lazy.image').attr('data-src'));
+                                price = $.trim($(this).find('.price').first().text().replace(/^\D+/g, '')).toLocaleString();
+                                link = $(this).find('.link').attr('href');
+
+                                //location = $(this).find('.b-list-advert__item-region').text();
+                                if (title !== "") {
+                                    ad.title = title;
+                                    ad.description = description;
+                                    ad.image = image;
+                                    ad.price = price;
+                                    ad.link = link;
+                                    ad.location = "";
+                                    ad.linkText = link.truncate(defaults.maxLinkLength);
+
+                                    for (prop in ad) {
+                                        if (prop === "showAdImage") continue;
+                                        else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
+                                            addNewAd = false;
+                                            break;
+                                        }
+                                    }
+                                    if (addNewAd) selectedEcommerce.ads.push(ad);
+                                }
+                            });
+                        }
+                    }
+                    else {
+
+                        response.ads.forEach(ad => {
+
+                            selectedEcommerce.ads.push(ad);
+                        })
+                    }
+
+                    if(resp.update){
+
+                        let data = {url , ads : selectedEcommerce.ads, email : 'username@domain.com' , action : this.updateSearchResultAction};
+                        data = JSON.stringify(data);
+                        $.post(defaults.actions ,  {data} , response=> {
+
+                        });
+                    }
 
                         selectedEcommerce.page += 1;
 
@@ -278,124 +347,174 @@ class Application extends React.Component {
                         savedState = {...this.props , locale : previousLocale , currentWebsite : website};
 
                         defaultAction();
-                    }
-
                 });
-
                 break;
             case 'konga' :
 
+
                 url = "https://b9zcrrrvom-3.algolianet.com/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.30.0%3Breact-instantsearch%205.3.2%3BJS%20Helper%202.26.1&x-algolia-application-id=B9ZCRRRVOM&x-algolia-api-key=cb605b0936b05ce1a62d96f53daa24f7";
-                let postData = {"requests":[{"indexName":"catalog_store_konga","params":`query=${query.replace(" " , "%20")}&maxValuesPerFacet=50&page=${pageNumber}&highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&facets=%5B%22special_price%22%2C%22attributes.brand%22%2C%22attributes.screen_size%22%2C%22attributes.ram_gb%22%2C%22attributes.sim%22%2C%22attributes.sim_slots%22%2C%22attributes.capacity%22%2C%22attributes.battery%22%2C%22attributes.connectivity%22%2C%22attributes.hard_drive%22%2C%22attributes.internal%22%2C%22attributes.tv_screen_size%22%2C%22attributes.operating_system%22%2C%22attributes.kids_shoes%22%2C%22attributes.heel_type%22%2C%22attributes.heel_height%22%2C%22attributes.leg_width%22%2C%22attributes.fastening%22%2C%22attributes.shirt_size%22%2C%22attributes.shoe_size%22%2C%22attributes.lingerie_size%22%2C%22attributes.pants_size%22%2C%22attributes.size%22%2C%22attributes.color%22%2C%22attributes.mainmaterial%22%2C%22konga_fulfilment_type%22%2C%22is_pay_on_delivery%22%2C%22is_free_shipping%22%2C%22pickup%22%2C%22categories.lvl0%22%5D&tagFilters=&ruleContexts=%5B%22%22%5D`}]};
-                $.post(url , JSON.stringify(postData) , response => {
-                    if(!response.results) return showError();
-                    if(!response.results.length) return showError(false);
+                let req = {"requests":[{"indexName":"catalog_store_konga","params":`query=${query.replace(" " , "%20")}&maxValuesPerFacet=50&page=${pageNumber}&highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&facets=%5B%22special_price%22%2C%22attributes.brand%22%2C%22attributes.screen_size%22%2C%22attributes.ram_gb%22%2C%22attributes.sim%22%2C%22attributes.sim_slots%22%2C%22attributes.capacity%22%2C%22attributes.battery%22%2C%22attributes.connectivity%22%2C%22attributes.hard_drive%22%2C%22attributes.internal%22%2C%22attributes.tv_screen_size%22%2C%22attributes.operating_system%22%2C%22attributes.kids_shoes%22%2C%22attributes.heel_type%22%2C%22attributes.heel_height%22%2C%22attributes.leg_width%22%2C%22attributes.fastening%22%2C%22attributes.shirt_size%22%2C%22attributes.shoe_size%22%2C%22attributes.lingerie_size%22%2C%22attributes.pants_size%22%2C%22attributes.size%22%2C%22attributes.color%22%2C%22attributes.mainmaterial%22%2C%22konga_fulfilment_type%22%2C%22is_pay_on_delivery%22%2C%22is_free_shipping%22%2C%22pickup%22%2C%22categories.lvl0%22%5D&tagFilters=&ruleContexts=%5B%22%22%5D`}]};;
+
+                this.tryGetCachedResult(this.getRandomCrawler() , this.getRequestObject(url) , url ,  response => {
 
 
-                    let resultObject  =  response.results[0].hits;
-                    const titlesArray = [];
+                    resp = response;
+                    if(response.is_html) {
+                        if (!response.html.results) return showError();
+                        if (!response.html.results.length) return showError(false);
 
-                    resultObject.forEach(obj => titlesArray.push(obj.name));
+
+                        let resultObject = response.html.results[0].hits;
+                        const titlesArray = [];
+
+                        resultObject.forEach(obj => titlesArray.push(obj.name));
 
 
-                    //Check if Konga is used as a backup search result website and filter the titles if so
-                    let filterAction = backup ? this.filterTitles(titlesArray) : null;
+                        //Check if Konga is used as a backup search result website and filter the titles if so
+                        let filterAction = backup ? this.filterTitles(titlesArray) : null;
 
-                    let ad;
+                        let ad;
 
-                    let specialPrice, prop , addNewAd = true;
-                    resultObject.forEach(obj => {
-                        ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
-                        ad.title = obj.name.truncate(defaults.maxTitleLength);
-                        ad.description = obj.description.truncate(defaults.maxDescriptionLength);
-                        ad.image = "https://www-konga-com-res.cloudinary.com/w_auto,f_auto,fl_lossy,dpr_auto,q_auto/media/catalog/product" + obj.image_thumbnail_path;
+                        let specialPrice, prop, addNewAd = true;
+                        resultObject.forEach(obj => {
+                            ad = {
+                                title: null,
+                                description: null,
+                                price: null,
+                                image: null,
+                                link: null,
+                                linkText: null,
+                                location: null
+                            };
+                            ad.title = obj.name.truncate(defaults.maxTitleLength);
+                            ad.description = obj.description.truncate(defaults.maxDescriptionLength);
+                            ad.image = "https://www-konga-com-res.cloudinary.com/w_auto,f_auto,fl_lossy,dpr_auto,q_auto/media/catalog/product" + obj.image_thumbnail_path;
 
-                        specialPrice = obj.special_price || obj.price;
-                        ad.price = specialPrice.toLocaleString();
-                        ad.location = "";
+                            specialPrice = obj.special_price || obj.price;
+                            ad.price = specialPrice.toLocaleString();
+                            ad.location = "";
 
-                        ad.link = 'https://konga.com/product/' + obj.url_key;
-                        ad.linkText = ('https://konga.com/product/' + obj.url_key).truncate(defaults.maxLinkLength);
+                            ad.link = 'https://konga.com/product/' + obj.url_key;
+                            ad.linkText = ('https://konga.com/product/' + obj.url_key).truncate(defaults.maxLinkLength);
 
-                        for(prop in ad){
-                            if(prop === "showAdImage")continue;
-                            else if(ad[prop] === null ||  typeof ad[prop] === 'undefined' )
-                            {
-                                addNewAd = false;
-                                break;
+                            for (prop in ad) {
+                                if (prop === "showAdImage") continue;
+                                else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
+                                    addNewAd = false;
+                                    break;
+                                }
                             }
-                        }
 
-                        if(addNewAd)selectedEcommerce.ads.push(ad);
+                            if (addNewAd) selectedEcommerce.ads.push(ad);
 
-                    });
+                        });
 
+                    }
+                    else {
+                        response.ads.forEach(ad => {
+
+                            selectedEcommerce.ads.push(ad);
+                        })
+
+
+                    }
+
+                    if(resp.update){
+
+                        let data = {url , ads : selectedEcommerce.ads, email : 'username@domain.com' , action : this.updateSearchResultAction};
+                        data = JSON.stringify(data);
+                        $.post(defaults.actions ,  {data} , response=> {
+
+                        });
+                    }
                     selectedEcommerce.page += 1;
+
 
                     this.props.locale[index] = selectedEcommerce;
                     let previousLocale = this.props.locale;
                     savedState = {...this.props , locale : previousLocale , currentWebsite : website};
                     defaultAction();
-
-                });
+                } , "konga" , req);
                 break;
             case 'deals' :
                 url = `https://deals.jumia.com.ng/catalog?search-keyword=${q}&page=${pageNumber}`;
 
+                this.tryGetCachedResult(this.getRandomCrawler() , this.getRequestObject(url) , url , response => {
 
-
-                $.post(this.getRandomCrawler() , this.getRequestObject(url) , response => {
+                    resp = response;
 
                     let html;
 
 
-                    try {
-                        html = $(response).find('.post') ? $(response).find('.post') : html;
+                    if(response.is_html) {
+                        try {
+                            html = $(response.html).find('.post') ? $(response.html).find('.post') : html;
+                        }
+                        catch (e) {
+                            return showError();
 
-                    }
-
-                    catch (e) {
-                        return showError();
-
-                    }
-
+                        }
 
 
-                    if(!html.length) return showError();
+                        if (!html.length) return showError();
 
 
+                        //Clearing some memory
+                        response = null;
 
 
-                    //Clearing some memory
-                    response = null;
+                        {
 
+                            let counter = 0;
+                            let ad, prop, addNewAd = true;
+                            html.each(function (index) {
 
-                    {
+                                ad = {
+                                    title: null,
+                                    description: null,
+                                    price: null,
+                                    image: null,
+                                    link: null,
+                                    linkText: null,
+                                    location: null
+                                };
+                                ad.title = $.trim($(this).find('.post-link').text()).truncate(defaults.maxTitleLength);
+                                ad.description = $.trim($(this).find('.post-link').text()).truncate(defaults.maxDescriptionLength);
+                                ad.image = $.trim($(this).find('.product-images').attr('data-src'));
+                                ad.price = $.trim($(this).find('.price').text().replace(/^\D+/g, '')).toLocaleString();
+                                ad.link = "https://deals.jumia.com.ng" + $(this).find('.post-link').attr('href');
+                                ad.location = $(this).find('.address').text();
+                                ad.linkText = ad.link.truncate(defaults.maxLinkLength);
 
-                        let counter = 0;
-                        let ad , prop ,addNewAd = true;
-                        html.each(function (index) {
-
-                            ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
-                            ad.title = $.trim($(this).find('.post-link').text()).truncate(defaults.maxTitleLength);
-                            ad.description = $.trim($(this).find('.post-link').text()).truncate(defaults.maxDescriptionLength);
-                            ad.image = $.trim($(this).find('.product-images').attr('data-src'));
-                            ad.price = $.trim($(this).find('.price').text().replace( /^\D+/g, '')).toLocaleString();
-                            ad.link = "https://deals.jumia.com.ng" + $(this).find('.post-link').attr('href');
-                            ad.location = $(this).find('.address').text();
-                            ad.linkText = ad.link.truncate(defaults.maxLinkLength);
-
-                            for(prop in ad){
-                                if(prop === "showAdImage")continue;
-                                else if(ad[prop] === null ||  typeof ad[prop] === 'undefined' )
-                                {
-                                    addNewAd = false;
-                                    break;
+                                for (prop in ad) {
+                                    if (prop === "showAdImage") continue;
+                                    else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
+                                        addNewAd = false;
+                                        break;
+                                    }
                                 }
-                            }
-                            if(addNewAd)selectedEcommerce.ads.push(ad);
+                                if (addNewAd) selectedEcommerce.ads.push(ad);
+
+                            });
+
+                        }
+                    }
+                    else {
+
+                            response.ads.forEach(ad => {
+
+                                selectedEcommerce.ads.push(ad);
+                            })
+                        }
+
+                    if(resp.update){
+
+                        let data = {url , ads : selectedEcommerce.ads, email : 'username@domain.com' , action : this.updateSearchResultAction};
+                        data = JSON.stringify(data);
+                        $.post(defaults.actions ,  {data} , response=> {
 
                         });
+                    }
 
                         selectedEcommerce.page = selectedEcommerce.page + 1;
 
@@ -405,9 +524,6 @@ class Application extends React.Component {
                         savedState = {...this.props , locale : previousLocale , currentWebsite : website};
 
                         defaultAction();
-                    }
-
-
 
                 });
 
@@ -422,50 +538,77 @@ class Application extends React.Component {
 
                 let getRequest = () => {
 
-                    $.post(this.getRandomCrawler(), this.getRequestObject(url), response => {
+                    this.tryGetCachedResult(this.getRandomCrawler(), this.getRequestObject(url), url , response => {
 
-                        try {
-                            response = JSON.parse(response);
-                        }
-                        catch (e) {
-                            getRequest();
-                        }
-                        if (!response.item || !response.item.length ) {
+                        resp = response;
 
-                            return showError();
-                        }
+                        if(response.is_html) {
+                            try {
+                                response = JSON.parse(response.html);
+                            }
+                            catch (e) {
+                                getRequest();
+                            }
+                            if (!response.html.item || !response.html.item.length) {
 
-
-                        {
-
-
-                            let ad,prop,addNewAd = true;
-                            response.item.forEach(obj => {
+                                return showError();
+                            }
 
 
-                                ad = {title : null , description : null , price : null , image : null , link : null, linkText : null , location : null};
+                            {
 
-                                ad.location = "";
-                                ad.title = obj.name.truncate(defaults.maxTitleLength);
-                                ad.description = obj.seller_title.truncate(defaults.maxDescriptionLength);
-                                ad.image = obj.image_url;
-                                ad.price = obj.meal_price ? obj.meal_price.toLocaleString() : 0;
 
-                                ad.link = 'https://habarigt.com/shopping/product-detail/' + obj.slug;
-                                ad.linkText = ('https://habarigt.com/shopping/product-detail/' + obj.slug).truncate(defaults.maxLinkLength);
+                                let ad, prop, addNewAd = true;
+                                response.item.forEach(obj => {
 
-                                for(prop in ad){
-                                    if(prop === "showAdImage")continue;
-                                    else if(ad[prop] === null ||  typeof ad[prop] === 'undefined' )
-                                    {
-                                        addNewAd = false;
-                                        break;
+
+                                    ad = {
+                                        title: null,
+                                        description: null,
+                                        price: null,
+                                        image: null,
+                                        link: null,
+                                        linkText: null,
+                                        location: null
+                                    };
+
+                                    ad.location = "";
+                                    ad.title = obj.name.truncate(defaults.maxTitleLength);
+                                    ad.description = obj.seller_title.truncate(defaults.maxDescriptionLength);
+                                    ad.image = obj.image_url;
+                                    ad.price = obj.meal_price ? obj.meal_price.toLocaleString() : 0;
+
+                                    ad.link = 'https://habarigt.com/shopping/product-detail/' + obj.slug;
+                                    ad.linkText = ('https://habarigt.com/shopping/product-detail/' + obj.slug).truncate(defaults.maxLinkLength);
+
+                                    for (prop in ad) {
+                                        if (prop === "showAdImage") continue;
+                                        else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
+                                            addNewAd = false;
+                                            break;
+                                        }
                                     }
-                                }
-                                if(addNewAd)selectedEcommerce.ads.push(ad);
+                                    if (addNewAd) selectedEcommerce.ads.push(ad);
+
+                                });
+                            }
+                        }
+                        else {
+
+                            response.ads.forEach(ad => {
+
+                                selectedEcommerce.ads.push(ad);
+                            })
+                        }
+                        if(resp.update){
+
+                            let data = {url , ads : selectedEcommerce.ads, email : 'username@domain.com' , action : this.updateSearchResultAction};
+                            data = JSON.stringify(data);
+                            $.post(defaults.actions ,  {data} , response=> {
+
 
                             });
-
+                        }
 
                             selectedEcommerce.page = selectedEcommerce.page + 1;
 
@@ -476,7 +619,7 @@ class Application extends React.Component {
 
                             defaultAction();
 
-                        }
+
 
                     });
 
@@ -519,6 +662,65 @@ class Application extends React.Component {
 
     /*******     ***********/
 
+    tryGetCachedResult = (url , dataObject , searchUrl , callback , siteName = "other" , req = {}) => {
+
+
+        let data = JSON.stringify({
+            url : searchUrl,
+            action : 'FETCH_CACHED_AD',
+            email : 'username@domain.com'
+        });
+
+        $.post(defaults.actions , {data} , cacheResponse => {
+
+
+
+
+                   //return;
+
+
+            cacheResponse = JSON.parse(cacheResponse);
+
+
+
+            cacheResponse['is_html'] = true;
+
+            let isKongaRequest = siteName.toLowerCase().indexOf('konga') >= 0;
+
+
+            if(cacheResponse.update && !isKongaRequest)
+            {
+
+                $.post(url , dataObject , function (response) {
+
+
+
+                    cacheResponse['html'] = response;
+
+                    return callback(cacheResponse);
+
+                })
+
+            }
+
+            else if(cacheResponse.update && isKongaRequest){
+
+
+
+                $.post(searchUrl , JSON.stringify(req) ,  function (response) {
+
+
+                    cacheResponse['html'] = response;
+                    return callback(cacheResponse);
+                });
+            }
+            else {
+                cacheResponse['is_html'] = false;
+                return callback(cacheResponse);
+            }
+        });
+
+    };
 
     handleSearchFormSubmit = (e) => {
 
@@ -546,9 +748,6 @@ class Application extends React.Component {
         this.searchQuery = searchQueryToArray.join(" ");
 
 
-
-
-
         //hide the site footer and the switch container
         this.searchResults.html(null);
         this.siteFooter.hide();
@@ -557,14 +756,11 @@ class Application extends React.Component {
         $(':focus').blur();
 
 
-
-
         //default search website depending on the users's settings
         const q = this.searchQuery.split(" ").join("+");
 
         //The default website to make the search and filter contents
         let searchFilterUrl = `https://olist.ng/search?keyword=${q}&state_id=&page=1`;
-
 
 
         this.props.locale.forEach(obj => {
@@ -588,53 +784,60 @@ class Application extends React.Component {
         });
 
 
-
-
         //set the loadMore key of this website object to false
         this.props.locale[0].loadMore = true;
-        while(this.props.sponsoredAdsClicked.length)
-        {
+        while (this.props.sponsoredAdsClicked.length) {
             this.props.sponsoredAdsClicked.pop();
         }
         this.searchFormFieldSet.prop(...defaults.disabledTrue);
         //console.log(searchFilterUrl);
-        $.post(this.getRandomCrawler(), this.getRequestObject(searchFilterUrl , true), response => {
-
-            console.log(response);
-             let html;
-
-            try{
-                html = $(response).find('.b-list-advert__item.qa-advert-list-item');
-                console.log(html.length)
-            }
-            catch (e){console.log();}
-
-            console.log(html.length);
-            //Check if there is not data returned, meaning empty result
-            if (!html.length) {
 
 
-
-                //M.toast({html: this.enterValidKeywordsWarning});
-
-                this.searchTabs.show();
-                $('#tabs.tabs').tabs('select', this.props.defaultBackup);
-                this.searchQueryField.blur();
-                this.formSubmitted = true;
+        this.tryGetCachedResult(this.getRandomCrawler(), this.getRequestObject(searchFilterUrl), searchFilterUrl,  response => {
 
 
-                //Make another request to Backup
-                this.props.locale.forEach(obj => {
-                    return  obj.page = 0;
-                });
+            let html;
 
-                //also set the loadMore key of this website object to false
-                this.props.locale[0].loadMore = false;
-                if(this.props.switchWebsite({...this.props , q , query : this.searchQuery ,  noDefaultResultsFound: true})){
+            if(response.is_html) {
 
-                    this.switchToWebsite(this.props.defaultBackup , null , null , true);
+                try {
+                    html = $(response.html).find('.b-list-advert__item.qa-advert-list-item');
+                }
+                catch (e) {
+                    console.log();
+                }
 
-                    return;
+                //Check if there is not data returned, meaning empty result
+                if (!html.length) {
+
+
+
+                    //M.toast({html: this.enterValidKeywordsWarning});
+
+                    this.searchTabs.show();
+                    $('#tabs.tabs').tabs('select', this.props.defaultBackup);
+                    this.searchQueryField.blur();
+                    this.formSubmitted = true;
+
+
+                    //Make another request to Backup
+                    this.props.locale.forEach(obj => {
+                        return obj.page = 0;
+                    });
+
+                    //also set the loadMore key of this website object to false
+                    this.props.locale[0].loadMore = false;
+                    if (this.props.switchWebsite({
+                        ...this.props,
+                        q,
+                        query: this.searchQuery,
+                        noDefaultResultsFound: true
+                    })) {
+
+                        this.switchToWebsite(this.props.defaultBackup, null, null, true);
+
+                        return;
+                    }
                 }
             }
 
@@ -642,14 +845,13 @@ class Application extends React.Component {
             let titles = [];
 
 
-            html.each(function (index) {
-                titles.push($.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength).toLowerCase());
-            });
+            if(response.is_html){
+                html.each(function (index) {
+                    titles.push($.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength).toLowerCase());
+                });
+                this.filterTitles(titles);
+            }
 
-
-
-
-            this.filterTitles(titles);
 
 
 
@@ -659,61 +861,90 @@ class Application extends React.Component {
 
             let ad;
 
-            html.each(function (index) {
+            if(response.is_html) {
+                html.each(function (index) {
 
 
-                ad = {title : null , showAdImage : false , description : null , price : null , image : null , link : null, linkText : null , location : null};
+                    ad = {
+                        title: null,
+                        showAdImage: false,
+                        description: null,
+                        price: null,
+                        image: null,
+                        link: null,
+                        linkText: null,
+                        location: null
+                    };
 
 
-                let prop, addNewAd = true;
+                    let prop, addNewAd = true;
 
 
-                try {
-                    ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
-                    ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-                    ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
-                    ad.link = "https://olist.ng"+$(this).find('.js-advert-link').attr('href');
-                    ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
-                    ad.location = $(this).find('.b-list-advert__item-region').text();
-                    ad.linkText = ad.link.truncate(defaults.maxLinkLength);
+                    try {
+                        ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
+                        ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
+                        ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
+                        ad.link = "https://olist.ng" + $(this).find('.js-advert-link').attr('href');
+                        ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
+                        ad.location = $(this).find('.b-list-advert__item-region').text();
+                        ad.linkText = ad.link.truncate(defaults.maxLinkLength);
 
-                    for(prop in ad){
-                        if(prop === "showAdImage")continue;
-                        else if(!ad[prop] ||  typeof ad[prop] === 'undefined' )
-                        {
-                            addNewAd = false;
-                            break;
+                        for (prop in ad) {
+                            if (prop === "showAdImage") continue;
+                            else if (!ad[prop] || typeof ad[prop] === 'undefined') {
+                                addNewAd = false;
+                                break;
+                            }
                         }
+
+                        if (addNewAd) defaultEcommerceWebsite.ads.push(ad);
+                    }
+                    catch (e) {
+                        ad.location = "not specified";
                     }
 
-                    if(addNewAd)defaultEcommerceWebsite.ads.push(ad);
-                }
-                catch (e) {
-                    ad.location = "not specified";
-                }
+                });
 
-            });
+            }
+            else {
+
+                response.ads.forEach(ad => {
+
+                    defaultEcommerceWebsite.ads.push(ad);
+                })
+            }
+
+
+            if(response.update){
+
+                let data = {url : searchFilterUrl , ads : defaultEcommerceWebsite.ads, email : 'username@domain.com' , action : this.updateSearchResultAction};
+                data = JSON.stringify(data);
+                $.post(defaults.actions ,  {data} , response=> {
+
+                });
+            }
+
 
             let returnNow = false;
             this.fetchSponsoredAds(response => {
-                if(response.length) {
+                if (response.length) {
                     if (!this.props.switchWebsite({
                         ...this.props,
                         currentWebsite: this.props.locale[0].shortName,
                         noDefaultResultsFound: false,
                         processingAction: false,
                         sponsoredAds: response
-                    })){
+                    })) {
                         returnNow = true;
                     }
                 }
 
                 returnNow = true
-                });
+            });
 
-            if(returnNow) return;
+            if (returnNow) return;
 
-            let previousLocale =  this.props.locale;
+            let previousLocale = this.props.locale;
             //reset the pages to 0;
             this.props.locale.forEach(local => {
                 local.page = 0;
@@ -729,7 +960,7 @@ class Application extends React.Component {
                 query: this.searchQuery,
                 locale: previousLocale,
                 currentWebsite: defaultEcommerceWebsiteShortName,
-                processingAction : false
+                processingAction: false
             };
 
             if (this.props.newDefaultSearchResult({...savedState})) {
@@ -745,17 +976,9 @@ class Application extends React.Component {
         });
 
 
-
-
-
-
-
-
-
-
     };
 
-    handleSearchTypeSwitch = (e) => {
+    handleSearchTypeSwitch = e => {
 
         //Sets the value of localSearch
 

@@ -20,7 +20,8 @@ class DatabaseConnection {
         $queries_table_name = "queries", $users_table_name = "users", $ads_table_name = "ads",
         $visitors_table_name = "visitors", $site_statistics_table_name = "site_statistics",
         $withdrawals_table_name = "withdrawals", $website_details,
-        $site_name,$transactions_history_table_name = "transactions_history";
+        $site_name,$transactions_history_table_name = "transactions_history",
+        $links_table_name = "links";
 
     final public function is_production_mode () : bool
     {
@@ -254,12 +255,25 @@ class DatabaseConnection {
 
         $sql = "CREATE TABLE IF NOT EXISTS {$this->queries_table_name}(
         id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        query VARCHAR (100) NOT NULL  UNIQUE ,
+        query VARCHAR (2000) NOT NULL UNIQUE ,
         occurrence BIGINT NOT NULL  
     )";
 
         return $this->try_create_table($sql);
     }
+
+    public function create_links_table() : bool {
+
+        $sql = "CREATE TABLE IF NOT EXISTS {$this->links_table_name}(
+        id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        url VARCHAR(65535) CHARACTER SET utf8 NOT NULL,
+        last_update_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+        ad VARCHAR(65535) CHARACTER SET utf8 NOT NULL 
+    )";
+
+        return $this->try_create_table($sql);
+    }
+
 
 
 
@@ -461,6 +475,8 @@ ALTER TABLE users ADD last_free_mode_time VARCHAR( 255 ) NOT NULL DEFAULT '0';
         $sql.= "WHERE {$where_clause};";
         return $this->executeSQL($sql);
     }
+
+
     
     public  final function initiate_database_tables () : bool
     {
@@ -474,7 +490,7 @@ ALTER TABLE users ADD last_free_mode_time VARCHAR( 255 ) NOT NULL DEFAULT '0';
             $this->insert_into_table($this->site_statistics_table_name , []);
             $this->create_withdrawals_table();
             $this->create_transactions_history_table();
-
+            $this->create_links_table();
             return true;
 
     }
@@ -501,4 +517,5 @@ $DatabaseConnection = new DatabaseConnection();
 //$DatabaseConnection->create_site_statistics_table();
 //$DatabaseConnection->create_withdrawals_table();
 //$DatabaseConnection->initiate_database_tables();
+//$DatabaseConnection->create_links_table();
 ?>

@@ -306,7 +306,7 @@ class  LocalSearchTab extends React.Component{
             let priceToNumber = 0;
             let boldedQuery,showAdImage,viewSaveSeparator;
             let template = (local.ads.length) ? local.ads.map((ad, index) => {
-                priceToNumber = parseInt(ad.price.toString().replace(/,/g, ''));
+                priceToNumber = parseInt(ad.price.toString().replace(/[^0-9]/g,''));
                 if(priceToNumber >= local.bestOfferInt && !seenBestOffer) {
                     seenBestOffer = true;
                     bestOfferClass = <div className="best-offer"></div> ;

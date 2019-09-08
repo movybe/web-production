@@ -286,7 +286,7 @@ function (_React$Component) {
         var priceToNumber = 0;
         var boldedQuery, showAdImage, viewSaveSeparator;
         var template = local.ads.length ? local.ads.map(function (ad, index) {
-          priceToNumber = parseInt(ad.price.toString().replace(/,/g, ''));
+          priceToNumber = parseInt(ad.price.toString().replace(/[^0-9]/g, ''));
 
           if (priceToNumber >= local.bestOfferInt && !seenBestOffer) {
             seenBestOffer = true;

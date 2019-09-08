@@ -271,6 +271,7 @@ class Actions extends  Functions
 ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         $ad_rate = null;
         $ad_id = null;
+        if(!count($sponsored_ads)) return [];
         foreach ($sponsored_ads as $sponsored_ad)
 
         {
@@ -543,6 +544,70 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
     }
 
+    function get_cached_ad() : string
+    {
+
+
+
+            $url = $this->data['url'];
+
+
+            $response = ['update' => true];
+
+
+            $data = $this->fetch_data_from_table($this->links_table_name , 'url' , $url);
+
+            if(!count($data))return json_encode($response);
+
+            $data= $data[0];
+            $last_update_timestamp = $data['last_update_timestamp'];
+
+            $now = time();
+
+            $strtotime = strtotime($last_update_timestamp);
+
+            $difference = $now - $strtotime;
+
+
+            $days = round($difference / (3600 * 24));
+
+
+            $response['update'] = $days > $this->website_details->ad_cache_days;
+
+            if(!$response['update']) $response['ads'] = json_decode(base64_decode(($data['ad'])), true);
+
+            return json_encode($response);
+
+
+    }
+
+    function update_search_result () : string  {
+
+        $url = $this->escape_string($this->data['url']);
+        $now = date('Y-m-d H:i:s');
+
+        if($this->record_exists_in_table($this->links_table_name , 'url' , $url))
+        {
+            $this->update_multiple_fields($this->links_table_name ,
+                [
+                    'last_update_timestamp' => $now,
+                    'ad' => base64_encode(json_encode($this->data['ads']))
+                ] , "url = '{$url}'"
+            );
+        }
+
+        else {
+
+            $this->insert_into_table($this->links_table_name , [
+                'last_update_timestamp' => $now,
+                'ad' => base64_encode(json_encode($this->data['ads'])),
+                'url' => $url
+            ]);
+        }
+
+        return "OK";
+    }
+
     private function try_reactivate_affiliate_account () : string{
 
 
@@ -751,6 +816,10 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                 return $this->getSponsoredAds();
             case 'DISAPPROVE_AD':
                 return $this->disapprove_ad();
+            case 'FETCH_CACHED_AD':
+                return $this->get_cached_ad();
+            case 'UPDATE_SEARCH_RESULT' :
+                return $this->update_search_result();
         }
     }
 
