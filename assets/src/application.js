@@ -213,7 +213,6 @@ class Application extends React.Component {
                                 ad.location = $(this).find('.b-list-advert__item-region').text();
                                 ad.linkText = ad.link.truncate(defaults.maxLinkLength);
                                 for (prop in ad) {
-
                                     if (prop === "showAdImage") continue;
                                     else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
                                         addNewAd = false;
@@ -419,15 +418,18 @@ class Application extends React.Component {
 
                     }
 
+                    selectedEcommerce.page += 1;
+
+
                     if(resp.update){
 
-                        let data = {url , ads : selectedEcommerce.ads, email : 'username@domain.com' , action : this.updateSearchResultAction};
+                        let data = {url : req , ads : selectedEcommerce.ads, email : 'username@domain.com' , action : this.updateSearchResultAction};
                         data = JSON.stringify(data);
                         $.post(defaults.actions ,  {data} , response=> {
 
                         });
                     }
-                    selectedEcommerce.page += 1;
+
 
 
                     this.props.locale[index] = selectedEcommerce;
@@ -514,6 +516,7 @@ class Application extends React.Component {
                         $.post(defaults.actions ,  {data} , response=> {
 
                         });
+
                     }
 
                         selectedEcommerce.page = selectedEcommerce.page + 1;
@@ -664,15 +667,17 @@ class Application extends React.Component {
 
     tryGetCachedResult = (url , dataObject , searchUrl , callback , siteName = "other" , req = {}) => {
 
+        let isKongaRequest = siteName.toLowerCase().indexOf('konga') >= 0;
+
 
         let data = JSON.stringify({
-            url : searchUrl,
+            url : isKongaRequest ? req : searchUrl,
             action : 'FETCH_CACHED_AD',
             email : 'username@domain.com'
         });
 
-        $.post(defaults.actions , {data} , cacheResponse => {
 
+        $.post(defaults.actions , {data} , cacheResponse => {
 
 
 
@@ -685,7 +690,6 @@ class Application extends React.Component {
 
             cacheResponse['is_html'] = true;
 
-            let isKongaRequest = siteName.toLowerCase().indexOf('konga') >= 0;
 
 
             if(cacheResponse.update && !isKongaRequest)
@@ -790,7 +794,7 @@ class Application extends React.Component {
             this.props.sponsoredAdsClicked.pop();
         }
         this.searchFormFieldSet.prop(...defaults.disabledTrue);
-        //console.log(searchFilterUrl);
+
 
 
         this.tryGetCachedResult(this.getRandomCrawler(), this.getRequestObject(searchFilterUrl), searchFilterUrl,  response => {

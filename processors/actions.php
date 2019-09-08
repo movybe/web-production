@@ -549,8 +549,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
 
 
-            $url = $this->data['url'];
-
+            $url = is_array($this->data['url']) ? base64_encode(json_encode($this->data['url'])) : $this->data['url'];
 
             $response = ['update' => true];
 
@@ -577,13 +576,11 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
             if(!$response['update']) $response['ads'] = json_decode(base64_decode(($data['ad'])), true);
 
             return json_encode($response);
-
-
     }
 
     function update_search_result () : string  {
 
-        $url = $this->escape_string($this->data['url']);
+        $url = is_array($this->data['url']) ? base64_encode(json_encode($this->data['url'])) : $this->data['url'];
         $now = date('Y-m-d H:i:s');
 
         if($this->record_exists_in_table($this->links_table_name , 'url' , $url))

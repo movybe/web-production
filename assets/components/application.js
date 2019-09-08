@@ -434,9 +434,11 @@ function (_React$Component) {
               });
             }
 
+            selectedEcommerce.page += 1;
+
             if (resp.update) {
               var data = {
-                url: url,
+                url: req,
                 ads: selectedEcommerce.ads,
                 email: 'username@domain.com',
                 action: _this.updateSearchResultAction
@@ -447,7 +449,6 @@ function (_React$Component) {
               }, function (response) {});
             }
 
-            selectedEcommerce.page += 1;
             _this.props.locale[index] = selectedEcommerce;
             var previousLocale = _this.props.locale;
             savedState = _objectSpread({}, _this.props, {
@@ -650,8 +651,9 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "tryGetCachedResult", function (url, dataObject, searchUrl, callback) {
       var siteName = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : "other";
       var req = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {};
+      var isKongaRequest = siteName.toLowerCase().indexOf('konga') >= 0;
       var data = JSON.stringify({
-        url: searchUrl,
+        url: isKongaRequest ? req : searchUrl,
         action: 'FETCH_CACHED_AD',
         email: 'username@domain.com'
       });
@@ -661,7 +663,6 @@ function (_React$Component) {
         //return;
         cacheResponse = JSON.parse(cacheResponse);
         cacheResponse['is_html'] = true;
-        var isKongaRequest = siteName.toLowerCase().indexOf('konga') >= 0;
 
         if (cacheResponse.update && !isKongaRequest) {
           $.post(url, dataObject, function (response) {
@@ -737,8 +738,7 @@ function (_React$Component) {
         _this.props.sponsoredAdsClicked.pop();
       }
 
-      (_this$searchFormField2 = _this.searchFormFieldSet).prop.apply(_this$searchFormField2, _toConsumableArray(defaults.disabledTrue)); //console.log(searchFilterUrl);
-
+      (_this$searchFormField2 = _this.searchFormFieldSet).prop.apply(_this$searchFormField2, _toConsumableArray(defaults.disabledTrue));
 
       _this.tryGetCachedResult(_this.getRandomCrawler(), _this.getRequestObject(searchFilterUrl), searchFilterUrl, function (response) {
         var _this$searchFormField3;
