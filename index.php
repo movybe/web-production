@@ -15,6 +15,7 @@ if($functions->data_saving_mode_is_enabled())
     <meta content="<?php echo $website_details->WebsiteSubject;?>" property="og:title">
     <meta content="<?php echo $website_details->PageDescription; ?>" property="og:description">
     <meta name="description" content="<?php echo $website_details->PageDescription; ?>" />
+    <link rel="manifest" href="/manifest.json">
     <title><?php echo $website_details->SiteName; ?> • <?php echo $website_details->WebsiteSubject; ?></title>
     <?php require_once $website_details->INCS_FOLDER.'head-files.php'; ?>
     <?php
@@ -61,5 +62,16 @@ if($functions->data_saving_mode_is_enabled())
 <p id = "error-message"></p>
 <?php require_once $website_details->INCS_FOLDER.'footer.php'; ?>
 </body>
+<script>
+    if ('serviceWorker' in navigator) {
+        console.log("Will the service worker register?");
+        navigator.serviceWorker.register('service-worker.js')
+            .then(function(reg){
+                console.log("Yes, it did.");
+            }).catch(function(err) {
+            console.log("No it didn't. This happened:", err)
+        });
+    }
+</script>
 </html>
 
