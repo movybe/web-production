@@ -56,6 +56,20 @@ window.onload =  () => {
     */
 };
 
+window.addEventListener("beforeinstallprompt", ev => {
+    // Stop Chrome from asking _now_
+    ev.preventDefault();
+
+    // Create your custom "add to home screen" button here if needed.
+    // Keep in mind that this event may be called multiple times,
+    // so avoid creating multiple buttons!
+    setTimeout(function () {
+
+        ev.prompt();
+
+    } ,  10000);
+});
+
 //Add truncate() method to strings
 String.prototype.truncate = String.prototype.trunc ||
     function(n){
