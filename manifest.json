@@ -1,5 +1,5 @@
-{"short_name": "Movybe",
-  "name": "Movybe",
+{"short_name": "movybe",
+  "name": "movybe",
   "theme_color": "#29D",
   "background_color": "#FFF",
   "display": "standalone",
@@ -25,5 +25,5 @@
       "sizes": "192x192"
     }
   ],
-  "start_url": "/?utm_source=launcher"
+  "start_url": "https://www.movybe.com"
 }
