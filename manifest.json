@@ -1,29 +1,29 @@
 {"short_name": "movybe",
   "name": "movybe",
-  "theme_color": "#29D",
+  "theme_color": "#2299dd",
   "background_color": "#FFF",
-  "display": "standalone",
+  "display": "fullscreen",
   "icons": [
     {
-      "src": "assets/img/icon-48.png",
-      "type": "image/png",
+      "src": "movybe/assets/img/icon-48.png",
+      "type": "movybe/image/png",
       "sizes": "48x48"
     },
     {
-      "src": "assets/img/icon-96.png",
+      "src": "movybe/assets/img/icon-96.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "assets/img/icon-144.png",
+      "src": "movybe/assets/img/icon-144.png",
       "type": "image/png",
       "sizes": "144x144"
     },
     {
-      "src": "assets/img/icon-192.png",
+      "src": "movybe/assets/img/icon-192.png",
       "type": "image/png",
       "sizes": "192x192"
     }
   ],
-  "start_url": "https://www.movybe.com"
+  "start_url": "/"
 }

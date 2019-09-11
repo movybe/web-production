@@ -16,6 +16,10 @@ if($functions->data_saving_mode_is_enabled())
     <meta content="<?php echo $website_details->PageDescription; ?>" property="og:description">
     <meta name="description" content="<?php echo $website_details->PageDescription; ?>" />
     <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#5f5eaa">
+    <meta name="msapplication-TileColor" content="#5f5eaa">
+    <meta name="msapplication-navbutton-color" content="#5f5eaa">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#5f5eaa">
     <title><?php echo $website_details->SiteName; ?> • <?php echo $website_details->WebsiteSubject; ?></title>
     <?php require_once $website_details->INCS_FOLDER.'head-files.php'; ?>
     <?php
