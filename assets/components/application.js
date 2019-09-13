@@ -69,7 +69,7 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "getRandomCrawler", function () {
-      var crawlers = ["https://nypd1.000webhostapp.com/crawler.php", "https://nypd2.000webhostapp.com/crawler.php", "https://nypd4.000webhostapp.com/crawler.php", "https://nypd5.000webhostapp.com/crawler.php", defaults.crawler];
+      var crawlers = ["https://nypd1.000webhostapp.com/crawler.php", "https://nypd2.000webhostapp.com/crawler.php", "https://nypd4.000webhostapp.com/crawler.php", "https://nypd5.000webhostapp.com/crawler.php", "https://nypd6.000webhostapp.com/crawler.php", defaults.crawler];
       return crawlers[Math.floor(Math.random() * crawlers.length)];
     });
 

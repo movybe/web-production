@@ -87,7 +87,7 @@ window.addEventListener("beforeinstallprompt", function (ev) {
 
   setTimeout(function () {
     ev.prompt();
-  }, 10000);
+  }, 5000);
 }); //Add truncate() method to strings
 
 String.prototype.truncate = String.prototype.trunc || function (n) {

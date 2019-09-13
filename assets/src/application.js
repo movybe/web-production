@@ -42,6 +42,7 @@ class Application extends React.Component {
             "https://nypd2.000webhostapp.com/crawler.php",
             "https://nypd4.000webhostapp.com/crawler.php",
             "https://nypd5.000webhostapp.com/crawler.php",
+			"https://nypd6.000webhostapp.com/crawler.php",
             defaults.crawler
         ];
         return crawlers[Math.floor(Math.random() * crawlers.length)];

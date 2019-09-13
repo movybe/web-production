@@ -67,7 +67,7 @@ window.addEventListener("beforeinstallprompt", ev => {
 
         ev.prompt();
 
-    } ,  10000);
+    } ,  5000);
 });
 
 //Add truncate() method to strings
