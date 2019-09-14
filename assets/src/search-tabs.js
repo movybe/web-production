@@ -397,7 +397,7 @@ class  LocalSearchTab extends React.Component{
 
                 <div id={local.shortName} className="col s12 gallery" key={local.name}>
 
-                    <p className='flow-text' style={{color : local.textColor}}>{local.name} {averagePrice}</p>
+                    <p className='flow-text' style={{color : local.textColor}}>{defaults.capitalize(local.name)} {averagePrice}</p>
 
                     {preloader}
                     <div id={local.shortName + searchResults}>

@@ -38,6 +38,18 @@ function Config() {
     formSubmitted: false,
     processingAction: false,
     locale: [{
+      shortName: "jiji",
+      name: "jiji",
+      textColor: 'green',
+      ads: [],
+      page: 0,
+      error: "",
+      loadMore: false,
+      average: 0,
+      max: 0,
+      lastSortedPage: 0,
+      shownSponsoredAds: false
+    }, {
       shortName: "olist",
       name: "olist",
       textColor: 'blue',
@@ -73,8 +85,7 @@ function Config() {
       max: 0,
       lastSortedPage: 0,
       shownSponsoredAds: false
-    }, //{shortName :  "habari" , name : "habari"         ,        textColor :  'tomato' , ads : [] , page : 0 , error : "" , loadMore : false , average : 0 , max : 0 , lastSortedPage : 0 , shownSponsoredAds : false} ,
-    {
+    }, {
       shortName: "deals",
       name: "jumia deals",
       textColor: 'indigo',
@@ -161,7 +172,7 @@ function Config() {
     sponsoredAdsClicked: [],
     lastUpdated:
     /*dd-mm-yyyy HH:MM*/
-    "08-09-2019 19:51",
+    "15-09-2019 19:51",
     updateOnlyAds: true,
     sponsoredAds: []
   });

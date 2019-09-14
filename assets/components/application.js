@@ -88,6 +88,9 @@ function (_React$Component) {
       var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var loadMore = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
       var backup = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+      var isfirstSearch = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+      var queryObject = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {};
+      var callback = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : null;
 
       // here i want to find the E-commerce website object from the props using the "website" parameter
       var selectedEcommerce = _this.props.locale.find(function (local, pos) {
@@ -121,18 +124,26 @@ function (_React$Component) {
           });
         }
       };
+
+      var getTitles = function getTitles(ads) {
+        var titles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+        ads.forEach(function (ad) {
+          titles.push(ad.title);
+        });
+      };
       /*
       query : "samsung galaxy s7 edge"
       q : "samsung+galaxy+s7+edge" //default query type for most modern E-commerce websites
        */
 
 
-      var _this$props = _this.props,
-          query = _this$props.query,
-          q = _this$props.q; //increments the pageNumber so that it can pass it to the search url
+      var _ref = isfirstSearch ? queryObject : _this.props,
+          query = _ref.query,
+          q = _ref.q; //increments the pageNumber so that it can pass it to the search url
       // e.g if the previous page for olx = 1
       // the new page number becomes 2
       // the new value (which is 2) is then parsed to the search url of the website
+
 
       var pageNumber = selectedEcommerce.page + 1;
       /*
@@ -140,7 +151,7 @@ function (_React$Component) {
       to prevent this function from being recursive
       */
 
-      if (!loadMore && selectedEcommerce.page > 0 && !backup) {
+      if (!isfirstSearch && !loadMore && selectedEcommerce.page > 0 && !backup) {
         /*
         Since the user had clicked on this current tab
         if the "currentWebsite" property of the store is not equal to
@@ -162,7 +173,7 @@ function (_React$Component) {
       */
 
 
-      if (!_this.props.switchWebsite(_objectSpread({}, _this.props, {
+      if (!isfirstSearch && !_this.props.switchWebsite(_objectSpread({}, _this.props, {
         processingAction: true,
         currentWebsite: website
       }))) return;
@@ -171,7 +182,7 @@ function (_React$Component) {
       so that new titles , descriptions , prices , images will be replaced with new ones
       */
 
-      if (!backup && !_this.props.noDefaultResultsFound) {
+      if (!isfirstSearch && !backup && !_this.props.noDefaultResultsFound) {
         if (!loadMore) {
           Object.keys(selectedEcommerce).map(function (key) {
             return Array.isArray(selectedEcommerce[key]) ? selectedEcommerce[key] = [] : null;
@@ -186,16 +197,20 @@ function (_React$Component) {
       var savedState = {};
 
       var defaultAction = function defaultAction() {
-        var _this$searchFormField;
+        if (!isfirstSearch) {
+          var _this$searchFormField;
 
-        (_this$searchFormField = _this.searchFormFieldSet).prop.apply(_this$searchFormField, _toConsumableArray(defaults.disabledFalse));
+          (_this$searchFormField = _this.searchFormFieldSet).prop.apply(_this$searchFormField, _toConsumableArray(defaults.disabledFalse));
 
-        if (_this.props.switchWebsite(_objectSpread({}, savedState, {
-          processingAction: false
-        }))) return;
+          if (_this.props.switchWebsite(_objectSpread({}, savedState, {
+            processingAction: false
+          }))) return;
+        }
       };
 
-      var resp;
+      var resp,
+          ads = [];
+      var titles = [];
 
       switch (website) {
         case 'olist':
@@ -246,12 +261,17 @@ function (_React$Component) {
                     }
                   }
 
-                  if (addNewAd) selectedEcommerce.ads.push(ad);
+                  if (addNewAd) {
+                    selectedEcommerce.ads.push(ad);
+                    ads.push(ad);
+                  }
                 });
               }
             } else {
               response.ads.forEach(function (ad) {
+                ads.push(ad);
                 selectedEcommerce.ads.push(ad);
+                titles.push(ad.title);
               });
             }
 
@@ -276,6 +296,101 @@ function (_React$Component) {
               currentWebsite: website
             });
             defaultAction();
+            return callback ? callback(_objectSpread({}, resp, {
+              titles: titles,
+              all_ads: ads
+            })) : null;
+          });
+
+          break;
+
+        case 'jiji':
+          url = "https://jiji.ng/search?query=".concat(q, "&page=").concat(pageNumber);
+
+          _this.tryGetCachedResult(_this.getRandomCrawler(), _this.getRequestObject(url), url, function (response) {
+            resp = response;
+
+            if (response.is_html) {
+              var html;
+
+              try {
+                html = $(response.html).find('.b-list-advert__template');
+              } catch (e) {
+                showError();
+              }
+
+              if (!html.length) return showError(); //Clearing some memory
+
+              response = null;
+              {
+                var ad;
+                var counter = 0;
+                var prop,
+                    addNewAd = true;
+                html.each(function (index) {
+                  ad = {
+                    title: null,
+                    description: null,
+                    price: null,
+                    image: null,
+                    link: null,
+                    linkText: null,
+                    location: null
+                  };
+                  ad.title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
+                  ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
+                  ad.price = $.trim($(this).find('.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
+                  ad.link = $(this).find('.js-advert-link').attr('href');
+                  ad.image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
+                  ad.location = $(this).find('.b-list-advert__item-region').text();
+                  ad.linkText = ad.link.truncate(defaults.maxLinkLength);
+
+                  for (prop in ad) {
+                    if (prop === "showAdImage") continue;else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
+                      addNewAd = false;
+                      break;
+                    }
+                  }
+
+                  if (addNewAd) {
+                    selectedEcommerce.ads.push(ad);
+                    ads.push(ad);
+                  }
+                });
+              }
+            } else {
+              response.ads.forEach(function (ad) {
+                ads.push(ad);
+                selectedEcommerce.ads.push(ad);
+                titles.push(ad.title);
+              });
+            }
+
+            if (resp.update) {
+              var data = {
+                url: url,
+                ads: selectedEcommerce.ads,
+                email: 'username@domain.com',
+                action: _this.updateSearchResultAction
+              };
+              data = JSON.stringify(data);
+              $.post(defaults.actions, {
+                data: data
+              }, function (response) {});
+            }
+
+            selectedEcommerce.page += 1;
+            _this.props.locale[index] = selectedEcommerce;
+            var previousLocale = _this.props.locale;
+            savedState = _objectSpread({}, _this.props, {
+              locale: previousLocale,
+              currentWebsite: website
+            });
+            defaultAction();
+            return callback ? callback(_objectSpread({}, resp, {
+              titles: titles,
+              all_ads: ads
+            })) : null;
           });
 
           break;
@@ -361,6 +476,7 @@ function (_React$Component) {
               }, function (response) {});
             }
 
+            titles = selectedEcommerce.ads.length ? getTitles(selectedEcommerce.ads) : titles;
             selectedEcommerce.page += 1;
             _this.props.locale[index] = selectedEcommerce;
             var previousLocale = _this.props.locale;
@@ -434,6 +550,7 @@ function (_React$Component) {
               });
             }
 
+            titles = selectedEcommerce.ads.length ? getTitles(selectedEcommerce.ads) : titles;
             selectedEcommerce.page += 1;
 
             if (resp.update) {
@@ -507,12 +624,17 @@ function (_React$Component) {
                     }
                   }
 
-                  if (addNewAd) selectedEcommerce.ads.push(ad);
+                  if (addNewAd) {
+                    selectedEcommerce.ads.push(ad);
+                    ads.push(ad);
+                  }
                 });
               }
             } else {
               response.ads.forEach(function (ad) {
+                ads.push(ad);
                 selectedEcommerce.ads.push(ad);
+                titles.push(ad.title);
               });
             }
 
@@ -537,92 +659,13 @@ function (_React$Component) {
               currentWebsite: website
             });
             defaultAction();
+            return callback ? callback(_objectSpread({}, resp, {
+              titles: titles,
+              all_ads: ads
+            })) : null;
           });
 
           break;
-
-        case 'habari':
-          q = query.split(' ').join("%20");
-          url = "http://admin.shopping.habarigt.com/index.php/rest/V1/product-list-by-slug/all?q=".concat(q, "&limit=19&page=").concat(pageNumber);
-
-          var getRequest = function getRequest() {
-            _this.tryGetCachedResult(_this.getRandomCrawler(), _this.getRequestObject(url), url, function (response) {
-              resp = response;
-
-              if (response.is_html) {
-                try {
-                  response = JSON.parse(response.html);
-                } catch (e) {
-                  getRequest();
-                }
-
-                if (!response.html.item || !response.html.item.length) {
-                  return showError();
-                }
-
-                {
-                  var ad,
-                      prop,
-                      addNewAd = true;
-                  response.item.forEach(function (obj) {
-                    ad = {
-                      title: null,
-                      description: null,
-                      price: null,
-                      image: null,
-                      link: null,
-                      linkText: null,
-                      location: null
-                    };
-                    ad.location = "";
-                    ad.title = obj.name.truncate(defaults.maxTitleLength);
-                    ad.description = obj.seller_title.truncate(defaults.maxDescriptionLength);
-                    ad.image = obj.image_url;
-                    ad.price = obj.meal_price ? obj.meal_price.toLocaleString() : 0;
-                    ad.link = 'https://habarigt.com/shopping/product-detail/' + obj.slug;
-                    ad.linkText = ('https://habarigt.com/shopping/product-detail/' + obj.slug).truncate(defaults.maxLinkLength);
-
-                    for (prop in ad) {
-                      if (prop === "showAdImage") continue;else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
-                        addNewAd = false;
-                        break;
-                      }
-                    }
-
-                    if (addNewAd) selectedEcommerce.ads.push(ad);
-                  });
-                }
-              } else {
-                response.ads.forEach(function (ad) {
-                  selectedEcommerce.ads.push(ad);
-                });
-              }
-
-              if (resp.update) {
-                var data = {
-                  url: url,
-                  ads: selectedEcommerce.ads,
-                  email: 'username@domain.com',
-                  action: _this.updateSearchResultAction
-                };
-                data = JSON.stringify(data);
-                $.post(defaults.actions, {
-                  data: data
-                }, function (response) {});
-              }
-
-              selectedEcommerce.page = selectedEcommerce.page + 1;
-              _this.props.locale[index] = selectedEcommerce;
-              var previousLocale = _this.props.locale;
-              savedState = _objectSpread({}, _this.props, {
-                locale: previousLocale,
-                currentWebsite: website
-              });
-              defaultAction();
-            });
-          };
-
-          getRequest();
       }
     });
 
@@ -681,12 +724,22 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "getRandomDefaultWebsite", function () {
+      //First check classified ad websites before E-commerce websites
+      var classifiedAdsWebsites = ["olist", "deals", "jiji"];
+      var ecommerceWebsites = ["jumia", "konga"];
+      var randomClassifiedAdWebsite = classifiedAdsWebsites[Math.floor(Math.random() * classifiedAdsWebsites.length)];
+      var randomEcommerceWebsite = ecommerceWebsites[Math.floor(Math.random() * ecommerceWebsites.length)];
+      return [randomClassifiedAdWebsite, randomEcommerceWebsite];
+    });
+
     _defineProperty(_assertThisInitialized(_this), "handleSearchFormSubmit", function (e) {
       var _this$searchFormField2;
 
-      e.preventDefault();
+      e.preventDefault(); //e.stopImmediatePropagation();
+
       _this.formSubmitted = false;
-      _this.searchQuery = _this.searchQueryField.val().toLowerCase();
+      _this.searchQuery = _this.searchQueryField.val().toLowerCase().replace(/ +(?= )/g, '');
       if (!_this.searchQuery.length) return; //Filters the search query
       //this.replaceSearchText();
       //Spilts the words of the query into an array
@@ -707,10 +760,12 @@ function (_React$Component) {
 
       $(':focus').blur(); //default search website depending on the users's settings
 
-      var q = _this.searchQuery.split(" ").join("+"); //The default website to make the search and filter contents
+      var q = _this.searchQuery.split(" ").join("+");
 
-
-      var searchFilterUrl = "https://olist.ng/search?keyword=".concat(q, "&state_id=&page=1");
+      var queryObject = {
+        query: _this.searchQuery,
+        q: q
+      };
 
       _this.props.locale.forEach(function (obj) {
         Object.keys(obj).map(function (key) {
@@ -740,123 +795,59 @@ function (_React$Component) {
 
       (_this$searchFormField2 = _this.searchFormFieldSet).prop.apply(_this$searchFormField2, _toConsumableArray(defaults.disabledTrue));
 
-      _this.tryGetCachedResult(_this.getRandomCrawler(), _this.getRequestObject(searchFilterUrl), searchFilterUrl, function (response) {
+      var defaultRandomEcommerceWebsites = _this.getRandomDefaultWebsite();
+
+      var defaultRandomClassifiedAdWebsite = defaultRandomEcommerceWebsites[0];
+      var defaultRandomEcommerceWebsite = defaultRandomEcommerceWebsites[1];
+      console.log(defaultRandomClassifiedAdWebsite, defaultRandomEcommerceWebsite);
+
+      _this.switchToWebsite(defaultRandomClassifiedAdWebsite, 0, false, false, true, queryObject, function (response) {
         var _this$searchFormField3;
 
-        var html;
+        var selectedEcommerce = _this.props.locale.find(function (local, pos) {
+          var index = pos; // if the current E-commerce shortName is equal to the "website" parameter sent to the function
 
-        if (response.is_html) {
-          try {
-            html = $(response.html).find('.b-list-advert__item.qa-advert-list-item');
-          } catch (e) {
-            console.log();
-          } //Check if there is not data returned, meaning empty result
+          return local.shortName === defaultRandomClassifiedAdWebsite;
+        }); //Check if there is no title returned, meaning empty result
 
 
-          if (!html.length) {
-            //M.toast({html: this.enterValidKeywordsWarning});
-            _this.searchTabs.show();
+        if (!response.all_ads.length) {
+          //M.toast({html: this.enterValidKeywordsWarning});
+          _this.searchTabs.show();
 
-            $('#tabs.tabs').tabs('select', _this.props.defaultBackup);
+          $('#tabs.tabs').tabs('select', defaultRandomEcommerceWebsite);
 
-            _this.searchQueryField.blur();
+          _this.searchQueryField.blur();
 
-            _this.formSubmitted = true; //Make another request to Backup
+          _this.formSubmitted = true; //Make another request to Backup
 
-            _this.props.locale.forEach(function (obj) {
-              return obj.page = 0;
-            }); //also set the loadMore key of this website object to false
+          _this.props.locale.forEach(function (obj) {
+            return obj.page = 0;
+          }); //also set the loadMore key of this website object to false
 
 
-            _this.props.locale[0].loadMore = false;
+          _this.props.locale[0].loadMore = false;
 
-            if (_this.props.switchWebsite(_objectSpread({}, _this.props, {
-              q: q,
-              query: _this.searchQuery,
-              noDefaultResultsFound: true
-            }))) {
-              _this.switchToWebsite(_this.props.defaultBackup, null, null, true);
+          if (_this.props.switchWebsite(_objectSpread({}, _this.props, {
+            q: q,
+            query: _this.searchQuery,
+            noDefaultResultsFound: true
+          }))) {
+            _this.switchToWebsite(defaultRandomEcommerceWebsite, null, null, true);
 
-              return;
-            }
+            return;
           }
         }
 
-        var titles = [];
-
-        if (response.is_html) {
-          html.each(function (index) {
-            titles.push($.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength).toLowerCase());
-          });
-
-          _this.filterTitles(titles);
-        }
-
-        var defaultEcommerceWebsite = _this.props.locale[0];
-        var defaultEcommerceWebsiteShortName = defaultEcommerceWebsite.shortName;
-        var ad;
-
-        if (response.is_html) {
-          html.each(function (index) {
-            ad = {
-              title: null,
-              showAdImage: false,
-              description: null,
-              price: null,
-              image: null,
-              link: null,
-              linkText: null,
-              location: null
-            };
-            var prop,
-                addNewAd = true;
-
-            try {
-              ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
-              ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-              ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
-              ad.link = "https://olist.ng" + $(this).find('.js-advert-link').attr('href');
-              ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
-              ad.location = $(this).find('.b-list-advert__item-region').text();
-              ad.linkText = ad.link.truncate(defaults.maxLinkLength);
-
-              for (prop in ad) {
-                if (prop === "showAdImage") continue;else if (!ad[prop] || typeof ad[prop] === 'undefined') {
-                  addNewAd = false;
-                  break;
-                }
-              }
-
-              if (addNewAd) defaultEcommerceWebsite.ads.push(ad);
-            } catch (e) {
-              ad.location = "not specified";
-            }
-          });
-        } else {
-          response.ads.forEach(function (ad) {
-            defaultEcommerceWebsite.ads.push(ad);
-          });
-        }
-
-        if (response.update) {
-          var data = {
-            url: searchFilterUrl,
-            ads: defaultEcommerceWebsite.ads,
-            email: 'username@domain.com',
-            action: _this.updateSearchResultAction
-          };
-          data = JSON.stringify(data);
-          $.post(defaults.actions, {
-            data: data
-          }, function (response) {});
-        }
-
+        response.all_ads.forEach(function (ad) {
+          selectedEcommerce.ads.push(ad);
+        });
         var returnNow = false;
 
         _this.fetchSponsoredAds(function (response) {
           if (response.length) {
             if (!_this.props.switchWebsite(_objectSpread({}, _this.props, {
-              currentWebsite: _this.props.locale[0].shortName,
+              currentWebsite: defaultRandomClassifiedAdWebsite,
               noDefaultResultsFound: false,
               processingAction: false,
               sponsoredAds: response
@@ -869,6 +860,11 @@ function (_React$Component) {
         });
 
         if (returnNow) return;
+
+        if (response.is_html) {
+          _this.filterTitles(response.titles, function () {});
+        }
+
         var previousLocale = _this.props.locale; //reset the pages to 0;
 
         _this.props.locale.forEach(function (local) {
@@ -877,13 +873,13 @@ function (_React$Component) {
           local.loadMore = true;
         });
 
-        defaultEcommerceWebsite.page += 1;
+        selectedEcommerce.page += 1;
 
         var savedState = _objectSpread({}, _this.props, {
           q: q,
           query: _this.searchQuery,
           locale: previousLocale,
-          currentWebsite: defaultEcommerceWebsiteShortName,
+          currentWebsite: defaultRandomClassifiedAdWebsite,
           processingAction: false
         });
 
@@ -895,7 +891,7 @@ function (_React$Component) {
 
           _this.searchTabs.show();
 
-          $('#tabs.tabs').tabs('select', defaultEcommerceWebsiteShortName);
+          $('#tabs.tabs').tabs('select', defaultRandomClassifiedAdWebsite);
         }
 
         (_this$searchFormField3 = _this.searchFormFieldSet).prop.apply(_this$searchFormField3, _toConsumableArray(defaults.disabledFalse));
@@ -954,7 +950,7 @@ function (_React$Component) {
       _this.toggleImagesSwitch.prop('checked', _this.props.settings.showImages);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "filterTitles", function (titlesArr) {
+    _defineProperty(_assertThisInitialized(_this), "filterTitles", function (titlesArr, callback) {
       //an array containing all the titles of the first search
       var validTitles = [];
       var titles = titlesArr.forEach(function (title) {
@@ -1001,6 +997,8 @@ function (_React$Component) {
         _this.lastSearchQuery = _this.searchQuery;
 
         _this.switchContainer.hide();
+
+        return callback();
         /*
         this.props.locale.forEach(obj => {
             Object.keys(obj).map(key => {
@@ -1010,7 +1008,6 @@ function (_React$Component) {
             })
         });
         */
-
       });
     });
 

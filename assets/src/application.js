@@ -1,10 +1,4 @@
 class Application extends React.Component {
-
-
-
-
-
-
     lastSearchQuery = null;
     formSubmitted = false;
     cookiesQueryKey = "queries";
@@ -31,8 +25,8 @@ class Application extends React.Component {
         ];
 
         let platformArray = desktop ? DesktopUserAgentStrings : mobileUserAgentStrings;
-
         return platformArray[Math.floor(Math.random() * platformArray.length)];
+
     };
 
 
@@ -58,7 +52,7 @@ class Application extends React.Component {
         super();
     }
     switchToWebsite = (website , /* not event necessary */ index = 0 , /* if the user clicks on load more button */
-                       loadMore = false , /* if the default E-commerce website doesn't return any result*/backup = false) => {
+                       loadMore = false , /* if the default E-commerce website doesn't return any result*/backup = false ,  isfirstSearch = false , queryObject = {} , callback = null) => {
         // here i want to find the E-commerce website object from the props using the "website" parameter
         let selectedEcommerce = this.props.locale.find((local  , pos)=> {
                 index = pos;
@@ -66,6 +60,8 @@ class Application extends React.Component {
                 return local.shortName === website;
             }
         );
+
+
 
         /*
         The function below warns the user of two possible error outcomes:
@@ -84,12 +80,23 @@ class Application extends React.Component {
 
             }
         };
+        
+        const getTitles = (ads , titles = []) => {
+          
+            ads.forEach(function (ad) {
+
+                titles.push(ad.title);
+            });
+        };
+
+
+
         /*
         query : "samsung galaxy s7 edge"
         q : "samsung+galaxy+s7+edge" //default query type for most modern E-commerce websites
          */
 
-        let {query , q} = this.props;
+        let {query , q} = isfirstSearch ? queryObject : this.props;
 
         //increments the pageNumber so that it can pass it to the search url
         // e.g if the previous page for olx = 1
@@ -102,7 +109,8 @@ class Application extends React.Component {
         to prevent this function from being recursive
         */
 
-        if(!loadMore && selectedEcommerce.page > 0 && !backup){
+
+        if(!isfirstSearch && !loadMore && selectedEcommerce.page > 0 && !backup){
             /*
             Since the user had clicked on this current tab
             if the "currentWebsite" property of the store is not equal to
@@ -121,7 +129,11 @@ class Application extends React.Component {
         Sets the "currentWebsite" key of the props to the "website" parameter an sets processingAction = true in the props
         just in case this action fails it should return {just in case (~_~) }
         */
-        if(!this.props.switchWebsite({...this.props , processingAction:  true , currentWebsite : website})) return;
+
+
+
+
+        if(!isfirstSearch && !this.props.switchWebsite({...this.props , processingAction:  true , currentWebsite : website})) return;
 
 
 
@@ -130,7 +142,7 @@ class Application extends React.Component {
         Resets all the arrays of the selected E-commerce website
         so that new titles , descriptions , prices , images will be replaced with new ones
         */
-        if(!backup && !this.props.noDefaultResultsFound) {
+        if(!isfirstSearch && !backup && !this.props.noDefaultResultsFound) {
             if (!loadMore) {
 
                 Object.keys(selectedEcommerce).map(key => {
@@ -153,20 +165,21 @@ class Application extends React.Component {
 
 
         let savedState = {};
+
         const  defaultAction = () => {
-            this.searchFormFieldSet.prop(...defaults.disabledFalse);
-            if(this.props.switchWebsite({...savedState , processingAction: false})) return;
-
-
+            if (!isfirstSearch) {
+                this.searchFormFieldSet.prop(...defaults.disabledFalse);
+                if (this.props.switchWebsite({...savedState, processingAction: false})) return;
+            }
         };
 
-        let resp;
+        let resp , ads = [];
+        let titles = [];
+
 
         switch (website) {
             case 'olist' :
-
                 let url = `https://olist.ng/search?keyword=${q}&state_id=&page=${pageNumber}`;
-
 
 
                 this.tryGetCachedResult(this.getRandomCrawler() , this.getRequestObject(url) , url ,  response => {
@@ -220,7 +233,10 @@ class Application extends React.Component {
                                         break;
                                     }
                                 }
-                                if (addNewAd) selectedEcommerce.ads.push(ad);
+                                if (addNewAd) {
+                                    selectedEcommerce.ads.push(ad);
+                                    ads.push(ad);
+                                }
 
                             });
 
@@ -229,18 +245,19 @@ class Application extends React.Component {
                     else {
 
                         response.ads.forEach(ad => {
-
+                            ads.push(ad);
                             selectedEcommerce.ads.push(ad);
+                            titles.push(ad.title);
                         });
                     }
+
                     if(resp.update){
 
                         let data = {url , ads : selectedEcommerce.ads, email : 'username@domain.com' , action : this.updateSearchResultAction};
                         data = JSON.stringify(data);
-                        $.post(defaults.actions ,  {data} , response=> {
-
-                        });
+                        $.post(defaults.actions ,  {data} , response=> {});
                     }
+
 
 
 
@@ -253,9 +270,112 @@ class Application extends React.Component {
                         savedState = {...this.props , locale : previousLocale , currentWebsite : website};
 
                         defaultAction();
-                    });
+
+                    return callback ? callback({...resp , titles , all_ads : ads}) : null;
+                });
 
                 break;
+
+            case 'jiji' :
+
+                url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
+
+
+                this.tryGetCachedResult(this.getRandomCrawler() , this.getRequestObject(url) , url ,  response => {
+
+
+                    resp = response;
+
+                    if(response.is_html) {
+                        let html;
+                        try {
+                            html = $(response.html).find('.b-list-advert__template');
+                        }
+                        catch (e) {
+                            showError();
+                        }
+
+                        if (!html.length) return showError();
+
+                        //Clearing some memory
+                        response = null;
+
+
+                        {
+                            let ad;
+                            let counter = 0;
+
+
+                            let prop, addNewAd = true;
+                            html.each(function (index) {
+                                ad = {
+                                    title: null,
+                                    description: null,
+                                    price: null,
+                                    image: null,
+                                    link: null,
+                                    linkText: null,
+                                    location: null
+                                };
+
+                                ad.title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
+                                ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
+                                ad.price = $.trim($(this).find('.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
+                                ad.link = $(this).find('.js-advert-link').attr('href');
+                                ad.image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
+                                ad.location = $(this).find('.b-list-advert__item-region').text();
+                                ad.linkText = ad.link.truncate(defaults.maxLinkLength);
+
+                                for (prop in ad) {
+                                    if (prop === "showAdImage") continue;
+                                    else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
+                                        addNewAd = false;
+                                        break;
+                                    }
+                                }
+                                if (addNewAd) {
+                                    selectedEcommerce.ads.push(ad);
+                                    ads.push(ad);
+                                }
+
+                            });
+
+                        }
+                    }
+                    else {
+
+                        response.ads.forEach(ad => {
+                            ads.push(ad);
+                            selectedEcommerce.ads.push(ad);
+                            titles.push(ad.title);
+                        });
+                    }
+
+                    if(resp.update){
+
+                        let data = {url , ads : selectedEcommerce.ads, email : 'username@domain.com' , action : this.updateSearchResultAction};
+                        data = JSON.stringify(data);
+                        $.post(defaults.actions ,  {data} , response=> {});
+                    }
+
+
+
+
+                    selectedEcommerce.page += 1;
+
+                    this.props.locale[index] = selectedEcommerce;
+                    let previousLocale = this.props.locale;
+
+
+                    savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+
+                    defaultAction();
+
+                    return callback ? callback({...resp , titles , all_ads : ads}) : null;
+                });
+
+                break;
+
             case 'jumia' :
                 url = `https://www.jumia.com.ng/catalog/?q=${q}&page=${pageNumber}`;
                 this.tryGetCachedResult(this.getRandomCrawler() , this.getRequestObject(url) , url, response => {
@@ -340,6 +460,7 @@ class Application extends React.Component {
                         });
                     }
 
+                    titles = selectedEcommerce.ads.length ? getTitles(selectedEcommerce.ads) : titles;
                         selectedEcommerce.page += 1;
 
                         this.props.locale[index] = selectedEcommerce;
@@ -419,6 +540,7 @@ class Application extends React.Component {
 
                     }
 
+                    titles = selectedEcommerce.ads.length ? getTitles(selectedEcommerce.ads) : titles;
                     selectedEcommerce.page += 1;
 
 
@@ -496,7 +618,10 @@ class Application extends React.Component {
                                         break;
                                     }
                                 }
-                                if (addNewAd) selectedEcommerce.ads.push(ad);
+                                if (addNewAd) {
+                                    selectedEcommerce.ads.push(ad);
+                                    ads.push(ad);
+                                }
 
                             });
 
@@ -506,7 +631,9 @@ class Application extends React.Component {
 
                             response.ads.forEach(ad => {
 
+                                ads.push(ad);
                                 selectedEcommerce.ads.push(ad);
+                                titles.push(ad.title);
                             })
                         }
 
@@ -520,6 +647,7 @@ class Application extends React.Component {
 
                     }
 
+
                         selectedEcommerce.page = selectedEcommerce.page + 1;
 
                         this.props.locale[index] = selectedEcommerce;
@@ -529,107 +657,9 @@ class Application extends React.Component {
 
                         defaultAction();
 
+                    return callback ? callback({...resp , titles , all_ads : ads}) : null;
                 });
-
                 break;
-
-            case 'habari' :
-
-                q = query.split(' ').join("%20");
-
-                url = `http://admin.shopping.habarigt.com/index.php/rest/V1/product-list-by-slug/all?q=${q}&limit=19&page=${pageNumber}`;
-
-
-                let getRequest = () => {
-
-                    this.tryGetCachedResult(this.getRandomCrawler(), this.getRequestObject(url), url , response => {
-
-                        resp = response;
-
-                        if(response.is_html) {
-                            try {
-                                response = JSON.parse(response.html);
-                            }
-                            catch (e) {
-                                getRequest();
-                            }
-                            if (!response.html.item || !response.html.item.length) {
-
-                                return showError();
-                            }
-
-
-                            {
-
-
-                                let ad, prop, addNewAd = true;
-                                response.item.forEach(obj => {
-
-
-                                    ad = {
-                                        title: null,
-                                        description: null,
-                                        price: null,
-                                        image: null,
-                                        link: null,
-                                        linkText: null,
-                                        location: null
-                                    };
-
-                                    ad.location = "";
-                                    ad.title = obj.name.truncate(defaults.maxTitleLength);
-                                    ad.description = obj.seller_title.truncate(defaults.maxDescriptionLength);
-                                    ad.image = obj.image_url;
-                                    ad.price = obj.meal_price ? obj.meal_price.toLocaleString() : 0;
-
-                                    ad.link = 'https://habarigt.com/shopping/product-detail/' + obj.slug;
-                                    ad.linkText = ('https://habarigt.com/shopping/product-detail/' + obj.slug).truncate(defaults.maxLinkLength);
-
-                                    for (prop in ad) {
-                                        if (prop === "showAdImage") continue;
-                                        else if (ad[prop] === null || typeof ad[prop] === 'undefined') {
-                                            addNewAd = false;
-                                            break;
-                                        }
-                                    }
-                                    if (addNewAd) selectedEcommerce.ads.push(ad);
-
-                                });
-                            }
-                        }
-                        else {
-
-                            response.ads.forEach(ad => {
-
-                                selectedEcommerce.ads.push(ad);
-                            })
-                        }
-                        if(resp.update){
-
-                            let data = {url , ads : selectedEcommerce.ads, email : 'username@domain.com' , action : this.updateSearchResultAction};
-                            data = JSON.stringify(data);
-                            $.post(defaults.actions ,  {data} , response=> {
-
-
-                            });
-                        }
-
-                            selectedEcommerce.page = selectedEcommerce.page + 1;
-
-                            this.props.locale[index] = selectedEcommerce;
-                            let previousLocale = this.props.locale;
-
-                            savedState = {...this.props , locale : previousLocale , currentWebsite : website};
-
-                            defaultAction();
-
-
-
-                    });
-
-                };
-
-                getRequest();
 
         }
 
@@ -727,12 +757,26 @@ class Application extends React.Component {
 
     };
 
+    getRandomDefaultWebsite = () =>{
+
+        //First check classified ad websites before E-commerce websites
+
+        let classifiedAdsWebsites = ["olist" , "deals" , "jiji"];
+        let ecommerceWebsites = ["jumia" , "konga"];
+        
+        let randomClassifiedAdWebsite = classifiedAdsWebsites[Math.floor(Math.random() * classifiedAdsWebsites.length)];
+        let randomEcommerceWebsite = ecommerceWebsites[Math.floor(Math.random() * ecommerceWebsites.length)];
+        return [randomClassifiedAdWebsite , randomEcommerceWebsite]
+    };
+
     handleSearchFormSubmit = (e) => {
 
         e.preventDefault();
+        //e.stopImmediatePropagation();
+
         this.formSubmitted = false;
 
-        this.searchQuery = this.searchQueryField.val().toLowerCase();
+        this.searchQuery = this.searchQueryField.val().toLowerCase().replace(/ +(?= )/g,'');
 
 
         if (!this.searchQuery.length) return;
@@ -764,9 +808,8 @@ class Application extends React.Component {
         //default search website depending on the users's settings
         const q = this.searchQuery.split(" ").join("+");
 
-        //The default website to make the search and filter contents
-        let searchFilterUrl = `https://olist.ng/search?keyword=${q}&state_id=&page=1`;
 
+        const queryObject = {query : this.searchQuery , q};
 
         this.props.locale.forEach(obj => {
 
@@ -794,36 +837,51 @@ class Application extends React.Component {
         while (this.props.sponsoredAdsClicked.length) {
             this.props.sponsoredAdsClicked.pop();
         }
+
+
         this.searchFormFieldSet.prop(...defaults.disabledTrue);
 
 
 
-        this.tryGetCachedResult(this.getRandomCrawler(), this.getRequestObject(searchFilterUrl), searchFilterUrl,  response => {
 
 
-            let html;
+        let defaultRandomEcommerceWebsites = this.getRandomDefaultWebsite();
+        let defaultRandomClassifiedAdWebsite = defaultRandomEcommerceWebsites[0];
+        let defaultRandomEcommerceWebsite = defaultRandomEcommerceWebsites[1];
 
-            if(response.is_html) {
+        console.log(defaultRandomClassifiedAdWebsite , defaultRandomEcommerceWebsite);
 
-                try {
-                    html = $(response.html).find('.b-list-advert__item.qa-advert-list-item');
+
+        this.switchToWebsite(defaultRandomClassifiedAdWebsite , 0 , false , false , true , queryObject ,  response =>  {
+
+
+
+
+
+
+
+            let selectedEcommerce = this.props.locale.find((local  , pos )=> {
+                    let index = pos;
+                    // if the current E-commerce shortName is equal to the "website" parameter sent to the function
+                    return local.shortName === defaultRandomClassifiedAdWebsite;
                 }
-                catch (e) {
-                    console.log();
-                }
+            );
 
-                //Check if there is not data returned, meaning empty result
-                if (!html.length) {
+
+
+
+
+            //Check if there is no title returned, meaning empty result
+                if (!response.all_ads.length) {
 
 
 
                     //M.toast({html: this.enterValidKeywordsWarning});
 
                     this.searchTabs.show();
-                    $('#tabs.tabs').tabs('select', this.props.defaultBackup);
+                    $('#tabs.tabs').tabs('select', defaultRandomEcommerceWebsite);
                     this.searchQueryField.blur();
                     this.formSubmitted = true;
-
 
                     //Make another request to Backup
                     this.props.locale.forEach(obj => {
@@ -839,103 +897,24 @@ class Application extends React.Component {
                         noDefaultResultsFound: true
                     })) {
 
-                        this.switchToWebsite(this.props.defaultBackup, null, null, true);
-
+                        this.switchToWebsite(defaultRandomEcommerceWebsite, null, null, true);
                         return;
                     }
                 }
-            }
 
 
-            let titles = [];
+            response.all_ads.forEach(ad => {
 
-
-            if(response.is_html){
-                html.each(function (index) {
-                    titles.push($.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength).toLowerCase());
-                });
-                this.filterTitles(titles);
-            }
-
-
-
-
-            let defaultEcommerceWebsite = this.props.locale[0];
-            let defaultEcommerceWebsiteShortName = defaultEcommerceWebsite.shortName;
-
-
-            let ad;
-
-            if(response.is_html) {
-                html.each(function (index) {
-
-
-                    ad = {
-                        title: null,
-                        showAdImage: false,
-                        description: null,
-                        price: null,
-                        image: null,
-                        link: null,
-                        linkText: null,
-                        location: null
-                    };
-
-
-                    let prop, addNewAd = true;
-
-
-                    try {
-                        ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
-                        ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-                        ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
-                        ad.link = "https://olist.ng" + $(this).find('.js-advert-link').attr('href');
-                        ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
-                        ad.location = $(this).find('.b-list-advert__item-region').text();
-                        ad.linkText = ad.link.truncate(defaults.maxLinkLength);
-
-                        for (prop in ad) {
-                            if (prop === "showAdImage") continue;
-                            else if (!ad[prop] || typeof ad[prop] === 'undefined') {
-                                addNewAd = false;
-                                break;
-                            }
-                        }
-
-                        if (addNewAd) defaultEcommerceWebsite.ads.push(ad);
-                    }
-                    catch (e) {
-                        ad.location = "not specified";
-                    }
-
-                });
-
-            }
-            else {
-
-                response.ads.forEach(ad => {
-
-                    defaultEcommerceWebsite.ads.push(ad);
-                })
-            }
-
-
-            if(response.update){
-
-                let data = {url : searchFilterUrl , ads : defaultEcommerceWebsite.ads, email : 'username@domain.com' , action : this.updateSearchResultAction};
-                data = JSON.stringify(data);
-                $.post(defaults.actions ,  {data} , response=> {
-
-                });
-            }
-
+                selectedEcommerce.ads.push(ad);
+            });
 
             let returnNow = false;
+
             this.fetchSponsoredAds(response => {
                 if (response.length) {
                     if (!this.props.switchWebsite({
                         ...this.props,
-                        currentWebsite: this.props.locale[0].shortName,
+                        currentWebsite: defaultRandomClassifiedAdWebsite,
                         noDefaultResultsFound: false,
                         processingAction: false,
                         sponsoredAds: response
@@ -943,11 +922,18 @@ class Application extends React.Component {
                         returnNow = true;
                     }
                 }
-
                 returnNow = true
             });
 
             if (returnNow) return;
+
+            if(response.is_html) {
+
+                this.filterTitles(response.titles, function () {
+
+                });
+
+            }
 
             let previousLocale = this.props.locale;
             //reset the pages to 0;
@@ -958,13 +944,14 @@ class Application extends React.Component {
             });
 
 
-            defaultEcommerceWebsite.page += 1;
+
+            selectedEcommerce.page += 1;
             let savedState = {
                 ...this.props,
                 q,
                 query: this.searchQuery,
                 locale: previousLocale,
-                currentWebsite: defaultEcommerceWebsiteShortName,
+                currentWebsite: defaultRandomClassifiedAdWebsite,
                 processingAction: false
             };
 
@@ -974,10 +961,11 @@ class Application extends React.Component {
                 this.formSubmitted = true;
                 this.searchQueryField.blur();
                 this.searchTabs.show();
-                $('#tabs.tabs').tabs('select', defaultEcommerceWebsiteShortName);
+                $('#tabs.tabs').tabs('select', defaultRandomClassifiedAdWebsite);
             }
 
             this.searchFormFieldSet.prop(...defaults.disabledFalse);
+
         });
 
 
@@ -1038,7 +1026,6 @@ class Application extends React.Component {
         let data = {query: this.searchQuery};
         $.post(defaults.suggestions, {data: JSON.stringify(data)}, response => {
 
-
             let resp = JSON.parse(response);
 
 
@@ -1049,9 +1036,6 @@ class Application extends React.Component {
                 query = obj.query;
                 if (!(query in this.autoCompleteData)) this.autoCompleteData[query] = null;
             });
-
-
-
 
         });
 
@@ -1095,7 +1079,7 @@ class Application extends React.Component {
 
     }
 
-    filterTitles = titlesArr => {
+    filterTitles = (titlesArr , callback) => {
 
 
         //an array containing all the titles of the first search
@@ -1147,6 +1131,7 @@ class Application extends React.Component {
             this.lastSearchQuery = this.searchQuery;
             this.switchContainer.hide();
 
+            return callback();
             /*
             this.props.locale.forEach(obj => {
                 Object.keys(obj).map(key => {

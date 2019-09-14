@@ -421,7 +421,7 @@ function (_React$Component) {
           style: {
             color: local.textColor
           }
-        }, local.name, " ", averagePrice), preloader, React.createElement("div", {
+        }, defaults.capitalize(local.name), " ", averagePrice), preloader, React.createElement("div", {
           id: local.shortName + searchResults
         }, template, loadMoreButton));
       });
