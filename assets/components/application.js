@@ -262,7 +262,7 @@ function (_React$Component) {
                   }
 
                   if (addNewAd) {
-                    selectedEcommerce.ads.push(ad);
+                    if (!isfirstSearch) selectedEcommerce.ads.push(ad);
                     ads.push(ad);
                   }
                 });
@@ -353,7 +353,7 @@ function (_React$Component) {
                   }
 
                   if (addNewAd) {
-                    selectedEcommerce.ads.push(ad);
+                    if (!isfirstSearch) selectedEcommerce.ads.push(ad);
                     ads.push(ad);
                   }
                 });
@@ -625,7 +625,7 @@ function (_React$Component) {
                   }
 
                   if (addNewAd) {
-                    selectedEcommerce.ads.push(ad);
+                    if (!isfirstSearch) selectedEcommerce.ads.push(ad);
                     ads.push(ad);
                   }
                 });
@@ -804,6 +804,8 @@ function (_React$Component) {
       _this.switchToWebsite(defaultRandomClassifiedAdWebsite, 0, false, false, true, queryObject, function (response) {
         var _this$searchFormField3;
 
+        console.log(response);
+
         var selectedEcommerce = _this.props.locale.find(function (local, pos) {
           var index = pos; // if the current E-commerce shortName is equal to the "website" parameter sent to the function
 
@@ -839,9 +841,6 @@ function (_React$Component) {
           }
         }
 
-        response.all_ads.forEach(function (ad) {
-          selectedEcommerce.ads.push(ad);
-        });
         var returnNow = false;
 
         _this.fetchSponsoredAds(function (response) {

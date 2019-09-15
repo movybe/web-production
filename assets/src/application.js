@@ -234,7 +234,7 @@ class Application extends React.Component {
                                     }
                                 }
                                 if (addNewAd) {
-                                    selectedEcommerce.ads.push(ad);
+                                    if(!isfirstSearch)selectedEcommerce.ads.push(ad);
                                     ads.push(ad);
                                 }
 
@@ -334,7 +334,7 @@ class Application extends React.Component {
                                     }
                                 }
                                 if (addNewAd) {
-                                    selectedEcommerce.ads.push(ad);
+                                    if(!isfirstSearch)selectedEcommerce.ads.push(ad);
                                     ads.push(ad);
                                 }
 
@@ -619,9 +619,10 @@ class Application extends React.Component {
                                     }
                                 }
                                 if (addNewAd) {
-                                    selectedEcommerce.ads.push(ad);
+                                    if(!isfirstSearch)selectedEcommerce.ads.push(ad);
                                     ads.push(ad);
                                 }
+
 
                             });
 
@@ -855,6 +856,8 @@ class Application extends React.Component {
         this.switchToWebsite(defaultRandomClassifiedAdWebsite , 0 , false , false , true , queryObject ,  response =>  {
 
 
+            console.log(response);
+
 
 
 
@@ -902,11 +905,6 @@ class Application extends React.Component {
                     }
                 }
 
-
-            response.all_ads.forEach(ad => {
-
-                selectedEcommerce.ads.push(ad);
-            });
 
             let returnNow = false;
 
