@@ -805,9 +805,10 @@ function (_React$Component) {
         var _this$searchFormField3;
 
         console.log(response);
+        var selectedIndex = 0;
 
         var selectedEcommerce = _this.props.locale.find(function (local, pos) {
-          var index = pos; // if the current E-commerce shortName is equal to the "website" parameter sent to the function
+          selectedIndex = pos; // if the current E-commerce shortName is equal to the "website" parameter sent to the function
 
           return local.shortName === defaultRandomClassifiedAdWebsite;
         }); //Check if there is no title returned, meaning empty result
@@ -828,7 +829,7 @@ function (_React$Component) {
           }); //also set the loadMore key of this website object to false
 
 
-          _this.props.locale[0].loadMore = false;
+          _this.props.locale[selectedIndex].loadMore = false;
 
           if (_this.props.switchWebsite(_objectSpread({}, _this.props, {
             q: q,
@@ -841,6 +842,9 @@ function (_React$Component) {
           }
         }
 
+        response.all_ads.forEach(function (ad) {
+          selectedEcommerce.ads.push(ad);
+        });
         var returnNow = false;
 
         _this.fetchSponsoredAds(function (response) {

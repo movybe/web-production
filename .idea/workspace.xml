@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/src/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/application.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -104,7 +103,7 @@
           <entry key="css" value="587" />
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="26" />
-          <entry key="js" value="29405" />
+          <entry key="js" value="29494" />
           <entry key="json" value="136" />
           <entry key="php" value="14461" />
         </counts>
@@ -114,7 +113,7 @@
           <entry key="CSS" value="587" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="136" />
-          <entry key="JavaScript" value="32741" />
+          <entry key="JavaScript" value="32830" />
           <entry key="PHP" value="14492" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="30" />
@@ -128,8 +127,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/src/application.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="907" selection-start-line="907" selection-end-line="907" />
+            <state relative-caret-position="412">
+              <caret line="360" lean-forward="true" selection-start-line="360" selection-end-line="360" />
               <folding>
                 <element signature="n#!!block;n#constructor#0;n#Application#0" />
                 <element signature="n#!!block;n#shouldComponentUpdate#0;n#Application#0" />
@@ -441,15 +440,15 @@
       <workItem from="1567801564071" duration="9968000" />
       <workItem from="1567848870284" duration="49058000" />
       <workItem from="1568240398562" duration="6225000" />
-      <workItem from="1568457015851" duration="32180000" />
+      <workItem from="1568457015851" duration="33618000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="553197000" />
+    <option name="totallyTimeSpent" value="554635000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="1" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
@@ -839,8 +838,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/application.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="907" selection-start-line="907" selection-end-line="907" />
+        <state relative-caret-position="412">
+          <caret line="360" lean-forward="true" selection-start-line="360" selection-end-line="360" />
           <folding>
             <element signature="n#!!block;n#constructor#0;n#Application#0" />
             <element signature="n#!!block;n#shouldComponentUpdate#0;n#Application#0" />

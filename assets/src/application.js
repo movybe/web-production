@@ -337,7 +337,6 @@ class Application extends React.Component {
                                     if(!isfirstSearch)selectedEcommerce.ads.push(ad);
                                     ads.push(ad);
                                 }
-
                             });
 
                         }
@@ -622,8 +621,6 @@ class Application extends React.Component {
                                     if(!isfirstSearch)selectedEcommerce.ads.push(ad);
                                     ads.push(ad);
                                 }
-
-
                             });
 
                         }
@@ -863,8 +860,9 @@ class Application extends React.Component {
 
 
 
+            let selectedIndex = 0;
             let selectedEcommerce = this.props.locale.find((local  , pos )=> {
-                    let index = pos;
+                    selectedIndex = pos;
                     // if the current E-commerce shortName is equal to the "website" parameter sent to the function
                     return local.shortName === defaultRandomClassifiedAdWebsite;
                 }
@@ -892,7 +890,7 @@ class Application extends React.Component {
                     });
 
                     //also set the loadMore key of this website object to false
-                    this.props.locale[0].loadMore = false;
+                    this.props.locale[selectedIndex].loadMore = false;
                     if (this.props.switchWebsite({
                         ...this.props,
                         q,
@@ -905,6 +903,11 @@ class Application extends React.Component {
                     }
                 }
 
+
+            response.all_ads.forEach(ad => {
+
+                selectedEcommerce.ads.push(ad);
+            });
 
             let returnNow = false;
 
