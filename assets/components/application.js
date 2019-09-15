@@ -223,7 +223,7 @@ function (_React$Component) {
               var html;
 
               try {
-                html = $(response.html).find('.b-list-advert__template');
+                html = $(response.html).find('.b-list-advert__item');
               } catch (e) {
                 showError();
               }

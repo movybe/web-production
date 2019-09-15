@@ -190,7 +190,7 @@ class Application extends React.Component {
                     if(response.is_html) {
                         let html;
                         try {
-                            html = $(response.html).find('.b-list-advert__template');
+                            html = $(response.html).find('.b-list-advert__item');
                         }
                         catch (e) {
                             showError();
