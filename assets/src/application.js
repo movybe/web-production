@@ -36,7 +36,7 @@ class Application extends React.Component {
             "https://nypd2.000webhostapp.com/crawler.php",
             "https://nypd4.000webhostapp.com/crawler.php",
             "https://nypd5.000webhostapp.com/crawler.php",
-			"https://nypd6.000webhostapp.com/crawler.php",
+            "https://nypd6.000webhostapp.com/crawler.php",
             defaults.crawler
         ];
         return crawlers[Math.floor(Math.random() * crawlers.length)];
@@ -80,9 +80,9 @@ class Application extends React.Component {
 
             }
         };
-        
+
         const getTitles = (ads , titles = []) => {
-          
+
             ads.forEach(function (ad) {
 
                 titles.push(ad.title);
@@ -218,13 +218,14 @@ class Application extends React.Component {
                                     linkText: null,
                                     location: null
                                 };
-
-                                ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
-                                ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-                                ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
-                                ad.link = "https://olist.ng" + $(this).find('.js-advert-link').attr('href');
-                                ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
-                                ad.location = $(this).find('.b-list-advert__item-region').text();
+                                ad.title = $.trim((($(this).find("*[class*='title']:first") || $(this).find('.b-advert-title-inner:first')).text())).truncate(defaults.maxTitleLength);
+                                ad.description = $.trim((($(this).find("*[class*='description']:first") || $(this).find('.b-list-advert__item-description-text:first')).text())).truncate(defaults.maxDescriptionLength);
+                                ad.price = $.trim(($(this).find('.qa-advert-price.b-list-advert__item-price:first') || $(this).find("span:contains(₦):first , p:contains(₦):first , small:contains(₦):first , div:contains(₦):first")).text()).replace(/^\D+/g, '').toLocaleString();
+                                ad.link = ($(this).find("a[href*='item']:first") || $(this).find('.js-advert-link:first')).attr('href');
+                                ad.link = ad.link.charAt(0) === '/' ? "https://olist.ng" + ad.link : ad.link;
+                                ad.image = ($(this).find("img[src*='thumbnail']:first") || ($(this).find('.b-list-advert__item-image:first').find('img:first'))).attr('src');
+                                //ad.location = $(this).find('.b-list-advert__item-region').text();
+                                ad.location = $.trim((($(this).find("*[class*='region']:first") || $(this).find("*[class*='location']:first") || $(this).find('.b-list-advert__item-region:first')).text())).truncate(defaults.maxLocationLength);
                                 ad.linkText = ad.link.truncate(defaults.maxLinkLength);
                                 for (prop in ad) {
                                     if (prop === "showAdImage") continue;
@@ -251,7 +252,7 @@ class Application extends React.Component {
                         });
                     }
 
-                    if(resp.update){
+                    if(false && resp.update){
 
                         let data = {url , ads : selectedEcommerce.ads, email : 'username@domain.com' , action : this.updateSearchResultAction};
                         data = JSON.stringify(data);
@@ -263,13 +264,13 @@ class Application extends React.Component {
 
                     selectedEcommerce.page += 1;
 
-                        this.props.locale[index] = selectedEcommerce;
-                        let previousLocale = this.props.locale;
+                    this.props.locale[index] = selectedEcommerce;
+                    let previousLocale = this.props.locale;
 
 
-                        savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+                    savedState = {...this.props , locale : previousLocale , currentWebsite : website};
 
-                        defaultAction();
+                    defaultAction();
 
                     return callback ? callback({...resp , titles , all_ads : ads}) : null;
                 });
@@ -460,13 +461,13 @@ class Application extends React.Component {
                     }
 
                     titles = selectedEcommerce.ads.length ? getTitles(selectedEcommerce.ads) : titles;
-                        selectedEcommerce.page += 1;
+                    selectedEcommerce.page += 1;
 
-                        this.props.locale[index] = selectedEcommerce;
-                        let previousLocale = this.props.locale;
-                        savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+                    this.props.locale[index] = selectedEcommerce;
+                    let previousLocale = this.props.locale;
+                    savedState = {...this.props , locale : previousLocale , currentWebsite : website};
 
-                        defaultAction();
+                    defaultAction();
                 });
                 break;
             case 'konga' :
@@ -627,13 +628,13 @@ class Application extends React.Component {
                     }
                     else {
 
-                            response.ads.forEach(ad => {
+                        response.ads.forEach(ad => {
 
-                                ads.push(ad);
-                                selectedEcommerce.ads.push(ad);
-                                titles.push(ad.title);
-                            })
-                        }
+                            ads.push(ad);
+                            selectedEcommerce.ads.push(ad);
+                            titles.push(ad.title);
+                        })
+                    }
 
                     if(resp.update){
 
@@ -646,14 +647,14 @@ class Application extends React.Component {
                     }
 
 
-                        selectedEcommerce.page = selectedEcommerce.page + 1;
+                    selectedEcommerce.page = selectedEcommerce.page + 1;
 
-                        this.props.locale[index] = selectedEcommerce;
-                        let previousLocale = this.props.locale;
+                    this.props.locale[index] = selectedEcommerce;
+                    let previousLocale = this.props.locale;
 
-                        savedState = {...this.props , locale : previousLocale , currentWebsite : website};
+                    savedState = {...this.props , locale : previousLocale , currentWebsite : website};
 
-                        defaultAction();
+                    defaultAction();
 
                     return callback ? callback({...resp , titles , all_ads : ads}) : null;
                 });
@@ -710,7 +711,7 @@ class Application extends React.Component {
 
 
 
-                   //return;
+            //return;
 
 
             cacheResponse = JSON.parse(cacheResponse);
@@ -761,7 +762,7 @@ class Application extends React.Component {
 
         let classifiedAdsWebsites = ["olist" , "deals" , "jiji"];
         let ecommerceWebsites = ["jumia" , "konga"];
-        
+
         let randomClassifiedAdWebsite = classifiedAdsWebsites[Math.floor(Math.random() * classifiedAdsWebsites.length)];
         let randomEcommerceWebsite = ecommerceWebsites[Math.floor(Math.random() * ecommerceWebsites.length)];
         return [randomClassifiedAdWebsite , randomEcommerceWebsite]
@@ -873,35 +874,35 @@ class Application extends React.Component {
 
 
             //Check if there is no title returned, meaning empty result
-                if (!response.all_ads.length) {
+            if (!response.all_ads.length) {
 
 
 
-                    //M.toast({html: this.enterValidKeywordsWarning});
+                //M.toast({html: this.enterValidKeywordsWarning});
 
-                    this.searchTabs.show();
-                    $('#tabs.tabs').tabs('select', defaultRandomEcommerceWebsite);
-                    this.searchQueryField.blur();
-                    this.formSubmitted = true;
+                this.searchTabs.show();
+                $('#tabs.tabs').tabs('select', defaultRandomEcommerceWebsite);
+                this.searchQueryField.blur();
+                this.formSubmitted = true;
 
-                    //Make another request to Backup
-                    this.props.locale.forEach(obj => {
-                        return obj.page = 0;
-                    });
+                //Make another request to Backup
+                this.props.locale.forEach(obj => {
+                    return obj.page = 0;
+                });
 
-                    //also set the loadMore key of this website object to false
-                    this.props.locale[selectedIndex].loadMore = false;
-                    if (this.props.switchWebsite({
-                        ...this.props,
-                        q,
-                        query: this.searchQuery,
-                        noDefaultResultsFound: true
-                    })) {
+                //also set the loadMore key of this website object to false
+                this.props.locale[selectedIndex].loadMore = false;
+                if (this.props.switchWebsite({
+                    ...this.props,
+                    q,
+                    query: this.searchQuery,
+                    noDefaultResultsFound: true
+                })) {
 
-                        this.switchToWebsite(defaultRandomEcommerceWebsite, null, null, true);
-                        return;
-                    }
+                    this.switchToWebsite(defaultRandomEcommerceWebsite, null, null, true);
+                    return;
                 }
+            }
 
 
             response.all_ads.forEach(ad => {

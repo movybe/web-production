@@ -76,6 +76,11 @@ String.prototype.truncate = String.prototype.trunc ||
         return this.length>n ? this.substr(0,n-1)+'...' : this.toString();
     };
 
+String.prototype.trim = String.prototype.trim ||
+    function(){
+        return x.replace(/^\s+|\s+$/gm,'');
+    };
+
 
 if (typeof Array.isArray === 'undefined') {
     Array.isArray = function(obj) {
@@ -167,6 +172,7 @@ class Defaults {
         this.handleAdForm = this.processorsFolder + 'handle-ad-form.php';
         this.commonWords = ['what','is','the','price','of','how','much','does','cost','costs','what','why','when','who','it','buy','sell','sells'];
         this.maxTitleLength = 60;
+        this.maxLocationLength = 55;
         this.maxDescriptionLength = 160;
         this.maxLinkLength = 45;
         this.merchantActivationFee = 700;

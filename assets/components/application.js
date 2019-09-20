@@ -246,12 +246,14 @@ function (_React$Component) {
                     linkText: null,
                     location: null
                   };
-                  ad.title = $.trim($(this).find('.b-advert-title-inner').text()).truncate(defaults.maxTitleLength);
-                  ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-                  ad.price = $.trim($(this).find('.qa-advert-price.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
-                  ad.link = "https://olist.ng" + $(this).find('.js-advert-link').attr('href');
-                  ad.image = $(this).find('.b-list-advert__item-image').find('img').attr('src');
-                  ad.location = $(this).find('.b-list-advert__item-region').text();
+                  ad.title = $.trim(($(this).find("*[class*='title']:first") || $(this).find('.b-advert-title-inner:first')).text()).truncate(defaults.maxTitleLength);
+                  ad.description = $.trim(($(this).find("*[class*='description']:first") || $(this).find('.b-list-advert__item-description-text:first')).text()).truncate(defaults.maxDescriptionLength);
+                  ad.price = $.trim(($(this).find('.qa-advert-price.b-list-advert__item-price:first') || $(this).find("span:contains(₦):first , p:contains(₦):first , small:contains(₦):first , div:contains(₦):first")).text()).replace(/^\D+/g, '').toLocaleString();
+                  ad.link = ($(this).find("a[href*='item']:first") || $(this).find('.js-advert-link:first')).attr('href');
+                  ad.link = ad.link.charAt(0) === '/' ? "https://olist.ng" + ad.link : ad.link;
+                  ad.image = ($(this).find("img[src*='thumbnail']:first") || $(this).find('.b-list-advert__item-image:first').find('img:first')).attr('src'); //ad.location = $(this).find('.b-list-advert__item-region').text();
+
+                  ad.location = $.trim(($(this).find("*[class*='region']:first") || $(this).find("*[class*='location']:first") || $(this).find('.b-list-advert__item-region:first')).text()).truncate(defaults.maxLocationLength);
                   ad.linkText = ad.link.truncate(defaults.maxLinkLength);
 
                   for (prop in ad) {
@@ -275,7 +277,7 @@ function (_React$Component) {
               });
             }
 
-            if (resp.update) {
+            if (false && resp.update) {
               var data = {
                 url: url,
                 ads: selectedEcommerce.ads,
