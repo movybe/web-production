@@ -251,8 +251,7 @@ function (_React$Component) {
                   ad.price = $.trim(($(this).find('.qa-advert-price.b-list-advert__item-price:first') || $(this).find("span:contains(₦):first , p:contains(₦):first , small:contains(₦):first , div:contains(₦):first")).text()).replace(/^\D+/g, '').toLocaleString();
                   ad.link = ($(this).find("a[href*='item']:first") || $(this).find('.js-advert-link:first')).attr('href');
                   ad.link = ad.link.charAt(0) === '/' ? "https://olist.ng" + ad.link : ad.link;
-                  ad.image = ($(this).find("img[src*='thumbnail']:first") || $(this).find('.b-list-advert__item-image:first').find('img:first')).attr('src'); //ad.location = $(this).find('.b-list-advert__item-region').text();
-
+                  ad.image = ($(this).find("img[src*='thumbnail']:first") || $(this).find('.b-list-advert__item-image:first').find('img:first')).attr('src');
                   ad.location = $.trim(($(this).find("*[class*='region']:first") || $(this).find("*[class*='location']:first") || $(this).find('.b-list-advert__item-region:first')).text()).truncate(defaults.maxLocationLength);
                   ad.linkText = ad.link.truncate(defaults.maxLinkLength);
 
@@ -277,7 +276,7 @@ function (_React$Component) {
               });
             }
 
-            if (false && resp.update) {
+            if (resp.update) {
               var data = {
                 url: url,
                 ads: selectedEcommerce.ads,

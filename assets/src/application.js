@@ -224,7 +224,6 @@ class Application extends React.Component {
                                 ad.link = ($(this).find("a[href*='item']:first") || $(this).find('.js-advert-link:first')).attr('href');
                                 ad.link = ad.link.charAt(0) === '/' ? "https://olist.ng" + ad.link : ad.link;
                                 ad.image = ($(this).find("img[src*='thumbnail']:first") || ($(this).find('.b-list-advert__item-image:first').find('img:first'))).attr('src');
-                                //ad.location = $(this).find('.b-list-advert__item-region').text();
                                 ad.location = $.trim((($(this).find("*[class*='region']:first") || $(this).find("*[class*='location']:first") || $(this).find('.b-list-advert__item-region:first')).text())).truncate(defaults.maxLocationLength);
                                 ad.linkText = ad.link.truncate(defaults.maxLinkLength);
                                 for (prop in ad) {
@@ -252,7 +251,7 @@ class Application extends React.Component {
                         });
                     }
 
-                    if(false && resp.update){
+                    if(resp.update){
 
                         let data = {url , ads : selectedEcommerce.ads, email : 'username@domain.com' , action : this.updateSearchResultAction};
                         data = JSON.stringify(data);
