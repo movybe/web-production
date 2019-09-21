@@ -10,7 +10,9 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -62,7 +64,8 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "getRandomUserAgent", function () {
       var desktop = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-      var DesktopUserAgentStrings = ["Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3763.0 Safari/537.36 Edg/75.0.131.0", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 UBrowser/7.0.185.1002 Safari/537.36"];
+      var DesktopUserAgentStrings = ["Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3763.0 Safari/537.36 Edg/75.0.131.0", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 UBrowser/7.0.185.1002 Safari/537.36" //"Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36"
+      ];
       var mobileUserAgentStrings = ["Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>", "Mozilla/5.0 (Android; Mobile; rv:40.0) Gecko/40.0 Firefox/40.0"];
       var platformArray = desktop ? DesktopUserAgentStrings : mobileUserAgentStrings;
       return platformArray[Math.floor(Math.random() * platformArray.length)];
@@ -213,7 +216,7 @@ function (_React$Component) {
       var titles = [];
 
       switch (website) {
-        case 'olist':
+        case defaults.websites.olist:
           var url = "https://olist.ng/search?keyword=".concat(q, "&state_id=&page=").concat(pageNumber);
 
           _this.tryGetCachedResult(_this.getRandomCrawler(), _this.getRequestObject(url), url, function (response) {
@@ -248,7 +251,8 @@ function (_React$Component) {
                   };
                   ad.title = $.trim(($(this).find("*[class*='title']:first") || $(this).find('.b-advert-title-inner:first')).text()).truncate(defaults.maxTitleLength);
                   ad.description = $.trim(($(this).find("*[class*='description']:first") || $(this).find('.b-list-advert__item-description-text:first')).text()).truncate(defaults.maxDescriptionLength);
-                  ad.price = $.trim(($(this).find('.qa-advert-price.b-list-advert__item-price:first') || $(this).find("span:contains(₦):first , p:contains(₦):first , small:contains(₦):first , div:contains(₦):first")).text()).replace(/^\D+/g, '').toLocaleString();
+                  ad.price = $.trim(($(this).find('.qa-advert-price.b-list-advert__item-price:first') || $(this).find("span:contains(₦):first , small:contains(₦):first")).text()).replace(/^\D+/g, '').toLocaleString();
+                  ad.price = ad.price === '' ? 0 : ad.price;
                   ad.link = ($(this).find("a[href*='item']:first") || $(this).find('.js-advert-link:first')).attr('href');
                   ad.link = ad.link.charAt(0) === '/' ? "https://olist.ng" + ad.link : ad.link;
                   ad.image = ($(this).find("img[src*='thumbnail']:first") || $(this).find('.b-list-advert__item-image:first').find('img:first')).attr('src');
@@ -305,7 +309,7 @@ function (_React$Component) {
 
           break;
 
-        case 'jiji':
+        case defaults.websites.jiji:
           url = "https://jiji.ng/search?query=".concat(q, "&page=").concat(pageNumber);
 
           _this.tryGetCachedResult(_this.getRandomCrawler(), _this.getRequestObject(url), url, function (response) {
@@ -338,12 +342,14 @@ function (_React$Component) {
                     linkText: null,
                     location: null
                   };
-                  ad.title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
-                  ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-                  ad.price = $.trim($(this).find('.b-list-advert__item-price').text().replace(/^\D+/g, '')).toLocaleString();
-                  ad.link = $(this).find('.js-advert-link').attr('href');
+                  ad.title = $.trim(($(this).find("*[class*='title']:first") || $(this).find('.qa-advert-title.js-advert-link:first')).text()).truncate(defaults.maxTitleLength);
+                  ad.description = $.trim(($(this).find("*[class*='description']:first") || $(this).find('.b-list-advert__item-description-text:first')).text()).truncate(defaults.maxDescriptionLength);
+                  ad.price = $.trim(($(this).find('.b-list-advert__item-price:first') || $(this).find("span:contains(₦):first , small:contains(₦):first")).text()).replace(/^\D+/g, '').toLocaleString();
+                  ad.price = ad.price === '' ? 0 : ad.price;
+                  ad.link = ($(this).find("a[class*='link']:first") || $(this).find('.js-advert-link:first')).attr('href');
+                  ad.link = ad.link.charAt(0) === '/' ? "https://jiji.ng" + ad.link : ad.link;
                   ad.image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
-                  ad.location = $(this).find('.b-list-advert__item-region').text();
+                  ad.location = $.trim(($(this).find("*[class*='region']:first") || $(this).find("*[class*='location']:first") || $(this).find('.b-list-advert__item-region:first')).text()).truncate(defaults.maxLocationLength);
                   ad.linkText = ad.link.truncate(defaults.maxLinkLength);
 
                   for (prop in ad) {
@@ -727,8 +733,8 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "getRandomDefaultWebsite", function () {
       //First check classified ad websites before E-commerce websites
-      var classifiedAdsWebsites = ["olist", "deals", "jiji"];
-      var ecommerceWebsites = ["jumia", "konga"];
+      var classifiedAdsWebsites = [defaults.websites.olist, defaults.websites.deals, defaults.websites.jiji];
+      var ecommerceWebsites = [defaults.websites.jumia, defaults.websites.konga];
       var randomClassifiedAdWebsite = classifiedAdsWebsites[Math.floor(Math.random() * classifiedAdsWebsites.length)];
       var randomEcommerceWebsite = ecommerceWebsites[Math.floor(Math.random() * ecommerceWebsites.length)];
       return [randomClassifiedAdWebsite, randomEcommerceWebsite];
@@ -805,7 +811,6 @@ function (_React$Component) {
       _this.switchToWebsite(defaultRandomClassifiedAdWebsite, 0, false, false, true, queryObject, function (response) {
         var _this$searchFormField3;
 
-        console.log(response);
         var selectedIndex = 0;
 
         var selectedEcommerce = _this.props.locale.find(function (local, pos) {

@@ -135,9 +135,6 @@ class Application extends React.Component {
 
         if(!isfirstSearch && !this.props.switchWebsite({...this.props , processingAction:  true , currentWebsite : website})) return;
 
-
-
-
         /*
         Resets all the arrays of the selected E-commerce website
         so that new titles , descriptions , prices , images will be replaced with new ones
@@ -178,10 +175,8 @@ class Application extends React.Component {
 
 
         switch (website) {
-            case 'olist' :
+            case defaults.websites.olist :
                 let url = `https://olist.ng/search?keyword=${q}&state_id=&page=${pageNumber}`;
-
-
                 this.tryGetCachedResult(this.getRandomCrawler() , this.getRequestObject(url) , url ,  response => {
 
 
@@ -220,7 +215,8 @@ class Application extends React.Component {
                                 };
                                 ad.title = $.trim((($(this).find("*[class*='title']:first") || $(this).find('.b-advert-title-inner:first')).text())).truncate(defaults.maxTitleLength);
                                 ad.description = $.trim((($(this).find("*[class*='description']:first") || $(this).find('.b-list-advert__item-description-text:first')).text())).truncate(defaults.maxDescriptionLength);
-                                ad.price = $.trim(($(this).find('.qa-advert-price.b-list-advert__item-price:first') || $(this).find("span:contains(₦):first , p:contains(₦):first , small:contains(₦):first , div:contains(₦):first")).text()).replace(/^\D+/g, '').toLocaleString();
+                                ad.price = $.trim(($(this).find('.qa-advert-price.b-list-advert__item-price:first') || $(this).find("span:contains(₦):first , small:contains(₦):first")).text()).replace(/^\D+/g, '').toLocaleString();
+                                ad.price = ad.price === '' ? 0 : ad.price;
                                 ad.link = ($(this).find("a[href*='item']:first") || $(this).find('.js-advert-link:first')).attr('href');
                                 ad.link = ad.link.charAt(0) === '/' ? "https://olist.ng" + ad.link : ad.link;
                                 ad.image = ($(this).find("img[src*='thumbnail']:first") || ($(this).find('.b-list-advert__item-image:first').find('img:first'))).attr('src');
@@ -239,7 +235,6 @@ class Application extends React.Component {
                                 }
 
                             });
-
                         }
                     }
                     else {
@@ -259,8 +254,6 @@ class Application extends React.Component {
                     }
 
 
-
-
                     selectedEcommerce.page += 1;
 
                     this.props.locale[index] = selectedEcommerce;
@@ -276,7 +269,7 @@ class Application extends React.Component {
 
                 break;
 
-            case 'jiji' :
+            case defaults.websites.jiji :
 
                 url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
 
@@ -318,12 +311,14 @@ class Application extends React.Component {
                                     location: null
                                 };
 
-                                ad.title = $.trim($(this).find('.qa-advert-title.js-advert-link').text()).truncate(defaults.maxTitleLength);
-                                ad.description = $.trim($(this).find('.b-list-advert__item-description-text').text()).truncate(defaults.maxDescriptionLength);
-                                ad.price = $.trim($(this).find('.b-list-advert__item-price').text().replace( /^\D+/g, '')).toLocaleString();
-                                ad.link = $(this).find('.js-advert-link').attr('href');
+                                ad.title = $.trim((($(this).find("*[class*='title']:first") || $(this).find('.qa-advert-title.js-advert-link:first')).text())).truncate(defaults.maxTitleLength);
+                                ad.description = $.trim((($(this).find("*[class*='description']:first") || $(this).find('.b-list-advert__item-description-text:first')).text())).truncate(defaults.maxDescriptionLength);
+                                ad.price = $.trim(($(this).find('.b-list-advert__item-price:first') || $(this).find("span:contains(₦):first , small:contains(₦):first")).text()).replace(/^\D+/g, '').toLocaleString();
+                                ad.price = ad.price === '' ? 0 : ad.price;
+                                ad.link = ($(this).find("a[class*='link']:first") || $(this).find('.js-advert-link:first')).attr('href');
+                                ad.link = ad.link.charAt(0) === '/' ? "https://jiji.ng" + ad.link : ad.link;
                                 ad.image = $(this).find('.b-list-slider__sub-img').eq(0).attr('data-img') || $(this).find('img').attr('data-src') || $(this).find('img').attr('src');
-                                ad.location = $(this).find('.b-list-advert__item-region').text();
+                                ad.location = $.trim((($(this).find("*[class*='region']:first") || $(this).find("*[class*='location']:first") || $(this).find('.b-list-advert__item-region:first')).text())).truncate(defaults.maxLocationLength);
                                 ad.linkText = ad.link.truncate(defaults.maxLinkLength);
 
                                 for (prop in ad) {
@@ -535,13 +530,10 @@ class Application extends React.Component {
 
                             selectedEcommerce.ads.push(ad);
                         })
-
-
                     }
 
                     titles = selectedEcommerce.ads.length ? getTitles(selectedEcommerce.ads) : titles;
                     selectedEcommerce.page += 1;
-
 
                     if(resp.update){
 
@@ -759,8 +751,8 @@ class Application extends React.Component {
 
         //First check classified ad websites before E-commerce websites
 
-        let classifiedAdsWebsites = ["olist" , "deals" , "jiji"];
-        let ecommerceWebsites = ["jumia" , "konga"];
+        let classifiedAdsWebsites = [defaults.websites.olist , defaults.websites.deals , defaults.websites.jiji];
+        let ecommerceWebsites = [defaults.websites.jumia , defaults.websites.konga];
 
         let randomClassifiedAdWebsite = classifiedAdsWebsites[Math.floor(Math.random() * classifiedAdsWebsites.length)];
         let randomEcommerceWebsite = ecommerceWebsites[Math.floor(Math.random() * ecommerceWebsites.length)];
@@ -853,7 +845,7 @@ class Application extends React.Component {
         this.switchToWebsite(defaultRandomClassifiedAdWebsite , 0 , false , false , true , queryObject ,  response =>  {
 
 
-            console.log(response);
+
 
 
 
@@ -933,7 +925,6 @@ class Application extends React.Component {
                 this.filterTitles(response.titles, function () {
 
                 });
-
             }
 
             let previousLocale = this.props.locale;

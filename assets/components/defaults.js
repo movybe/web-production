@@ -170,6 +170,14 @@ function () {
     var $this = this;
     this.apkDownloadLink = 'https://play.google.com/store/apps/details?id=movybe.com.movybe';
     this.whatsappContact = '+234 905 897 7259';
+    this.websites = {
+      jumiaDeals: "jumia deals",
+      jiji: 'jiji',
+      jumia: 'jumia',
+      konga: 'konga',
+      olist: 'olist',
+      deals: 'deals'
+    };
     this.isProductionMode = window.location.hostname !== 'localhost';
     this.hostName = window.location.hostname;
     this.siteName = 'Movybe';
