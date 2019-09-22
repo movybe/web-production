@@ -33,7 +33,7 @@ function Config() {
     gallery: [],
     settings: {
       localSearch: true,
-      showImages: false
+      showImages: true
     },
     query: null,
     q: null,
@@ -174,7 +174,7 @@ function Config() {
     sponsoredAdsClicked: [],
     lastUpdated:
     /*dd-mm-yyyy HH:MM*/
-    "15-09-2019 19:51",
+    "22-09-2019 19:51",
     updateOnlyAds: true,
     sponsoredAds: []
   });

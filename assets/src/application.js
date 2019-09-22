@@ -273,6 +273,8 @@ class Application extends React.Component {
 
                 url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
 
+                console.log(url);
+
 
                 this.tryGetCachedResult(this.getRandomCrawler() , this.getRequestObject(url) , url ,  response => {
 
@@ -364,7 +366,6 @@ class Application extends React.Component {
                     savedState = {...this.props , locale : previousLocale , currentWebsite : website};
 
                     defaultAction();
-
                     return callback ? callback({...resp , titles , all_ads : ads}) : null;
                 });
 

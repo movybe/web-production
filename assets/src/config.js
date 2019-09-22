@@ -22,7 +22,7 @@ class Config {
         noDefaultResultsFound: false,
         currentWebsite : null,
         gallery : [] ,
-        settings : {localSearch: true , showImages : false} ,
+        settings : {localSearch: true , showImages : true} ,
         query : null ,
         q : null,
         formSubmitted : false ,
@@ -42,7 +42,7 @@ class Config {
             {shortName :  "bestbuy"  , name : "Best buy"         , textColor :  '#f6eb16' , titles : [] , descriptions : [] , prices : [] , images : [] , links : [] ,linkTexts : [] ,  locations:  [] , page : 0 , error : "" , loadMore : false} ,
         ],
         sponsoredAdsClicked : [] ,
-        lastUpdated : /*dd-mm-yyyy HH:MM*/ "15-09-2019 19:51",
+        lastUpdated : /*dd-mm-yyyy HH:MM*/ "22-09-2019 19:51",
         updateOnlyAds : true,
         sponsoredAds : [],
     };

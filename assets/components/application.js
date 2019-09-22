@@ -311,6 +311,7 @@ function (_React$Component) {
 
         case defaults.websites.jiji:
           url = "https://jiji.ng/search?query=".concat(q, "&page=").concat(pageNumber);
+          console.log(url);
 
           _this.tryGetCachedResult(_this.getRandomCrawler(), _this.getRequestObject(url), url, function (response) {
             resp = response;

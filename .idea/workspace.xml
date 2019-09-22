@@ -3,14 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/components/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/application.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/components/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/components/defaults.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/defaults.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/src/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/application.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/defaults.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/defaults.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,7 +61,7 @@
           <entry key="project.open.time.76" value="1" />
           <entry key="project.open.time.77" value="3" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.open.time.81" value="1" />
+          <entry key="project.open.time.81" value="2" />
           <entry key="project.open.time.82" value="1" />
           <entry key="project.open.time.83" value="1" />
           <entry key="project.open.time.86" value="3" />
@@ -75,7 +69,7 @@
           <entry key="project.open.time.88" value="2" />
           <entry key="project.open.time.90" value="1" />
           <entry key="project.open.time.99" value="1" />
-          <entry key="project.opened" value="45" />
+          <entry key="project.opened" value="46" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -84,7 +78,7 @@
           <entry key="gitignore" value="2" />
           <entry key="htaccess" value="5" />
           <entry key="html" value="2" />
-          <entry key="js" value="109" />
+          <entry key="js" value="110" />
           <entry key="json" value="3" />
           <entry key="php" value="118" />
           <entry key="rnc" value="2" />
@@ -98,7 +92,7 @@
           <entry key="CSS" value="26" />
           <entry key="HTML" value="2" />
           <entry key="JSON" value="3" />
-          <entry key="JavaScript" value="120" />
+          <entry key="JavaScript" value="121" />
           <entry key="PHP" value="122" />
           <entry key="PLAIN_TEXT" value="3" />
           <entry key="RNG Compact" value="2" />
@@ -112,7 +106,7 @@
           <entry key="css" value="587" />
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="26" />
-          <entry key="js" value="30759" />
+          <entry key="js" value="30823" />
           <entry key="json" value="136" />
           <entry key="php" value="14461" />
         </counts>
@@ -122,7 +116,7 @@
           <entry key="CSS" value="587" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="136" />
-          <entry key="JavaScript" value="34095" />
+          <entry key="JavaScript" value="34159" />
           <entry key="PHP" value="14492" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="30" />
@@ -133,11 +127,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/src/application.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="1215" selection-start-line="1215" selection-end-line="1215" />
+            <state relative-caret-position="544">
+              <caret line="353" column="56" selection-start-line="353" selection-start-column="56" selection-end-line="353" selection-end-column="56" />
               <folding>
                 <element signature="n#!!block;n#constructor#0;n#Application#0" />
                 <element signature="n#!!block;n#shouldComponentUpdate#0;n#Application#0" />
@@ -149,8 +143,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/src/defaults.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="159" column="68" selection-start-line="159" selection-start-column="68" selection-end-line="159" selection-end-column="68" />
+            <state relative-caret-position="153">
+              <caret line="154" column="35" lean-forward="true" selection-start-line="154" selection-start-column="35" selection-end-line="154" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/assets/src/config.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="361">
+              <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
             </state>
           </provider>
         </entry>
@@ -158,7 +161,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/incs/head-files.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state relative-caret-position="629">
               <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
             </state>
           </provider>
@@ -167,7 +170,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
+            <state relative-caret-position="255">
               <caret line="15" column="64" selection-start-line="15" selection-start-column="64" selection-end-line="15" selection-end-column="64" />
             </state>
           </provider>
@@ -195,7 +198,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fetch_sponsored_ads ()</find>
       <find>fetchSpo</find>
       <find>sponsored</find>
       <find>fetc</find>
@@ -225,6 +227,7 @@
       <find>console.lo</find>
       <find>|</find>
       <find>console.log</find>
+      <find>jiji</find>
     </findStrings>
     <replaceStrings>
       <replace>tour</replace>
@@ -295,9 +298,9 @@
         <option value="$PROJECT_DIR$/manifest.json" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/assets/src/search-tabs.js" />
-        <option value="$PROJECT_DIR$/assets/src/config.js" />
         <option value="$PROJECT_DIR$/assets/src/defaults.js" />
         <option value="$PROJECT_DIR$/assets/src/application.js" />
+        <option value="$PROJECT_DIR$/assets/src/config.js" />
       </list>
     </option>
   </component>
@@ -451,18 +454,20 @@
       <workItem from="1568240398562" duration="6225000" />
       <workItem from="1568457015851" duration="34377000" />
       <workItem from="1568657834049" duration="1607000" />
-      <workItem from="1568917342435" duration="18099000" />
+      <workItem from="1568917342435" duration="19188000" />
+      <workItem from="1569187800009" duration="220000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="575100000" />
+    <option name="totallyTimeSpent" value="576189000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.14372164" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.14599092" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="0" weight="0.3287037" />
       <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.1879085" />
@@ -797,6 +802,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/src/search-tabs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="410" selection-start-line="410" selection-end-line="410" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/src/application.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="353" column="56" selection-start-line="353" selection-start-column="56" selection-end-line="353" selection-end-column="56" />
+          <folding>
+            <element signature="n#!!block;n#constructor#0;n#Application#0" />
+            <element signature="n#!!block;n#shouldComponentUpdate#0;n#Application#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/incs/head-files.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="64" selection-start-line="15" selection-start-column="64" selection-end-line="15" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/manifest.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -811,49 +848,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/search-tabs.js">
+    <entry file="file://$PROJECT_DIR$/assets/src/defaults.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="410" selection-start-line="410" selection-end-line="410" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="15" column="64" selection-start-line="15" selection-start-column="64" selection-end-line="15" selection-end-column="64" />
+        <state relative-caret-position="153">
+          <caret line="154" column="35" lean-forward="true" selection-start-line="154" selection-start-column="35" selection-end-line="154" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="30" column="22" lean-forward="true" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/incs/head-files.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/defaults.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="159" column="68" selection-start-line="159" selection-start-column="68" selection-end-line="159" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="1215" selection-start-line="1215" selection-end-line="1215" />
-          <folding>
-            <element signature="n#!!block;n#constructor#0;n#Application#0" />
-            <element signature="n#!!block;n#shouldComponentUpdate#0;n#Application#0" />
-          </folding>
+        <state relative-caret-position="361">
+          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
         </state>
       </provider>
     </entry>
