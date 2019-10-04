@@ -1,5 +1,8 @@
 {
-  "presets": ["@babel/preset-env" , "@babel/preset-react"],
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
   "plugins": [
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-transform-classes"
@@ -7,6 +10,13 @@
     //"@babel/plugin-transform-reserved-words",
     //"@babel/plugin-transform-spread"
     //"transform-property-literals"
-
-  ]
+  ],
+  "comments": false,
+  "env": {
+    "production": {
+      "presets": [
+        "minify"
+      ]
+    }
+  }
 }

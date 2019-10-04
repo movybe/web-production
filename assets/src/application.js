@@ -1,4 +1,5 @@
 class Application extends React.Component {
+
     lastSearchQuery = null;
     formSubmitted = false;
     cookiesQueryKey = "queries";
@@ -8,6 +9,7 @@ class Application extends React.Component {
     enterValidKeywordsWarning = "Please enter valid keyword(s)";
     networkError = "failed to receive response, check your network connection";
     updateSearchResultAction = 'UPDATE_SEARCH_RESULT';
+
 
     getRandomUserAgent = (desktop = true) =>
     {
@@ -39,7 +41,12 @@ class Application extends React.Component {
             "https://nypd6.000webhostapp.com/crawler.php",
             defaults.crawler
         ];
-        return crawlers[Math.floor(Math.random() * crawlers.length)];
+
+        //Get a random number between 0 and crawlers.length
+        let randomCrawlerIndex = Math.floor(Math.random() * crawlers.length);
+
+        //Get the crawler with that index
+        return crawlers[randomCrawlerIndex];
     };
 
     getRequestObject = (url , desktop = true) => {
@@ -273,7 +280,7 @@ class Application extends React.Component {
 
                 url = `https://jiji.ng/search?query=${q}&page=${pageNumber}`;
 
-                console.log(url);
+
 
 
                 this.tryGetCachedResult(this.getRandomCrawler() , this.getRequestObject(url) , url ,  response => {
@@ -840,7 +847,7 @@ class Application extends React.Component {
         let defaultRandomClassifiedAdWebsite = defaultRandomEcommerceWebsites[0];
         let defaultRandomEcommerceWebsite = defaultRandomEcommerceWebsites[1];
 
-        console.log(defaultRandomClassifiedAdWebsite , defaultRandomEcommerceWebsite);
+        // console.log(defaultRandomClassifiedAdWebsite , defaultRandomEcommerceWebsite);
 
 
         this.switchToWebsite(defaultRandomClassifiedAdWebsite , 0 , false , false , true , queryObject ,  response =>  {

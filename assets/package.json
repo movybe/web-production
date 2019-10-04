@@ -20,12 +20,14 @@
     "@babel/plugin-transform-spread": "^7.2.2",
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
+    "babel-minify": "^0.5.1",
     "babel-plugin-transform-member-expression-literals": "^6.9.4",
     "babel-plugin-transform-property-literals": "^6.9.4",
     "babel-preset-es3": "^1.0.1",
     "babel-preset-minify": "^0.5.1"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.6.0"
+    "@babel/polyfill": "^7.6.0",
+    "uglifyjs-folder": "^1.5.1"
   }
 }
