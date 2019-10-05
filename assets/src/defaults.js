@@ -323,12 +323,15 @@ const defaults = new Defaults();
 let pageLoaded = false;
 Pace.on('done' , function (e) {
     if(!pageLoaded) {
-        const mainContainer = $('main.main-container'), paceCss = $('link[title="pace-css"]');
+        const paceCss = $('link[title="pace-css"]');
+        /*
+        const mainContainer = $('main.main-container');
+
         mainContainer.removeClass('invisible-class');
         mainContainer.hide();
         mainContainer.fadeIn(3000);
+        */
         pageLoaded = true;
-
         //Disable paceCSS since, it interferes with the materialize css
         paceCss.prop('disabled', true);
 

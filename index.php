@@ -28,7 +28,6 @@ if($functions->data_saving_mode_is_enabled())
     $defaults_js = array("defaults.js");
     echo $functions->printAssets($includes ,'javascript' , true , null).$functions->printAssets($defaults_js , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER : $website_details->SRC_FOLDER);
     ?>
-
     <?php
     $scripts = array("gallery.js" , "search-tabs.js" ,  "application.js" , "config.js");
     echo  $functions->printAssets($scripts , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER  : $website_details->SRC_FOLDER);
@@ -38,15 +37,16 @@ if($functions->data_saving_mode_is_enabled())
 <div class="progress progress-bar">
     <div class="determinate" style="width: 70%"></div>
 </div>
-<main class ="container invisible-class main-container">
+<main class ="container  main-container">
 
     <div class ="section no-pad-bot" id="index-banner">
 
         <div class="container">
             <br><br>
-            <h1 class="header center pink-text text-lighten-3">
-                <img data-src="<?php echo $website_details->IMG_FOLDER.strtolower($website_details->SiteName);?>-png.png?last_modified=October 05 2019 01:00:00 AM" class="responsive-img brand-logo logo-image lazyload" width="220" height="81" alt = "<?php echo $website_details->SiteName." logo"?>" /></h1>
-            <div class="row center">
+            <h6 class="header center pink-text text-lighten-3">
+                <img data-src="<?php echo $website_details->IMG_FOLDER.strtolower($website_details->SiteName);?>-png.png?last_modified=October 05 2019 01:00:00 AM" class="responsive-img brand-logo logo-image lazyload" width="220" height="81" alt = "<?php echo $website_details->SiteName." logo"?>" />
+            </h6>
+            <div class="row center hide">
                 <h5 class="header col s12 light grey-text text-lighten-1"><?php echo $website_details->PageDescription; ?></h5>
             </div>
         </div>
@@ -70,12 +70,12 @@ if($functions->data_saving_mode_is_enabled())
 </body>
 <script>
     if ('serviceWorker' in navigator) {
-        console.log("Will the service worker register?");
+       // console.log("Will the service worker register?");
         navigator.serviceWorker.register('service-worker.js')
             .then(function(reg){
-
+                //console.log("Yes, it did.");
             }).catch(function(err) {
-
+            //console.log("No it didn't. This happened:", err)
         });
     }
 </script>

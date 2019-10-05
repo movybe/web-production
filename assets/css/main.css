@@ -12,6 +12,8 @@
 .logo-image.brand-logo.responsive-img{
     max-width : 220px;
     min-width: 150px;
+    position: relative;
+    top: 20px;
 }
 #search-button{
 
