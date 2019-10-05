@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/admin.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/admin.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/affiliate-header.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/affiliate-header.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/affiliate.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/affiliate.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/application.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/application.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/campaign-settings.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/campaign-settings.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/campaign.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/campaign.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/config.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/config.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/defaults.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/defaults.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/footer.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/footer.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/gallery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/gallery.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant-header.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant-header.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant-plugs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant-plugs.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/search-tabs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/search-tabs.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/src/application.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/application.min.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -172,8 +185,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="1305" column="22" lean-forward="true" selection-start-line="1305" selection-start-column="22" selection-end-line="1305" selection-end-column="22" />
+            <state relative-caret-position="257">
+              <caret line="1353" column="63" selection-start-line="1353" selection-start-column="63" selection-end-line="1353" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -486,22 +499,21 @@
       <workItem from="1569621419019" duration="5795000" />
       <workItem from="1570228599253" duration="9942000" />
       <workItem from="1570262482137" duration="6335000" />
-      <workItem from="1570312633841" duration="1275000" />
+      <workItem from="1570312633841" duration="1634000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="601785000" />
+    <option name="totallyTimeSpent" value="602144000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="1" width="1364" height="726" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.1595092" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.1595092" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="0" weight="0.3287037" />
-      <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.1936027" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.1936027" />
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="4" weight="0.32843137" />
@@ -842,8 +854,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="1305" column="22" lean-forward="true" selection-start-line="1305" selection-start-column="22" selection-end-line="1305" selection-end-column="22" />
+        <state relative-caret-position="257">
+          <caret line="1353" column="63" selection-start-line="1353" selection-start-column="63" selection-end-line="1353" selection-end-column="63" />
         </state>
       </provider>
     </entry>
