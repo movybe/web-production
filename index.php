@@ -15,7 +15,8 @@ if($functions->data_saving_mode_is_enabled())
     <meta content="<?php echo $website_details->WebsiteSubject;?>" property="og:title">
     <meta content="<?php echo $website_details->PageDescription; ?>" property="og:description">
     <meta name="description" content="<?php echo $website_details->PageDescription; ?>" />
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/manifest.json?expires=January 01 2022 01:00:00 AM" />
+    <link rel="manifest" href="/manifest.webmanifest?expires=January 01 2022 01:00:00 AM" />
     <meta name="theme-color" content="#2299dd">
     <meta name="msapplication-TileColor" content="#2299dd">
     <meta name="msapplication-navbutton-color" content="#2299dd">
@@ -43,7 +44,8 @@ if($functions->data_saving_mode_is_enabled())
 
         <div class="container">
             <br><br>
-            <h1 class="header center pink-text text-lighten-3"><img data-src="<?php echo $website_details->IMG_FOLDER.strtolower($website_details->SiteName);?>-png.png" class="responsive-img brand-logo logo-image lazyload" width="220" height="81" alt = "<?php echo $website_details->SiteName." logo"?>" /></h1>
+            <h1 class="header center pink-text text-lighten-3">
+                <img data-src="<?php echo $website_details->IMG_FOLDER.strtolower($website_details->SiteName);?>-png.png" class="responsive-img brand-logo logo-image lazyload" width="220" height="81" alt = "<?php echo $website_details->SiteName." logo"?>" /></h1>
             <div class="row center">
                 <h5 class="header col s12 light grey-text text-lighten-1"><?php echo $website_details->PageDescription; ?></h5>
             </div>
@@ -71,9 +73,9 @@ if($functions->data_saving_mode_is_enabled())
         console.log("Will the service worker register?");
         navigator.serviceWorker.register('service-worker.js')
             .then(function(reg){
-                console.log("Yes, it did.");
+
             }).catch(function(err) {
-            console.log("No it didn't. This happened:", err)
+
         });
     }
 </script>
