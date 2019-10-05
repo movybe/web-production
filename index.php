@@ -25,11 +25,11 @@ if($functions->data_saving_mode_is_enabled())
     <?php require_once $website_details->INCS_FOLDER.'head-files.php'; ?>
     <?php
     $includes = array("polyfill.js" , "cookie.min.js" , "bgset.min.js" , "lazy-bg.min.js" ,  "notify.min.js" , "jquery.lightbox.min.js"  ,"numeral.min.js" , "jquery.history.min.js");
-    $defaults_js = array("defaults.js");
+    $defaults_js = array("defaults.min.js");
     echo $functions->printAssets($includes ,'javascript' , true , null).$functions->printAssets($defaults_js , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER : $website_details->SRC_FOLDER);
     ?>
     <?php
-    $scripts = array("gallery.js" , "search-tabs.js" ,  "application.js" , "config.js");
+    $scripts = array("gallery.min.js" , "search-tabs.min.js" ,  "application.min.js" , "config.min.js");
     echo  $functions->printAssets($scripts , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER  : $website_details->SRC_FOLDER);
     ?>
 </head>
@@ -37,7 +37,7 @@ if($functions->data_saving_mode_is_enabled())
 <div class="progress progress-bar">
     <div class="determinate" style="width: 70%"></div>
 </div>
-<main class ="container  main-container">
+<main class ="container <?php //invisible-class ?> main-container">
 
     <div class ="section no-pad-bot" id="index-banner">
 

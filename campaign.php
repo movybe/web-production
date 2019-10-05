@@ -27,7 +27,7 @@ $next_referrer = $random_referrers[$current_referrer === $random_referrers[0] ? 
         $stylesheets = array('admin.css' , 'campaign.css'  ,  'main.css'  , 'merchant.css'  , 'footer.css' , 'tour.css','jquery.progressbar.css');
         echo $functions->printAssets($stylesheets , 'css' , false);
         $scripts = array('cookie.min.js'   , 'timeago.min.js' , 'bgset.min.js' ,'lazy-bg.min.js' , 'tour.js' , 'notify.min.js' , 'particles.js' , 'app.js', 'jquery.progressbar.js', 'jquery.form.js');
-        $components = array('defaults.js'  , 'footer.js' , 'campaign.js' ,'merchant-header.js' ,  'merchant-plugs.js' , 'merchant.js' ,'affiliate-header.js', 'affiliate.js' , 'admin.js' , 'campaign-settings.js');
+        $components = array('defaults.min.js'  , 'footer.min.js' , 'campaign.min.js' ,'merchant-header.min.js' ,  'merchant-plugs.min.js' , 'merchant.min.js' ,'affiliate-header.min.js', 'affiliate.min.js' , 'admin.min.js' , 'campaign-settings.min.js');
         $jquery_validate = array('jquery.validate.js');
         echo $functions->printAssets($scripts  , null , true).$functions->printAssets($components , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER : $website_details->SRC_FOLDER).$functions->printAssets($jquery_validate , 'javascript' , true);
         ?>
@@ -35,7 +35,7 @@ $next_referrer = $random_referrers[$current_referrer === $random_referrers[0] ? 
 <body id = 'particles-js' class='lazyloads'  data-bgset="<?php echo $website_details->IMG_FOLDER.'campaign-background.jpg'; ?>">
 
 <div>
-    <main  data-is-referral-link = "<?php echo (isset($_GET['r']) && !empty($_GET['r']))?  '1' :  '0';?>" data-next-referrer = "<?php echo $next_referrer; ?>"  id='app' class = 'main-container invisible-class' data-referrer = '<?php echo isset($_GET['r']) ?  $_GET['r'] : $next_referrer; ?>'>
+    <main  data-is-referral-link = "<?php echo (isset($_GET['r']) && !empty($_GET['r']))?  '1' :  '0';?>" data-next-referrer = "<?php echo $next_referrer; ?>"  id='app' class = 'main-container <?php //invisible-class ?>' data-referrer = '<?php echo isset($_GET['r']) ?  $_GET['r'] : $next_referrer; ?>'>
 
 
     </main>

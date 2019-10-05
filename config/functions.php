@@ -388,10 +388,6 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
         if($is_javascript_file){
             foreach($statics as $static)
             {
-
-
-
-
                 $defer_attribute = $defer ? "defer" : "";
                 $file = $folder ? $document_root.$folder.$static :  $document_root.$website_details->JS_FOLDER.$static;
                 $last_modified = date("F d Y H:i:s A", filemtime($file));
