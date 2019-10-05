@@ -43,5 +43,4 @@ $required = array("jquery.min.js" ,  "materialize.min.js" , "babel.min.js"  , "r
 echo $functions->printAssets($pace_css , 'css' , false , null , "title = 'pace-css' id ='pace-css'");
 echo $functions->printAssets($stylesheets , "css" , false)."\n";
 echo $functions->is_production_mode() ? $cdn_required : $functions->printAssets($materialize_css , "css" , false , null).$functions->printAssets($required,'javascript')."\n";
-
 ?>
