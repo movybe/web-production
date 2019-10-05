@@ -380,6 +380,7 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
     {
         $type = $type?:"javascript";
         global $website_details;
+
         $files_resources = "";
         $defer_attribute = "";
 
@@ -406,6 +407,7 @@ public  function  readBetweenFileLines(string  $filename , int $start , int $end
 
                 $file = $folder ? $document_root.$folder.$static :  $document_root.$website_details->CSS_FOLDER.$static;
                 $last_modified = date("F d Y H:i:s A", filemtime($file));
+                $static = $this->is_production_mode() ? str_replace('.css' , '.min.css' , $static) : $static;
                 $src = $folder ? $folder.$static : $website_details->CSS_FOLDER.$static;
                 $files_resources.= "<link rel = 'stylesheet' type='text/{$type}'  href='{$src}?last_modified={$last_modified}' $attr />\n";
             }

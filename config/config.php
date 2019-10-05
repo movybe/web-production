@@ -39,7 +39,7 @@ class WebsiteConfigurationSettings {
         $this->DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
         $this->STATIC_FOLDER = $this->getFileLocation("assets/");
         $this->JS_FOLDER = $this->STATIC_FOLDER."js/";
-        $this->CSS_FOLDER = $this->STATIC_FOLDER."css/";
+        $this->CSS_FOLDER = $this->is_production_mode() ? $this->STATIC_FOLDER."css-dist/" : $this->STATIC_FOLDER."css/";
         $this->INCS_FOLDER = $this->is_production_mode() ? $this->DOCUMENT_ROOT."/".$this->siteNameLowercase."/assets/incs/" : $this->DOCUMENT_ROOT."/assets/incs/";
         $this->BANNER_IMAGES_FOLDER = $this->DOCUMENT_ROOT."/banner/";
         $this->IMG_FOLDER =   $this->STATIC_FOLDER."img/";
