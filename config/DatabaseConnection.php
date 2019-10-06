@@ -268,7 +268,10 @@ class DatabaseConnection {
         id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         url VARCHAR(65535) CHARACTER SET utf8 NOT NULL,
         last_update_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-        ad VARCHAR(65535) CHARACTER SET utf8 NOT NULL 
+        ad VARCHAR(65535) CHARACTER SET utf8 NOT NULL,
+        website VARCHAR (255) NOT NULL  DEFAULT 'NA',
+        query VARCHAR (1000) NOT NULL DEFAULT 'NA',
+        page INT NOT NULL DEFAULT 1,
     )";
 
         return $this->try_create_table($sql);

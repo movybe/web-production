@@ -583,10 +583,16 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         $url = is_array($this->data['url']) ? base64_encode(json_encode($this->data['url'])) : $this->data['url'];
         $now = date('Y-m-d H:i:s');
 
+        $website = $this->data['website'];
+        $query = $this->data['query'];
+        $page = $this->data['page'];
         if($this->record_exists_in_table($this->links_table_name , 'url' , $url))
         {
             $this->update_multiple_fields($this->links_table_name ,
                 [
+                    'page' => $page,
+                    'query' => $query,
+                    'website' => $website,
                     'last_update_timestamp' => $now,
                     'ad' => base64_encode(json_encode($this->data['ads']))
                 ] , "url = '{$url}'"
@@ -596,6 +602,9 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         else {
 
             $this->insert_into_table($this->links_table_name , [
+                'page' => $page,
+                'query' => $query,
+                'website' => $website,
                 'last_update_timestamp' => $now,
                 'ad' => base64_encode(json_encode($this->data['ads'])),
                 'url' => $url
