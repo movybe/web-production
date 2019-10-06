@@ -16,7 +16,7 @@
       <change beforePath="$PROJECT_DIR$/assets/components/merchant-plugs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant-plugs.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/components/merchant.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/components/search-tabs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/search-tabs.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/application.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/application.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/src/search-tabs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/search-tabs.min.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -125,7 +125,7 @@
           <entry key="css" value="613" />
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="26" />
-          <entry key="js" value="31060" />
+          <entry key="js" value="32169" />
           <entry key="json" value="136" />
           <entry key="php" value="14673" />
         </counts>
@@ -135,7 +135,7 @@
           <entry key="CSS" value="613" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="187" />
-          <entry key="JavaScript" value="34396" />
+          <entry key="JavaScript" value="35505" />
           <entry key="PHP" value="14704" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="30" />
@@ -182,11 +182,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="1353" column="63" selection-start-line="1353" selection-start-column="63" selection-end-line="1353" selection-end-column="63" />
+            <state relative-caret-position="432">
+              <caret line="512" column="26" lean-forward="true" selection-start-line="512" selection-start-column="26" selection-end-line="512" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -200,11 +200,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/src/search-tabs.min.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="285" column="38" selection-start-line="285" selection-start-column="38" selection-end-line="285" selection-end-column="38" />
+            <state relative-caret-position="2748">
+              <caret line="196" lean-forward="true" selection-start-line="196" selection-end-line="196" />
             </state>
           </provider>
         </entry>
@@ -283,7 +283,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/config/IGit.php" />
         <option value="$PROJECT_DIR$/config/GitRepository.php" />
         <option value="$PROJECT_DIR$/htacess.txt" />
         <option value="$PROJECT_DIR$/.gitignore" />
@@ -334,6 +333,7 @@
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/campaign.php" />
         <option value="$PROJECT_DIR$/assets/src/application.min.js" />
+        <option value="$PROJECT_DIR$/assets/src/search-tabs.min.js" />
       </list>
     </option>
   </component>
@@ -354,10 +354,9 @@
   <component name="PhpServers">
     <servers />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="1" />
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="1" />
-    <option name="width" value="1364" />
+    <option name="width" value="1280" />
     <option name="height" value="726" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -499,21 +498,21 @@
       <workItem from="1569621419019" duration="5795000" />
       <workItem from="1570228599253" duration="9942000" />
       <workItem from="1570262482137" duration="6335000" />
-      <workItem from="1570312633841" duration="1634000" />
+      <workItem from="1570312633841" duration="8845000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="602144000" />
+    <option name="totallyTimeSpent" value="609355000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="1" width="1364" height="726" extended-state="0" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.1595092" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.15733737" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="0" weight="0.3287037" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.1936027" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.1879085" />
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="4" weight="0.32843137" />
@@ -845,17 +844,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/search-tabs.min.js">
+    <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="285" column="38" selection-start-line="285" selection-start-column="38" selection-end-line="285" selection-end-column="38" />
+        <state relative-caret-position="432">
+          <caret line="512" column="26" lean-forward="true" selection-start-line="512" selection-start-column="26" selection-end-line="512" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
+    <entry file="file://$PROJECT_DIR$/assets/src/search-tabs.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="1353" column="63" selection-start-line="1353" selection-start-column="63" selection-end-line="1353" selection-end-column="63" />
+        <state relative-caret-position="2748">
+          <caret line="196" lean-forward="true" selection-start-line="196" selection-end-line="196" />
         </state>
       </provider>
     </entry>
