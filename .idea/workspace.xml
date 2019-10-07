@@ -3,14 +3,22 @@
   <component name="ChangeListManager">
     <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/admin.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/admin.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/affiliate-header.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/affiliate-header.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/affiliate.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/affiliate.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/components/application.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/application.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/campaign-settings.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/campaign-settings.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/campaign.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/campaign.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/config.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/config.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/components/defaults.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/defaults.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/footer.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/footer.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/gallery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/gallery.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant-header.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant-header.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant-plugs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant-plugs.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/components/search-tabs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/search-tabs.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/src/application.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/application.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/defaults.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/defaults.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/src/search-tabs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/search-tabs.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/DatabaseConnection.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/DatabaseConnection.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/processors/actions.php" beforeDir="false" afterPath="$PROJECT_DIR$/processors/actions.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -120,7 +128,7 @@
           <entry key="css" value="613" />
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="26" />
-          <entry key="js" value="32356" />
+          <entry key="js" value="32477" />
           <entry key="json" value="136" />
           <entry key="php" value="14901" />
         </counts>
@@ -130,7 +138,7 @@
           <entry key="CSS" value="613" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="187" />
-          <entry key="JavaScript" value="35692" />
+          <entry key="JavaScript" value="35813" />
           <entry key="PHP" value="14929" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="33" />
@@ -180,8 +188,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="932">
-              <caret line="1314" column="29" selection-start-line="1314" selection-start-column="29" selection-end-line="1314" selection-end-column="29" />
+            <state relative-caret-position="343">
+              <caret line="823" column="30" lean-forward="true" selection-start-line="823" selection-start-column="30" selection-end-line="823" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -207,8 +215,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/src/search-tabs.min.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="255" column="12" selection-start-line="255" selection-start-column="12" selection-end-line="255" selection-end-column="12" />
+            <state relative-caret-position="202">
+              <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
             </state>
           </provider>
         </entry>
@@ -235,9 +243,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>random()</find>
-      <find>getRandomUs</find>
-      <find>create_links</find>
       <find>function get_ca</find>
       <find>push</find>
       <find>get_ca</find>
@@ -265,6 +270,9 @@
       <find>color</find>
       <find>console</find>
       <find>console.</find>
+      <find>ad.price.indexOf</find>
+      <find>text-tra</find>
+      <find>/*</find>
     </findStrings>
     <replaceStrings>
       <replace>tour</replace>
@@ -507,12 +515,12 @@
       <workItem from="1570228599253" duration="9942000" />
       <workItem from="1570262482137" duration="6335000" />
       <workItem from="1570312633841" duration="11473000" />
-      <workItem from="1570363436666" duration="7521000" />
+      <workItem from="1570363436666" duration="9382000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="619504000" />
+    <option name="totallyTimeSpent" value="621365000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -856,15 +864,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/search-tabs.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="255" column="12" selection-start-line="255" selection-start-column="12" selection-end-line="255" selection-end-column="12" />
+        <state relative-caret-position="202">
+          <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="932">
-          <caret line="1314" column="29" selection-start-line="1314" selection-start-column="29" selection-end-line="1314" selection-end-column="29" />
+        <state relative-caret-position="343">
+          <caret line="823" column="30" lean-forward="true" selection-start-line="823" selection-start-column="30" selection-end-line="823" selection-end-column="30" />
         </state>
       </provider>
     </entry>
