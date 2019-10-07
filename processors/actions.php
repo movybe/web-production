@@ -586,6 +586,8 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         $website = $this->data['website'];
         $query = $this->data['query'];
         $page = $this->data['page'];
+
+
         if($this->record_exists_in_table($this->links_table_name , 'url' , $url))
         {
             $this->update_multiple_fields($this->links_table_name ,
@@ -610,6 +612,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                 'url' => $url
             ]);
         }
+
 
         return "OK";
     }
