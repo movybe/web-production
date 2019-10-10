@@ -68,6 +68,7 @@ div.activate-account.materialize-red-text{
 
 }
 
+
 .notice-message{
     color : #fff;
     opacity: .9;
@@ -359,3 +360,14 @@ span.affiliate-payment-reference-code{
     z-index : 2;
 }
 */
+
+
+#new-ad-form-container
+{
+    margin-bottom: 140px !important;;
+}
+
+#ad-unit
+{
+    display: block !important;
+}

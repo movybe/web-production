@@ -357,7 +357,7 @@ input[type="text"].disabled {
 }
 #particles-js{
     height: inherit;
-    background-color: #ecf0f5;
+    background-color: #fff;/*#ecf0f5*/;
     display: block;
 }
 .activate-account-text{

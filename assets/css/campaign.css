@@ -28,6 +28,17 @@
     font-size: 18px !important;
 }
 
+.campaign-page-head-links
+{
+  color:#26a69a !important;
+  position : relative;
+  top : 15px;
+}
+#campaign-page-ads-text{
+    top: -12px;
+    position: relative;
+    left : 5px;
+}
 @media only screen and (min-width:996px) {
 
 
@@ -119,15 +130,6 @@ a.continue-modal-trigger
     text-align:center;
 }
 
-.card.campaign-card .card-content{
-    max-height : 300px;
-    overflow-y: auto;
-}
-
-.campaign-card .card-content p {
-    display: block;
-    margin-bottom: 5px;
-}
 i.copy-link-icons
 {
     position: relative;
@@ -137,6 +139,57 @@ i.copy-link-icons
     color : blue;
     cursor :pointer;
 
+}
+
+#top-btn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 80px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: red; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+
+}
+
+#top-btn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+}
+
+
+#footer {
+    position: absolute !important;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    width: inherit;
+    display: block !important;
+    height : 250px;
+    margin-top: 100px !important;
+}
+.footer
+{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+html {
+    position: relative;
+    min-height: 100%;
+}
+#body{
+    margin: 0 0 100px; /* bottom = footer height */
+    margin-bottom: 250px;
+}
+
+.start-now-button.btn{
+    background-color: #1a73e8 !important;
+    color: #fff !important;
 }
 
 /*font awesome */

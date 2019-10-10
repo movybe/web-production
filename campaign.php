@@ -8,7 +8,7 @@ require_once 'config/functions.php';
  //$functions->try_insert_or_update_ip_address_in_database();
 //echo $functions->send_payment_email(20000 , "Kosi Eric");
 $page_description = "{$website_details->SiteName} Campaign is the easiest way to advertise your products/Services in Nigeria, with our affiliate, you also can make money in Nigeria, from the comfort of your home.";
-$page_title = "{$website_details->SiteName} • Campaign";
+$page_title = "{$website_details->SiteName} Ads • Get More Customers With Easy Online Advertising";
 $try_insert_or_update_ip_address_in_database = $functions->is_production_mode() ?$functions->try_insert_or_update_ip_address_in_database() : null;
 $random_referrers  = ["amily" , "hilltop"];
 $current_referrer = $functions->fetch_data_from_table($functions->site_statistics_table_name , 'id' , 1)[0]['last_admin_referrer'];
@@ -26,17 +26,16 @@ $next_referrer = $random_referrers[$current_referrer === $random_referrers[0] ? 
         require_once $website_details->INCS_FOLDER.'head-files.php';
         $stylesheets = array('admin.css' , 'campaign.css'  ,  'main.css'  , 'merchant.css'  , 'footer.css' , 'tour.css','jquery.progressbar.css');
         echo $functions->printAssets($stylesheets , 'css' , false);
-        $scripts = array('cookie.min.js'   , 'timeago.min.js' , 'bgset.min.js' ,'lazy-bg.min.js' , 'tour.js' , 'notify.min.js' , 'particles.js' , 'app.js', 'jquery.progressbar.js', 'jquery.form.js');
+        $scripts = array('cookie.min.js'   , 'timeago.min.js' , 'bgset.min.js' ,'lazy-bg.min.js' , 'tour.js' , 'notify.min.js' , 'jquery.progressbar.js', 'jquery.form.js');
         $components = array('defaults.min.js'  , 'footer.min.js' , 'campaign.min.js' ,'merchant-header.min.js' ,  'merchant-plugs.min.js' , 'merchant.min.js' ,'affiliate-header.min.js', 'affiliate.min.js' , 'admin.min.js' , 'campaign-settings.min.js');
         $jquery_validate = array('jquery.validate.js');
         echo $functions->printAssets($scripts  , null , true).$functions->printAssets($components , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER : $website_details->SRC_FOLDER).$functions->printAssets($jquery_validate , 'javascript' , true);
         ?>
 </head>
-<body id = 'particles-js' class='lazyloads'  data-bgset="<?php echo $website_details->IMG_FOLDER.'campaign-background.jpg'; ?>">
+<body   data-bgset="<?php echo $website_details->IMG_FOLDER.'campaign-background.jpg'; ?>">
 
 <div>
     <main  data-is-referral-link = "<?php echo (isset($_GET['r']) && !empty($_GET['r']))?  '1' :  '0';?>" data-next-referrer = "<?php echo $next_referrer; ?>"  id='app' class = 'main-container <?php //invisible-class ?>' data-referrer = '<?php echo isset($_GET['r']) ?  $_GET['r'] : $next_referrer; ?>'>
-
 
     </main>
     <!--div class='form-progress' id="ad-form-progress">
@@ -54,7 +53,28 @@ $next_referrer = $random_referrers[$current_referrer === $random_referrers[0] ? 
     <a class="tourJS-close" href = "#">Close</a>
 </div>
 </div>
- <?php
- ?>
+<button onclick="topFunction()" id="top-btn" title="Go to top"><i class="material-icons">arrow_upward</i></button>
+
+<script>
+    mybutton = document.getElementById("top-btn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+</script>
+
 </body>
 </html>
