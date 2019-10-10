@@ -1,4 +1,4 @@
-@import "affiliate.css";
+
 #fund-status-container {
 }
 .account-info-headers{
@@ -48,7 +48,7 @@
     top : 2px;
 }
 div.activate-account.materialize-red-text{
-    color : rgba(255 , 120 , 123) !important;
+    color : rgba(255 , 120 , 123 , 1) !important;
     font-weight: bold;
 }
 
@@ -365,9 +365,4 @@ span.affiliate-payment-reference-code{
 #new-ad-form-container
 {
     margin-bottom: 140px !important;;
-}
-
-#ad-unit
-{
-    display: block !important;
 }
