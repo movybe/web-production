@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/components/campaign.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/campaign.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/merchant.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/merchant.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant-header.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant-header.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant-plugs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant-plugs.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/search-tabs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/search-tabs.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/ad-budget.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/budget.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/budget.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/src/campaign.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/campaign.min.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -117,7 +121,7 @@
           <entry key="css" value="1157" />
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="26" />
-          <entry key="js" value="35715" />
+          <entry key="js" value="35717" />
           <entry key="json" value="136" />
           <entry key="php" value="14973" />
         </counts>
@@ -127,7 +131,7 @@
           <entry key="CSS" value="1157" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="187" />
-          <entry key="JavaScript" value="39051" />
+          <entry key="JavaScript" value="39053" />
           <entry key="PHP" value="15001" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="33" />
@@ -171,8 +175,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/src/campaign.min.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="145" column="49" selection-start-line="145" selection-start-column="49" selection-end-line="145" selection-end-column="49" />
+            <state relative-caret-position="-235">
+              <caret line="212" column="19" lean-forward="true" selection-start-line="212" selection-start-column="19" selection-end-line="212" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -190,7 +194,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>refreshProfile</find>
       <find>adTypeAndAdUnitsStyle</find>
       <find>display</find>
       <find>#ad-unit</find>
@@ -220,6 +223,7 @@
       <find>budgw</find>
       <find>&lt;op</find>
       <find>refres</find>
+      <find>budget</find>
     </findStrings>
     <replaceStrings>
       <replace>tour</replace>
@@ -471,12 +475,12 @@
       <workItem from="1570312633841" duration="11473000" />
       <workItem from="1570363436666" duration="15960000" />
       <workItem from="1570684173892" duration="17535000" />
-      <workItem from="1570714845543" duration="19490000" />
+      <workItem from="1570714845543" duration="20281000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="664968000" />
+    <option name="totallyTimeSpent" value="665759000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -768,13 +772,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/campaign.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="21" column="81" lean-forward="true" selection-start-line="21" selection-start-column="81" selection-end-line="21" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/r.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3132">
@@ -820,10 +817,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/campaign.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="21" column="81" lean-forward="true" selection-start-line="21" selection-start-column="81" selection-end-line="21" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/campaign.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="145" column="49" selection-start-line="145" selection-start-column="49" selection-end-line="145" selection-end-column="49" />
+        <state relative-caret-position="-235">
+          <caret line="212" column="19" lean-forward="true" selection-start-line="212" selection-start-column="19" selection-end-line="212" selection-end-column="19" />
         </state>
       </provider>
     </entry>
