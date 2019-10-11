@@ -2,7 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/assets/src/application.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/application.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/campaign-settings.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/campaign-settings.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/campaign.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/campaign.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/config.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/config.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/defaults.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/defaults.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/footer.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/footer.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/gallery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/gallery.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant-header.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant-header.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant-plugs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant-plugs.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/search-tabs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/search-tabs.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/src/campaign.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/campaign.min.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +95,7 @@
           <entry key="gitignore" value="2" />
           <entry key="htaccess" value="5" />
           <entry key="html" value="2" />
-          <entry key="js" value="134" />
+          <entry key="js" value="135" />
           <entry key="json" value="8" />
           <entry key="php" value="133" />
           <entry key="rnc" value="2" />
@@ -99,7 +110,7 @@
           <entry key="CSS" value="40" />
           <entry key="HTML" value="2" />
           <entry key="JSON" value="15" />
-          <entry key="JavaScript" value="145" />
+          <entry key="JavaScript" value="146" />
           <entry key="PHP" value="137" />
           <entry key="PLAIN_TEXT" value="4" />
           <entry key="RNG Compact" value="2" />
@@ -114,7 +125,7 @@
           <entry key="css" value="1180" />
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="26" />
-          <entry key="js" value="35731" />
+          <entry key="js" value="35803" />
           <entry key="json" value="136" />
           <entry key="php" value="14973" />
         </counts>
@@ -124,7 +135,7 @@
           <entry key="CSS" value="1180" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="187" />
-          <entry key="JavaScript" value="39067" />
+          <entry key="JavaScript" value="39139" />
           <entry key="PHP" value="15001" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="33" />
@@ -151,7 +162,7 @@
         <entry file="file://$PROJECT_DIR$/business.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="310">
-              <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
+              <caret line="77" selection-start-line="77" selection-end-line="77" />
             </state>
           </provider>
         </entry>
@@ -160,16 +171,25 @@
         <entry file="file://$PROJECT_DIR$/assets/css/campaign.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="27" column="13" lean-forward="true" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+              <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/assets/src/campaign.min.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="640">
+              <caret line="149" column="50" lean-forward="true" selection-start-line="149" selection-start-column="50" selection-end-line="149" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="1370" lean-forward="true" selection-start-line="1370" selection-end-line="1370" />
+            <state relative-caret-position="231">
+              <caret line="1132" column="5" selection-start-line="1132" selection-start-column="5" selection-end-line="1132" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -299,11 +319,11 @@
         <option value="$PROJECT_DIR$/campaign.php" />
         <option value="$PROJECT_DIR$/assets/src/merchant-plugs.min.js" />
         <option value="$PROJECT_DIR$/assets/src/merchant.min.js" />
-        <option value="$PROJECT_DIR$/assets/src/campaign.min.js" />
         <option value="$PROJECT_DIR$/assets/css/campaign.css" />
         <option value="$PROJECT_DIR$/assets/incs/head-files.php" />
         <option value="$PROJECT_DIR$/assets/css/merchant.css" />
         <option value="$PROJECT_DIR$/assets/src/application.min.js" />
+        <option value="$PROJECT_DIR$/assets/src/campaign.min.js" />
       </list>
     </option>
   </component>
@@ -324,7 +344,7 @@
   <component name="PhpServers">
     <servers />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="y" value="1" />
     <option name="width" value="1280" />
     <option name="height" value="726" />
@@ -477,16 +497,15 @@
       <workItem from="1570312633841" duration="11473000" />
       <workItem from="1570363436666" duration="15960000" />
       <workItem from="1570684173892" duration="17535000" />
-      <workItem from="1570714845543" duration="24609000" />
+      <workItem from="1570714845543" duration="27377000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="670087000" />
+    <option name="totallyTimeSpent" value="672855000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.18078668" />
@@ -786,13 +805,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/campaign.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2142">
-          <caret line="126" column="33" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/incs/head-files.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -817,21 +829,28 @@
     <entry file="file://$PROJECT_DIR$/business.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="310">
-          <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
+          <caret line="77" selection-start-line="77" selection-end-line="77" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/css/campaign.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="27" column="13" lean-forward="true" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="1370" lean-forward="true" selection-start-line="1370" selection-end-line="1370" />
+        <state relative-caret-position="231">
+          <caret line="1132" column="5" selection-start-line="1132" selection-start-column="5" selection-end-line="1132" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/src/campaign.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="149" column="50" lean-forward="true" selection-start-line="149" selection-start-column="50" selection-end-line="149" selection-end-column="50" />
         </state>
       </provider>
     </entry>
