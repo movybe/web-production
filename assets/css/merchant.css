@@ -327,6 +327,11 @@ span.affiliate-payment-reference-code{
     color : green;
     text-decoration:none;
 }
+#new-ad-form-container
+{
+    margin-bottom: 140px !important;;
+}
+
 
 /*
 .form-progress#ad-form-progress
@@ -362,7 +367,3 @@ span.affiliate-payment-reference-code{
 */
 
 
-#new-ad-form-container
-{
-    margin-bottom: 140px !important;;
-}

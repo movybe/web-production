@@ -37,7 +37,7 @@ $cdn_required = <<<CDN_INCLUDES
 <script defer crossorigin src = 'https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.1/redux.min.js'></script>
 <script defer crossorigin src='https://cdnjs.cloudflare.com/ajax/libs/react-redux/6.0.1/react-redux.min.js'></script>
 CDN_INCLUDES;
-$materialize_css = array("materialize.min.css");
+$materialize_css = array("materialize.css");
 $stylesheets = array("main.css"  , "footer.css");
 $required = array("jquery.min.js" ,  "materialize.min.js" , "babel.min.js"  , "react.development.js" , "react-dom.development.js" , "redux.min.js" , "react-redux.min.js");
 echo $functions->printAssets($pace_css , 'css' , false , null , "title = 'pace-css' id ='pace-css'");
