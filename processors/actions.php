@@ -37,6 +37,8 @@ class Actions extends  Functions
     private function fetchMerchantDetails () : array{
 
         $user_details = $this->fetch_data_from_table($this->users_table_name , "email" , $this->email)[0];
+        $user_details['terms_and_conditions_version'] = floatval($user_details['terms_and_conditions_version']);
+
         $ad_details = $this->fetch_data_from_table($this->ads_table_name , "posted_by" , $user_details['user_id']);
 
         $site_statistics = $this->fetch_data_from_table($this->site_statistics_table_name , 'id' , 1)[0];
@@ -544,6 +546,19 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
     }
 
+    function update_user_last_read_terms_and_conditions() : string {
+        $now = date('Y-m-d H:i:s');
+        $version = $this->data['version'];
+
+        if($this->update_multiple_fields($this->users_table_name ,
+            [
+                'last_read_terms_and_conditions' => $now,
+                'terms_and_conditions_version' => $version
+            ] , "email = '{$this->email}'")){
+            return json_encode([$this->successText => 1 , 'timestamp' => $now]);
+        }
+    }
+
     function get_cached_ad() : string
     {
 
@@ -829,6 +844,8 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                 return $this->get_cached_ad();
             case 'UPDATE_SEARCH_RESULT' :
                 return $this->update_search_result();
+            case 'UPDATE_USER_LAST_READ_TERMS_AND_CONDITIONS' :
+                return $this->update_user_last_read_terms_and_conditions();
         }
     }
 
