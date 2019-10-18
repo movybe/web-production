@@ -605,6 +605,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
         if($this->record_exists_in_table($this->links_table_name , 'url' , $url))
         {
+
             $this->update_multiple_fields($this->links_table_name ,
                 [
                     'page' => $page,

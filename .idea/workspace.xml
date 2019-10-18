@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/application.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/application.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/config.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/config.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/src/application.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/application.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/campaign-settings.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/campaign-settings.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/defaults.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/defaults.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/src/merchant-header.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/merchant-header.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/DatabaseConnection.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/DatabaseConnection.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/src/config.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/config.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/processors/actions.php" beforeDir="false" afterPath="$PROJECT_DIR$/processors/actions.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -90,7 +89,7 @@
           <entry key="gitignore" value="2" />
           <entry key="htaccess" value="5" />
           <entry key="html" value="2" />
-          <entry key="js" value="149" />
+          <entry key="js" value="150" />
           <entry key="json" value="8" />
           <entry key="php" value="138" />
           <entry key="rnc" value="2" />
@@ -105,7 +104,7 @@
           <entry key="CSS" value="40" />
           <entry key="HTML" value="2" />
           <entry key="JSON" value="15" />
-          <entry key="JavaScript" value="160" />
+          <entry key="JavaScript" value="161" />
           <entry key="PHP" value="142" />
           <entry key="PLAIN_TEXT" value="4" />
           <entry key="RNG Compact" value="2" />
@@ -120,9 +119,9 @@
           <entry key="css" value="1180" />
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="26" />
-          <entry key="js" value="38813" />
+          <entry key="js" value="38901" />
           <entry key="json" value="136" />
-          <entry key="php" value="15490" />
+          <entry key="php" value="15517" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -130,8 +129,8 @@
           <entry key="CSS" value="1180" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="187" />
-          <entry key="JavaScript" value="42149" />
-          <entry key="PHP" value="15515" />
+          <entry key="JavaScript" value="42237" />
+          <entry key="PHP" value="15542" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="36" />
           <entry key="htaccess" value="26" />
@@ -165,8 +164,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/processors/actions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="67" column="8" lean-forward="true" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="8" />
+            <state relative-caret-position="280">
+              <caret line="622" column="32" lean-forward="true" selection-start-line="622" selection-start-column="32" selection-end-line="622" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -183,8 +182,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/src/config.min.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="35" column="15" lean-forward="true" selection-start-line="35" selection-start-column="15" selection-end-line="35" selection-end-column="15" />
+            <state relative-caret-position="306">
+              <caret line="45" column="60" selection-start-line="45" selection-start-column="60" selection-end-line="45" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="313">
+              <caret line="855" lean-forward="true" selection-start-line="855" selection-end-line="855" />
             </state>
           </provider>
         </entry>
@@ -202,7 +210,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>console.lo</find>
       <find>adTypeAndAd</find>
       <find>switch</find>
       <find>console.</find>
@@ -232,6 +239,7 @@
       <find>terms</find>
       <find>ter</find>
       <find>fetch</find>
+      <find>jiji</find>
     </findStrings>
     <replaceStrings>
       <replace>tour</replace>
@@ -259,7 +267,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/assets/incs/footer.php" />
         <option value="$PROJECT_DIR$/assets/js/r.js" />
         <option value="$PROJECT_DIR$/.htaccess" />
         <option value="$PROJECT_DIR$/assets/css/cairo.css" />
@@ -304,12 +311,13 @@
         <option value="$PROJECT_DIR$/assets/css/merchant.css" />
         <option value="$PROJECT_DIR$/assets/src/campaign.min.js" />
         <option value="$PROJECT_DIR$/assets/src/search-tabs.min.js" />
-        <option value="$PROJECT_DIR$/assets/src/application.min.js" />
         <option value="$PROJECT_DIR$/config/DatabaseConnection.php" />
         <option value="$PROJECT_DIR$/assets/src/campaign-settings.min.js" />
-        <option value="$PROJECT_DIR$/processors/actions.php" />
         <option value="$PROJECT_DIR$/assets/src/merchant-header.min.js" />
         <option value="$PROJECT_DIR$/assets/src/defaults.min.js" />
+        <option value="$PROJECT_DIR$/processors/actions.php" />
+        <option value="$PROJECT_DIR$/assets/src/application.min.js" />
+        <option value="$PROJECT_DIR$/assets/src/config.min.js" />
       </list>
     </option>
   </component>
@@ -468,16 +476,15 @@
       <workItem from="1570714845543" duration="28846000" />
       <workItem from="1570971506473" duration="6403000" />
       <workItem from="1570994605871" duration="4563000" />
-      <workItem from="1571265056300" duration="9050000" />
+      <workItem from="1571265056300" duration="12168000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="694340000" />
+    <option name="totallyTimeSpent" value="697458000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.17170954" />
@@ -502,10 +509,10 @@
     </layout>
     <layout-to-restore>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.17170954" />
+      <window_info content_ui="combo" id="Project" order="1" weight="0.17170954" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="0" weight="0.3287037" />
-      <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.18137255" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.18137255" />
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="4" weight="0.32843137" />
@@ -770,24 +777,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8802">
-          <caret line="1132" column="60" lean-forward="true" selection-start-line="1132" selection-start-column="60" selection-end-line="1132" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/DatabaseConnection.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="151" column="68" selection-start-line="151" selection-start-column="68" selection-end-line="151" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/processors/actions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="67" column="8" lean-forward="true" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -812,10 +805,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="855" lean-forward="true" selection-start-line="855" selection-end-line="855" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/processors/actions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="622" column="32" lean-forward="true" selection-start-line="622" selection-start-column="32" selection-end-line="622" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/config.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="35" column="15" lean-forward="true" selection-start-line="35" selection-start-column="15" selection-end-line="35" selection-end-column="15" />
+        <state relative-caret-position="306">
+          <caret line="45" column="60" selection-start-line="45" selection-start-column="60" selection-end-line="45" selection-end-column="60" />
         </state>
       </provider>
     </entry>
