@@ -95,7 +95,8 @@ class DatabaseConnection {
         $sql = "CREATE TABLE IF NOT EXISTS {$this->words_table_name}(
         id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL ,
         word VARCHAR (100) NOT NULL  UNIQUE ,
-        occurrence BIGINT NOT NULL  
+        occurrence BIGINT NOT NULL  ,
+        last_search TIMESTAMP  NOT NULL  DEFAULT  CURRENT_TIMESTAMP
     )";
 
         return $this->try_create_table($sql);
@@ -257,7 +258,8 @@ class DatabaseConnection {
         $sql = "CREATE TABLE IF NOT EXISTS {$this->queries_table_name}(
         id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         query VARCHAR (2000) NOT NULL UNIQUE ,
-        occurrence BIGINT NOT NULL  
+        occurrence BIGINT NOT NULL,
+        last_search TIMESTAMP NOT NULL DEFAULT  CURRENT_TIMESTAMP 
     )";
 
         return $this->try_create_table($sql);
@@ -273,6 +275,8 @@ class DatabaseConnection {
         website VARCHAR (255) NOT NULL  DEFAULT 'NA',
         query VARCHAR (1000) NOT NULL DEFAULT 'NA',
         page INT NOT NULL DEFAULT 1,
+        last_search TIMESTAMP NOT NULL DEFAULT  CURRENT_TIMESTAMP
+        
     )";
 
         return $this->try_create_table($sql);

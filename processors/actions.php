@@ -608,6 +608,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
 
             $this->update_multiple_fields($this->links_table_name ,
                 [
+                    'last_search' => $now,
                     'page' => $page,
                     'query' => $query,
                     'website' => $website,

@@ -28,6 +28,7 @@ class Query extends Functions {
 
     private function process () : bool {
 
+        $now = date('Y-m-d H:i:s');
         //Split the words of the array
 
         $this->words = $words = explode(" " , $this->query);
@@ -40,7 +41,7 @@ class Query extends Functions {
             }
 
             else {
-                $this->executeSQL("UPDATE {$this->words_table_name} SET occurrence = occurrence + 1 WHERE word = '{$word}' ");
+                $this->executeSQL("UPDATE {$this->words_table_name} SET occurrence = occurrence + 1 WHERE word = '{$word}', last_search = '{$now}'");
             }
         }
 
@@ -48,7 +49,7 @@ class Query extends Functions {
 
 
         //insert the query into the queries table if the query doesn't exist in table else update the  occurrences of this query in the queries table
-        return $this->record_exists_in_table($this->queries_table_name , "query" , $this->query) ? $this->executeSQL("UPDATE $this->queries_table_name SET occurrence = occurrence + 1 WHERE query = '{$this->query}'") : $this->insert_into_table($this->queries_table_name , ["query" => $this->query , "occurrence" => 1]);
+        return $this->record_exists_in_table($this->queries_table_name , "query" , $this->query) ? $this->executeSQL("UPDATE $this->queries_table_name SET occurrence = occurrence + 1 WHERE query = '{$this->query}', last_search = '{$now}'") : $this->insert_into_table($this->queries_table_name , ["query" => $this->query , "occurrence" => 1]);
 
     }
 
