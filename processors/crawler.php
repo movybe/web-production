@@ -247,7 +247,7 @@ if ( !$url ) {
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-Forwarded-For: $ip"));
 
-    if(is_production_mode())curl_setopt($ch, CURLOPT_PROXY, $proxy);
+    //if(is_production_mode())curl_setopt($ch, CURLOPT_PROXY, $proxy);
     if (defined('CURLOPT_IPRESOLVE') && defined('CURL_IPRESOLVE_V4')){
         curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
     }
