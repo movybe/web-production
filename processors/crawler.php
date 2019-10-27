@@ -224,6 +224,9 @@ if ( !$url ) {
     curl_setopt($ch, CURLOPT_ENCODING,  '');
     curl_setopt( $ch, CURLOPT_HEADER, false);
     curl_setopt( $ch, CURLOPT_HTTPHEADER, array("REMOTE_ADDR: $ip", "HTTP_X_FORWARDED_FOR: $ip"));
+    curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5); // If expected to call with specific PROXY type
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+
     if(is_production_mode())curl_setopt($ch, CURLOPT_PROXY, $proxy);
     if (defined('CURLOPT_IPRESOLVE') && defined('CURL_IPRESOLVE_V4')){
         curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
