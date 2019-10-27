@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/processors/crawler.php" beforeDir="false" afterPath="$PROJECT_DIR$/processors/crawler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/src/application.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/application.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/src/config.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/config.min.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -85,9 +86,9 @@
           <entry key="gitignore" value="2" />
           <entry key="htaccess" value="5" />
           <entry key="html" value="2" />
-          <entry key="js" value="151" />
+          <entry key="js" value="152" />
           <entry key="json" value="8" />
-          <entry key="php" value="144" />
+          <entry key="php" value="145" />
           <entry key="rnc" value="2" />
           <entry key="sql" value="1" />
           <entry key="ts" value="1" />
@@ -100,8 +101,8 @@
           <entry key="CSS" value="40" />
           <entry key="HTML" value="2" />
           <entry key="JSON" value="15" />
-          <entry key="JavaScript" value="162" />
-          <entry key="PHP" value="148" />
+          <entry key="JavaScript" value="163" />
+          <entry key="PHP" value="149" />
           <entry key="PLAIN_TEXT" value="4" />
           <entry key="RNG Compact" value="2" />
           <entry key="SQL" value="1" />
@@ -115,9 +116,9 @@
           <entry key="css" value="1180" />
           <entry key="gitignore" value="8" />
           <entry key="htaccess" value="26" />
-          <entry key="js" value="38909" />
+          <entry key="js" value="38915" />
           <entry key="json" value="136" />
-          <entry key="php" value="15723" />
+          <entry key="php" value="15731" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -125,8 +126,8 @@
           <entry key="CSS" value="1180" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="187" />
-          <entry key="JavaScript" value="42245" />
-          <entry key="PHP" value="15744" />
+          <entry key="JavaScript" value="42251" />
+          <entry key="PHP" value="15752" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="40" />
           <entry key="htaccess" value="26" />
@@ -157,11 +158,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/processors/crawler.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="166" lean-forward="true" selection-start-line="166" selection-end-line="166" />
+            <state relative-caret-position="204">
+              <caret line="151" column="33" selection-end-line="332" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -184,11 +185,29 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/assets/src/config.min.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="51" column="26" lean-forward="true" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="852" column="33" selection-start-line="852" selection-start-column="33" selection-end-line="852" selection-end-column="33" />
+            <state relative-caret-position="140">
+              <caret line="847" lean-forward="true" selection-start-line="847" selection-end-line="847" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/config.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="34" column="16" lean-forward="true" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -197,7 +216,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>this.set</find>
       <find>console.log</find>
       <find>our ppa</find>
       <find>affiliate.css</find>
@@ -226,6 +244,7 @@
       <find>now</find>
       <find>links</find>
       <find>nyp</find>
+      <find>nypd</find>
       <find>jiji</find>
     </findStrings>
     <replaceStrings>
@@ -298,13 +317,13 @@
         <option value="$PROJECT_DIR$/assets/src/campaign-settings.min.js" />
         <option value="$PROJECT_DIR$/assets/src/merchant-header.min.js" />
         <option value="$PROJECT_DIR$/assets/src/defaults.min.js" />
-        <option value="$PROJECT_DIR$/assets/src/config.min.js" />
         <option value="$PROJECT_DIR$/config/DatabaseConnection.php" />
         <option value="$PROJECT_DIR$/processors/query.php" />
         <option value="$PROJECT_DIR$/processors/actions.php" />
         <option value="$PROJECT_DIR$/test.php" />
-        <option value="$PROJECT_DIR$/assets/src/application.min.js" />
         <option value="$PROJECT_DIR$/processors/crawler.php" />
+        <option value="$PROJECT_DIR$/assets/src/application.min.js" />
+        <option value="$PROJECT_DIR$/assets/src/config.min.js" />
       </list>
     </option>
   </component>
@@ -464,16 +483,15 @@
       <workItem from="1570971506473" duration="6403000" />
       <workItem from="1570994605871" duration="4563000" />
       <workItem from="1571265056300" duration="15715000" />
-      <workItem from="1572189926930" duration="3250000" />
+      <workItem from="1572189926930" duration="4828000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="704255000" />
+    <option name="totallyTimeSpent" value="705833000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.17397882" />
@@ -547,13 +565,6 @@
     <entry file="file://$PROJECT_DIR$/assets/res/affiliate.css" />
     <entry file="file://$PROJECT_DIR$/assets/res/admin.css" />
     <entry file="file://$PROJECT_DIR$/assets/components/application.js" />
-    <entry file="file://$PROJECT_DIR$/config/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-419">
-          <caret line="34" column="16" lean-forward="true" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manifest.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="309">
@@ -748,13 +759,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/config.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="35" column="56" selection-start-line="35" selection-start-column="56" selection-end-line="35" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/campaign.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -776,13 +780,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="852" column="33" selection-start-line="852" selection-start-column="33" selection-end-line="852" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/functions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
@@ -792,8 +789,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/processors/crawler.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="166" lean-forward="true" selection-start-line="166" selection-end-line="166" />
+        <state relative-caret-position="204">
+          <caret line="151" column="33" selection-end-line="332" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="34" column="16" lean-forward="true" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="847" lean-forward="true" selection-start-line="847" selection-end-line="847" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/src/config.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="51" column="26" lean-forward="true" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
         </state>
       </provider>
     </entry>
