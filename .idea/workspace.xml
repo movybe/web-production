@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="" />
+    <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/processors/crawler.php" beforeDir="false" afterPath="$PROJECT_DIR$/processors/crawler.php" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +87,7 @@
           <entry key="html" value="2" />
           <entry key="js" value="151" />
           <entry key="json" value="8" />
-          <entry key="php" value="143" />
+          <entry key="php" value="144" />
           <entry key="rnc" value="2" />
           <entry key="sql" value="1" />
           <entry key="ts" value="1" />
@@ -99,7 +101,7 @@
           <entry key="HTML" value="2" />
           <entry key="JSON" value="15" />
           <entry key="JavaScript" value="162" />
-          <entry key="PHP" value="147" />
+          <entry key="PHP" value="148" />
           <entry key="PLAIN_TEXT" value="4" />
           <entry key="RNG Compact" value="2" />
           <entry key="SQL" value="1" />
@@ -115,7 +117,7 @@
           <entry key="htaccess" value="26" />
           <entry key="js" value="38909" />
           <entry key="json" value="136" />
-          <entry key="php" value="15705" />
+          <entry key="php" value="15723" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -124,7 +126,7 @@
           <entry key="HTML" value="17" />
           <entry key="JSON" value="187" />
           <entry key="JavaScript" value="42245" />
-          <entry key="PHP" value="15726" />
+          <entry key="PHP" value="15744" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="SQL" value="40" />
           <entry key="htaccess" value="26" />
@@ -146,11 +148,20 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/functions.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="283">
+              <caret line="233" column="25" lean-forward="true" selection-start-line="221" selection-start-column="4" selection-end-line="238" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/processors/crawler.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="218" column="9" lean-forward="true" selection-start-line="218" selection-start-column="9" selection-end-line="218" selection-end-column="9" />
+            <state relative-caret-position="306">
+              <caret line="166" lean-forward="true" selection-start-line="166" selection-end-line="166" />
             </state>
           </provider>
         </entry>
@@ -169,15 +180,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
               <caret line="45" column="9" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/functions.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="228" column="54" lean-forward="true" selection-start-line="228" selection-start-column="54" selection-end-line="228" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -462,12 +464,12 @@
       <workItem from="1570971506473" duration="6403000" />
       <workItem from="1570994605871" duration="4563000" />
       <workItem from="1571265056300" duration="15715000" />
-      <workItem from="1572189926930" duration="2358000" />
+      <workItem from="1572189926930" duration="3250000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="703363000" />
+    <option name="totallyTimeSpent" value="704255000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -774,13 +776,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="228" column="54" lean-forward="true" selection-start-line="228" selection-start-column="54" selection-end-line="228" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/src/application.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
@@ -788,10 +783,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="233" column="25" lean-forward="true" selection-start-line="221" selection-start-column="4" selection-end-line="238" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/processors/crawler.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="218" column="9" lean-forward="true" selection-start-line="218" selection-start-column="9" selection-end-line="218" selection-end-column="9" />
+        <state relative-caret-position="306">
+          <caret line="166" lean-forward="true" selection-start-line="166" selection-end-line="166" />
         </state>
       </provider>
     </entry>

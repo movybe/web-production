@@ -142,9 +142,28 @@ function is_production_mode () : bool
     $server_name = $_SERVER['SERVER_NAME'];
     return $is_production_mode = $server_name !== 'localhost';
 }
+function get_client_ip() : string {
+    $ipaddress = '';
+    if (isset($_SERVER['HTTP_CLIENT_IP']))
+        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+    else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED'];
+    else if(isset($_SERVER['REMOTE_ADDR']))
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+    else
+        $ipaddress = 'UNKNOWN';
+    return $ipaddress;
+}
 
+$ip = get_client_ip();
 $url = isset($_GET['url']) ? $_GET['url'] : $_POST['url'];
-$proxy = 'http://'.$_SERVER['REMOTE_ADDR'].':22222';
+$proxy = /*'http://'.*/ get_client_ip().':22222';
 $url = strtolower($url);
 
 $user_agent_strings =
@@ -219,13 +238,14 @@ if ( !$url ) {
         curl_setopt( $ch, CURLOPT_COOKIE, $cookie );
     }
 
-    $ip = "193.171.122.20";
+
     curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
     curl_setopt($ch, CURLOPT_ENCODING,  '');
     curl_setopt( $ch, CURLOPT_HEADER, false);
     curl_setopt( $ch, CURLOPT_HTTPHEADER, array("REMOTE_ADDR: $ip", "HTTP_X_FORWARDED_FOR: $ip"));
     curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5); // If expected to call with specific PROXY type
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-Forwarded-For: $ip"));
 
     if(is_production_mode())curl_setopt($ch, CURLOPT_PROXY, $proxy);
     if (defined('CURLOPT_IPRESOLVE') && defined('CURL_IPRESOLVE_V4')){
