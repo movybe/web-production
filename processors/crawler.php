@@ -136,7 +136,6 @@
 // ############################################################################
 
 
-
 function is_production_mode () : bool
 {
     $server_name = $_SERVER['SERVER_NAME'];
@@ -239,6 +238,8 @@ if ( !$url ) {
     }
 
 
+
+    curl_setopt($ch, CURLOPT_HTTP_VERSION,'CURL_HTTP_VERSION_1_1' );
     curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
     curl_setopt($ch, CURLOPT_ENCODING,  '');
     curl_setopt( $ch, CURLOPT_HEADER, false);
