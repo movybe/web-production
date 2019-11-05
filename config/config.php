@@ -11,7 +11,7 @@ class WebsiteConfigurationSettings {
     $MessageEmailPassword = '4mdcfohb', $PrimaryEmailPassword = 'Twisttr@p1', $ContactEmaiFl, $BANNER_IMAGES_FOLDER,
     $ErrorPage = "/404.php", $PageDescription = "Search the Price of Products in Nigeria", $ParentCompanyName,
     $ParentCompanyAddress = "/", $maxNumberOfSuggestion = 5, $COMPONENTS_FOLDER , $SRC_FOLDER = null,
-    $MerchantAccountType = "merchant", $UserIdLength = 6, $ad_cache_days, $subscriptionDurationInDays = 7, $minimumEarningExpected = 2500,
+    $MerchantAccountType = "merchant", $UserIdLength = 6, $ad_cache_days = 3, $subscriptionDurationInDays = 7, $minimumEarningExpected = 2500,
     $affiliateSignupFee = 500, $invitation_amount_to_pay_per_account_renewal = 300, /*Profit 0 Naira */ $siteAffiliateSignupFee = 0, $amountPaidToAffiliateForReferer = 500, $withdrawalReferenceCodeLength = 8,
     $maximumNumberOfInvitesForADay = 500, $amountPaidForInvite = 0.5, $maximumNumberOfAffiliateInvitationsForADay = 5 , $send_withdrawal_request_to = 'movybedotcom@gmail.com',
     $transactionTypes = [

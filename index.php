@@ -24,12 +24,12 @@ if($functions->data_saving_mode_is_enabled())
     <title><?php echo $website_details->SiteName; ?> • <?php echo $website_details->WebsiteSubject; ?></title>
     <?php require_once $website_details->INCS_FOLDER.'head-files.php'; ?>
     <?php
-    $includes = array("polyfill.js", "cookie.min.js", "bgset.min.js", "lazy-bg.min.js",  "notify.min.js", "jquery.lightbox.min.js", "numeral.min.js", "jquery.history.min.js");
-    $defaults_js = array("defaults.min.js");
+    $includes = array('polyfill.js', 'cookie.min.js', 'bgset.min.js', 'timeago.min.js', 'lazy-bg.min.js',  'notify.min.js', 'jquery.lightbox.min.js', 'numeral.min.js', 'jquery.history.min.js');
+    $defaults_js = array('defaults.min.js');
     echo $functions->printAssets($includes ,'javascript' , true , null).$functions->printAssets($defaults_js , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER : $website_details->SRC_FOLDER);
     ?>
     <?php
-    $scripts = array("syllables.min.js", "gallery.min.js", "search-tabs.min.js",  "application.min.js", "config.min.js");
+    $scripts = array('syllables.min.js', 'gallery.min.js', 'search-tabs.min.js',  'application.min.js', 'config.min.js');
     echo  $functions->printAssets($scripts , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER  : $website_details->SRC_FOLDER);
     ?>
 </head>

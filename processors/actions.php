@@ -562,35 +562,54 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
     function get_cached_ad() : string
     {
 
+        //If the url sent is an array, base-64 the json_encoded version of the url, else return the url as it is.
+        $url = is_array($this->data['url']) ? base64_encode(json_encode($this->data['url'])) : $this->data['url'];
+
+        /*
+         * This is the default response if there's no ad data returned from the database, where the link field contains
+         the url, in other words, send a response with update = true, if no data is returned, meaning the server will
+         Crawl the url.
+        */
+        $response = ['update' => true];
+
+        //fetch the row from database where url = $url
+        $data = $this->fetch_data_from_table($this->links_table_name , 'url' , $url);
+
+        //if there's no data returned, send a response with update = true, to the client to crawl the server
+        if(!count($data))return json_encode($response);
+
+        //Since the data returned is an array, the first element is the data required
+        $data= $data[0];
+
+        //This is the timestamp at which this ad detail was stored in the database
+        $last_update_timestamp = $data['last_update_timestamp'];
 
 
-            $url = is_array($this->data['url']) ? base64_encode(json_encode($this->data['url'])) : $this->data['url'];
+        $now = time();
 
-            $response = ['update' => true];
-
-
-            $data = $this->fetch_data_from_table($this->links_table_name , 'url' , $url);
-
-            if(!count($data))return json_encode($response);
-
-            $data= $data[0];
-            $last_update_timestamp = $data['last_update_timestamp'];
-
-            $now = time();
-
-            $strtotime = strtotime($last_update_timestamp);
-
-            $difference = $now - $strtotime;
+        //Convert the time string to time()
+        $strtotime = strtotime($last_update_timestamp);
 
 
-            $days = round($difference / (3600 * 24));
+        $difference = $now - $strtotime;
 
 
-            $response['update'] = $days > $this->website_details->ad_cache_days;
+        //This is the number of days the result has stayed in the database
+        $days = floor($difference / (3600 * 24));
 
-            if(!$response['update']) $response['ads'] = json_decode(base64_decode(($data['ad'])), true);
+        //if the number of days is greater than the specified number of days, send another request to the servers
+        $response['update'] = $days > $this->website_details->ad_cache_days;
 
-            return json_encode($response);
+
+
+        $response['days'] = $days;
+        $response['stored_timestamp'] = $last_update_timestamp;
+
+
+        //if the update is false, send a response to the client
+        if(!$response['update']) $response['ads'] = json_decode(base64_decode(($data['ad'])), true);
+
+        return json_encode($response);
     }
 
     function update_search_result () : string  {
@@ -603,6 +622,8 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         $page = $this->data['page'];
 
 
+        $ads = $this->data['ads'];
+
         if($this->record_exists_in_table($this->links_table_name , 'url' , $url))
         {
 
@@ -613,7 +634,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                     'query' => $query,
                     'website' => $website,
                     'last_update_timestamp' => $now,
-                    'ad' => base64_encode(json_encode($this->data['ads']))
+                    'ad' => base64_encode(json_encode($ads))
                 ] , "url = '{$url}'"
             );
         }
@@ -625,13 +646,14 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
                 'query' => $query,
                 'website' => $website,
                 'last_update_timestamp' => $now,
-                'ad' => base64_encode(json_encode($this->data['ads'])),
+                'ad' => base64_encode(json_encode($ads)),
                 'url' => $url
             ]);
         }
 
 
-        return "OK";
+        return json_encode(['ads'=>$ads]);
+
     }
 
     private function try_reactivate_affiliate_account () : string{
