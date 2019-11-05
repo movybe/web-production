@@ -39,6 +39,7 @@ if($functions->data_saving_mode_is_enabled())
 </div>
 <main class ="container <?php //invisible-class ?> main-container">
 
+    <span className ='stored-timestamp' style="display: none;"></span>
     <div class ="section no-pad-bot" id="index-banner">
 
         <div class="container">

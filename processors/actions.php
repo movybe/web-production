@@ -6,7 +6,7 @@ require_once '../config/functions.php';
 
 class Actions extends  Functions
 {
-    private $data , $error , $success , $action , $email , $username , $user_details , $reference , $ad_id , $sponsored_ad,
+    private $data , $error , $success = 1 , $action , $email , $username , $user_details , $reference , $ad_id , $sponsored_ad,
     $errorText = "error" , $successText = "success", $networkErrorOccured = "unknown network error",
     $emailAddressAlreadyExistsErrorMessage = "Sorry, email already exists",
     $usernameAlreadyExistsErrorMessage = "Sorry, username already taken",
@@ -570,7 +570,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
          the url, in other words, send a response with update = true, if no data is returned, meaning the server will
          Crawl the url.
         */
-        $response = ['update' => true];
+        $response = ['update' => true, 'ads' => []];
 
         //fetch the row from database where url = $url
         $data = $this->fetch_data_from_table($this->links_table_name , 'url' , $url);
@@ -601,13 +601,13 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         $response['update'] = $days > $this->website_details->ad_cache_days;
 
 
-
         $response['days'] = $days;
         $response['stored_timestamp'] = $last_update_timestamp;
 
 
-        //if the update is false, send a response to the client
-        if(!$response['update']) $response['ads'] = json_decode(base64_decode(($data['ad'])), true);
+        $response['ads'] = json_decode(base64_decode(($data['ad'])), true);
+
+
 
         return json_encode($response);
     }
@@ -652,7 +652,7 @@ ORDER BY RAND() LIMIT {$this->website_details->NumberOfSponsoredAdsToShow}");
         }
 
 
-        return json_encode(['ads'=>$ads]);
+        return json_encode(["stored_timestamp" => $now, $this->successText => $this->success, "ads" => $ads]);
 
     }
 
