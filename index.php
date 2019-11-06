@@ -67,7 +67,7 @@ if($functions->data_saving_mode_is_enabled())
     </div>
 </main>
 <p id = "error-message"></p>
-<?php require_once $website_details->INCS_FOLDER.'footer.php'; ?>
+<?php // require_once $website_details->INCS_FOLDER.'footer.php'; ?>
 </body>
 <script>
     if ('serviceWorker' in navigator) {

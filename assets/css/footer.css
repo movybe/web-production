@@ -1,10 +1,32 @@
-#site-footer {
+
+html,body{
+    margin:0;
+    padding:0;
+    height:100%;
+}
+.facebook-share-button{
+
+    float: right !important;
+}
+#site-footer{
+    position:fixed;
+    bottom: 0;
+    width:100%;
+    left: 0;
+    right: 0;
+    //height:60px;   /* Height of the footer */
+    //background:#6cf;
+    z-index: 1000;
+    border: 1px solid lightgrey;
+}
+#share-on-facebook-footer{
+
     position : absolute;
     width : 100%;
     bottom : 0;
     height : 50px;
     margin-top : 100px;
-    display: none;
+
 }
 
 .footer-copyright{
