@@ -34,6 +34,8 @@ if($functions->data_saving_mode_is_enabled())
     ?>
 </head>
 <body>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0&appId=596431570766760&autoLogAppEvents=1"></script>
 <div class="progress progress-bar">
     <div class="determinate" style="width: 70%"></div>
 </div>
