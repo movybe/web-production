@@ -18,7 +18,7 @@ echo $default_meta_tags = <<<DEFAULT_META_TAGS
     <meta name="twitter:site" content="@{$website_details->siteNameLowercase}">
     <meta name="twitter:creator" content="@{$website_details->siteNameLowercase}">
     <link rel="canonical" href="{$website_details->SiteNameWithHttps}">
-    <link rel="icon" type="image/png" href="{$website_details->IMG_FOLDER}icon.png?last_modified=October 05 2019 01:00:00 AM" />
+    <link rel="icon" type="image/png" href="{$website_details->IMG_FOLDER}icon.png?last_modified=November 13 2019 02:54:20 AM" />
 DEFAULT_META_TAGS;
 $functions->tryRedirectToHttps();
 $pace_js = array('pace.min.js');
