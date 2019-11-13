@@ -5,7 +5,7 @@ class WebsiteConfigurationSettings {
     $Https = "https://",$Www = "www.",$SiteNameWithoutHttps = "www.movybe.com", $SiteNameWithHttps = "", $siteNameLowercase, $FacebookUrl = "",
     $TwitterUrl  = "",$InstagramUrl = "", $YouTubeUrl = "" , $YouTubeHandle = "" , $campaignPage = "/campaign",  $SiteAuthor = "Kosi Eric", $WebsiteCategory = "Price Search Engine", $TwitterHandle = "", $FacebookHandle = "",
     $InstagramHandle = "",$MaximumUserProfileImageSize = 50000000, $MaximumUserProfileImageSizeInWords = "", $WebsiteCoverage = "Nigeria",
-    $WebsiteSubject = "Search the Price of Products in Nigeria", $WebsiteClassification = "Search", $DOCUMENT_ROOT, $LinkShortUrlLength = 5,
+    $WebsiteSubject = "Search Price of Products in Nigeria", $WebsiteClassification = "Search", $DOCUMENT_ROOT, $LinkShortUrlLength = 5,
     $NumberOfSponsoredAdsToShow = 1, $STATIC_FOLDER, $JS_FOLDER, $CSS_FOLDER, $INCS_FOLDER, $IMG_FOLDER, $AboutUs, 
     $PrimaryEmailServer = "smtp.gmail.com", $PrimaryEmail = "itskosieric@gmail.com", $MessageEmail = "movybedotcom@gmail.com",
     $MessageEmailPassword = '4mdcfohb', $PrimaryEmailPassword = 'Twisttr@p1', $ContactEmaiFl, $BANNER_IMAGES_FOLDER,

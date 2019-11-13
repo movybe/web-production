@@ -21,7 +21,7 @@ if($functions->data_saving_mode_is_enabled())
     <meta name="msapplication-TileColor" content="#2299dd">
     <meta name="msapplication-navbutton-color" content="#2299dd">
     <meta name="apple-mobile-web-app-status-bar-style" content="#2299dd">
-    <title><?php echo $website_details->SiteName; ?> • <?php echo $website_details->WebsiteSubject; ?></title>
+    <title><?php echo $website_details->SiteName; ?></title>
     <?php require_once $website_details->INCS_FOLDER.'head-files.php'; ?>
     <?php
     $includes = array('polyfill.js', 'cookie.min.js', 'bgset.min.js', 'timeago.min.js', 'lazy-bg.min.js',  'notify.min.js', 'jquery.lightbox.min.js', 'numeral.min.js', 'jquery.history.min.js');
