@@ -24,7 +24,7 @@ class WebsiteConfigurationSettings {
     final public function is_production_mode () : bool
     {
         $server_name = $_SERVER['SERVER_NAME'];
-        return $is_production_mode = $server_name !== 'localhost';
+        return $is_production_mode = strpos($server_name, '.com');
     }
 
     public final function getFileLocation(string $filename) : string

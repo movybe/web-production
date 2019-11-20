@@ -26,7 +26,7 @@ class DatabaseConnection {
     final public function is_production_mode () : bool
     {
         $server_name = $_SERVER['SERVER_NAME'];
-        return $is_production_mode = $server_name !== 'localhost';
+        return $is_production_mode = strpos($server_name, '.com');
 
     }
     final protected  function  establish_database_connection () : bool
