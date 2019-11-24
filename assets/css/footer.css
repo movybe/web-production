@@ -6,6 +6,8 @@ html,body{
 .facebook-share-button{
 
     float: right !important;
+    position: relative;
+    top: -5px;
 }
 #site-footer{
     position:fixed;
