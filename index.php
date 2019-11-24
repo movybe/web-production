@@ -34,7 +34,7 @@ if($functions->data_saving_mode_is_enabled())
     //$feedback = array('feedback.css');
     //print  $functions->printAssets($feedback, 'css', false);
     ?>
-    <script async src="https://app.appzi.io/bootstrap/bundle.js?token=fKmV7"></script>
+    <script defer async src="https://app.appzi.io/bootstrap/bundle.js?token=fKmV7"></script>
 </head>
 <body>
 <!--div id="fb-root"></div-->
