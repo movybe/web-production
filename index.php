@@ -31,7 +31,10 @@ if($functions->data_saving_mode_is_enabled())
     <?php
     $scripts = array('syllables.min.js', 'gallery.min.js', 'search-tabs.min.js',  'application.min.js', 'config.min.js');
     echo  $functions->printAssets($scripts , 'babel' , true , $functions->is_production_mode() ? $website_details->COMPONENTS_FOLDER  : $website_details->SRC_FOLDER);
+    //$feedback = array('feedback.css');
+    //print  $functions->printAssets($feedback, 'css', false);
     ?>
+    <script async src="https://app.appzi.io/bootstrap/bundle.js?token=fKmV7"></script>
 </head>
 <body>
 <!--div id="fb-root"></div-->
