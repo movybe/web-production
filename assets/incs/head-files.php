@@ -1,4 +1,7 @@
 <?php
+$functions->tryRedirectToHttps();
+$pace_js = array('pace.min.js');
+echo $functions->printAssets($pace_js , 'javascript' , true , null , "id = 'pace-js'", false);
 echo $default_meta_tags = <<<DEFAULT_META_TAGS
     <meta charset="utf-8">
     <meta content="309972533028313" property="fb:profile_id">
@@ -20,10 +23,7 @@ echo $default_meta_tags = <<<DEFAULT_META_TAGS
     <link rel="canonical" href="{$website_details->SiteNameWithHttps}">
     <link rel="icon" type="image/png" href="{$website_details->IMG_FOLDER}icon.png?last_modified=November 13 2019 02:54:20 AM" />
 DEFAULT_META_TAGS;
-$functions->tryRedirectToHttps();
-$pace_js = array('pace.min.js');
 $pace_css = array('pace.css');
-echo $functions->printAssets($pace_js , 'javascript' , true , null , "id = 'pace-js'");
 $cdn_required = <<<CDN_INCLUDES
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
