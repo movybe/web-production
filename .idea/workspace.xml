@@ -3,6 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="88e97113-a30c-4958-9ab0-2084263c298e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/admin.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/admin.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/affiliate-header.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/affiliate-header.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/affiliate.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/affiliate.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/application.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/application.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/campaign-settings.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/campaign-settings.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/campaign.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/campaign.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/config.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/config.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/defaults.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/defaults.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/footer.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/footer.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/gallery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/gallery.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/livestamp.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/livestamp.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant-header.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant-header.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant-plugs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant-plugs.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/merchant.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/merchant.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/components/moment.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/components/moment.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/src/search-tabs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/search-tabs.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/src/tabs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/src/tabs.min.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +66,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/src" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -148,6 +167,8 @@
       <workItem from="1575417939952" duration="180000" />
       <workItem from="1582501145745" duration="7057000" />
       <workItem from="1589589441420" duration="44000" />
+      <workItem from="1597728936205" duration="768000" />
+      <workItem from="1597729721750" duration="1427000" />
     </task>
     <servers />
   </component>
@@ -166,5 +187,15 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="594" y="300" key="com.intellij.ide.util.TipDialog" timestamp="1597729723256">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="594" y="300" key="com.intellij.ide.util.TipDialog/0.0.1920.1032@0.0.1920.1032" timestamp="1597729723256" />
+    <state x="588" y="206" width="743" height="620" key="find.popup" timestamp="1597730954373">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="588" y="206" width="743" height="620" key="find.popup/0.0.1920.1032@0.0.1920.1032" timestamp="1597730954373" />
   </component>
 </project>
